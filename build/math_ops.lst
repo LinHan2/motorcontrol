@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
   57 0080 B24BC43E 		.word	1053051826
   58 0084 BD18CA3E 		.word	1053431997
   59 0088 ECDDCF3E 		.word	1053810156
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 2
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 2
 
 
   60 008c ED99D53E 		.word	1054185965
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
  114 0164 9A7C633F 		.word	1063484570
  115 0168 A3E9643F 		.word	1063578019
  116 016c 274E663F 		.word	1063669287
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 3
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 3
 
 
  117 0170 7EA9673F 		.word	1063758206
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
  171 0248 0395793F 		.word	1064932611
  172 024c DBDC783F 		.word	1064885467
  173 0250 DF1A783F 		.word	1064835807
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 4
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 4
 
 
  174 0254 B54F773F 		.word	1064783797
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
  228 032c C5031A3F 		.word	1058669509
  229 0330 957D173F 		.word	1058504085
  230 0334 D8F0143F 		.word	1058336984
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 5
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 5
 
 
  231 0338 DD5E123F 		.word	1058168541
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
  285 0410 668562BD 		.word	-1117616794
  286 0414 49658ABD 		.word	-1115003575
  287 0418 1B82A3BD 		.word	-1113357797
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 6
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 6
 
 
  288 041c A298BCBD 		.word	-1111713630
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
  342 04f4 2FA82FBF 		.word	-1087395793
  343 04f8 CCEE31BF 		.word	-1087246644
  344 04fc DC2E34BF 		.word	-1087099172
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 7
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 7
 
 
  345 0500 B66736BF 		.word	-1086953546
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
  399 05d8 A3587EBF 		.word	-1082238813
  400 05dc 25AF7EBF 		.word	-1082216667
  401 05e0 D2FB7EBF 		.word	-1082197038
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 8
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 8
 
 
  402 05e4 AB3E7FBF 		.word	-1082179925
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
  456 06bc 572155BF 		.word	-1084939945
  457 06c0 745E53BF 		.word	-1085055372
  458 06c4 B49351BF 		.word	-1085172812
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 9
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 9
 
 
  459 06c8 16C14FBF 		.word	-1085292266
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
  513 07a0 A4DF8EBE 		.word	-1097932892
  514 07a4 0FD188BE 		.word	-1098329841
  515 07a8 3CBD82BE 		.word	-1098728132
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 10
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 10
 
 
  516 07ac F54A79BE 		.word	-1099347211
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
    8:Core/Src/math_ops.c ****     return (((x)>(y))?(x):(y));
  564              		.loc 1 8 26
  565 000e 97ED017A 		vldr.32	s14, [r7, #4]
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 11
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 11
 
 
  566 0012 D7ED007A 		vldr.32	s15, [r7]
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
  619              		.cfi_def_cfa_register 7
  620 0006 87ED010A 		vstr.32	s0, [r7, #4]
  621 000a C7ED000A 		vstr.32	s1, [r7]
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 12
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 12
 
 
   12:Core/Src/math_ops.c ****     /// Returns minimum of x, y ///
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
  673              	.LCFI13:
  674              		.cfi_def_cfa_offset 24
  675 0004 00AF     		add	r7, sp, #0
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 13
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 13
 
 
  676              	.LCFI14:
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
  727              		@ sp needed
  728 0062 5DF8047B 		ldr	r7, [sp], #4
  729              	.LCFI17:
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 14
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 14
 
 
  730              		.cfi_restore 7
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
  782              		.loc 1 23 37 discriminator 4
  783 003c 0BE0     		b	.L42
  784              	.L46:
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 15
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 15
 
 
  785              		.loc 1 23 50 discriminator 2
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
  833              		.cfi_def_cfa_offset 8
  834              		.cfi_offset 7, -8
  835              		.cfi_offset 14, -4
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 16
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 16
 
 
  836 0002 86B0     		sub	sp, sp, #24
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
   35:Core/Src/math_ops.c ****         *x = *x * limit/norm;
  881              		.loc 1 35 24
  882 0060 97ED057A 		vldr.32	s14, [r7, #20]
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 17
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 17
 
 
  883 0064 C6EE877A 		vdiv.f32	s15, s13, s14
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
  932              	.LCFI30:
  933              		.cfi_def_cfa_offset 24
  934 0004 00AF     		add	r7, sp, #0
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 18
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 18
 
 
  935              	.LCFI31:
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
  987              		.cfi_def_cfa_offset 32
  988 0004 00AF     		add	r7, sp, #0
  989              	.LCFI36:
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 19
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 19
 
 
  990              		.cfi_def_cfa_register 7
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
  1039              	.LFE6:
  1041              		.section	.text.uint_to_float,"ax",%progbits
  1042              		.align	1
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 20
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 20
 
 
  1043              		.global	uint_to_float
@@ -1198,7 +1198,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
  1091 0042 07EE903A 		vmov	s15, r3	@ int
  1092 0046 F8EEE77A 		vcvt.f32.s32	s15, s15
  1093              		.loc 1 56 31
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 21
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 21
 
 
  1094 004a 86EEA77A 		vdiv.f32	s14, s13, s15
@@ -1258,7 +1258,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
  1145              		.loc 1 61 37
  1146 001a D7ED017A 		vldr.32	s15, [r7, #4]
  1147 001e F5EEC07A 		vcmpe.f32	s15, #0
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 22
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 22
 
 
  1148 0022 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
@@ -1318,7 +1318,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
  1201              	.LFB9:
   65:Core/Src/math_ops.c **** 
   66:Core/Src/math_ops.c **** float cos_lut(float theta){
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 23
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 23
 
 
  1202              		.loc 1 66 27
@@ -1365,35 +1365,35 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
  1242              		.text
  1243              	.Letext0:
  1244              		.file 2 "Core/Inc/lookup.h"
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 24
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc7zqG03.s 			page 24
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 math_ops.c
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:24     .rodata.sin_tab:00000000 sin_tab
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:21     .rodata.sin_tab:00000000 $d
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:538    .text.fast_fmaxf:00000000 $t
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:544    .text.fast_fmaxf:00000000 fast_fmaxf
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:597    .text.fast_fminf:00000000 $t
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:603    .text.fast_fminf:00000000 fast_fminf
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:655    .text.fmaxf3:00000000 $t
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:661    .text.fmaxf3:00000000 fmaxf3
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:737    .text.fminf3:00000000 $t
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:743    .text.fminf3:00000000 fminf3
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:819    .text.limit_norm:00000000 $t
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:825    .text.limit_norm:00000000 limit_norm
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:914    .text.limit:00000000 $t
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:920    .text.limit:00000000 limit
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:968    .text.float_to_uint:00000000 $t
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:974    .text.float_to_uint:00000000 float_to_uint
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:1042   .text.uint_to_float:00000000 $t
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:1048   .text.uint_to_float:00000000 uint_to_float
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:1116   .text.sin_lut:00000000 $t
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:1122   .text.sin_lut:00000000 sin_lut
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:1187   .text.sin_lut:00000068 $d
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:1194   .text.cos_lut:00000000 $t
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:1200   .text.cos_lut:00000000 cos_lut
-C:\Users\16323\AppData\Local\Temp\cclz46c7.s:1238   .text.cos_lut:0000002c $d
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:24     .rodata.sin_tab:00000000 sin_tab
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:21     .rodata.sin_tab:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:538    .text.fast_fmaxf:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:544    .text.fast_fmaxf:00000000 fast_fmaxf
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:597    .text.fast_fminf:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:603    .text.fast_fminf:00000000 fast_fminf
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:655    .text.fmaxf3:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:661    .text.fmaxf3:00000000 fmaxf3
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:737    .text.fminf3:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:743    .text.fminf3:00000000 fminf3
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:819    .text.limit_norm:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:825    .text.limit_norm:00000000 limit_norm
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:914    .text.limit:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:920    .text.limit:00000000 limit
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:968    .text.float_to_uint:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:974    .text.float_to_uint:00000000 float_to_uint
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:1042   .text.uint_to_float:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:1048   .text.uint_to_float:00000000 uint_to_float
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:1116   .text.sin_lut:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:1122   .text.sin_lut:00000000 sin_lut
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:1187   .text.sin_lut:00000068 $d
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:1194   .text.cos_lut:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:1200   .text.cos_lut:00000000 cos_lut
+C:\Users\16323\AppData\Local\Temp\cc7zqG03.s:1238   .text.cos_lut:0000002c $d
 
 UNDEFINED SYMBOLS
 sqrtf

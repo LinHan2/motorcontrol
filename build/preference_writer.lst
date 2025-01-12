@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 1
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccmVVPes.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 1
    6:Core/Src/preference_writer.c ****  */
    7:Core/Src/preference_writer.c **** 
    8:Core/Src/preference_writer.c **** 
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 2
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccmVVPes.s 			page 2
 
 
    9:Core/Src/preference_writer.c **** #include "preference_writer.h"
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 1
   95              		.align	1
   96              		.global	preference_writer_open
   97              		.syntax unified
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 3
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccmVVPes.s 			page 3
 
 
   98              		.thumb
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 1
   30:Core/Src/preference_writer.c **** 
   31:Core/Src/preference_writer.c **** bool  preference_writer_ready(PreferenceWriter pr) {
  149              		.loc 1 31 52
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 4
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccmVVPes.s 			page 4
 
 
  150              		.cfi_startproc
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 1
  202              	.LCFI16:
  203              		.cfi_def_cfa_offset 4
  204              		.cfi_offset 7, -4
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 5
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccmVVPes.s 			page 5
 
 
  205 0002 83B0     		sub	sp, sp, #12
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 1
  257 0002 83B0     		sub	sp, sp, #12
  258              	.LCFI23:
  259              		.cfi_def_cfa_offset 16
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 6
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccmVVPes.s 			page 6
 
 
  260 0004 00AF     		add	r7, sp, #0
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 1
  312              	.LCFI29:
  313              		.cfi_def_cfa_offset 32
  314 0004 02AF     		add	r7, sp, #8
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 7
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccmVVPes.s 			page 7
 
 
  315              	.LCFI30:
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 1
   48:Core/Src/preference_writer.c ****         flash_writer_write_float(pr->fw, offs, __float_reg[offs - 256]);
  361              		.loc 1 48 28 discriminator 2
  362 0052 FB68     		ldr	r3, [r7, #12]
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 8
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccmVVPes.s 			page 8
 
 
  363 0054 0133     		adds	r3, r3, #1
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 1
  413              		.cfi_offset 14, -20
  414 0004 83B0     		sub	sp, sp, #12
  415              	.LCFI35:
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 9
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccmVVPes.s 			page 9
 
 
  416              		.cfi_def_cfa_offset 40
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 1
  462 0052 0B4A     		ldr	r2, .L23+4
  463 0054 A300     		lsls	r3, r4, #2
  464 0056 1344     		add	r3, r3, r2
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 10
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccmVVPes.s 			page 10
 
 
  465 0058 C3ED007A 		vstr.32	s15, [r3]
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 1
  515              		@ frame_needed = 1, uses_anonymous_args = 0
  516 0000 80B5     		push	{r7, lr}
  517              	.LCFI41:
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 11
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccmVVPes.s 			page 11
 
 
  518              		.cfi_def_cfa_offset 8
@@ -641,35 +641,35 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 1
  553              		.file 4 "Core/Inc/flash_writer.h"
  554              		.file 5 "Core/Inc/preference_writer.h"
  555              		.file 6 "Core/Inc/user_config.h"
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s 			page 12
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccmVVPes.s 			page 12
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 preference_writer.c
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:20     .data.__SECTOR_ADDRS:00000000 $d
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:23     .data.__SECTOR_ADDRS:00000000 __SECTOR_ADDRS
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:33     .data.__SECTORS:00000000 $d
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:36     .data.__SECTORS:00000000 __SECTORS
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:46     .text.preference_writer_init:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:52     .text.preference_writer_init:00000000 preference_writer_init
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:95     .text.preference_writer_open:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:101    .text.preference_writer_open:00000000 preference_writer_open
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:141    .text.preference_writer_ready:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:147    .text.preference_writer_ready:00000000 preference_writer_ready
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:188    .text.preference_writer_write_int:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:194    .text.preference_writer_write_int:00000000 preference_writer_write_int
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:235    .text.preference_writer_write_int:00000020 $d
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:240    .text.preference_writer_write_float:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:246    .text.preference_writer_write_float:00000000 preference_writer_write_float
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:289    .text.preference_writer_write_float:00000024 $d
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:294    .text.preference_writer_flush:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:300    .text.preference_writer_flush:00000000 preference_writer_flush
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:387    .text.preference_writer_flush:00000070 $d
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:393    .text.preference_writer_load:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:399    .text.preference_writer_load:00000000 preference_writer_load
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:498    .text.preference_writer_load:0000007c $d
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:504    .text.preference_writer_close:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccE0VLaE.s:510    .text.preference_writer_close:00000000 preference_writer_close
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:20     .data.__SECTOR_ADDRS:00000000 $d
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:23     .data.__SECTOR_ADDRS:00000000 __SECTOR_ADDRS
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:33     .data.__SECTORS:00000000 $d
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:36     .data.__SECTORS:00000000 __SECTORS
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:46     .text.preference_writer_init:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:52     .text.preference_writer_init:00000000 preference_writer_init
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:95     .text.preference_writer_open:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:101    .text.preference_writer_open:00000000 preference_writer_open
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:141    .text.preference_writer_ready:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:147    .text.preference_writer_ready:00000000 preference_writer_ready
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:188    .text.preference_writer_write_int:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:194    .text.preference_writer_write_int:00000000 preference_writer_write_int
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:235    .text.preference_writer_write_int:00000020 $d
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:240    .text.preference_writer_write_float:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:246    .text.preference_writer_write_float:00000000 preference_writer_write_float
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:289    .text.preference_writer_write_float:00000024 $d
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:294    .text.preference_writer_flush:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:300    .text.preference_writer_flush:00000000 preference_writer_flush
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:387    .text.preference_writer_flush:00000070 $d
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:393    .text.preference_writer_load:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:399    .text.preference_writer_load:00000000 preference_writer_load
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:498    .text.preference_writer_load:0000007c $d
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:504    .text.preference_writer_close:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccmVVPes.s:510    .text.preference_writer_close:00000000 preference_writer_close
 
 UNDEFINED SYMBOLS
 flash_writer_init

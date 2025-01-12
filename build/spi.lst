@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 1
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 1
   10:Core/Src/spi.c ****   * Copyright (c) 2024 STMicroelectronics.
   11:Core/Src/spi.c ****   * All rights reserved.
   12:Core/Src/spi.c ****   *
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 2
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s 			page 2
 
 
   13:Core/Src/spi.c ****   * This software is licensed under terms that can be found in the LICENSE file
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 1
   66 0016 9A60     		str	r2, [r3, #8]
   44:Core/Src/spi.c ****   hspi1.Init.DataSize = SPI_DATASIZE_16BIT;
   67              		.loc 1 44 23
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 3
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s 			page 3
 
 
   68 0018 134B     		ldr	r3, .L4
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 1
  111 005e FFF7FEFF 		bl	Error_Handler
  112              	.L3:
   56:Core/Src/spi.c ****   }
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 4
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s 			page 4
 
 
   57:Core/Src/spi.c ****   /* USER CODE BEGIN SPI1_Init 2 */
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 1
  151 000c 4FF48272 		mov	r2, #260
  152 0010 5A60     		str	r2, [r3, #4]
   75:Core/Src/spi.c ****   hspi3.Init.Direction = SPI_DIRECTION_2LINES;
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 5
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s 			page 5
 
 
  153              		.loc 1 75 24
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 1
  197              		.loc 1 85 6
  198 005a 002B     		cmp	r3, #0
  199 005c 01D0     		beq	.L8
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 6
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s 			page 6
 
 
   86:Core/Src/spi.c ****   {
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 1
  243 0010 5A60     		str	r2, [r3, #4]
  244 0012 9A60     		str	r2, [r3, #8]
  245 0014 DA60     		str	r2, [r3, #12]
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 7
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s 			page 7
 
 
  246 0016 1A61     		str	r2, [r3, #16]
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 1
  285 005a E023     		movs	r3, #224
  286 005c FB61     		str	r3, [r7, #28]
  114:Core/Src/spi.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 8
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s 			page 8
 
 
  287              		.loc 1 114 26
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 1
  306              	.L12:
  124:Core/Src/spi.c ****   {
  307              		.loc 1 124 20
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 9
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s 			page 9
 
 
  308 007c 7B68     		ldr	r3, [r7, #4]
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 1
  355 00ce BB62     		str	r3, [r7, #40]
  142:Core/Src/spi.c ****     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
  356              		.loc 1 142 31
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 10
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s 			page 10
 
 
  357 00d0 0623     		movs	r3, #6
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 1
  409              		.cfi_def_cfa_register 7
  410 0006 7860     		str	r0, [r7, #4]
  153:Core/Src/spi.c **** 
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 11
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s 			page 11
 
 
  154:Core/Src/spi.c ****   if(spiHandle->Instance==SPI1)
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 1
  191:Core/Src/spi.c ****   }
  192:Core/Src/spi.c **** }
  428              		.loc 1 192 1
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 12
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s 			page 12
 
 
  429 0026 0FE0     		b	.L20
@@ -715,27 +715,27 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 1
  477              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
  478              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h"
  479              		.file 9 "Core/Inc/spi.h"
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s 			page 13
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s 			page 13
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 spi.c
-C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s:24     .bss.hspi1:00000000 hspi1
-C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s:21     .bss.hspi1:00000000 $d
-C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s:31     .bss.hspi3:00000000 hspi3
-C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s:28     .bss.hspi3:00000000 $d
-C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s:34     .text.MX_SPI1_Init:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s:40     .text.MX_SPI1_Init:00000000 MX_SPI1_Init
-C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s:119    .text.MX_SPI1_Init:00000068 $d
-C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s:125    .text.MX_SPI3_Init:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s:131    .text.MX_SPI3_Init:00000000 MX_SPI3_Init
-C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s:209    .text.MX_SPI3_Init:00000068 $d
-C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s:215    .text.HAL_SPI_MspInit:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s:221    .text.HAL_SPI_MspInit:00000000 HAL_SPI_MspInit
-C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s:378    .text.HAL_SPI_MspInit:000000e8 $d
-C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s:387    .text.HAL_SPI_MspDeInit:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s:393    .text.HAL_SPI_MspDeInit:00000000 HAL_SPI_MspDeInit
-C:\Users\16323\AppData\Local\Temp\ccW54Rhj.s:462    .text.HAL_SPI_MspDeInit:00000050 $d
+C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s:24     .bss.hspi1:00000000 hspi1
+C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s:21     .bss.hspi1:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s:31     .bss.hspi3:00000000 hspi3
+C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s:28     .bss.hspi3:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s:34     .text.MX_SPI1_Init:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s:40     .text.MX_SPI1_Init:00000000 MX_SPI1_Init
+C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s:119    .text.MX_SPI1_Init:00000068 $d
+C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s:125    .text.MX_SPI3_Init:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s:131    .text.MX_SPI3_Init:00000000 MX_SPI3_Init
+C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s:209    .text.MX_SPI3_Init:00000068 $d
+C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s:215    .text.HAL_SPI_MspInit:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s:221    .text.HAL_SPI_MspInit:00000000 HAL_SPI_MspInit
+C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s:378    .text.HAL_SPI_MspInit:000000e8 $d
+C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s:387    .text.HAL_SPI_MspDeInit:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s:393    .text.HAL_SPI_MspDeInit:00000000 HAL_SPI_MspDeInit
+C:\Users\16323\AppData\Local\Temp\cc2Ao7sf.s:462    .text.HAL_SPI_MspDeInit:00000050 $d
 
 UNDEFINED SYMBOLS
 HAL_SPI_Init

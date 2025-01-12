@@ -76,7 +76,8 @@ Core/Src/position_sensor.c \
 Core/Src/preference_writer.c \
 Core/Src/stm32f4xx_flash.c \
 Core/Src/syscalls.c \
-Core/Src/sysmem.c
+Core/Src/sysmem.c \
+Core/Src/adc.c
 
 # ASM sources
 ASM_SOURCES =  \

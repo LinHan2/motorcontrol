@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 1
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cctPhukg.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 1
   42              		.cfi_def_cfa_offset 8
   43              		.cfi_offset 7, -8
   44              		.cfi_offset 14, -4
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 2
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cctPhukg.s 			page 2
 
 
   45 0002 86B0     		sub	sp, sp, #24
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 1
   92 0044 4FF40041 		mov	r1, #32768
   93 0048 0748     		ldr	r0, .L5
   94 004a FFF7FEFF 		bl	HAL_GPIO_WritePin
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 3
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cctPhukg.s 			page 3
 
 
   18:Core/Src/position_sensor.c **** 		encoder->spi_tx_word = 0x0000;
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 1
  145              		.cfi_def_cfa_offset 56
  146 0004 02AF     		add	r7, sp, #8
  147              	.LCFI7:
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 4
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cctPhukg.s 			page 4
 
 
  148              		.cfi_def_cfa 7, 48
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 1
   38:Core/Src/position_sensor.c **** 	encoder->spi_tx_word = ENC_READ_WORD;
  192              		.loc 1 38 23
  193 0044 7B68     		ldr	r3, [r7, #4]
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 5
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cctPhukg.s 			page 5
 
 
  194 0046 0022     		movs	r2, #0
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 1
  240 0092 7A68     		ldr	r2, [r7, #4]
  241 0094 3633     		adds	r3, r3, #54
  242 0096 9B00     		lsls	r3, r3, #2
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 6
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cctPhukg.s 			page 6
 
 
  243 0098 1344     		add	r3, r3, r2
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 1
   52:Core/Src/position_sensor.c **** 	/* Real angles in radians */
   53:Core/Src/position_sensor.c **** 	encoder->angle_singleturn = ((float)(encoder->count-M_ZERO))/((float)ENC_CPR);
  292              		.loc 1 53 46
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 7
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cctPhukg.s 			page 7
 
 
  293 00e6 7B68     		ldr	r3, [r7, #4]
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 1
  343 0152 77EE877A 		vadd.f32	s15, s15, s14
  344 0156 02E0     		b	.L13
  345              	.L32:
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 8
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cctPhukg.s 			page 8
 
 
  346              		.loc 1 57 97 is_stmt 0 discriminator 2
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 1
  396 01bc C3ED177A 		vstr.32	s15, [r3, #92]
   62:Core/Src/position_sensor.c **** 	//encoder->elec_angle = TWO_PI_F*fmodf((encoder->ppairs*(float)(encoder->count-E_ZERO))/((float)EN
   63:Core/Src/position_sensor.c **** 	encoder->elec_angle = encoder->elec_angle<0 ? encoder->elec_angle + TWO_PI_F : encoder->elec_angle
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 9
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cctPhukg.s 			page 9
 
 
  397              		.loc 1 63 31 discriminator 4
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 1
  446 022a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
  447 022e 01D5     		bpl	.L19
  448              		.loc 1 68 39 discriminator 1
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 10
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cctPhukg.s 			page 10
 
 
  449 0230 0123     		movs	r3, #1
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 1
  497 0292 7B68     		ldr	r3, [r7, #4]
  498 0294 0122     		movs	r2, #1
  499 0296 83F8DC22 		strb	r2, [r3, #732]
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 11
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cctPhukg.s 			page 11
 
 
  500              	.L21:
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 1
  532              		.loc 1 96 20
  533 02e0 7B68     		ldr	r3, [r7, #4]
  534 02e2 C3ED187A 		vstr.32	s15, [r3, #96]
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 12
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cctPhukg.s 			page 12
 
 
   97:Core/Src/position_sensor.c **** 	encoder->elec_velocity = encoder->ppairs*encoder->velocity;
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 1
  581      696E676C 
  581      65205475 
  581      726E3A20 
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 13
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cctPhukg.s 			page 13
 
 
  581      256600
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 1
  622 0012 FFF7FEFF 		bl	printf
  103:Core/Src/position_sensor.c **** 	printf("   Linearized Count: %d", encoder->count);
  623              		.loc 1 103 2
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 14
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cctPhukg.s 			page 14
 
 
  624 0016 7B68     		ldr	r3, [r7, #4]
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 1
  672              		.cfi_def_cfa_register 13
  673              		@ sp needed
  674 0072 80BD     		pop	{r7, pc}
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 15
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cctPhukg.s 			page 15
 
 
  675              	.L40:
@@ -864,23 +864,23 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 1
  696              		.file 9 "Core/Inc/position_sensor.h"
  697              		.file 10 "Core/Inc/spi.h"
  698              		.file 11 "Core/Inc/user_config.h"
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 16
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cctPhukg.s 			page 16
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 position_sensor.c
-C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:24     .bss.position_sensor_raw_value:00000000 position_sensor_raw_value
-C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:21     .bss.position_sensor_raw_value:00000000 $d
-C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:27     .text.ps_warmup:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:33     .text.ps_warmup:00000000 ps_warmup
-C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:120    .text.ps_warmup:00000068 $d
-C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:126    .text.ps_sample:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:132    .text.ps_sample:00000000 ps_sample
-C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:559    .text.ps_sample:00000304 $d
-C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:572    .rodata:00000000 $d
-C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:592    .text.ps_print:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:598    .text.ps_print:00000000 ps_print
-C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:678    .text.ps_print:00000074 $d
+C:\Users\16323\AppData\Local\Temp\cctPhukg.s:24     .bss.position_sensor_raw_value:00000000 position_sensor_raw_value
+C:\Users\16323\AppData\Local\Temp\cctPhukg.s:21     .bss.position_sensor_raw_value:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cctPhukg.s:27     .text.ps_warmup:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cctPhukg.s:33     .text.ps_warmup:00000000 ps_warmup
+C:\Users\16323\AppData\Local\Temp\cctPhukg.s:120    .text.ps_warmup:00000068 $d
+C:\Users\16323\AppData\Local\Temp\cctPhukg.s:126    .text.ps_sample:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cctPhukg.s:132    .text.ps_sample:00000000 ps_sample
+C:\Users\16323\AppData\Local\Temp\cctPhukg.s:559    .text.ps_sample:00000304 $d
+C:\Users\16323\AppData\Local\Temp\cctPhukg.s:572    .rodata:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cctPhukg.s:592    .text.ps_print:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cctPhukg.s:598    .text.ps_print:00000000 ps_print
+C:\Users\16323\AppData\Local\Temp\cctPhukg.s:678    .text.ps_print:00000074 $d
 
 UNDEFINED SYMBOLS
 HAL_GPIO_WritePin

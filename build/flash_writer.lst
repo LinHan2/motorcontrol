@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 1
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 1
    6:Core/Src/flash_writer.c **** 
    7:Core/Src/flash_writer.c **** void flash_writer_init(FlashWriter *fw, uint32_t sector) {
   55              		.loc 1 7 58
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 2
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s 			page 2
 
 
   56              		.cfi_startproc
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 1
  105              	.LCFI5:
  106              		.cfi_restore 7
  107              		.cfi_def_cfa_offset 0
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 3
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s 			page 3
 
 
  108 0036 7047     		bx	lr
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 1
  162              		.align	1
  163              		.global	flash_writer_open
  164              		.syntax unified
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 4
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s 			page 4
 
 
  165              		.thumb
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 1
  213 0030 80BD     		pop	{r7, pc}
  214              	.L9:
  215 0032 00BF     		.align	2
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 5
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s 			page 5
 
 
  216              	.L8:
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 1
  265 0026 1C37     		adds	r7, r7, #28
  266              	.LCFI20:
  267              		.cfi_def_cfa_offset 12
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 6
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s 			page 6
 
 
  268 0028 BD46     		mov	sp, r7
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 1
  320              	.LCFI26:
  321              		.cfi_def_cfa_register 13
  322              		@ sp needed
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 7
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s 			page 7
 
 
  323 0024 90BD     		pop	{r4, r7, pc}
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 1
  372 002c 2437     		adds	r7, r7, #36
  373              	.LCFI30:
  374              		.cfi_def_cfa_offset 12
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 8
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s 			page 8
 
 
  375 002e BD46     		mov	sp, r7
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 1
  427              		.section	.text.flash_read_int,"ax",%progbits
  428              		.align	1
  429              		.global	flash_read_int
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 9
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s 			page 9
 
 
  430              		.syntax unified
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 1
  481 0026 7047     		bx	lr
  482              	.L17:
  483              		.align	2
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 10
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s 			page 10
 
 
  484              	.L16:
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 1
  536              		.cfi_def_cfa_register 13
  537              		@ sp needed
  538 0024 90BC     		pop	{r4, r7}
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 11
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s 			page 11
 
 
  539              	.LCFI48:
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 1
   57:Core/Src/flash_writer.c **** }
  592              		.loc 1 57 1
  593 0022 B0EE670A 		vmov.f32	s0, s15
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 12
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s 			page 12
 
 
  594 0026 1037     		adds	r7, r7, #16
@@ -685,40 +685,40 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 1
  616              		.file 2 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\machine\\_default
  617              		.file 3 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\sys\\_stdint.h"
  618              		.file 4 "Core/Inc/flash_writer.h"
-ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 13
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s 			page 13
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 flash_writer.c
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:20     .data.__SECTOR_ADDRS:00000000 $d
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:23     .data.__SECTOR_ADDRS:00000000 __SECTOR_ADDRS
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:33     .data.__SECTORS:00000000 $d
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:36     .data.__SECTORS:00000000 __SECTORS
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:46     .text.flash_writer_init:00000000 $t
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:52     .text.flash_writer_init:00000000 flash_writer_init
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:112    .text.flash_writer_init:00000038 $d
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:117    .text.flash_writer_ready:00000000 $t
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:123    .text.flash_writer_ready:00000000 flash_writer_ready
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:162    .text.flash_writer_open:00000000 $t
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:168    .text.flash_writer_open:00000000 flash_writer_open
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:217    .text.flash_writer_open:00000034 $d
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:222    .text.flash_writer_write_int:00000000 $t
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:228    .text.flash_writer_write_int:00000000 flash_writer_write_int
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:277    .text.flash_writer_write_uint:00000000 $t
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:283    .text.flash_writer_write_uint:00000000 flash_writer_write_uint
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:328    .text.flash_writer_write_float:00000000 $t
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:334    .text.flash_writer_write_float:00000000 flash_writer_write_float
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:384    .text.flash_writer_close:00000000 $t
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:390    .text.flash_writer_close:00000000 flash_writer_close
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:428    .text.flash_read_int:00000000 $t
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:434    .text.flash_read_int:00000000 flash_read_int
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:485    .text.flash_read_int:00000028 $d
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:490    .text.flash_read_uint:00000000 $t
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:496    .text.flash_read_uint:00000000 flash_read_uint
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:547    .text.flash_read_uint:00000028 $d
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:552    .text.flash_read_float:00000000 $t
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:558    .text.flash_read_float:00000000 flash_read_float
-C:\Users\16323\AppData\Local\Temp\cckztGb8.s:610    .text.flash_read_float:00000030 $d
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:20     .data.__SECTOR_ADDRS:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:23     .data.__SECTOR_ADDRS:00000000 __SECTOR_ADDRS
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:33     .data.__SECTORS:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:36     .data.__SECTORS:00000000 __SECTORS
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:46     .text.flash_writer_init:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:52     .text.flash_writer_init:00000000 flash_writer_init
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:112    .text.flash_writer_init:00000038 $d
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:117    .text.flash_writer_ready:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:123    .text.flash_writer_ready:00000000 flash_writer_ready
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:162    .text.flash_writer_open:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:168    .text.flash_writer_open:00000000 flash_writer_open
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:217    .text.flash_writer_open:00000034 $d
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:222    .text.flash_writer_write_int:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:228    .text.flash_writer_write_int:00000000 flash_writer_write_int
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:277    .text.flash_writer_write_uint:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:283    .text.flash_writer_write_uint:00000000 flash_writer_write_uint
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:328    .text.flash_writer_write_float:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:334    .text.flash_writer_write_float:00000000 flash_writer_write_float
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:384    .text.flash_writer_close:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:390    .text.flash_writer_close:00000000 flash_writer_close
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:428    .text.flash_read_int:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:434    .text.flash_read_int:00000000 flash_read_int
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:485    .text.flash_read_int:00000028 $d
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:490    .text.flash_read_uint:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:496    .text.flash_read_uint:00000000 flash_read_uint
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:547    .text.flash_read_uint:00000028 $d
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:552    .text.flash_read_float:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:558    .text.flash_read_float:00000000 flash_read_float
+C:\Users\16323\AppData\Local\Temp\cc6ZibE7.s:610    .text.flash_read_float:00000030 $d
 
 UNDEFINED SYMBOLS
 FLASH_Unlock

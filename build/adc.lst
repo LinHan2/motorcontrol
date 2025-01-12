@@ -1,4 +1,4 @@
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -58,7 +58,7 @@ ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
    1:Core/Src/adc.c **** /* USER CODE BEGIN Header */
    2:Core/Src/adc.c **** /**
    3:Core/Src/adc.c ****   ******************************************************************************
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 2
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 2
 
 
    4:Core/Src/adc.c ****   * @file    adc.c
@@ -118,7 +118,7 @@ ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
   68 000c 1A60     		str	r2, [r3]
   69 000e 5A60     		str	r2, [r3, #4]
   70 0010 9A60     		str	r2, [r3, #8]
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 3
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 3
 
 
   40:Core/Src/adc.c ****   ADC_ChannelConfTypeDef sConfig = {0};
@@ -178,7 +178,7 @@ ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
  109 0050 9A62     		str	r2, [r3, #40]
   56:Core/Src/adc.c ****   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
  110              		.loc 1 56 24
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 4
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 4
 
 
  111 0052 1D4B     		ldr	r3, .L6
@@ -238,7 +238,7 @@ ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
  151              		.loc 1 70 6
  152 0096 002B     		cmp	r3, #0
  153 0098 01D0     		beq	.L3
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 5
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 5
 
 
   71:Core/Src/adc.c ****   {
@@ -298,7 +298,7 @@ ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
  190              	.L6:
  191 00c8 00000000 		.word	hadc1
  192 00cc 00200140 		.word	1073815552
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 6
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 6
 
 
  193 00d0 0100000F 		.word	251658241
@@ -358,7 +358,7 @@ ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
  106:Core/Src/adc.c ****   hadc2.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV4;
  232              		.loc 1 106 29
  233 0018 1C4B     		ldr	r3, .L12
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 7
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 7
 
 
  234 001a 4FF48032 		mov	r2, #65536
@@ -418,7 +418,7 @@ ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
  277              	.L9:
  118:Core/Src/adc.c ****   }
  119:Core/Src/adc.c **** 
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 8
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 8
 
 
  120:Core/Src/adc.c ****   /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and it
@@ -478,7 +478,7 @@ ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
  319              		.global	MX_ADC3_Init
  320              		.syntax unified
  321              		.thumb
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 9
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 9
 
 
  322              		.thumb_func
@@ -538,7 +538,7 @@ ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
  358 0022 0022     		movs	r2, #0
  359 0024 9A60     		str	r2, [r3, #8]
  153:Core/Src/adc.c ****   hadc3.Init.ScanConvMode = DISABLE;
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 10
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 10
 
 
  360              		.loc 1 153 27
@@ -598,7 +598,7 @@ ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
  400 0066 3B60     		str	r3, [r7]
  168:Core/Src/adc.c ****   sConfig.Rank = 1;
  401              		.loc 1 168 16
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 11
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 11
 
 
  402 0068 0123     		movs	r3, #1
@@ -658,7 +658,7 @@ ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
  181:Core/Src/adc.c **** {
  446              		.loc 1 181 1
  447              		.cfi_startproc
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 12
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 12
 
 
  448              		@ args = 0, pretend = 0, frame = 56
@@ -718,7 +718,7 @@ ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
  191:Core/Src/adc.c **** 
  192:Core/Src/adc.c ****     __HAL_RCC_GPIOC_CLK_ENABLE();
  493              		.loc 1 192 5
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 13
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 13
 
 
  494 003e 0023     		movs	r3, #0
@@ -778,7 +778,7 @@ ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
  220:Core/Src/adc.c ****     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
  221:Core/Src/adc.c **** 
  222:Core/Src/adc.c ****   /* USER CODE BEGIN ADC2_MspInit 1 */
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 14
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 14
 
 
  223:Core/Src/adc.c **** 
@@ -838,7 +838,7 @@ ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
  213:Core/Src/adc.c ****     /**ADC2 GPIO Configuration
  547              		.loc 1 213 5
  548 009a 0023     		movs	r3, #0
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 15
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 15
 
 
  549 009c 7B61     		str	r3, [r7, #20]
@@ -898,7 +898,7 @@ ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
  596 00ee 03F48063 		and	r3, r3, #1024
  597 00f2 3B61     		str	r3, [r7, #16]
  598 00f4 3B69     		ldr	r3, [r7, #16]
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 16
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 16
 
 
  599              	.LBE6:
@@ -958,7 +958,7 @@ ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
  648 0148 00000240 		.word	1073872896
  649              		.cfi_endproc
  650              	.LFE242:
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 17
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 17
 
 
  652              		.section	.text.HAL_ADC_MspDeInit,"ax",%progbits
@@ -1018,7 +1018,7 @@ ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
  691 001e 0121     		movs	r1, #1
  692 0020 1548     		ldr	r0, .L32+8
  693 0022 FFF7FEFF 		bl	HAL_GPIO_DeInit
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 18
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 18
 
 
  264:Core/Src/adc.c **** 
@@ -1078,7 +1078,7 @@ ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
  705 0032 104B     		ldr	r3, .L32+4
  706 0034 5B6C     		ldr	r3, [r3, #68]
  707 0036 0F4A     		ldr	r2, .L32+4
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 19
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 19
 
 
  708 0038 23F40073 		bic	r3, r3, #512
@@ -1138,7 +1138,7 @@ ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
  758              	.Letext0:
  759              		.file 2 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\machine\\_default
  760              		.file 3 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\sys\\_stdint.h"
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 20
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 20
 
 
  761              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
@@ -1149,32 +1149,32 @@ ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 1
  766              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h"
  767              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc_ex.h"
  768              		.file 11 "Core/Inc/adc.h"
-ARM GAS  C:\WINDOWS\TEMP\ccT6B6NF.s 			page 21
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s 			page 21
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 adc.c
-C:\WINDOWS\TEMP\ccT6B6NF.s:24     .bss.hadc1:00000000 hadc1
-C:\WINDOWS\TEMP\ccT6B6NF.s:21     .bss.hadc1:00000000 $d
-C:\WINDOWS\TEMP\ccT6B6NF.s:31     .bss.hadc2:00000000 hadc2
-C:\WINDOWS\TEMP\ccT6B6NF.s:28     .bss.hadc2:00000000 $d
-C:\WINDOWS\TEMP\ccT6B6NF.s:38     .bss.hadc3:00000000 hadc3
-C:\WINDOWS\TEMP\ccT6B6NF.s:35     .bss.hadc3:00000000 $d
-C:\WINDOWS\TEMP\ccT6B6NF.s:41     .text.MX_ADC1_Init:00000000 $t
-C:\WINDOWS\TEMP\ccT6B6NF.s:47     .text.MX_ADC1_Init:00000000 MX_ADC1_Init
-C:\WINDOWS\TEMP\ccT6B6NF.s:191    .text.MX_ADC1_Init:000000c8 $d
-C:\WINDOWS\TEMP\ccT6B6NF.s:198    .text.MX_ADC2_Init:00000000 $t
-C:\WINDOWS\TEMP\ccT6B6NF.s:204    .text.MX_ADC2_Init:00000000 MX_ADC2_Init
-C:\WINDOWS\TEMP\ccT6B6NF.s:312    .text.MX_ADC2_Init:0000008c $d
-C:\WINDOWS\TEMP\ccT6B6NF.s:318    .text.MX_ADC3_Init:00000000 $t
-C:\WINDOWS\TEMP\ccT6B6NF.s:324    .text.MX_ADC3_Init:00000000 MX_ADC3_Init
-C:\WINDOWS\TEMP\ccT6B6NF.s:432    .text.MX_ADC3_Init:0000008c $d
-C:\WINDOWS\TEMP\ccT6B6NF.s:438    .text.HAL_ADC_MspInit:00000000 $t
-C:\WINDOWS\TEMP\ccT6B6NF.s:444    .text.HAL_ADC_MspInit:00000000 HAL_ADC_MspInit
-C:\WINDOWS\TEMP\ccT6B6NF.s:643    .text.HAL_ADC_MspInit:00000134 $d
-C:\WINDOWS\TEMP\ccT6B6NF.s:653    .text.HAL_ADC_MspDeInit:00000000 $t
-C:\WINDOWS\TEMP\ccT6B6NF.s:659    .text.HAL_ADC_MspDeInit:00000000 HAL_ADC_MspDeInit
-C:\WINDOWS\TEMP\ccT6B6NF.s:748    .text.HAL_ADC_MspDeInit:00000070 $d
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:24     .bss.hadc1:00000000 hadc1
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:21     .bss.hadc1:00000000 $d
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:31     .bss.hadc2:00000000 hadc2
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:28     .bss.hadc2:00000000 $d
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:38     .bss.hadc3:00000000 hadc3
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:35     .bss.hadc3:00000000 $d
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:41     .text.MX_ADC1_Init:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:47     .text.MX_ADC1_Init:00000000 MX_ADC1_Init
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:191    .text.MX_ADC1_Init:000000c8 $d
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:198    .text.MX_ADC2_Init:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:204    .text.MX_ADC2_Init:00000000 MX_ADC2_Init
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:312    .text.MX_ADC2_Init:0000008c $d
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:318    .text.MX_ADC3_Init:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:324    .text.MX_ADC3_Init:00000000 MX_ADC3_Init
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:432    .text.MX_ADC3_Init:0000008c $d
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:438    .text.HAL_ADC_MspInit:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:444    .text.HAL_ADC_MspInit:00000000 HAL_ADC_MspInit
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:643    .text.HAL_ADC_MspInit:00000134 $d
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:653    .text.HAL_ADC_MspDeInit:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:659    .text.HAL_ADC_MspDeInit:00000000 HAL_ADC_MspDeInit
+C:\Users\16323\AppData\Local\Temp\ccZsvwyw.s:748    .text.HAL_ADC_MspDeInit:00000070 $d
 
 UNDEFINED SYMBOLS
 HAL_ADC_Init

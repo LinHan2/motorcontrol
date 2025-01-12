@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 1
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 1
 
 
    1              		.cpu cortex-m4
@@ -12,7 +12,7 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 1
    9              		.eabi_attribute 24, 1
   10              		.eabi_attribute 25, 1
   11              		.eabi_attribute 26, 1
-  12              		.eabi_attribute 30, 6
+  12              		.eabi_attribute 30, 1
   13              		.eabi_attribute 34, 1
   14              		.eabi_attribute 18, 4
   15              		.file	"foc.c"
@@ -26,8 +26,9 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 1
   23              		.thumb
   24              		.thumb_func
   26              	set_dtc:
-  27              	.LFB239:
-  28              		.file 1 "Core/Src/foc.c"
+  27              	.LVL0:
+  28              	.LFB239:
+  29              		.file 1 "Core/Src/foc.c"
    1:Core/Src/foc.c **** /*
    2:Core/Src/foc.c ****  * foc.c
    3:Core/Src/foc.c ****  *
@@ -44,1513 +45,1267 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 1
   14:Core/Src/foc.c **** #include "user_config.h"
   15:Core/Src/foc.c **** 
   16:Core/Src/foc.c **** void set_dtc(ControllerStruct *controller){
-  29              		.loc 1 16 43
-  30              		.cfi_startproc
-  31              		@ args = 0, pretend = 0, frame = 24
-  32              		@ frame_needed = 1, uses_anonymous_args = 0
-  33              		@ link register save eliminated.
-  34 0000 80B4     		push	{r7}
-  35              	.LCFI0:
-  36              		.cfi_def_cfa_offset 4
-  37              		.cfi_offset 7, -4
-  38 0002 87B0     		sub	sp, sp, #28
-  39              	.LCFI1:
-  40              		.cfi_def_cfa_offset 32
-  41 0004 00AF     		add	r7, sp, #0
-  42              	.LCFI2:
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 2
-
-
-  43              		.cfi_def_cfa_register 7
-  44 0006 7860     		str	r0, [r7, #4]
+  30              		.loc 1 16 43 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		@ link register save eliminated.
   17:Core/Src/foc.c **** 
   18:Core/Src/foc.c **** 	/* Invert duty cycle if that's how hardware is configured */
   19:Core/Src/foc.c **** 
   20:Core/Src/foc.c **** 	float dtc_u = controller->dtc_u;
-  45              		.loc 1 20 8
-  46 0008 7B68     		ldr	r3, [r7, #4]
-  47 000a DB6D     		ldr	r3, [r3, #92]	@ float
-  48 000c 7B61     		str	r3, [r7, #20]	@ float
+  35              		.loc 1 20 2 view .LVU1
+  36              		.loc 1 20 8 is_stmt 0 view .LVU2
+  37 0000 90ED176A 		vldr.32	s12, [r0, #92]
+  38              	.LVL1:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 2
+
+
   21:Core/Src/foc.c **** 	float dtc_v = controller->dtc_v;
-  49              		.loc 1 21 8
-  50 000e 7B68     		ldr	r3, [r7, #4]
-  51 0010 1B6E     		ldr	r3, [r3, #96]	@ float
-  52 0012 3B61     		str	r3, [r7, #16]	@ float
+  39              		.loc 1 21 2 is_stmt 1 view .LVU3
+  40              		.loc 1 21 8 is_stmt 0 view .LVU4
+  41 0004 90ED187A 		vldr.32	s14, [r0, #96]
+  42              	.LVL2:
   22:Core/Src/foc.c **** 	float dtc_w = controller->dtc_w;
-  53              		.loc 1 22 8
-  54 0014 7B68     		ldr	r3, [r7, #4]
-  55 0016 5B6E     		ldr	r3, [r3, #100]	@ float
-  56 0018 FB60     		str	r3, [r7, #12]	@ float
+  43              		.loc 1 22 2 is_stmt 1 view .LVU5
+  44              		.loc 1 22 8 is_stmt 0 view .LVU6
+  45 0008 D0ED195A 		vldr.32	s11, [r0, #100]
+  46              	.LVL3:
   23:Core/Src/foc.c **** 
   24:Core/Src/foc.c **** 	if(INVERT_DTC){
+  47              		.loc 1 24 2 is_stmt 1 view .LVU7
   25:Core/Src/foc.c **** 		dtc_u = 1.0f - controller->dtc_u;
-  57              		.loc 1 25 28
-  58 001a 7B68     		ldr	r3, [r7, #4]
-  59 001c D3ED177A 		vldr.32	s15, [r3, #92]
-  60              		.loc 1 25 9
-  61 0020 B7EE007A 		vmov.f32	s14, #1.0e+0
-  62 0024 77EE677A 		vsub.f32	s15, s14, s15
-  63 0028 C7ED057A 		vstr.32	s15, [r7, #20]
+  48              		.loc 1 25 3 view .LVU8
+  49              		.loc 1 25 9 is_stmt 0 view .LVU9
+  50 000c F7EE007A 		vmov.f32	s15, #1.0e+0
+  51 0010 37EEC66A 		vsub.f32	s12, s15, s12
+  52              	.LVL4:
   26:Core/Src/foc.c **** 		dtc_v = 1.0f - controller->dtc_v;
-  64              		.loc 1 26 28
-  65 002c 7B68     		ldr	r3, [r7, #4]
-  66 002e D3ED187A 		vldr.32	s15, [r3, #96]
-  67              		.loc 1 26 9
-  68 0032 B7EE007A 		vmov.f32	s14, #1.0e+0
-  69 0036 77EE677A 		vsub.f32	s15, s14, s15
-  70 003a C7ED047A 		vstr.32	s15, [r7, #16]
+  53              		.loc 1 26 3 is_stmt 1 view .LVU10
+  54              		.loc 1 26 9 is_stmt 0 view .LVU11
+  55 0014 77EEC76A 		vsub.f32	s13, s15, s14
+  56              	.LVL5:
   27:Core/Src/foc.c **** 		dtc_w = 1.0f - controller->dtc_w;
-  71              		.loc 1 27 28
-  72 003e 7B68     		ldr	r3, [r7, #4]
-  73 0040 D3ED197A 		vldr.32	s15, [r3, #100]
-  74              		.loc 1 27 9
-  75 0044 B7EE007A 		vmov.f32	s14, #1.0e+0
-  76 0048 77EE677A 		vsub.f32	s15, s14, s15
-  77 004c C7ED037A 		vstr.32	s15, [r7, #12]
+  57              		.loc 1 27 3 is_stmt 1 view .LVU12
+  58              		.loc 1 27 9 is_stmt 0 view .LVU13
+  59 0018 77EEE57A 		vsub.f32	s15, s15, s11
+  60              	.LVL6:
   28:Core/Src/foc.c **** 	}
   29:Core/Src/foc.c **** 	/* Handle phase order swapping so that voltage/current/torque match encoder direction */
   30:Core/Src/foc.c **** 	if(!PHASE_ORDER){
-  78              		.loc 1 30 6
-  79 0050 3B4B     		ldr	r3, .L5
-  80 0052 1B68     		ldr	r3, [r3]
-  81              		.loc 1 30 4
-  82 0054 002B     		cmp	r3, #0
-  83 0056 36D1     		bne	.L2
+  61              		.loc 1 30 2 is_stmt 1 view .LVU14
+  62              		.loc 1 30 6 is_stmt 0 view .LVU15
+  63 001c 224B     		ldr	r3, .L4
+  64 001e 1B68     		ldr	r3, [r3]
+  65              		.loc 1 30 4 view .LVU16
+  66 0020 03BB     		cbnz	r3, .L2
   31:Core/Src/foc.c **** 		__HAL_TIM_SET_COMPARE(&TIM_PWM, TIM_CH_U, ((TIM_PWM.Instance->ARR))*dtc_u);
-  84              		.loc 1 31 3
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 3
-
-
-  85 0058 3A4B     		ldr	r3, .L5+4
-  86 005a 1B68     		ldr	r3, [r3]
-  87 005c DB6A     		ldr	r3, [r3, #44]
-  88 005e 07EE903A 		vmov	s15, r3	@ int
-  89 0062 B8EE677A 		vcvt.f32.u32	s14, s15
-  90 0066 D7ED057A 		vldr.32	s15, [r7, #20]
-  91 006a 67EE277A 		vmul.f32	s15, s14, s15
-  92 006e 354B     		ldr	r3, .L5+4
-  93 0070 1B68     		ldr	r3, [r3]
-  94 0072 FCEEE77A 		vcvt.u32.f32	s15, s15
-  95 0076 17EE902A 		vmov	r2, s15	@ int
-  96 007a 5A63     		str	r2, [r3, #52]
+  67              		.loc 1 31 3 is_stmt 1 view .LVU17
+  68 0022 224B     		ldr	r3, .L4+4
+  69 0024 1B68     		ldr	r3, [r3]
+  70 0026 93ED0B7A 		vldr.32	s14, [r3, #44]	@ int
+  71 002a B8EE477A 		vcvt.f32.u32	s14, s14
+  72 002e 27EE067A 		vmul.f32	s14, s14, s12
+  73 0032 BCEEC77A 		vcvt.u32.f32	s14, s14
+  74 0036 83ED0D7A 		vstr.32	s14, [r3, #52]	@ int
   32:Core/Src/foc.c **** 		__HAL_TIM_SET_COMPARE(&TIM_PWM, TIM_CH_V, ((TIM_PWM.Instance->ARR))*dtc_v);
-  97              		.loc 1 32 3
-  98 007c 314B     		ldr	r3, .L5+4
-  99 007e 1B68     		ldr	r3, [r3]
- 100 0080 DB6A     		ldr	r3, [r3, #44]
- 101 0082 07EE903A 		vmov	s15, r3	@ int
- 102 0086 B8EE677A 		vcvt.f32.u32	s14, s15
- 103 008a D7ED047A 		vldr.32	s15, [r7, #16]
- 104 008e 67EE277A 		vmul.f32	s15, s14, s15
- 105 0092 2C4B     		ldr	r3, .L5+4
- 106 0094 1B68     		ldr	r3, [r3]
- 107 0096 FCEEE77A 		vcvt.u32.f32	s15, s15
- 108 009a 17EE902A 		vmov	r2, s15	@ int
- 109 009e 9A63     		str	r2, [r3, #56]
+  75              		.loc 1 32 3 view .LVU18
+  76 003a 93ED0B7A 		vldr.32	s14, [r3, #44]	@ int
+  77 003e B8EE477A 		vcvt.f32.u32	s14, s14
+  78 0042 27EE267A 		vmul.f32	s14, s14, s13
+  79 0046 BCEEC77A 		vcvt.u32.f32	s14, s14
+  80 004a 83ED0E7A 		vstr.32	s14, [r3, #56]	@ int
   33:Core/Src/foc.c **** 		__HAL_TIM_SET_COMPARE(&TIM_PWM, TIM_CH_W, ((TIM_PWM.Instance->ARR))*dtc_w);
- 110              		.loc 1 33 3
- 111 00a0 284B     		ldr	r3, .L5+4
- 112 00a2 1B68     		ldr	r3, [r3]
- 113 00a4 DB6A     		ldr	r3, [r3, #44]
- 114 00a6 07EE903A 		vmov	s15, r3	@ int
- 115 00aa B8EE677A 		vcvt.f32.u32	s14, s15
- 116 00ae D7ED037A 		vldr.32	s15, [r7, #12]
- 117 00b2 67EE277A 		vmul.f32	s15, s14, s15
- 118 00b6 234B     		ldr	r3, .L5+4
- 119 00b8 1B68     		ldr	r3, [r3]
- 120 00ba FCEEE77A 		vcvt.u32.f32	s15, s15
- 121 00be 17EE902A 		vmov	r2, s15	@ int
- 122 00c2 DA63     		str	r2, [r3, #60]
+  81              		.loc 1 33 3 view .LVU19
+  82 004e 93ED0B7A 		vldr.32	s14, [r3, #44]	@ int
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 3
+
+
+  83 0052 B8EE477A 		vcvt.f32.u32	s14, s14
+  84 0056 67EE277A 		vmul.f32	s15, s14, s15
+  85              	.LVL7:
+  86              		.loc 1 33 3 is_stmt 0 view .LVU20
+  87 005a FCEEE77A 		vcvt.u32.f32	s15, s15
+  88 005e C3ED0F7A 		vstr.32	s15, [r3, #60]	@ int
+  89 0062 7047     		bx	lr
+  90              	.LVL8:
+  91              	.L2:
   34:Core/Src/foc.c **** 	}
   35:Core/Src/foc.c **** 	else{
   36:Core/Src/foc.c **** 		__HAL_TIM_SET_COMPARE(&TIM_PWM, TIM_CH_V, ((TIM_PWM.Instance->ARR))*dtc_u);
+  92              		.loc 1 36 3 is_stmt 1 view .LVU21
+  93 0064 114B     		ldr	r3, .L4+4
+  94 0066 1B68     		ldr	r3, [r3]
+  95 0068 93ED0B7A 		vldr.32	s14, [r3, #44]	@ int
+  96 006c B8EE477A 		vcvt.f32.u32	s14, s14
+  97 0070 27EE067A 		vmul.f32	s14, s14, s12
+  98 0074 BCEEC77A 		vcvt.u32.f32	s14, s14
+  99 0078 83ED0E7A 		vstr.32	s14, [r3, #56]	@ int
   37:Core/Src/foc.c **** 		__HAL_TIM_SET_COMPARE(&TIM_PWM, TIM_CH_U, ((TIM_PWM.Instance->ARR))*dtc_v);
+ 100              		.loc 1 37 3 view .LVU22
+ 101 007c 93ED0B7A 		vldr.32	s14, [r3, #44]	@ int
+ 102 0080 B8EE477A 		vcvt.f32.u32	s14, s14
+ 103 0084 27EE267A 		vmul.f32	s14, s14, s13
+ 104 0088 BCEEC77A 		vcvt.u32.f32	s14, s14
+ 105 008c 83ED0D7A 		vstr.32	s14, [r3, #52]	@ int
   38:Core/Src/foc.c **** 		__HAL_TIM_SET_COMPARE(&TIM_PWM, TIM_CH_W, ((TIM_PWM.Instance->ARR))*dtc_w);
+ 106              		.loc 1 38 3 view .LVU23
+ 107 0090 93ED0B7A 		vldr.32	s14, [r3, #44]	@ int
+ 108 0094 B8EE477A 		vcvt.f32.u32	s14, s14
+ 109 0098 67EE277A 		vmul.f32	s15, s14, s15
+ 110              	.LVL9:
+ 111              		.loc 1 38 3 is_stmt 0 view .LVU24
+ 112 009c FCEEE77A 		vcvt.u32.f32	s15, s15
+ 113 00a0 C3ED0F7A 		vstr.32	s15, [r3, #60]	@ int
   39:Core/Src/foc.c **** 	}
   40:Core/Src/foc.c **** }
- 123              		.loc 1 40 1
- 124 00c4 35E0     		b	.L4
- 125              	.L2:
-  36:Core/Src/foc.c **** 		__HAL_TIM_SET_COMPARE(&TIM_PWM, TIM_CH_U, ((TIM_PWM.Instance->ARR))*dtc_v);
- 126              		.loc 1 36 3
- 127 00c6 1F4B     		ldr	r3, .L5+4
- 128 00c8 1B68     		ldr	r3, [r3]
- 129 00ca DB6A     		ldr	r3, [r3, #44]
- 130 00cc 07EE903A 		vmov	s15, r3	@ int
- 131 00d0 B8EE677A 		vcvt.f32.u32	s14, s15
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 4
-
-
- 132 00d4 D7ED057A 		vldr.32	s15, [r7, #20]
- 133 00d8 67EE277A 		vmul.f32	s15, s14, s15
- 134 00dc 194B     		ldr	r3, .L5+4
- 135 00de 1B68     		ldr	r3, [r3]
- 136 00e0 FCEEE77A 		vcvt.u32.f32	s15, s15
- 137 00e4 17EE902A 		vmov	r2, s15	@ int
- 138 00e8 9A63     		str	r2, [r3, #56]
-  37:Core/Src/foc.c **** 		__HAL_TIM_SET_COMPARE(&TIM_PWM, TIM_CH_W, ((TIM_PWM.Instance->ARR))*dtc_w);
- 139              		.loc 1 37 3
- 140 00ea 164B     		ldr	r3, .L5+4
- 141 00ec 1B68     		ldr	r3, [r3]
- 142 00ee DB6A     		ldr	r3, [r3, #44]
- 143 00f0 07EE903A 		vmov	s15, r3	@ int
- 144 00f4 B8EE677A 		vcvt.f32.u32	s14, s15
- 145 00f8 D7ED047A 		vldr.32	s15, [r7, #16]
- 146 00fc 67EE277A 		vmul.f32	s15, s14, s15
- 147 0100 104B     		ldr	r3, .L5+4
- 148 0102 1B68     		ldr	r3, [r3]
- 149 0104 FCEEE77A 		vcvt.u32.f32	s15, s15
- 150 0108 17EE902A 		vmov	r2, s15	@ int
- 151 010c 5A63     		str	r2, [r3, #52]
-  38:Core/Src/foc.c **** 	}
- 152              		.loc 1 38 3
- 153 010e 0D4B     		ldr	r3, .L5+4
- 154 0110 1B68     		ldr	r3, [r3]
- 155 0112 DB6A     		ldr	r3, [r3, #44]
- 156 0114 07EE903A 		vmov	s15, r3	@ int
- 157 0118 B8EE677A 		vcvt.f32.u32	s14, s15
- 158 011c D7ED037A 		vldr.32	s15, [r7, #12]
- 159 0120 67EE277A 		vmul.f32	s15, s14, s15
- 160 0124 074B     		ldr	r3, .L5+4
- 161 0126 1B68     		ldr	r3, [r3]
- 162 0128 FCEEE77A 		vcvt.u32.f32	s15, s15
- 163 012c 17EE902A 		vmov	r2, s15	@ int
- 164 0130 DA63     		str	r2, [r3, #60]
- 165              	.L4:
- 166              		.loc 1 40 1
- 167 0132 00BF     		nop
- 168 0134 1C37     		adds	r7, r7, #28
- 169              	.LCFI3:
- 170              		.cfi_def_cfa_offset 4
- 171 0136 BD46     		mov	sp, r7
- 172              	.LCFI4:
- 173              		.cfi_def_cfa_register 13
- 174              		@ sp needed
- 175 0138 5DF8047B 		ldr	r7, [sp], #4
- 176              	.LCFI5:
- 177              		.cfi_restore 7
- 178              		.cfi_def_cfa_offset 0
- 179 013c 7047     		bx	lr
- 180              	.L6:
- 181 013e 00BF     		.align	2
- 182              	.L5:
- 183 0140 00000000 		.word	__int_reg
- 184 0144 00000000 		.word	htim1
- 185              		.cfi_endproc
- 186              	.LFE239:
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 5
-
-
- 188              		.section	.text.analog_sample,"ax",%progbits
- 189              		.align	1
- 190              		.global	analog_sample
- 191              		.syntax unified
- 192              		.thumb
- 193              		.thumb_func
- 195              	analog_sample:
- 196              	.LFB240:
+ 114              		.loc 1 40 1 view .LVU25
+ 115 00a4 7047     		bx	lr
+ 116              	.L5:
+ 117 00a6 00BF     		.align	2
+ 118              	.L4:
+ 119 00a8 00000000 		.word	__int_reg
+ 120 00ac 00000000 		.word	htim1
+ 121              		.cfi_endproc
+ 122              	.LFE239:
+ 124              		.section	.text.analog_sample,"ax",%progbits
+ 125              		.align	1
+ 126              		.global	analog_sample
+ 127              		.syntax unified
+ 128              		.thumb
+ 129              		.thumb_func
+ 131              	analog_sample:
+ 132              	.LVL10:
+ 133              	.LFB240:
   41:Core/Src/foc.c **** 
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 4
+
+
   42:Core/Src/foc.c **** void analog_sample (ControllerStruct *controller){
- 197              		.loc 1 42 50
- 198              		.cfi_startproc
- 199              		@ args = 0, pretend = 0, frame = 8
- 200              		@ frame_needed = 1, uses_anonymous_args = 0
- 201 0000 80B5     		push	{r7, lr}
- 202              	.LCFI6:
- 203              		.cfi_def_cfa_offset 8
- 204              		.cfi_offset 7, -8
- 205              		.cfi_offset 14, -4
- 206 0002 82B0     		sub	sp, sp, #8
- 207              	.LCFI7:
- 208              		.cfi_def_cfa_offset 16
- 209 0004 00AF     		add	r7, sp, #0
- 210              	.LCFI8:
- 211              		.cfi_def_cfa_register 7
- 212 0006 7860     		str	r0, [r7, #4]
+ 134              		.loc 1 42 50 is_stmt 1 view -0
+ 135              		.cfi_startproc
+ 136              		@ args = 0, pretend = 0, frame = 0
+ 137              		@ frame_needed = 0, uses_anonymous_args = 0
+ 138              		.loc 1 42 50 is_stmt 0 view .LVU27
+ 139 0000 38B5     		push	{r3, r4, r5, lr}
+ 140              		.cfi_def_cfa_offset 16
+ 141              		.cfi_offset 3, -16
+ 142              		.cfi_offset 4, -12
+ 143              		.cfi_offset 5, -8
+ 144              		.cfi_offset 14, -4
+ 145 0002 0446     		mov	r4, r0
   43:Core/Src/foc.c **** 	/* Sampe ADCs */
   44:Core/Src/foc.c **** 	/* Handle phase order swapping so that voltage/current/torque match encoder direction */
   45:Core/Src/foc.c **** 	if(!PHASE_ORDER){
- 213              		.loc 1 45 6
- 214 0008 384B     		ldr	r3, .L10
- 215 000a 1B68     		ldr	r3, [r3]
- 216              		.loc 1 45 4
- 217 000c 002B     		cmp	r3, #0
- 218 000e 0ED1     		bne	.L8
+ 146              		.loc 1 45 2 is_stmt 1 view .LVU28
+ 147              		.loc 1 45 6 is_stmt 0 view .LVU29
+ 148 0004 264B     		ldr	r3, .L10
+ 149 0006 1B68     		ldr	r3, [r3]
+ 150              		.loc 1 45 4 view .LVU30
+ 151 0008 002B     		cmp	r3, #0
+ 152 000a 3FD1     		bne	.L7
   46:Core/Src/foc.c **** 		controller->adc_a_raw = HAL_ADC_GetValue(&ADC_CH_IA);
- 219              		.loc 1 46 27
- 220 0010 3748     		ldr	r0, .L10+4
- 221 0012 FFF7FEFF 		bl	HAL_ADC_GetValue
- 222 0016 0346     		mov	r3, r0
- 223 0018 1A46     		mov	r2, r3
- 224              		.loc 1 46 25
- 225 001a 7B68     		ldr	r3, [r7, #4]
- 226 001c 5A60     		str	r2, [r3, #4]
+ 153              		.loc 1 46 3 is_stmt 1 view .LVU31
+ 154              		.loc 1 46 27 is_stmt 0 view .LVU32
+ 155 000c 2548     		ldr	r0, .L10+4
+ 156              	.LVL11:
+ 157              		.loc 1 46 27 view .LVU33
+ 158 000e FFF7FEFF 		bl	HAL_ADC_GetValue
+ 159              	.LVL12:
+ 160              		.loc 1 46 25 view .LVU34
+ 161 0012 6060     		str	r0, [r4, #4]
   47:Core/Src/foc.c **** 		controller->adc_b_raw = HAL_ADC_GetValue(&ADC_CH_IB);
- 227              		.loc 1 47 27
- 228 001e 3548     		ldr	r0, .L10+8
- 229 0020 FFF7FEFF 		bl	HAL_ADC_GetValue
- 230 0024 0346     		mov	r3, r0
- 231 0026 1A46     		mov	r2, r3
- 232              		.loc 1 47 25
- 233 0028 7B68     		ldr	r3, [r7, #4]
- 234 002a 9A60     		str	r2, [r3, #8]
- 235 002c 0DE0     		b	.L9
- 236              	.L8:
+ 162              		.loc 1 47 3 is_stmt 1 view .LVU35
+ 163              		.loc 1 47 27 is_stmt 0 view .LVU36
+ 164 0014 2448     		ldr	r0, .L10+8
+ 165 0016 FFF7FEFF 		bl	HAL_ADC_GetValue
+ 166              	.LVL13:
+ 167              		.loc 1 47 25 view .LVU37
+ 168 001a A060     		str	r0, [r4, #8]
+ 169              	.L8:
   48:Core/Src/foc.c **** 		//adc_ch_ic = ADC_CH_IC;
   49:Core/Src/foc.c **** 	}
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 6
-
-
   50:Core/Src/foc.c **** 	else{
   51:Core/Src/foc.c **** 		controller->adc_a_raw = HAL_ADC_GetValue(&ADC_CH_IB);
- 237              		.loc 1 51 27
- 238 002e 3148     		ldr	r0, .L10+8
- 239 0030 FFF7FEFF 		bl	HAL_ADC_GetValue
- 240 0034 0346     		mov	r3, r0
- 241 0036 1A46     		mov	r2, r3
- 242              		.loc 1 51 25
- 243 0038 7B68     		ldr	r3, [r7, #4]
- 244 003a 5A60     		str	r2, [r3, #4]
   52:Core/Src/foc.c **** 		controller->adc_b_raw = HAL_ADC_GetValue(&ADC_CH_IA);
- 245              		.loc 1 52 27
- 246 003c 2C48     		ldr	r0, .L10+4
- 247 003e FFF7FEFF 		bl	HAL_ADC_GetValue
- 248 0042 0346     		mov	r3, r0
- 249 0044 1A46     		mov	r2, r3
- 250              		.loc 1 52 25
- 251 0046 7B68     		ldr	r3, [r7, #4]
- 252 0048 9A60     		str	r2, [r3, #8]
- 253              	.L9:
   53:Core/Src/foc.c **** 		//adc_ch_ic = ADC_CH_IB;
   54:Core/Src/foc.c **** 	}
   55:Core/Src/foc.c **** 
   56:Core/Src/foc.c **** 
   57:Core/Src/foc.c **** 	HAL_ADC_Start(&ADC_CH_MAIN);
- 254              		.loc 1 57 2
- 255 004a 2948     		ldr	r0, .L10+4
- 256 004c FFF7FEFF 		bl	HAL_ADC_Start
+ 170              		.loc 1 57 2 is_stmt 1 view .LVU38
+ 171 001c 214D     		ldr	r5, .L10+4
+ 172 001e 2846     		mov	r0, r5
+ 173 0020 FFF7FEFF 		bl	HAL_ADC_Start
+ 174              	.LVL14:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 5
+
+
   58:Core/Src/foc.c **** 	HAL_ADC_PollForConversion(&ADC_CH_MAIN, HAL_MAX_DELAY);
- 257              		.loc 1 58 2
- 258 0050 4FF0FF31 		mov	r1, #-1
- 259 0054 2648     		ldr	r0, .L10+4
- 260 0056 FFF7FEFF 		bl	HAL_ADC_PollForConversion
+ 175              		.loc 1 58 2 view .LVU39
+ 176 0024 4FF0FF31 		mov	r1, #-1
+ 177 0028 2846     		mov	r0, r5
+ 178 002a FFF7FEFF 		bl	HAL_ADC_PollForConversion
+ 179              	.LVL15:
   59:Core/Src/foc.c **** 
   60:Core/Src/foc.c **** 	controller->adc_vbus_raw = HAL_ADC_GetValue(&ADC_CH_VBUS);
- 261              		.loc 1 60 29
- 262 005a 2748     		ldr	r0, .L10+12
- 263 005c FFF7FEFF 		bl	HAL_ADC_GetValue
- 264 0060 0346     		mov	r3, r0
- 265 0062 1A46     		mov	r2, r3
- 266              		.loc 1 60 27
- 267 0064 7B68     		ldr	r3, [r7, #4]
- 268 0066 1A61     		str	r2, [r3, #16]
+ 180              		.loc 1 60 2 view .LVU40
+ 181              		.loc 1 60 29 is_stmt 0 view .LVU41
+ 182 002e 1F48     		ldr	r0, .L10+12
+ 183 0030 FFF7FEFF 		bl	HAL_ADC_GetValue
+ 184              	.LVL16:
+ 185              		.loc 1 60 27 view .LVU42
+ 186 0034 2061     		str	r0, [r4, #16]
   61:Core/Src/foc.c **** 	controller->v_bus = (float)controller->adc_vbus_raw*V_SCALE;
- 269              		.loc 1 61 39
- 270 0068 7B68     		ldr	r3, [r7, #4]
- 271 006a 1B69     		ldr	r3, [r3, #16]
- 272              		.loc 1 61 22
- 273 006c 07EE903A 		vmov	s15, r3	@ int
- 274 0070 F8EEE77A 		vcvt.f32.s32	s15, s15
- 275              		.loc 1 61 53
- 276 0074 9FED217A 		vldr.32	s14, .L10+16
- 277 0078 67EE877A 		vmul.f32	s15, s15, s14
- 278              		.loc 1 61 20
- 279 007c 7B68     		ldr	r3, [r7, #4]
- 280 007e C3ED087A 		vstr.32	s15, [r3, #32]
+ 187              		.loc 1 61 2 is_stmt 1 view .LVU43
+ 188              		.loc 1 61 22 is_stmt 0 view .LVU44
+ 189 0036 07EE900A 		vmov	s15, r0	@ int
+ 190 003a F8EEE77A 		vcvt.f32.s32	s15, s15
+ 191              		.loc 1 61 53 view .LVU45
+ 192 003e 9FED1C7A 		vldr.32	s14, .L10+16
+ 193 0042 67EE877A 		vmul.f32	s15, s15, s14
+ 194              		.loc 1 61 20 view .LVU46
+ 195 0046 C4ED087A 		vstr.32	s15, [r4, #32]
   62:Core/Src/foc.c **** 
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 7
-
-
   63:Core/Src/foc.c ****     controller->i_a = controller->i_scale*(float)(controller->adc_a_raw - controller->adc_a_offset)
- 281              		.loc 1 63 33
- 282 0082 7B68     		ldr	r3, [r7, #4]
- 283 0084 93ED1D7A 		vldr.32	s14, [r3, #116]
- 284              		.loc 1 63 61
- 285 0088 7B68     		ldr	r3, [r7, #4]
- 286 008a 5A68     		ldr	r2, [r3, #4]
- 287              		.loc 1 63 85
- 288 008c 7B68     		ldr	r3, [r7, #4]
- 289 008e D3F89C30 		ldr	r3, [r3, #156]
- 290              		.loc 1 63 73
- 291 0092 D31A     		subs	r3, r2, r3
- 292              		.loc 1 63 43
- 293 0094 07EE903A 		vmov	s15, r3	@ int
- 294 0098 F8EEE77A 		vcvt.f32.s32	s15, s15
- 295              		.loc 1 63 42
- 296 009c 67EE277A 		vmul.f32	s15, s14, s15
- 297              		.loc 1 63 21
- 298 00a0 7B68     		ldr	r3, [r7, #4]
- 299 00a2 C3ED057A 		vstr.32	s15, [r3, #20]
+ 196              		.loc 1 63 5 is_stmt 1 view .LVU47
+ 197              		.loc 1 63 33 is_stmt 0 view .LVU48
+ 198 004a D4ED1D6A 		vldr.32	s13, [r4, #116]
+ 199              		.loc 1 63 61 view .LVU49
+ 200 004e 6368     		ldr	r3, [r4, #4]
+ 201              		.loc 1 63 85 view .LVU50
+ 202 0050 D4F89C20 		ldr	r2, [r4, #156]
+ 203              		.loc 1 63 73 view .LVU51
+ 204 0054 9B1A     		subs	r3, r3, r2
+ 205 0056 07EE903A 		vmov	s15, r3	@ int
+ 206              		.loc 1 63 43 view .LVU52
+ 207 005a F8EEE77A 		vcvt.f32.s32	s15, s15
+ 208              		.loc 1 63 42 view .LVU53
+ 209 005e 66EEA77A 		vmul.f32	s15, s13, s15
+ 210              		.loc 1 63 21 view .LVU54
+ 211 0062 C4ED057A 		vstr.32	s15, [r4, #20]
   64:Core/Src/foc.c ****     controller->i_b = controller->i_scale*(float)(controller->adc_b_raw - controller->adc_b_offset)
- 300              		.loc 1 64 33
- 301 00a6 7B68     		ldr	r3, [r7, #4]
- 302 00a8 93ED1D7A 		vldr.32	s14, [r3, #116]
- 303              		.loc 1 64 61
- 304 00ac 7B68     		ldr	r3, [r7, #4]
- 305 00ae 9A68     		ldr	r2, [r3, #8]
- 306              		.loc 1 64 85
- 307 00b0 7B68     		ldr	r3, [r7, #4]
- 308 00b2 D3F8A030 		ldr	r3, [r3, #160]
- 309              		.loc 1 64 73
- 310 00b6 D31A     		subs	r3, r2, r3
- 311              		.loc 1 64 43
- 312 00b8 07EE903A 		vmov	s15, r3	@ int
- 313 00bc F8EEE77A 		vcvt.f32.s32	s15, s15
- 314              		.loc 1 64 42
- 315 00c0 67EE277A 		vmul.f32	s15, s14, s15
- 316              		.loc 1 64 21
- 317 00c4 7B68     		ldr	r3, [r7, #4]
- 318 00c6 C3ED067A 		vstr.32	s15, [r3, #24]
+ 212              		.loc 1 64 5 is_stmt 1 view .LVU55
+ 213              		.loc 1 64 61 is_stmt 0 view .LVU56
+ 214 0066 A368     		ldr	r3, [r4, #8]
+ 215              		.loc 1 64 85 view .LVU57
+ 216 0068 D4F8A020 		ldr	r2, [r4, #160]
+ 217              		.loc 1 64 73 view .LVU58
+ 218 006c 9B1A     		subs	r3, r3, r2
+ 219 006e 07EE103A 		vmov	s14, r3	@ int
+ 220              		.loc 1 64 43 view .LVU59
+ 221 0072 B8EEC77A 		vcvt.f32.s32	s14, s14
+ 222              		.loc 1 64 42 view .LVU60
+ 223 0076 26EE877A 		vmul.f32	s14, s13, s14
+ 224              		.loc 1 64 21 view .LVU61
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 6
+
+
+ 225 007a 84ED067A 		vstr.32	s14, [r4, #24]
   65:Core/Src/foc.c ****     controller->i_c = -controller->i_a - controller->i_b;
- 319              		.loc 1 65 34
- 320 00ca 7B68     		ldr	r3, [r7, #4]
- 321 00cc D3ED057A 		vldr.32	s15, [r3, #20]
- 322              		.loc 1 65 23
- 323 00d0 B1EE677A 		vneg.f32	s14, s15
- 324              		.loc 1 65 52
- 325 00d4 7B68     		ldr	r3, [r7, #4]
- 326 00d6 D3ED067A 		vldr.32	s15, [r3, #24]
- 327              		.loc 1 65 40
- 328 00da 77EE677A 		vsub.f32	s15, s14, s15
- 329              		.loc 1 65 21
- 330 00de 7B68     		ldr	r3, [r7, #4]
- 331 00e0 C3ED077A 		vstr.32	s15, [r3, #28]
+ 226              		.loc 1 65 5 is_stmt 1 view .LVU62
+ 227              		.loc 1 65 23 is_stmt 0 view .LVU63
+ 228 007e F1EE677A 		vneg.f32	s15, s15
+ 229              		.loc 1 65 40 view .LVU64
+ 230 0082 77EEC77A 		vsub.f32	s15, s15, s14
+ 231              		.loc 1 65 21 view .LVU65
+ 232 0086 C4ED077A 		vstr.32	s15, [r4, #28]
   66:Core/Src/foc.c **** 
   67:Core/Src/foc.c **** }
- 332              		.loc 1 67 1
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 8
+ 233              		.loc 1 67 1 view .LVU66
+ 234 008a 38BD     		pop	{r3, r4, r5, pc}
+ 235              	.LVL17:
+ 236              	.L7:
+  51:Core/Src/foc.c **** 		controller->adc_b_raw = HAL_ADC_GetValue(&ADC_CH_IA);
+ 237              		.loc 1 51 3 is_stmt 1 view .LVU67
+  51:Core/Src/foc.c **** 		controller->adc_b_raw = HAL_ADC_GetValue(&ADC_CH_IA);
+ 238              		.loc 1 51 27 is_stmt 0 view .LVU68
+ 239 008c 0648     		ldr	r0, .L10+8
+ 240              	.LVL18:
+  51:Core/Src/foc.c **** 		controller->adc_b_raw = HAL_ADC_GetValue(&ADC_CH_IA);
+ 241              		.loc 1 51 27 view .LVU69
+ 242 008e FFF7FEFF 		bl	HAL_ADC_GetValue
+ 243              	.LVL19:
+  51:Core/Src/foc.c **** 		controller->adc_b_raw = HAL_ADC_GetValue(&ADC_CH_IA);
+ 244              		.loc 1 51 25 view .LVU70
+ 245 0092 6060     		str	r0, [r4, #4]
+  52:Core/Src/foc.c **** 		//adc_ch_ic = ADC_CH_IB;
+ 246              		.loc 1 52 3 is_stmt 1 view .LVU71
+  52:Core/Src/foc.c **** 		//adc_ch_ic = ADC_CH_IB;
+ 247              		.loc 1 52 27 is_stmt 0 view .LVU72
+ 248 0094 0348     		ldr	r0, .L10+4
+ 249 0096 FFF7FEFF 		bl	HAL_ADC_GetValue
+ 250              	.LVL20:
+  52:Core/Src/foc.c **** 		//adc_ch_ic = ADC_CH_IB;
+ 251              		.loc 1 52 25 view .LVU73
+ 252 009a A060     		str	r0, [r4, #8]
+ 253 009c BEE7     		b	.L8
+ 254              	.L11:
+ 255 009e 00BF     		.align	2
+ 256              	.L10:
+ 257 00a0 00000000 		.word	__int_reg
+ 258 00a4 00000000 		.word	hadc1
+ 259 00a8 00000000 		.word	hadc2
+ 260 00ac 00000000 		.word	hadc3
+ 261 00b0 1833533C 		.word	1012085528
+ 262              		.cfi_endproc
+ 263              	.LFE240:
+ 265              		.section	.text.abc,"ax",%progbits
+ 266              		.align	1
+ 267              		.global	abc
+ 268              		.syntax unified
+ 269              		.thumb
+ 270              		.thumb_func
+ 272              	abc:
+ 273              	.LVL21:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 7
 
 
- 333 00e4 00BF     		nop
- 334 00e6 0837     		adds	r7, r7, #8
- 335              	.LCFI9:
- 336              		.cfi_def_cfa_offset 8
- 337 00e8 BD46     		mov	sp, r7
- 338              	.LCFI10:
- 339              		.cfi_def_cfa_register 13
- 340              		@ sp needed
- 341 00ea 80BD     		pop	{r7, pc}
- 342              	.L11:
- 343              		.align	2
- 344              	.L10:
- 345 00ec 00000000 		.word	__int_reg
- 346 00f0 00000000 		.word	hadc1
- 347 00f4 00000000 		.word	hadc2
- 348 00f8 00000000 		.word	hadc3
- 349 00fc 1833533C 		.word	1012085528
- 350              		.cfi_endproc
- 351              	.LFE240:
- 353              		.section	.text.abc,"ax",%progbits
- 354              		.align	1
- 355              		.global	abc
- 356              		.syntax unified
- 357              		.thumb
- 358              		.thumb_func
- 360              	abc:
- 361              	.LFB241:
+ 274              	.LFB241:
   68:Core/Src/foc.c **** 
   69:Core/Src/foc.c **** void abc( float theta, float d, float q, float *a, float *b, float *c){
- 362              		.loc 1 69 71
- 363              		.cfi_startproc
- 364              		@ args = 0, pretend = 0, frame = 32
- 365              		@ frame_needed = 1, uses_anonymous_args = 0
- 366 0000 80B5     		push	{r7, lr}
- 367              	.LCFI11:
- 368              		.cfi_def_cfa_offset 8
- 369              		.cfi_offset 7, -8
- 370              		.cfi_offset 14, -4
- 371 0002 88B0     		sub	sp, sp, #32
- 372              	.LCFI12:
- 373              		.cfi_def_cfa_offset 40
- 374 0004 00AF     		add	r7, sp, #0
- 375              	.LCFI13:
- 376              		.cfi_def_cfa_register 7
- 377 0006 87ED050A 		vstr.32	s0, [r7, #20]
- 378 000a C7ED040A 		vstr.32	s1, [r7, #16]
- 379 000e 87ED031A 		vstr.32	s2, [r7, #12]
- 380 0012 B860     		str	r0, [r7, #8]
- 381 0014 7960     		str	r1, [r7, #4]
- 382 0016 3A60     		str	r2, [r7]
+ 275              		.loc 1 69 71 is_stmt 1 view -0
+ 276              		.cfi_startproc
+ 277              		@ args = 0, pretend = 0, frame = 0
+ 278              		@ frame_needed = 0, uses_anonymous_args = 0
+ 279              		.loc 1 69 71 is_stmt 0 view .LVU75
+ 280 0000 70B5     		push	{r4, r5, r6, lr}
+ 281              		.cfi_def_cfa_offset 16
+ 282              		.cfi_offset 4, -16
+ 283              		.cfi_offset 5, -12
+ 284              		.cfi_offset 6, -8
+ 285              		.cfi_offset 14, -4
+ 286 0002 2DED048B 		vpush.64	{d8, d9}
+ 287              		.cfi_def_cfa_offset 32
+ 288              		.cfi_offset 80, -32
+ 289              		.cfi_offset 81, -28
+ 290              		.cfi_offset 82, -24
+ 291              		.cfi_offset 83, -20
+ 292 0006 F0EE409A 		vmov.f32	s19, s0
+ 293 000a B0EE609A 		vmov.f32	s18, s1
+ 294 000e F0EE418A 		vmov.f32	s17, s2
+ 295 0012 0646     		mov	r6, r0
+ 296 0014 0D46     		mov	r5, r1
+ 297 0016 1446     		mov	r4, r2
   70:Core/Src/foc.c ****     /* Inverse DQ0 Transform
   71:Core/Src/foc.c ****     Phase current amplitude = lengh of dq vector
   72:Core/Src/foc.c ****     i.e. iq = 1, id = 0, peak phase current of 1 */
   73:Core/Src/foc.c **** 
   74:Core/Src/foc.c ****     float cf = cos_lut(theta);
- 383              		.loc 1 74 16
- 384 0018 97ED050A 		vldr.32	s0, [r7, #20]
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 9
-
-
- 385 001c FFF7FEFF 		bl	cos_lut
- 386 0020 87ED070A 		vstr.32	s0, [r7, #28]
+ 298              		.loc 1 74 5 is_stmt 1 view .LVU76
+ 299              		.loc 1 74 16 is_stmt 0 view .LVU77
+ 300 0018 FFF7FEFF 		bl	cos_lut
+ 301              	.LVL22:
+ 302              		.loc 1 74 16 view .LVU78
+ 303 001c B0EE408A 		vmov.f32	s16, s0
+ 304              	.LVL23:
   75:Core/Src/foc.c ****     float sf = sin_lut(theta);
- 387              		.loc 1 75 16
- 388 0024 97ED050A 		vldr.32	s0, [r7, #20]
- 389 0028 FFF7FEFF 		bl	sin_lut
- 390 002c 87ED060A 		vstr.32	s0, [r7, #24]
+ 305              		.loc 1 75 5 is_stmt 1 view .LVU79
+ 306              		.loc 1 75 16 is_stmt 0 view .LVU80
+ 307 0020 B0EE690A 		vmov.f32	s0, s19
+ 308              	.LVL24:
+ 309              		.loc 1 75 16 view .LVU81
+ 310 0024 FFF7FEFF 		bl	sin_lut
+ 311              	.LVL25:
   76:Core/Src/foc.c **** 
   77:Core/Src/foc.c ****     *a = cf*d - sf*q;
- 391              		.loc 1 77 12
- 392 0030 97ED077A 		vldr.32	s14, [r7, #28]
- 393 0034 D7ED047A 		vldr.32	s15, [r7, #16]
- 394 0038 27EE277A 		vmul.f32	s14, s14, s15
- 395              		.loc 1 77 19
- 396 003c D7ED066A 		vldr.32	s13, [r7, #24]
- 397 0040 D7ED037A 		vldr.32	s15, [r7, #12]
- 398 0044 66EEA77A 		vmul.f32	s15, s13, s15
- 399              		.loc 1 77 15
- 400 0048 77EE677A 		vsub.f32	s15, s14, s15
- 401              		.loc 1 77 8
- 402 004c BB68     		ldr	r3, [r7, #8]
- 403 004e C3ED007A 		vstr.32	s15, [r3]
+ 312              		.loc 1 77 5 is_stmt 1 view .LVU82
+ 313              		.loc 1 77 12 is_stmt 0 view .LVU83
+ 314 0028 68EE097A 		vmul.f32	s15, s16, s18
+ 315              		.loc 1 77 19 view .LVU84
+ 316 002c 20EE287A 		vmul.f32	s14, s0, s17
+ 317              		.loc 1 77 15 view .LVU85
+ 318 0030 77EEC77A 		vsub.f32	s15, s15, s14
+ 319              		.loc 1 77 8 view .LVU86
+ 320 0034 C6ED007A 		vstr.32	s15, [r6]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 8
+
+
   78:Core/Src/foc.c ****     *b = (SQRT3_2*sf-.5f*cf)*d - (-SQRT3_2*cf-.5f*sf)*q;
- 404              		.loc 1 78 18
- 405 0052 D7ED067A 		vldr.32	s15, [r7, #24]
- 406 0056 9FED2A7A 		vldr.32	s14, .L13
- 407 005a 27EE877A 		vmul.f32	s14, s15, s14
- 408              		.loc 1 78 25
- 409 005e D7ED077A 		vldr.32	s15, [r7, #28]
- 410 0062 F6EE006A 		vmov.f32	s13, #5.0e-1
- 411 0066 67EEA67A 		vmul.f32	s15, s15, s13
- 412              		.loc 1 78 21
- 413 006a 37EE677A 		vsub.f32	s14, s14, s15
- 414              		.loc 1 78 29
- 415 006e D7ED047A 		vldr.32	s15, [r7, #16]
- 416 0072 27EE277A 		vmul.f32	s14, s14, s15
- 417              		.loc 1 78 43
- 418 0076 D7ED077A 		vldr.32	s15, [r7, #28]
- 419 007a DFED226A 		vldr.32	s13, .L13+4
- 420 007e 67EEA66A 		vmul.f32	s13, s15, s13
- 421              		.loc 1 78 50
- 422 0082 D7ED067A 		vldr.32	s15, [r7, #24]
- 423 0086 B6EE006A 		vmov.f32	s12, #5.0e-1
- 424 008a 67EE867A 		vmul.f32	s15, s15, s12
- 425              		.loc 1 78 46
- 426 008e 76EEE76A 		vsub.f32	s13, s13, s15
- 427              		.loc 1 78 54
- 428 0092 D7ED037A 		vldr.32	s15, [r7, #12]
- 429 0096 66EEA77A 		vmul.f32	s15, s13, s15
- 430              		.loc 1 78 32
- 431 009a 77EE677A 		vsub.f32	s15, s14, s15
- 432              		.loc 1 78 8
- 433 009e 7B68     		ldr	r3, [r7, #4]
- 434 00a0 C3ED007A 		vstr.32	s15, [r3]
+ 321              		.loc 1 78 5 is_stmt 1 view .LVU87
+ 322              		.loc 1 78 18 is_stmt 0 view .LVU88
+ 323 0038 9FED166A 		vldr.32	s12, .L14
+ 324 003c 20EE067A 		vmul.f32	s14, s0, s12
+ 325              		.loc 1 78 25 view .LVU89
+ 326 0040 B6EE001A 		vmov.f32	s2, #5.0e-1
+ 327 0044 68EE010A 		vmul.f32	s1, s16, s2
+ 328              		.loc 1 78 21 view .LVU90
+ 329 0048 37EE607A 		vsub.f32	s14, s14, s1
+ 330              		.loc 1 78 29 view .LVU91
+ 331 004c 27EE097A 		vmul.f32	s14, s14, s18
+ 332              		.loc 1 78 43 view .LVU92
+ 333 0050 DFED117A 		vldr.32	s15, .L14+4
+ 334 0054 68EE276A 		vmul.f32	s13, s16, s15
+ 335              		.loc 1 78 50 view .LVU93
+ 336 0058 20EE011A 		vmul.f32	s2, s0, s2
+ 337              		.loc 1 78 46 view .LVU94
+ 338 005c 76EEC16A 		vsub.f32	s13, s13, s2
+ 339              		.loc 1 78 54 view .LVU95
+ 340 0060 66EEA86A 		vmul.f32	s13, s13, s17
+ 341              		.loc 1 78 32 view .LVU96
+ 342 0064 37EE667A 		vsub.f32	s14, s14, s13
+ 343              		.loc 1 78 8 view .LVU97
+ 344 0068 85ED007A 		vstr.32	s14, [r5]
   79:Core/Src/foc.c ****     *c = (-SQRT3_2*sf-.5f*cf)*d - (SQRT3_2*cf-.5f*sf)*q;
- 435              		.loc 1 79 19
- 436 00a4 D7ED067A 		vldr.32	s15, [r7, #24]
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 10
-
-
- 437 00a8 9FED167A 		vldr.32	s14, .L13+4
- 438 00ac 27EE877A 		vmul.f32	s14, s15, s14
- 439              		.loc 1 79 26
- 440 00b0 D7ED077A 		vldr.32	s15, [r7, #28]
- 441 00b4 F6EE006A 		vmov.f32	s13, #5.0e-1
- 442 00b8 67EEA67A 		vmul.f32	s15, s15, s13
- 443              		.loc 1 79 22
- 444 00bc 37EE677A 		vsub.f32	s14, s14, s15
- 445              		.loc 1 79 30
- 446 00c0 D7ED047A 		vldr.32	s15, [r7, #16]
- 447 00c4 27EE277A 		vmul.f32	s14, s14, s15
- 448              		.loc 1 79 43
- 449 00c8 D7ED077A 		vldr.32	s15, [r7, #28]
- 450 00cc DFED0C6A 		vldr.32	s13, .L13
- 451 00d0 67EEA66A 		vmul.f32	s13, s15, s13
- 452              		.loc 1 79 50
- 453 00d4 D7ED067A 		vldr.32	s15, [r7, #24]
- 454 00d8 B6EE006A 		vmov.f32	s12, #5.0e-1
- 455 00dc 67EE867A 		vmul.f32	s15, s15, s12
- 456              		.loc 1 79 46
- 457 00e0 76EEE76A 		vsub.f32	s13, s13, s15
- 458              		.loc 1 79 54
- 459 00e4 D7ED037A 		vldr.32	s15, [r7, #12]
- 460 00e8 66EEA77A 		vmul.f32	s15, s13, s15
- 461              		.loc 1 79 33
- 462 00ec 77EE677A 		vsub.f32	s15, s14, s15
- 463              		.loc 1 79 8
- 464 00f0 3B68     		ldr	r3, [r7]
- 465 00f2 C3ED007A 		vstr.32	s15, [r3]
+ 345              		.loc 1 79 5 is_stmt 1 view .LVU98
+ 346              		.loc 1 79 19 is_stmt 0 view .LVU99
+ 347 006c 60EE277A 		vmul.f32	s15, s0, s15
+ 348              		.loc 1 79 22 view .LVU100
+ 349 0070 77EEE07A 		vsub.f32	s15, s15, s1
+ 350              		.loc 1 79 30 view .LVU101
+ 351 0074 67EE890A 		vmul.f32	s1, s15, s18
+ 352              		.loc 1 79 43 view .LVU102
+ 353 0078 28EE068A 		vmul.f32	s16, s16, s12
+ 354              	.LVL26:
+ 355              		.loc 1 79 46 view .LVU103
+ 356 007c 38EE418A 		vsub.f32	s16, s16, s2
+ 357              		.loc 1 79 54 view .LVU104
+ 358 0080 28EE281A 		vmul.f32	s2, s16, s17
+ 359              		.loc 1 79 33 view .LVU105
+ 360 0084 30EEC11A 		vsub.f32	s2, s1, s2
+ 361              		.loc 1 79 8 view .LVU106
+ 362 0088 84ED001A 		vstr.32	s2, [r4]
   80:Core/Src/foc.c ****     }
- 466              		.loc 1 80 5
- 467 00f6 00BF     		nop
- 468 00f8 2037     		adds	r7, r7, #32
- 469              	.LCFI14:
- 470              		.cfi_def_cfa_offset 8
- 471 00fa BD46     		mov	sp, r7
- 472              	.LCFI15:
- 473              		.cfi_def_cfa_register 13
- 474              		@ sp needed
- 475 00fc 80BD     		pop	{r7, pc}
- 476              	.L14:
- 477 00fe 00BF     		.align	2
- 478              	.L13:
- 479 0100 D7B35D3F 		.word	1063105495
- 480 0104 D7B35DBF 		.word	-1084378153
- 481              		.cfi_endproc
- 482              	.LFE241:
- 484              		.section	.text.dq0,"ax",%progbits
- 485              		.align	1
- 486              		.global	dq0
- 487              		.syntax unified
- 488              		.thumb
- 489              		.thumb_func
- 491              	dq0:
- 492              	.LFB242:
+ 363              		.loc 1 80 5 view .LVU107
+ 364 008c BDEC048B 		vldm	sp!, {d8-d9}
+ 365              		.cfi_restore 82
+ 366              		.cfi_restore 83
+ 367              		.cfi_restore 80
+ 368              		.cfi_restore 81
+ 369              		.cfi_def_cfa_offset 16
+ 370              	.LVL27:
+ 371              		.loc 1 80 5 view .LVU108
+ 372 0090 70BD     		pop	{r4, r5, r6, pc}
+ 373              	.LVL28:
+ 374              	.L15:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 9
+
+
+ 375              		.loc 1 80 5 view .LVU109
+ 376 0092 00BF     		.align	2
+ 377              	.L14:
+ 378 0094 D7B35D3F 		.word	1063105495
+ 379 0098 D7B35DBF 		.word	-1084378153
+ 380              		.cfi_endproc
+ 381              	.LFE241:
+ 383              		.section	.text.dq0,"ax",%progbits
+ 384              		.align	1
+ 385              		.global	dq0
+ 386              		.syntax unified
+ 387              		.thumb
+ 388              		.thumb_func
+ 390              	dq0:
+ 391              	.LVL29:
+ 392              	.LFB242:
   81:Core/Src/foc.c **** 
   82:Core/Src/foc.c **** 
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 11
-
-
   83:Core/Src/foc.c **** void dq0(float theta, float a, float b, float c, float *d, float *q){
- 493              		.loc 1 83 69
- 494              		.cfi_startproc
- 495              		@ args = 0, pretend = 0, frame = 32
- 496              		@ frame_needed = 1, uses_anonymous_args = 0
- 497 0000 80B5     		push	{r7, lr}
- 498              	.LCFI16:
- 499              		.cfi_def_cfa_offset 8
- 500              		.cfi_offset 7, -8
- 501              		.cfi_offset 14, -4
- 502 0002 88B0     		sub	sp, sp, #32
- 503              	.LCFI17:
- 504              		.cfi_def_cfa_offset 40
- 505 0004 00AF     		add	r7, sp, #0
- 506              	.LCFI18:
- 507              		.cfi_def_cfa_register 7
- 508 0006 87ED050A 		vstr.32	s0, [r7, #20]
- 509 000a C7ED040A 		vstr.32	s1, [r7, #16]
- 510 000e 87ED031A 		vstr.32	s2, [r7, #12]
- 511 0012 C7ED021A 		vstr.32	s3, [r7, #8]
- 512 0016 7860     		str	r0, [r7, #4]
- 513 0018 3960     		str	r1, [r7]
+ 393              		.loc 1 83 69 is_stmt 1 view -0
+ 394              		.cfi_startproc
+ 395              		@ args = 0, pretend = 0, frame = 0
+ 396              		@ frame_needed = 0, uses_anonymous_args = 0
+ 397              		.loc 1 83 69 is_stmt 0 view .LVU111
+ 398 0000 38B5     		push	{r3, r4, r5, lr}
+ 399              		.cfi_def_cfa_offset 16
+ 400              		.cfi_offset 3, -16
+ 401              		.cfi_offset 4, -12
+ 402              		.cfi_offset 5, -8
+ 403              		.cfi_offset 14, -4
+ 404 0002 2DED068B 		vpush.64	{d8, d9, d10}
+ 405              		.cfi_def_cfa_offset 40
+ 406              		.cfi_offset 80, -40
+ 407              		.cfi_offset 81, -36
+ 408              		.cfi_offset 82, -32
+ 409              		.cfi_offset 83, -28
+ 410              		.cfi_offset 84, -24
+ 411              		.cfi_offset 85, -20
+ 412 0006 B0EE40AA 		vmov.f32	s20, s0
+ 413 000a B0EE608A 		vmov.f32	s16, s1
+ 414 000e F0EE419A 		vmov.f32	s19, s2
+ 415 0012 B0EE619A 		vmov.f32	s18, s3
+ 416 0016 0546     		mov	r5, r0
+ 417 0018 0C46     		mov	r4, r1
   84:Core/Src/foc.c ****     /* DQ0 Transform
   85:Core/Src/foc.c ****     Phase current amplitude = lengh of dq vector
   86:Core/Src/foc.c ****     i.e. iq = 1, id = 0, peak phase current of 1*/
   87:Core/Src/foc.c **** 
   88:Core/Src/foc.c ****     float cf = cos_lut(theta);
- 514              		.loc 1 88 16
- 515 001a 97ED050A 		vldr.32	s0, [r7, #20]
- 516 001e FFF7FEFF 		bl	cos_lut
- 517 0022 87ED070A 		vstr.32	s0, [r7, #28]
+ 418              		.loc 1 88 5 is_stmt 1 view .LVU112
+ 419              		.loc 1 88 16 is_stmt 0 view .LVU113
+ 420 001a FFF7FEFF 		bl	cos_lut
+ 421              	.LVL30:
+ 422              		.loc 1 88 16 view .LVU114
+ 423 001e F0EE408A 		vmov.f32	s17, s0
+ 424              	.LVL31:
   89:Core/Src/foc.c ****     float sf = sin_lut(theta);
- 518              		.loc 1 89 16
- 519 0026 97ED050A 		vldr.32	s0, [r7, #20]
- 520 002a FFF7FEFF 		bl	sin_lut
- 521 002e 87ED060A 		vstr.32	s0, [r7, #24]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 10
+
+
+ 425              		.loc 1 89 5 is_stmt 1 view .LVU115
+ 426              		.loc 1 89 16 is_stmt 0 view .LVU116
+ 427 0022 B0EE4A0A 		vmov.f32	s0, s20
+ 428              	.LVL32:
+ 429              		.loc 1 89 16 view .LVU117
+ 430 0026 FFF7FEFF 		bl	sin_lut
+ 431              	.LVL33:
   90:Core/Src/foc.c **** 
   91:Core/Src/foc.c ****     *d = 0.6666667f*(cf*a + (SQRT3_2*sf-.5f*cf)*b + (-SQRT3_2*sf-.5f*cf)*c);   ///Faster DQ0 Transf
- 522              		.loc 1 91 24
- 523 0032 97ED077A 		vldr.32	s14, [r7, #28]
- 524 0036 D7ED047A 		vldr.32	s15, [r7, #16]
- 525 003a 27EE277A 		vmul.f32	s14, s14, s15
- 526              		.loc 1 91 37
- 527 003e D7ED067A 		vldr.32	s15, [r7, #24]
- 528 0042 DFED346A 		vldr.32	s13, .L16
- 529 0046 67EEA66A 		vmul.f32	s13, s15, s13
- 530              		.loc 1 91 44
- 531 004a D7ED077A 		vldr.32	s15, [r7, #28]
- 532 004e B6EE006A 		vmov.f32	s12, #5.0e-1
- 533 0052 67EE867A 		vmul.f32	s15, s15, s12
- 534              		.loc 1 91 40
- 535 0056 76EEE76A 		vsub.f32	s13, s13, s15
- 536              		.loc 1 91 48
- 537 005a D7ED037A 		vldr.32	s15, [r7, #12]
- 538 005e 66EEA77A 		vmul.f32	s15, s13, s15
- 539              		.loc 1 91 27
- 540 0062 37EE277A 		vadd.f32	s14, s14, s15
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 12
-
-
- 541              		.loc 1 91 62
- 542 0066 D7ED067A 		vldr.32	s15, [r7, #24]
- 543 006a DFED2B6A 		vldr.32	s13, .L16+4
- 544 006e 67EEA66A 		vmul.f32	s13, s15, s13
- 545              		.loc 1 91 69
- 546 0072 D7ED077A 		vldr.32	s15, [r7, #28]
- 547 0076 B6EE006A 		vmov.f32	s12, #5.0e-1
- 548 007a 67EE867A 		vmul.f32	s15, s15, s12
- 549              		.loc 1 91 65
- 550 007e 76EEE76A 		vsub.f32	s13, s13, s15
- 551              		.loc 1 91 73
- 552 0082 D7ED027A 		vldr.32	s15, [r7, #8]
- 553 0086 66EEA77A 		vmul.f32	s15, s13, s15
- 554              		.loc 1 91 51
- 555 008a 77EE277A 		vadd.f32	s15, s14, s15
- 556              		.loc 1 91 20
- 557 008e 9FED237A 		vldr.32	s14, .L16+8
- 558 0092 67EE877A 		vmul.f32	s15, s15, s14
- 559              		.loc 1 91 8
- 560 0096 7B68     		ldr	r3, [r7, #4]
- 561 0098 C3ED007A 		vstr.32	s15, [r3]
+ 432              		.loc 1 91 5 is_stmt 1 view .LVU118
+ 433              		.loc 1 91 24 is_stmt 0 view .LVU119
+ 434 002a 28EE887A 		vmul.f32	s14, s17, s16
+ 435              		.loc 1 91 37 view .LVU120
+ 436 002e DFED1C1A 		vldr.32	s3, .L18
+ 437 0032 60EE217A 		vmul.f32	s15, s0, s3
+ 438              		.loc 1 91 44 view .LVU121
+ 439 0036 B6EE006A 		vmov.f32	s12, #5.0e-1
+ 440 003a 68EE865A 		vmul.f32	s11, s17, s12
+ 441              		.loc 1 91 40 view .LVU122
+ 442 003e 77EEE57A 		vsub.f32	s15, s15, s11
+ 443              		.loc 1 91 48 view .LVU123
+ 444 0042 67EEA97A 		vmul.f32	s15, s15, s19
+ 445              		.loc 1 91 27 view .LVU124
+ 446 0046 37EE277A 		vadd.f32	s14, s14, s15
+ 447              		.loc 1 91 62 view .LVU125
+ 448 004a DFED167A 		vldr.32	s15, .L18+4
+ 449 004e 60EE276A 		vmul.f32	s13, s0, s15
+ 450              		.loc 1 91 65 view .LVU126
+ 451 0052 76EEE56A 		vsub.f32	s13, s13, s11
+ 452              		.loc 1 91 73 view .LVU127
+ 453 0056 66EE896A 		vmul.f32	s13, s13, s18
+ 454              		.loc 1 91 51 view .LVU128
+ 455 005a 37EE267A 		vadd.f32	s14, s14, s13
+ 456              		.loc 1 91 20 view .LVU129
+ 457 005e DFED126A 		vldr.32	s13, .L18+8
+ 458 0062 27EE267A 		vmul.f32	s14, s14, s13
+ 459              		.loc 1 91 8 view .LVU130
+ 460 0066 85ED007A 		vstr.32	s14, [r5]
   92:Core/Src/foc.c ****     *q = 0.6666667f*(-sf*a - (-SQRT3_2*cf-.5f*sf)*b - (SQRT3_2*cf-.5f*sf)*c);
- 562              		.loc 1 92 22
- 563 009c D7ED067A 		vldr.32	s15, [r7, #24]
- 564 00a0 B1EE677A 		vneg.f32	s14, s15
- 565              		.loc 1 92 25
- 566 00a4 D7ED047A 		vldr.32	s15, [r7, #16]
- 567 00a8 27EE277A 		vmul.f32	s14, s14, s15
- 568              		.loc 1 92 39
- 569 00ac D7ED077A 		vldr.32	s15, [r7, #28]
- 570 00b0 DFED196A 		vldr.32	s13, .L16+4
- 571 00b4 67EEA66A 		vmul.f32	s13, s15, s13
- 572              		.loc 1 92 46
- 573 00b8 D7ED067A 		vldr.32	s15, [r7, #24]
- 574 00bc B6EE006A 		vmov.f32	s12, #5.0e-1
- 575 00c0 67EE867A 		vmul.f32	s15, s15, s12
- 576              		.loc 1 92 42
- 577 00c4 76EEE76A 		vsub.f32	s13, s13, s15
- 578              		.loc 1 92 50
- 579 00c8 D7ED037A 		vldr.32	s15, [r7, #12]
- 580 00cc 66EEA77A 		vmul.f32	s15, s13, s15
- 581              		.loc 1 92 28
- 582 00d0 37EE677A 		vsub.f32	s14, s14, s15
- 583              		.loc 1 92 63
- 584 00d4 D7ED077A 		vldr.32	s15, [r7, #28]
- 585 00d8 DFED0E6A 		vldr.32	s13, .L16
- 586 00dc 67EEA66A 		vmul.f32	s13, s15, s13
- 587              		.loc 1 92 70
- 588 00e0 D7ED067A 		vldr.32	s15, [r7, #24]
- 589 00e4 B6EE006A 		vmov.f32	s12, #5.0e-1
- 590 00e8 67EE867A 		vmul.f32	s15, s15, s12
- 591              		.loc 1 92 66
- 592 00ec 76EEE76A 		vsub.f32	s13, s13, s15
- 593              		.loc 1 92 74
- 594 00f0 D7ED027A 		vldr.32	s15, [r7, #8]
- 595 00f4 66EEA77A 		vmul.f32	s15, s13, s15
- 596              		.loc 1 92 53
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 13
+ 461              		.loc 1 92 5 is_stmt 1 view .LVU131
+ 462              		.loc 1 92 25 is_stmt 0 view .LVU132
+ 463 006a 20EE488A 		vnmul.f32	s16, s0, s16
+ 464              	.LVL34:
+ 465              		.loc 1 92 39 view .LVU133
+ 466 006e 68EEA77A 		vmul.f32	s15, s17, s15
+ 467              		.loc 1 92 46 view .LVU134
+ 468 0072 20EE060A 		vmul.f32	s0, s0, s12
+ 469              	.LVL35:
+ 470              		.loc 1 92 42 view .LVU135
+ 471 0076 77EEC07A 		vsub.f32	s15, s15, s0
+ 472              		.loc 1 92 50 view .LVU136
+ 473 007a 27EEA91A 		vmul.f32	s2, s15, s19
+ 474              		.loc 1 92 28 view .LVU137
+ 475 007e 38EE418A 		vsub.f32	s16, s16, s2
+ 476              		.loc 1 92 63 view .LVU138
+ 477 0082 68EEA18A 		vmul.f32	s17, s17, s3
+ 478              	.LVL36:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 11
 
 
- 597 00f8 77EE677A 		vsub.f32	s15, s14, s15
- 598              		.loc 1 92 20
- 599 00fc 9FED077A 		vldr.32	s14, .L16+8
- 600 0100 67EE877A 		vmul.f32	s15, s15, s14
- 601              		.loc 1 92 8
- 602 0104 3B68     		ldr	r3, [r7]
- 603 0106 C3ED007A 		vstr.32	s15, [r3]
+ 479              		.loc 1 92 66 view .LVU139
+ 480 0086 78EEC08A 		vsub.f32	s17, s17, s0
+ 481              		.loc 1 92 74 view .LVU140
+ 482 008a 68EE891A 		vmul.f32	s3, s17, s18
+ 483              		.loc 1 92 53 view .LVU141
+ 484 008e 38EE618A 		vsub.f32	s16, s16, s3
+ 485              		.loc 1 92 20 view .LVU142
+ 486 0092 28EE268A 		vmul.f32	s16, s16, s13
+ 487              		.loc 1 92 8 view .LVU143
+ 488 0096 84ED008A 		vstr.32	s16, [r4]
   93:Core/Src/foc.c **** 
   94:Core/Src/foc.c ****     }
- 604              		.loc 1 94 5
- 605 010a 00BF     		nop
- 606 010c 2037     		adds	r7, r7, #32
- 607              	.LCFI19:
- 608              		.cfi_def_cfa_offset 8
- 609 010e BD46     		mov	sp, r7
- 610              	.LCFI20:
- 611              		.cfi_def_cfa_register 13
- 612              		@ sp needed
- 613 0110 80BD     		pop	{r7, pc}
- 614              	.L17:
- 615 0112 00BF     		.align	2
- 616              	.L16:
- 617 0114 D7B35D3F 		.word	1063105495
- 618 0118 D7B35DBF 		.word	-1084378153
- 619 011c ABAA2A3F 		.word	1059760811
- 620              		.cfi_endproc
- 621              	.LFE242:
- 623              		.section	.text.svm,"ax",%progbits
- 624              		.align	1
- 625              		.global	svm
- 626              		.syntax unified
- 627              		.thumb
- 628              		.thumb_func
- 630              	svm:
- 631              	.LFB243:
+ 489              		.loc 1 94 5 view .LVU144
+ 490 009a BDEC068B 		vldm	sp!, {d8-d10}
+ 491              		.cfi_restore 84
+ 492              		.cfi_restore 85
+ 493              		.cfi_restore 82
+ 494              		.cfi_restore 83
+ 495              		.cfi_restore 80
+ 496              		.cfi_restore 81
+ 497              		.cfi_def_cfa_offset 16
+ 498              	.LVL37:
+ 499              		.loc 1 94 5 view .LVU145
+ 500 009e 38BD     		pop	{r3, r4, r5, pc}
+ 501              	.LVL38:
+ 502              	.L19:
+ 503              		.loc 1 94 5 view .LVU146
+ 504              		.align	2
+ 505              	.L18:
+ 506 00a0 D7B35D3F 		.word	1063105495
+ 507 00a4 D7B35DBF 		.word	-1084378153
+ 508 00a8 ABAA2A3F 		.word	1059760811
+ 509              		.cfi_endproc
+ 510              	.LFE242:
+ 512              		.section	.text.svm,"ax",%progbits
+ 513              		.align	1
+ 514              		.global	svm
+ 515              		.syntax unified
+ 516              		.thumb
+ 517              		.thumb_func
+ 519              	svm:
+ 520              	.LVL39:
+ 521              	.LFB243:
   95:Core/Src/foc.c **** 
   96:Core/Src/foc.c **** void svm(float v_max, float u, float v, float w, float *dtc_u, float *dtc_v, float *dtc_w){
- 632              		.loc 1 96 91
- 633              		.cfi_startproc
- 634              		@ args = 0, pretend = 0, frame = 40
- 635              		@ frame_needed = 1, uses_anonymous_args = 0
- 636 0000 80B5     		push	{r7, lr}
- 637              	.LCFI21:
- 638              		.cfi_def_cfa_offset 8
- 639              		.cfi_offset 7, -8
- 640              		.cfi_offset 14, -4
- 641 0002 2DED028B 		vpush.64	{d8}
- 642              	.LCFI22:
- 643              		.cfi_def_cfa_offset 16
- 644              		.cfi_offset 80, -16
- 645              		.cfi_offset 81, -12
- 646 0006 8AB0     		sub	sp, sp, #40
- 647              	.LCFI23:
- 648              		.cfi_def_cfa_offset 56
- 649 0008 00AF     		add	r7, sp, #0
- 650              	.LCFI24:
- 651              		.cfi_def_cfa_register 7
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 14
+ 522              		.loc 1 96 91 is_stmt 1 view -0
+ 523              		.cfi_startproc
+ 524              		@ args = 0, pretend = 0, frame = 0
+ 525              		@ frame_needed = 0, uses_anonymous_args = 0
+ 526              		.loc 1 96 91 is_stmt 0 view .LVU148
+ 527 0000 70B5     		push	{r4, r5, r6, lr}
+ 528              		.cfi_def_cfa_offset 16
+ 529              		.cfi_offset 4, -16
+ 530              		.cfi_offset 5, -12
+ 531              		.cfi_offset 6, -8
+ 532              		.cfi_offset 14, -4
+ 533 0002 2DED088B 		vpush.64	{d8, d9, d10, d11}
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 12
 
 
- 652 000a 87ED070A 		vstr.32	s0, [r7, #28]
- 653 000e C7ED060A 		vstr.32	s1, [r7, #24]
- 654 0012 87ED051A 		vstr.32	s2, [r7, #20]
- 655 0016 C7ED041A 		vstr.32	s3, [r7, #16]
- 656 001a F860     		str	r0, [r7, #12]
- 657 001c B960     		str	r1, [r7, #8]
- 658 001e 7A60     		str	r2, [r7, #4]
+ 534              		.cfi_def_cfa_offset 48
+ 535              		.cfi_offset 80, -48
+ 536              		.cfi_offset 81, -44
+ 537              		.cfi_offset 82, -40
+ 538              		.cfi_offset 83, -36
+ 539              		.cfi_offset 84, -32
+ 540              		.cfi_offset 85, -28
+ 541              		.cfi_offset 86, -24
+ 542              		.cfi_offset 87, -20
+ 543 0006 B0EE40AA 		vmov.f32	s20, s0
+ 544 000a F0EE609A 		vmov.f32	s19, s1
+ 545 000e B0EE419A 		vmov.f32	s18, s2
+ 546 0012 B0EE618A 		vmov.f32	s16, s3
+ 547 0016 0646     		mov	r6, r0
+ 548 0018 0D46     		mov	r5, r1
+ 549 001a 1446     		mov	r4, r2
   97:Core/Src/foc.c ****     /* Space Vector Modulation
   98:Core/Src/foc.c ****      u,v,w amplitude = v_bus for full modulation depth */
   99:Core/Src/foc.c **** 
  100:Core/Src/foc.c ****     float v_offset = (fminf3(u, v, w) + fmaxf3(u, v, w))*0.5f;
- 659              		.loc 1 100 23
- 660 0020 97ED041A 		vldr.32	s2, [r7, #16]
- 661 0024 D7ED050A 		vldr.32	s1, [r7, #20]
- 662 0028 97ED060A 		vldr.32	s0, [r7, #24]
- 663 002c FFF7FEFF 		bl	fminf3
- 664 0030 B0EE408A 		vmov.f32	s16, s0
- 665              		.loc 1 100 41
- 666 0034 97ED041A 		vldr.32	s2, [r7, #16]
- 667 0038 D7ED050A 		vldr.32	s1, [r7, #20]
- 668 003c 97ED060A 		vldr.32	s0, [r7, #24]
- 669 0040 FFF7FEFF 		bl	fmaxf3
- 670 0044 F0EE407A 		vmov.f32	s15, s0
- 671              		.loc 1 100 39
- 672 0048 78EE277A 		vadd.f32	s15, s16, s15
- 673              		.loc 1 100 11
- 674 004c B6EE007A 		vmov.f32	s14, #5.0e-1
- 675 0050 67EE877A 		vmul.f32	s15, s15, s14
- 676 0054 C7ED097A 		vstr.32	s15, [r7, #36]
+ 550              		.loc 1 100 5 is_stmt 1 view .LVU149
+ 551              		.loc 1 100 23 is_stmt 0 view .LVU150
+ 552 001c B0EE611A 		vmov.f32	s2, s3
+ 553              	.LVL40:
+ 554              		.loc 1 100 23 view .LVU151
+ 555 0020 F0EE490A 		vmov.f32	s1, s18
+ 556              	.LVL41:
+ 557              		.loc 1 100 23 view .LVU152
+ 558 0024 B0EE690A 		vmov.f32	s0, s19
+ 559              	.LVL42:
+ 560              		.loc 1 100 23 view .LVU153
+ 561 0028 FFF7FEFF 		bl	fminf3
+ 562              	.LVL43:
+ 563              		.loc 1 100 23 view .LVU154
+ 564 002c F0EE408A 		vmov.f32	s17, s0
+ 565              		.loc 1 100 41 view .LVU155
+ 566 0030 B0EE481A 		vmov.f32	s2, s16
+ 567 0034 F0EE490A 		vmov.f32	s1, s18
+ 568 0038 B0EE690A 		vmov.f32	s0, s19
+ 569 003c FFF7FEFF 		bl	fmaxf3
+ 570              	.LVL44:
+ 571              		.loc 1 100 39 view .LVU156
+ 572 0040 78EE808A 		vadd.f32	s17, s17, s0
+ 573              		.loc 1 100 11 view .LVU157
+ 574 0044 F6EE00AA 		vmov.f32	s21, #5.0e-1
+ 575 0048 68EEAA8A 		vmul.f32	s17, s17, s21
+ 576              	.LVL45:
  101:Core/Src/foc.c ****     float v_midpoint = .5f*(DTC_MAX+DTC_MIN);
- 677              		.loc 1 101 11
- 678 0058 3B4B     		ldr	r3, .L19
- 679 005a 3B62     		str	r3, [r7, #32]	@ float
+ 577              		.loc 1 101 5 is_stmt 1 view .LVU158
  102:Core/Src/foc.c **** 
  103:Core/Src/foc.c ****     *dtc_u = fast_fminf(fast_fmaxf((.5f*(u -v_offset)*OVERMODULATION/v_max + v_midpoint ), DTC_MIN)
- 680              		.loc 1 103 44
- 681 005c 97ED067A 		vldr.32	s14, [r7, #24]
- 682 0060 D7ED097A 		vldr.32	s15, [r7, #36]
- 683 0064 77EE677A 		vsub.f32	s15, s14, s15
- 684              		.loc 1 103 54
- 685 0068 B6EE007A 		vmov.f32	s14, #5.0e-1
- 686 006c 67EE876A 		vmul.f32	s13, s15, s14
- 687              		.loc 1 103 69
- 688 0070 D7ED077A 		vldr.32	s15, [r7, #28]
- 689 0074 86EEA77A 		vdiv.f32	s14, s13, s15
- 690              		.loc 1 103 14
- 691 0078 D7ED087A 		vldr.32	s15, [r7, #32]
- 692 007c 77EE277A 		vadd.f32	s15, s14, s15
- 693 0080 DFED320A 		vldr.32	s1, .L19+4
- 694 0084 B0EE670A 		vmov.f32	s0, s15
- 695 0088 FFF7FEFF 		bl	fast_fmaxf
- 696 008c F0EE407A 		vmov.f32	s15, s0
- 697 0090 DFED2F0A 		vldr.32	s1, .L19+8
- 698 0094 B0EE670A 		vmov.f32	s0, s15
- 699 0098 FFF7FEFF 		bl	fast_fminf
- 700 009c F0EE407A 		vmov.f32	s15, s0
- 701              		.loc 1 103 12
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 15
+ 578              		.loc 1 103 5 view .LVU159
+ 579              		.loc 1 103 44 is_stmt 0 view .LVU160
+ 580 004c 79EEE89A 		vsub.f32	s19, s19, s17
+ 581              	.LVL46:
+ 582              		.loc 1 103 54 view .LVU161
+ 583 0050 69EEAA9A 		vmul.f32	s19, s19, s21
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 13
 
 
- 702 00a0 FB68     		ldr	r3, [r7, #12]
- 703 00a2 C3ED007A 		vstr.32	s15, [r3]
+ 584              		.loc 1 103 69 view .LVU162
+ 585 0054 89EE8A0A 		vdiv.f32	s0, s19, s20
+ 586              		.loc 1 103 14 view .LVU163
+ 587 0058 DFED1CBA 		vldr.32	s23, .L22
+ 588 005c 9FED1CBA 		vldr.32	s22, .L22+4
+ 589 0060 F0EE6B0A 		vmov.f32	s1, s23
+ 590 0064 30EE0B0A 		vadd.f32	s0, s0, s22
+ 591 0068 FFF7FEFF 		bl	fast_fmaxf
+ 592              	.LVL47:
+ 593 006c DFED199A 		vldr.32	s19, .L22+8
+ 594 0070 F0EE690A 		vmov.f32	s1, s19
+ 595 0074 FFF7FEFF 		bl	fast_fminf
+ 596              	.LVL48:
+ 597              		.loc 1 103 12 view .LVU164
+ 598 0078 86ED000A 		vstr.32	s0, [r6]
  104:Core/Src/foc.c ****     *dtc_v = fast_fminf(fast_fmaxf((.5f*(v -v_offset)*OVERMODULATION/v_max + v_midpoint ), DTC_MIN)
- 704              		.loc 1 104 44
- 705 00a6 97ED057A 		vldr.32	s14, [r7, #20]
- 706 00aa D7ED097A 		vldr.32	s15, [r7, #36]
- 707 00ae 77EE677A 		vsub.f32	s15, s14, s15
- 708              		.loc 1 104 54
- 709 00b2 B6EE007A 		vmov.f32	s14, #5.0e-1
- 710 00b6 67EE876A 		vmul.f32	s13, s15, s14
- 711              		.loc 1 104 69
- 712 00ba D7ED077A 		vldr.32	s15, [r7, #28]
- 713 00be 86EEA77A 		vdiv.f32	s14, s13, s15
- 714              		.loc 1 104 14
- 715 00c2 D7ED087A 		vldr.32	s15, [r7, #32]
- 716 00c6 77EE277A 		vadd.f32	s15, s14, s15
- 717 00ca DFED200A 		vldr.32	s1, .L19+4
- 718 00ce B0EE670A 		vmov.f32	s0, s15
- 719 00d2 FFF7FEFF 		bl	fast_fmaxf
- 720 00d6 F0EE407A 		vmov.f32	s15, s0
- 721 00da DFED1D0A 		vldr.32	s1, .L19+8
- 722 00de B0EE670A 		vmov.f32	s0, s15
- 723 00e2 FFF7FEFF 		bl	fast_fminf
- 724 00e6 F0EE407A 		vmov.f32	s15, s0
- 725              		.loc 1 104 12
- 726 00ea BB68     		ldr	r3, [r7, #8]
- 727 00ec C3ED007A 		vstr.32	s15, [r3]
+ 599              		.loc 1 104 5 is_stmt 1 view .LVU165
+ 600              		.loc 1 104 44 is_stmt 0 view .LVU166
+ 601 007c 39EE689A 		vsub.f32	s18, s18, s17
+ 602              	.LVL49:
+ 603              		.loc 1 104 54 view .LVU167
+ 604 0080 29EE2A9A 		vmul.f32	s18, s18, s21
+ 605              		.loc 1 104 69 view .LVU168
+ 606 0084 89EE0A0A 		vdiv.f32	s0, s18, s20
+ 607              		.loc 1 104 14 view .LVU169
+ 608 0088 F0EE6B0A 		vmov.f32	s1, s23
+ 609 008c 30EE0B0A 		vadd.f32	s0, s0, s22
+ 610 0090 FFF7FEFF 		bl	fast_fmaxf
+ 611              	.LVL50:
+ 612 0094 F0EE690A 		vmov.f32	s1, s19
+ 613 0098 FFF7FEFF 		bl	fast_fminf
+ 614              	.LVL51:
+ 615              		.loc 1 104 12 view .LVU170
+ 616 009c 85ED000A 		vstr.32	s0, [r5]
  105:Core/Src/foc.c ****     *dtc_w = fast_fminf(fast_fmaxf((.5f*(w -v_offset)*OVERMODULATION/v_max + v_midpoint ), DTC_MIN)
- 728              		.loc 1 105 44
- 729 00f0 97ED047A 		vldr.32	s14, [r7, #16]
- 730 00f4 D7ED097A 		vldr.32	s15, [r7, #36]
- 731 00f8 77EE677A 		vsub.f32	s15, s14, s15
- 732              		.loc 1 105 54
- 733 00fc B6EE007A 		vmov.f32	s14, #5.0e-1
- 734 0100 67EE876A 		vmul.f32	s13, s15, s14
- 735              		.loc 1 105 69
- 736 0104 D7ED077A 		vldr.32	s15, [r7, #28]
- 737 0108 86EEA77A 		vdiv.f32	s14, s13, s15
- 738              		.loc 1 105 14
- 739 010c D7ED087A 		vldr.32	s15, [r7, #32]
- 740 0110 77EE277A 		vadd.f32	s15, s14, s15
- 741 0114 DFED0D0A 		vldr.32	s1, .L19+4
- 742 0118 B0EE670A 		vmov.f32	s0, s15
- 743 011c FFF7FEFF 		bl	fast_fmaxf
- 744 0120 F0EE407A 		vmov.f32	s15, s0
- 745 0124 DFED0A0A 		vldr.32	s1, .L19+8
- 746 0128 B0EE670A 		vmov.f32	s0, s15
- 747 012c FFF7FEFF 		bl	fast_fminf
- 748 0130 F0EE407A 		vmov.f32	s15, s0
- 749              		.loc 1 105 12
- 750 0134 7B68     		ldr	r3, [r7, #4]
- 751 0136 C3ED007A 		vstr.32	s15, [r3]
+ 617              		.loc 1 105 5 is_stmt 1 view .LVU171
+ 618              		.loc 1 105 44 is_stmt 0 view .LVU172
+ 619 00a0 38EE688A 		vsub.f32	s16, s16, s17
+ 620              	.LVL52:
+ 621              		.loc 1 105 54 view .LVU173
+ 622 00a4 28EE2A8A 		vmul.f32	s16, s16, s21
+ 623              		.loc 1 105 69 view .LVU174
+ 624 00a8 88EE0A0A 		vdiv.f32	s0, s16, s20
+ 625              		.loc 1 105 14 view .LVU175
+ 626 00ac F0EE6B0A 		vmov.f32	s1, s23
+ 627 00b0 30EE0B0A 		vadd.f32	s0, s0, s22
+ 628 00b4 FFF7FEFF 		bl	fast_fmaxf
+ 629              	.LVL53:
+ 630 00b8 F0EE690A 		vmov.f32	s1, s19
+ 631 00bc FFF7FEFF 		bl	fast_fminf
+ 632              	.LVL54:
+ 633              		.loc 1 105 12 view .LVU176
+ 634 00c0 84ED000A 		vstr.32	s0, [r4]
  106:Core/Src/foc.c **** 
  107:Core/Src/foc.c ****     }
- 752              		.loc 1 107 5
- 753 013a 00BF     		nop
- 754 013c 2837     		adds	r7, r7, #40
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 16
+ 635              		.loc 1 107 5 view .LVU177
+ 636 00c4 BDEC088B 		vldm	sp!, {d8-d11}
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 14
 
 
- 755              	.LCFI25:
- 756              		.cfi_def_cfa_offset 16
- 757 013e BD46     		mov	sp, r7
- 758              	.LCFI26:
- 759              		.cfi_def_cfa_register 13
- 760              		@ sp needed
- 761 0140 BDEC028B 		vldm	sp!, {d8}
- 762              	.LCFI27:
- 763              		.cfi_restore 80
- 764              		.cfi_restore 81
- 765              		.cfi_def_cfa_offset 8
- 766 0144 80BD     		pop	{r7, pc}
- 767              	.L20:
- 768 0146 00BF     		.align	2
- 769              	.L19:
- 770 0148 D7A3F03E 		.word	1055957975
- 771 014c 00000000 		.word	0
- 772 0150 D7A3703F 		.word	1064346583
- 773              		.cfi_endproc
- 774              	.LFE243:
- 776              		.section	.text.zero_current,"ax",%progbits
- 777              		.align	1
- 778              		.global	zero_current
- 779              		.syntax unified
- 780              		.thumb
- 781              		.thumb_func
- 783              	zero_current:
- 784              	.LFB244:
+ 637              		.cfi_restore 86
+ 638              		.cfi_restore 87
+ 639              		.cfi_restore 84
+ 640              		.cfi_restore 85
+ 641              		.cfi_restore 82
+ 642              		.cfi_restore 83
+ 643              		.cfi_restore 80
+ 644              		.cfi_restore 81
+ 645              		.cfi_def_cfa_offset 16
+ 646              	.LVL55:
+ 647              		.loc 1 107 5 view .LVU178
+ 648 00c8 70BD     		pop	{r4, r5, r6, pc}
+ 649              	.LVL56:
+ 650              	.L23:
+ 651              		.loc 1 107 5 view .LVU179
+ 652 00ca 00BF     		.align	2
+ 653              	.L22:
+ 654 00cc 00000000 		.word	0
+ 655 00d0 D7A3F03E 		.word	1055957975
+ 656 00d4 D7A3703F 		.word	1064346583
+ 657              		.cfi_endproc
+ 658              	.LFE243:
+ 660              		.section	.text.zero_current,"ax",%progbits
+ 661              		.align	1
+ 662              		.global	zero_current
+ 663              		.syntax unified
+ 664              		.thumb
+ 665              		.thumb_func
+ 667              	zero_current:
+ 668              	.LVL57:
+ 669              	.LFB244:
  108:Core/Src/foc.c **** 
  109:Core/Src/foc.c **** void zero_current(ControllerStruct *controller){
- 785              		.loc 1 109 48
- 786              		.cfi_startproc
- 787              		@ args = 0, pretend = 0, frame = 24
- 788              		@ frame_needed = 1, uses_anonymous_args = 0
- 789 0000 80B5     		push	{r7, lr}
- 790              	.LCFI28:
- 791              		.cfi_def_cfa_offset 8
- 792              		.cfi_offset 7, -8
- 793              		.cfi_offset 14, -4
- 794 0002 86B0     		sub	sp, sp, #24
- 795              	.LCFI29:
- 796              		.cfi_def_cfa_offset 32
- 797 0004 00AF     		add	r7, sp, #0
- 798              	.LCFI30:
- 799              		.cfi_def_cfa_register 7
- 800 0006 7860     		str	r0, [r7, #4]
+ 670              		.loc 1 109 48 is_stmt 1 view -0
+ 671              		.cfi_startproc
+ 672              		@ args = 0, pretend = 0, frame = 0
+ 673              		@ frame_needed = 0, uses_anonymous_args = 0
+ 674              		.loc 1 109 48 is_stmt 0 view .LVU181
+ 675 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 676              		.cfi_def_cfa_offset 24
+ 677              		.cfi_offset 3, -24
+ 678              		.cfi_offset 4, -20
+ 679              		.cfi_offset 5, -16
+ 680              		.cfi_offset 6, -12
+ 681              		.cfi_offset 7, -8
+ 682              		.cfi_offset 14, -4
+ 683 0002 0446     		mov	r4, r0
  110:Core/Src/foc.c **** 	/* Measure zero-current ADC offset */
  111:Core/Src/foc.c **** 
  112:Core/Src/foc.c ****     int adc_a_offset = 0;
- 801              		.loc 1 112 9
- 802 0008 0023     		movs	r3, #0
- 803 000a 7B61     		str	r3, [r7, #20]
+ 684              		.loc 1 112 5 is_stmt 1 view .LVU182
+ 685              	.LVL58:
  113:Core/Src/foc.c ****     int adc_b_offset = 0;
- 804              		.loc 1 113 9
- 805 000c 0023     		movs	r3, #0
- 806 000e 3B61     		str	r3, [r7, #16]
+ 686              		.loc 1 113 5 view .LVU183
  114:Core/Src/foc.c ****     int n = 1000;
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 17
-
-
- 807              		.loc 1 114 9
- 808 0010 4FF47A73 		mov	r3, #1000
- 809 0014 BB60     		str	r3, [r7, #8]
+ 687              		.loc 1 114 5 view .LVU184
  115:Core/Src/foc.c ****     controller->dtc_u = 0.f;
- 810              		.loc 1 115 23
- 811 0016 7B68     		ldr	r3, [r7, #4]
- 812 0018 4FF00002 		mov	r2, #0
- 813 001c DA65     		str	r2, [r3, #92]	@ float
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 15
+
+
+ 688              		.loc 1 115 5 view .LVU185
+ 689              		.loc 1 115 23 is_stmt 0 view .LVU186
+ 690 0004 0023     		movs	r3, #0
+ 691 0006 C365     		str	r3, [r0, #92]	@ float
  116:Core/Src/foc.c ****     controller->dtc_v = 0.f;
- 814              		.loc 1 116 23
- 815 001e 7B68     		ldr	r3, [r7, #4]
- 816 0020 4FF00002 		mov	r2, #0
- 817 0024 1A66     		str	r2, [r3, #96]	@ float
+ 692              		.loc 1 116 5 is_stmt 1 view .LVU187
+ 693              		.loc 1 116 23 is_stmt 0 view .LVU188
+ 694 0008 0366     		str	r3, [r0, #96]	@ float
  117:Core/Src/foc.c ****     controller->dtc_w = 0.f;
- 818              		.loc 1 117 23
- 819 0026 7B68     		ldr	r3, [r7, #4]
- 820 0028 4FF00002 		mov	r2, #0
- 821 002c 5A66     		str	r2, [r3, #100]	@ float
+ 695              		.loc 1 117 5 is_stmt 1 view .LVU189
+ 696              		.loc 1 117 23 is_stmt 0 view .LVU190
+ 697 000a 4366     		str	r3, [r0, #100]	@ float
  118:Core/Src/foc.c ****     set_dtc(controller);
- 822              		.loc 1 118 5
- 823 002e 7868     		ldr	r0, [r7, #4]
- 824 0030 FFF7FEFF 		bl	set_dtc
- 825              	.LBB2:
+ 698              		.loc 1 118 5 is_stmt 1 view .LVU191
+ 699 000c FFF7FEFF 		bl	set_dtc
+ 700              	.LVL59:
  119:Core/Src/foc.c **** 
  120:Core/Src/foc.c ****     for (int i = 0; i<n; i++){               // Average n samples
- 826              		.loc 1 120 14
- 827 0034 0023     		movs	r3, #0
- 828 0036 FB60     		str	r3, [r7, #12]
- 829              		.loc 1 120 5
- 830 0038 0FE0     		b	.L22
- 831              	.L23:
+ 701              		.loc 1 120 5 view .LVU192
+ 702              	.LBB2:
+ 703              		.loc 1 120 10 view .LVU193
+ 704              		.loc 1 120 14 is_stmt 0 view .LVU194
+ 705 0010 0025     		movs	r5, #0
+ 706              	.LBE2:
+ 113:Core/Src/foc.c ****     int n = 1000;
+ 707              		.loc 1 113 9 view .LVU195
+ 708 0012 2E46     		mov	r6, r5
+ 112:Core/Src/foc.c ****     int adc_b_offset = 0;
+ 709              		.loc 1 112 9 view .LVU196
+ 710 0014 2F46     		mov	r7, r5
+ 711              	.LBB3:
+ 712              		.loc 1 120 5 view .LVU197
+ 713 0016 07E0     		b	.L25
+ 714              	.LVL60:
+ 715              	.L26:
  121:Core/Src/foc.c ****     	analog_sample(controller);
- 832              		.loc 1 121 6 discriminator 3
- 833 003a 7868     		ldr	r0, [r7, #4]
- 834 003c FFF7FEFF 		bl	analog_sample
+ 716              		.loc 1 121 6 is_stmt 1 discriminator 3 view .LVU198
+ 717 0018 2046     		mov	r0, r4
+ 718 001a FFF7FEFF 		bl	analog_sample
+ 719              	.LVL61:
  122:Core/Src/foc.c ****     	adc_a_offset +=  controller->adc_a_raw;
- 835              		.loc 1 122 33 discriminator 3
- 836 0040 7B68     		ldr	r3, [r7, #4]
- 837 0042 5B68     		ldr	r3, [r3, #4]
- 838              		.loc 1 122 19 discriminator 3
- 839 0044 7A69     		ldr	r2, [r7, #20]
- 840 0046 1344     		add	r3, r3, r2
- 841 0048 7B61     		str	r3, [r7, #20]
+ 720              		.loc 1 122 6 discriminator 3 view .LVU199
+ 721              		.loc 1 122 33 is_stmt 0 discriminator 3 view .LVU200
+ 722 001e 6368     		ldr	r3, [r4, #4]
+ 723              		.loc 1 122 19 discriminator 3 view .LVU201
+ 724 0020 1F44     		add	r7, r7, r3
+ 725              	.LVL62:
  123:Core/Src/foc.c ****     	adc_b_offset += controller->adc_b_raw;
- 842              		.loc 1 123 32 discriminator 3
- 843 004a 7B68     		ldr	r3, [r7, #4]
- 844 004c 9B68     		ldr	r3, [r3, #8]
- 845              		.loc 1 123 19 discriminator 3
- 846 004e 3A69     		ldr	r2, [r7, #16]
- 847 0050 1344     		add	r3, r3, r2
- 848 0052 3B61     		str	r3, [r7, #16]
+ 726              		.loc 1 123 6 is_stmt 1 discriminator 3 view .LVU202
+ 727              		.loc 1 123 32 is_stmt 0 discriminator 3 view .LVU203
+ 728 0022 A368     		ldr	r3, [r4, #8]
+ 729              		.loc 1 123 19 discriminator 3 view .LVU204
+ 730 0024 1E44     		add	r6, r6, r3
+ 731              	.LVL63:
  120:Core/Src/foc.c ****     	analog_sample(controller);
- 849              		.loc 1 120 27 discriminator 3
- 850 0054 FB68     		ldr	r3, [r7, #12]
- 851 0056 0133     		adds	r3, r3, #1
- 852 0058 FB60     		str	r3, [r7, #12]
- 853              	.L22:
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 18
+ 732              		.loc 1 120 26 is_stmt 1 discriminator 3 view .LVU205
+ 120:Core/Src/foc.c ****     	analog_sample(controller);
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 16
 
 
+ 733              		.loc 1 120 27 is_stmt 0 discriminator 3 view .LVU206
+ 734 0026 0135     		adds	r5, r5, #1
+ 735              	.LVL64:
+ 736              	.L25:
  120:Core/Src/foc.c ****     	analog_sample(controller);
- 854              		.loc 1 120 5 discriminator 1
- 855 005a FA68     		ldr	r2, [r7, #12]
- 856 005c BB68     		ldr	r3, [r7, #8]
- 857 005e 9A42     		cmp	r2, r3
- 858 0060 EBDB     		blt	.L23
- 859              	.LBE2:
+ 737              		.loc 1 120 21 is_stmt 1 discriminator 1 view .LVU207
+ 120:Core/Src/foc.c ****     	analog_sample(controller);
+ 738              		.loc 1 120 5 is_stmt 0 discriminator 1 view .LVU208
+ 739 0028 B5F57A7F 		cmp	r5, #1000
+ 740 002c F4DB     		blt	.L26
+ 741              	.LBE3:
  124:Core/Src/foc.c ****      }
  125:Core/Src/foc.c ****     controller->adc_a_offset = adc_a_offset/n;
- 860              		.loc 1 125 44
- 861 0062 7A69     		ldr	r2, [r7, #20]
- 862 0064 BB68     		ldr	r3, [r7, #8]
- 863 0066 92FBF3F2 		sdiv	r2, r2, r3
- 864              		.loc 1 125 30
- 865 006a 7B68     		ldr	r3, [r7, #4]
- 866 006c C3F89C20 		str	r2, [r3, #156]
+ 742              		.loc 1 125 5 is_stmt 1 view .LVU209
+ 743              		.loc 1 125 44 is_stmt 0 view .LVU210
+ 744 002e 084A     		ldr	r2, .L28
+ 745 0030 82FB0731 		smull	r3, r1, r2, r7
+ 746 0034 FB17     		asrs	r3, r7, #31
+ 747 0036 C3EBA113 		rsb	r3, r3, r1, asr #6
+ 748              		.loc 1 125 30 view .LVU211
+ 749 003a C4F89C30 		str	r3, [r4, #156]
  126:Core/Src/foc.c ****     controller->adc_b_offset = adc_b_offset/n;
- 867              		.loc 1 126 44
- 868 0070 3A69     		ldr	r2, [r7, #16]
- 869 0072 BB68     		ldr	r3, [r7, #8]
- 870 0074 92FBF3F2 		sdiv	r2, r2, r3
- 871              		.loc 1 126 30
- 872 0078 7B68     		ldr	r3, [r7, #4]
- 873 007a C3F8A020 		str	r2, [r3, #160]
+ 750              		.loc 1 126 5 is_stmt 1 view .LVU212
+ 751              		.loc 1 126 44 is_stmt 0 view .LVU213
+ 752 003e 82FB0632 		smull	r3, r2, r2, r6
+ 753 0042 F317     		asrs	r3, r6, #31
+ 754 0044 C3EBA213 		rsb	r3, r3, r2, asr #6
+ 755              		.loc 1 126 30 view .LVU214
+ 756 0048 C4F8A030 		str	r3, [r4, #160]
  127:Core/Src/foc.c **** 
  128:Core/Src/foc.c ****     }
- 874              		.loc 1 128 5
- 875 007e 00BF     		nop
- 876 0080 1837     		adds	r7, r7, #24
- 877              	.LCFI31:
- 878              		.cfi_def_cfa_offset 8
- 879 0082 BD46     		mov	sp, r7
- 880              	.LCFI32:
- 881              		.cfi_def_cfa_register 13
- 882              		@ sp needed
- 883 0084 80BD     		pop	{r7, pc}
- 884              		.cfi_endproc
- 885              	.LFE244:
- 887              		.global	__aeabi_f2d
- 888              		.global	__aeabi_dmul
- 889              		.global	__aeabi_dadd
- 890              		.global	__aeabi_d2f
- 891              		.section	.text.init_controller_params,"ax",%progbits
- 892              		.align	1
- 893              		.global	init_controller_params
- 894              		.syntax unified
- 895              		.thumb
- 896              		.thumb_func
- 898              	init_controller_params:
- 899              	.LFB245:
+ 757              		.loc 1 128 5 view .LVU215
+ 758 004c F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 759              	.LVL65:
+ 760              	.L29:
+ 761              		.loc 1 128 5 view .LVU216
+ 762 004e 00BF     		.align	2
+ 763              	.L28:
+ 764 0050 D34D6210 		.word	274877907
+ 765              		.cfi_endproc
+ 766              	.LFE244:
+ 768              		.global	__aeabi_f2d
+ 769              		.global	__aeabi_dmul
+ 770              		.global	__aeabi_dadd
+ 771              		.global	__aeabi_d2f
+ 772              		.section	.text.init_controller_params,"ax",%progbits
+ 773              		.align	1
+ 774              		.global	init_controller_params
+ 775              		.syntax unified
+ 776              		.thumb
+ 777              		.thumb_func
+ 779              	init_controller_params:
+ 780              	.LVL66:
+ 781              	.LFB245:
  129:Core/Src/foc.c **** 
  130:Core/Src/foc.c **** void init_controller_params(ControllerStruct *controller){
- 900              		.loc 1 130 58
- 901              		.cfi_startproc
- 902              		@ args = 0, pretend = 0, frame = 16
- 903              		@ frame_needed = 1, uses_anonymous_args = 0
- 904 0000 80B5     		push	{r7, lr}
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 19
+ 782              		.loc 1 130 58 is_stmt 1 view -0
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 17
 
 
- 905              	.LCFI33:
- 906              		.cfi_def_cfa_offset 8
- 907              		.cfi_offset 7, -8
- 908              		.cfi_offset 14, -4
- 909 0002 84B0     		sub	sp, sp, #16
- 910              	.LCFI34:
- 911              		.cfi_def_cfa_offset 24
- 912 0004 00AF     		add	r7, sp, #0
- 913              	.LCFI35:
- 914              		.cfi_def_cfa_register 7
- 915 0006 7860     		str	r0, [r7, #4]
+ 783              		.cfi_startproc
+ 784              		@ args = 0, pretend = 0, frame = 0
+ 785              		@ frame_needed = 0, uses_anonymous_args = 0
+ 786              		.loc 1 130 58 is_stmt 0 view .LVU218
+ 787 0000 38B5     		push	{r3, r4, r5, lr}
+ 788              		.cfi_def_cfa_offset 16
+ 789              		.cfi_offset 3, -16
+ 790              		.cfi_offset 4, -12
+ 791              		.cfi_offset 5, -8
+ 792              		.cfi_offset 14, -4
+ 793 0002 0546     		mov	r5, r0
  131:Core/Src/foc.c **** 
  132:Core/Src/foc.c **** 	controller->ki_d = KI_D;
- 916              		.loc 1 132 19
- 917 0008 7B68     		ldr	r3, [r7, #4]
- 918 000a 534A     		ldr	r2, .L32
- 919 000c C3F88020 		str	r2, [r3, #128]	@ float
+ 794              		.loc 1 132 2 is_stmt 1 view .LVU219
+ 795              		.loc 1 132 19 is_stmt 0 view .LVU220
+ 796 0004 374B     		ldr	r3, .L39
+ 797 0006 C0F88030 		str	r3, [r0, #128]	@ float
  133:Core/Src/foc.c ****     controller->ki_q = KI_Q;
- 920              		.loc 1 133 22
- 921 0010 7B68     		ldr	r3, [r7, #4]
- 922 0012 514A     		ldr	r2, .L32
- 923 0014 C3F88420 		str	r2, [r3, #132]	@ float
+ 798              		.loc 1 133 5 is_stmt 1 view .LVU221
+ 799              		.loc 1 133 22 is_stmt 0 view .LVU222
+ 800 000a C0F88430 		str	r3, [r0, #132]	@ float
  134:Core/Src/foc.c ****     controller->k_d = K_SCALE*I_BW;
- 924              		.loc 1 134 31
- 925 0018 504B     		ldr	r3, .L32+4
- 926 001a D3ED027A 		vldr.32	s15, [r3, #8]
- 927              		.loc 1 134 30
- 928 001e 9FED507A 		vldr.32	s14, .L32+8
- 929 0022 67EE877A 		vmul.f32	s15, s15, s14
- 930              		.loc 1 134 21
- 931 0026 7B68     		ldr	r3, [r7, #4]
- 932 0028 C3ED1E7A 		vstr.32	s15, [r3, #120]
+ 801              		.loc 1 134 5 is_stmt 1 view .LVU223
+ 802              		.loc 1 134 31 is_stmt 0 view .LVU224
+ 803 000e 364B     		ldr	r3, .L39+4
+ 804 0010 D3ED027A 		vldr.32	s15, [r3, #8]
+ 805              		.loc 1 134 30 view .LVU225
+ 806 0014 9FED357A 		vldr.32	s14, .L39+8
+ 807 0018 27EE877A 		vmul.f32	s14, s15, s14
+ 808              		.loc 1 134 21 view .LVU226
+ 809 001c 80ED1E7A 		vstr.32	s14, [r0, #120]
  135:Core/Src/foc.c ****     controller->k_q = K_SCALE*I_BW;
- 933              		.loc 1 135 31
- 934 002c 4B4B     		ldr	r3, .L32+4
- 935 002e D3ED027A 		vldr.32	s15, [r3, #8]
- 936              		.loc 1 135 30
- 937 0032 9FED4B7A 		vldr.32	s14, .L32+8
- 938 0036 67EE877A 		vmul.f32	s15, s15, s14
- 939              		.loc 1 135 21
- 940 003a 7B68     		ldr	r3, [r7, #4]
- 941 003c C3ED1F7A 		vstr.32	s15, [r3, #124]
+ 810              		.loc 1 135 5 is_stmt 1 view .LVU227
+ 811              		.loc 1 135 21 is_stmt 0 view .LVU228
+ 812 0020 80ED1F7A 		vstr.32	s14, [r0, #124]
  136:Core/Src/foc.c ****     controller->alpha = 1.0f - 1.0f/(1.0f - DT*I_BW*TWO_PI_F);
- 942              		.loc 1 136 48
- 943 0040 464B     		ldr	r3, .L32+4
- 944 0042 D3ED027A 		vldr.32	s15, [r3, #8]
- 945              		.loc 1 136 47
- 946 0046 9FED477A 		vldr.32	s14, .L32+12
- 947 004a 67EE877A 		vmul.f32	s15, s15, s14
- 948              		.loc 1 136 52
- 949 004e 9FED467A 		vldr.32	s14, .L32+16
- 950 0052 67EE877A 		vmul.f32	s15, s15, s14
- 951              		.loc 1 136 43
- 952 0056 B7EE007A 		vmov.f32	s14, #1.0e+0
- 953 005a 37EE677A 		vsub.f32	s14, s14, s15
- 954              		.loc 1 136 36
- 955 005e F7EE006A 		vmov.f32	s13, #1.0e+0
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 20
-
-
- 956 0062 C6EE877A 		vdiv.f32	s15, s13, s14
- 957              		.loc 1 136 30
- 958 0066 B7EE007A 		vmov.f32	s14, #1.0e+0
- 959 006a 77EE677A 		vsub.f32	s15, s14, s15
- 960              		.loc 1 136 23
- 961 006e 7B68     		ldr	r3, [r7, #4]
- 962 0070 C3ED237A 		vstr.32	s15, [r3, #140]
+ 813              		.loc 1 136 5 is_stmt 1 view .LVU229
+ 814              		.loc 1 136 47 is_stmt 0 view .LVU230
+ 815 0024 9FED327A 		vldr.32	s14, .L39+12
+ 816 0028 67EE877A 		vmul.f32	s15, s15, s14
+ 817              		.loc 1 136 52 view .LVU231
+ 818 002c 9FED317A 		vldr.32	s14, .L39+16
+ 819 0030 67EE877A 		vmul.f32	s15, s15, s14
+ 820              		.loc 1 136 43 view .LVU232
+ 821 0034 B7EE007A 		vmov.f32	s14, #1.0e+0
+ 822 0038 77EE677A 		vsub.f32	s15, s14, s15
+ 823              		.loc 1 136 36 view .LVU233
+ 824 003c C7EE276A 		vdiv.f32	s13, s14, s15
+ 825              		.loc 1 136 30 view .LVU234
+ 826 0040 37EE667A 		vsub.f32	s14, s14, s13
+ 827              		.loc 1 136 23 view .LVU235
+ 828 0044 80ED237A 		vstr.32	s14, [r0, #140]
  137:Core/Src/foc.c ****     controller->ki_fw = .1f*controller->ki_d;
- 963              		.loc 1 137 39
- 964 0074 7B68     		ldr	r3, [r7, #4]
- 965 0076 D3ED207A 		vldr.32	s15, [r3, #128]
- 966              		.loc 1 137 28
- 967 007a 9FED3C7A 		vldr.32	s14, .L32+20
- 968 007e 67EE877A 		vmul.f32	s15, s15, s14
- 969              		.loc 1 137 23
- 970 0082 7B68     		ldr	r3, [r7, #4]
- 971 0084 C3ED227A 		vstr.32	s15, [r3, #136]
+ 829              		.loc 1 137 5 is_stmt 1 view .LVU236
+ 830              		.loc 1 137 23 is_stmt 0 view .LVU237
+ 831 0048 2B4A     		ldr	r2, .L39+20
+ 832 004a C0F88820 		str	r2, [r0, #136]	@ float
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 18
+
+
  138:Core/Src/foc.c ****     controller->phase_order = PHASE_ORDER;
- 972              		.loc 1 138 31
- 973 0088 394B     		ldr	r3, .L32+24
- 974 008a 1A68     		ldr	r2, [r3]
- 975              		.loc 1 138 29
- 976 008c 7B68     		ldr	r3, [r7, #4]
- 977 008e C3F8D420 		str	r2, [r3, #212]
+ 833              		.loc 1 138 5 is_stmt 1 view .LVU238
+ 834              		.loc 1 138 31 is_stmt 0 view .LVU239
+ 835 004e 2B4A     		ldr	r2, .L39+24
+ 836 0050 1268     		ldr	r2, [r2]
+ 837              		.loc 1 138 29 view .LVU240
+ 838 0052 C0F8D420 		str	r2, [r0, #212]
  139:Core/Src/foc.c ****     controller->flux_linkage = KT/(1.5f*PPAIRS);
- 978              		.loc 1 139 32
- 979 0092 324B     		ldr	r3, .L32+4
- 980 0094 D3ED0E6A 		vldr.32	s13, [r3, #56]
- 981              		.loc 1 139 41
- 982 0098 304B     		ldr	r3, .L32+4
- 983 009a D3ED0A7A 		vldr.32	s15, [r3, #40]
- 984              		.loc 1 139 40
- 985 009e B7EE087A 		vmov.f32	s14, #1.5e+0
- 986 00a2 27EE877A 		vmul.f32	s14, s15, s14
- 987              		.loc 1 139 34
- 988 00a6 C6EE877A 		vdiv.f32	s15, s13, s14
- 989              		.loc 1 139 30
- 990 00aa 7B68     		ldr	r3, [r7, #4]
- 991 00ac C3ED247A 		vstr.32	s15, [r3, #144]
+ 839              		.loc 1 139 5 is_stmt 1 view .LVU241
+ 840              		.loc 1 139 32 is_stmt 0 view .LVU242
+ 841 0056 D3ED0E6A 		vldr.32	s13, [r3, #56]
+ 842              		.loc 1 139 41 view .LVU243
+ 843 005a D3ED0A7A 		vldr.32	s15, [r3, #40]
+ 844              		.loc 1 139 40 view .LVU244
+ 845 005e B7EE087A 		vmov.f32	s14, #1.5e+0
+ 846 0062 67EE877A 		vmul.f32	s15, s15, s14
+ 847              		.loc 1 139 34 view .LVU245
+ 848 0066 86EEA77A 		vdiv.f32	s14, s13, s15
+ 849              		.loc 1 139 30 view .LVU246
+ 850 006a 80ED247A 		vstr.32	s14, [r0, #144]
  140:Core/Src/foc.c ****     if(I_MAX <= 40.0f){controller->i_scale = I_SCALE;}
- 992              		.loc 1 140 8
- 993 00b0 2A4B     		ldr	r3, .L32+4
- 994 00b2 D3ED037A 		vldr.32	s15, [r3, #12]
- 995              		.loc 1 140 7
- 996 00b6 9FED2F7A 		vldr.32	s14, .L32+28
- 997 00ba F4EEC77A 		vcmpe.f32	s15, s14
- 998 00be F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 999 00c2 03D8     		bhi	.L31
- 1000              		.loc 1 140 44 discriminator 1
- 1001 00c4 7B68     		ldr	r3, [r7, #4]
- 1002 00c6 2C4A     		ldr	r2, .L32+32
- 1003 00c8 5A67     		str	r2, [r3, #116]	@ float
- 1004 00ca 02E0     		b	.L27
- 1005              	.L31:
+ 851              		.loc 1 140 5 is_stmt 1 view .LVU247
+ 852              		.loc 1 140 8 is_stmt 0 view .LVU248
+ 853 006e 93ED037A 		vldr.32	s14, [r3, #12]
+ 854              		.loc 1 140 7 view .LVU249
+ 855 0072 DFED237A 		vldr.32	s15, .L39+28
+ 856 0076 B4EEE77A 		vcmpe.f32	s14, s15
+ 857 007a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 858 007e 03D8     		bhi	.L37
+ 859              		.loc 1 140 24 is_stmt 1 discriminator 1 view .LVU250
+ 860              		.loc 1 140 44 is_stmt 0 discriminator 1 view .LVU251
+ 861 0080 204B     		ldr	r3, .L39+32
+ 862 0082 4367     		str	r3, [r0, #116]	@ float
+ 863              	.L34:
+ 130:Core/Src/foc.c **** 
+ 864              		.loc 1 130 58 discriminator 1 view .LVU252
+ 865 0084 0024     		movs	r4, #0
+ 866 0086 29E0     		b	.L33
+ 867              	.L37:
  141:Core/Src/foc.c ****     else{controller->i_scale = 2.0f*I_SCALE;}
- 1006              		.loc 1 141 30
- 1007 00cc 7B68     		ldr	r3, [r7, #4]
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 21
-
-
- 1008 00ce 2B4A     		ldr	r2, .L32+36
- 1009 00d0 5A67     		str	r2, [r3, #116]	@ float
- 1010              	.L27:
- 1011              	.LBB3:
+ 868              		.loc 1 141 10 is_stmt 1 view .LVU253
+ 869              		.loc 1 141 30 is_stmt 0 view .LVU254
+ 870 0088 1F4B     		ldr	r3, .L39+36
+ 871 008a 4367     		str	r3, [r0, #116]	@ float
+ 872 008c FAE7     		b	.L34
+ 873              	.LVL67:
+ 874              	.L35:
+ 875              	.LBB4:
  142:Core/Src/foc.c ****     for(int i = 0; i<128; i++)	// Approximate duty cycle linearization
- 1012              		.loc 1 142 13
- 1013 00d2 0023     		movs	r3, #0
- 1014 00d4 FB60     		str	r3, [r7, #12]
- 1015              		.loc 1 142 5
- 1016 00d6 37E0     		b	.L28
- 1017              	.L29:
  143:Core/Src/foc.c ****     {
  144:Core/Src/foc.c ****         controller->inverter_tab[i] = 1.0f + 1.2f*exp(-0.0078125f*i/.032f);
- 1018              		.loc 1 144 66 discriminator 3
- 1019 00d8 FB68     		ldr	r3, [r7, #12]
- 1020 00da 07EE903A 		vmov	s15, r3	@ int
- 1021 00de F8EEE77A 		vcvt.f32.s32	s15, s15
- 1022 00e2 9FED277A 		vldr.32	s14, .L32+40
- 1023 00e6 67EE877A 		vmul.f32	s15, s15, s14
- 1024              		.loc 1 144 68 discriminator 3
- 1025 00ea 9FED267A 		vldr.32	s14, .L32+44
- 1026 00ee C7EE876A 		vdiv.f32	s13, s15, s14
- 1027              		.loc 1 144 51 discriminator 3
- 1028 00f2 16EE900A 		vmov	r0, s13
- 1029 00f6 FFF7FEFF 		bl	__aeabi_f2d
- 1030 00fa 0246     		mov	r2, r0
- 1031 00fc 0B46     		mov	r3, r1
- 1032 00fe 43EC102B 		vmov	d0, r2, r3
- 1033 0102 FFF7FEFF 		bl	exp
- 1034 0106 51EC100B 		vmov	r0, r1, d0
- 1035              		.loc 1 144 50 discriminator 3
- 1036 010a 4FF08042 		mov	r2, #1073741824
- 1037 010e 1E4B     		ldr	r3, .L32+48
- 1038 0110 FFF7FEFF 		bl	__aeabi_dmul
- 1039 0114 0246     		mov	r2, r0
- 1040 0116 0B46     		mov	r3, r1
- 1041 0118 1046     		mov	r0, r2
- 1042 011a 1946     		mov	r1, r3
- 1043              		.loc 1 144 44 discriminator 3
- 1044 011c 4FF00002 		mov	r2, #0
- 1045 0120 1A4B     		ldr	r3, .L32+52
- 1046 0122 FFF7FEFF 		bl	__aeabi_dadd
- 1047 0126 0246     		mov	r2, r0
- 1048 0128 0B46     		mov	r3, r1
- 1049 012a 1046     		mov	r0, r2
- 1050 012c 1946     		mov	r1, r3
- 1051 012e FFF7FEFF 		bl	__aeabi_d2f
- 1052 0132 0146     		mov	r1, r0	@ float
- 1053              		.loc 1 144 37 discriminator 3
- 1054 0134 7A68     		ldr	r2, [r7, #4]
- 1055 0136 FB68     		ldr	r3, [r7, #12]
- 1056 0138 4033     		adds	r3, r3, #64
- 1057 013a 9B00     		lsls	r3, r3, #2
- 1058 013c 1344     		add	r3, r3, r2
- 1059 013e 0433     		adds	r3, r3, #4
- 1060 0140 1960     		str	r1, [r3]	@ float
- 142:Core/Src/foc.c ****     for(int i = 0; i<128; i++)	// Approximate duty cycle linearization
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 22
+ 876              		.loc 1 144 9 is_stmt 1 discriminator 3 view .LVU255
+ 877              		.loc 1 144 66 is_stmt 0 discriminator 3 view .LVU256
+ 878 008e 07EE904A 		vmov	s15, r4	@ int
+ 879 0092 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 880 0096 9FED1D7A 		vldr.32	s14, .L39+40
+ 881 009a 67EE877A 		vmul.f32	s15, s15, s14
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 19
 
 
- 1061              		.loc 1 142 28 discriminator 3
- 1062 0142 FB68     		ldr	r3, [r7, #12]
- 1063 0144 0133     		adds	r3, r3, #1
- 1064 0146 FB60     		str	r3, [r7, #12]
- 1065              	.L28:
+ 882              		.loc 1 144 51 discriminator 3 view .LVU257
+ 883 009e 9FED1C7A 		vldr.32	s14, .L39+44
+ 884 00a2 C7EE877A 		vdiv.f32	s15, s15, s14
+ 885 00a6 17EE900A 		vmov	r0, s15
+ 886 00aa FFF7FEFF 		bl	__aeabi_f2d
+ 887              	.LVL68:
+ 888 00ae 41EC100B 		vmov	d0, r0, r1
+ 889 00b2 FFF7FEFF 		bl	exp
+ 890              	.LVL69:
+ 891              		.loc 1 144 50 discriminator 3 view .LVU258
+ 892 00b6 4FF08042 		mov	r2, #1073741824
+ 893 00ba 164B     		ldr	r3, .L39+48
+ 894 00bc 51EC100B 		vmov	r0, r1, d0
+ 895 00c0 FFF7FEFF 		bl	__aeabi_dmul
+ 896              	.LVL70:
+ 897              		.loc 1 144 44 discriminator 3 view .LVU259
+ 898 00c4 0022     		movs	r2, #0
+ 899 00c6 144B     		ldr	r3, .L39+52
+ 900 00c8 FFF7FEFF 		bl	__aeabi_dadd
+ 901              	.LVL71:
+ 902 00cc FFF7FEFF 		bl	__aeabi_d2f
+ 903              	.LVL72:
+ 904              		.loc 1 144 37 discriminator 3 view .LVU260
+ 905 00d0 04F14003 		add	r3, r4, #64
+ 906 00d4 05EB8303 		add	r3, r5, r3, lsl #2
+ 907 00d8 5860     		str	r0, [r3, #4]	@ float
  142:Core/Src/foc.c ****     for(int i = 0; i<128; i++)	// Approximate duty cycle linearization
- 1066              		.loc 1 142 5 discriminator 1
- 1067 0148 FB68     		ldr	r3, [r7, #12]
- 1068 014a 7F2B     		cmp	r3, #127
- 1069 014c C4DD     		ble	.L29
- 1070              	.LBE3:
+ 908              		.loc 1 142 27 is_stmt 1 discriminator 3 view .LVU261
+ 142:Core/Src/foc.c ****     for(int i = 0; i<128; i++)	// Approximate duty cycle linearization
+ 909              		.loc 1 142 28 is_stmt 0 discriminator 3 view .LVU262
+ 910 00da 0134     		adds	r4, r4, #1
+ 911              	.LVL73:
+ 912              	.L33:
+ 142:Core/Src/foc.c ****     for(int i = 0; i<128; i++)	// Approximate duty cycle linearization
+ 913              		.loc 1 142 20 is_stmt 1 discriminator 1 view .LVU263
+ 142:Core/Src/foc.c ****     for(int i = 0; i<128; i++)	// Approximate duty cycle linearization
+ 914              		.loc 1 142 5 is_stmt 0 discriminator 1 view .LVU264
+ 915 00dc 7F2C     		cmp	r4, #127
+ 916 00de D6DD     		ble	.L35
+ 917              	.LBE4:
  145:Core/Src/foc.c ****     }
  146:Core/Src/foc.c **** 
  147:Core/Src/foc.c ****     }
- 1071              		.loc 1 147 5
- 1072 014e 00BF     		nop
- 1073 0150 00BF     		nop
- 1074 0152 1037     		adds	r7, r7, #16
- 1075              	.LCFI36:
- 1076              		.cfi_def_cfa_offset 8
- 1077 0154 BD46     		mov	sp, r7
- 1078              	.LCFI37:
- 1079              		.cfi_def_cfa_register 13
- 1080              		@ sp needed
- 1081 0156 80BD     		pop	{r7, pc}
- 1082              	.L33:
- 1083              		.align	2
- 1084              	.L32:
- 1085 0158 EC51B83E 		.word	1052266988
- 1086 015c 00000000 		.word	__float_reg
- 1087 0160 82A8FB38 		.word	956016770
- 1088 0164 17B7D137 		.word	936490775
- 1089 0168 DB0FC940 		.word	1086918619
- 1090 016c CDCCCC3D 		.word	1036831949
- 1091 0170 00000000 		.word	__int_reg
- 1092 0174 00002042 		.word	1109393408
- 1093 0178 FFFFA43C 		.word	1017446399
- 1094 017c FFFF243D 		.word	1025835007
- 1095 0180 000000BC 		.word	-1140850688
- 1096 0184 6F12033D 		.word	1023611503
- 1097 0188 3333F33F 		.word	1072902963
- 1098 018c 0000F03F 		.word	1072693248
- 1099              		.cfi_endproc
- 1100              	.LFE245:
- 1102              		.section	.text.reset_foc,"ax",%progbits
- 1103              		.align	1
- 1104              		.global	reset_foc
- 1105              		.syntax unified
- 1106              		.thumb
- 1107              		.thumb_func
- 1109              	reset_foc:
- 1110              	.LFB246:
+ 918              		.loc 1 147 5 view .LVU265
+ 919 00e0 38BD     		pop	{r3, r4, r5, pc}
+ 920              	.LVL74:
+ 921              	.L40:
+ 922              		.loc 1 147 5 view .LVU266
+ 923 00e2 00BF     		.align	2
+ 924              	.L39:
+ 925 00e4 EC51B83E 		.word	1052266988
+ 926 00e8 00000000 		.word	__float_reg
+ 927 00ec 82A8FB38 		.word	956016770
+ 928 00f0 17B7D137 		.word	936490775
+ 929 00f4 DB0FC940 		.word	1086918619
+ 930 00f8 BD74133D 		.word	1024685245
+ 931 00fc 00000000 		.word	__int_reg
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 20
+
+
+ 932 0100 00002042 		.word	1109393408
+ 933 0104 FFFFA43C 		.word	1017446399
+ 934 0108 FFFF243D 		.word	1025835007
+ 935 010c 000000BC 		.word	-1140850688
+ 936 0110 6F12033D 		.word	1023611503
+ 937 0114 3333F33F 		.word	1072902963
+ 938 0118 0000F03F 		.word	1072693248
+ 939              		.cfi_endproc
+ 940              	.LFE245:
+ 942              		.section	.text.reset_foc,"ax",%progbits
+ 943              		.align	1
+ 944              		.global	reset_foc
+ 945              		.syntax unified
+ 946              		.thumb
+ 947              		.thumb_func
+ 949              	reset_foc:
+ 950              	.LVL75:
+ 951              	.LFB246:
  148:Core/Src/foc.c **** 
  149:Core/Src/foc.c **** void reset_foc(ControllerStruct *controller){
- 1111              		.loc 1 149 45
- 1112              		.cfi_startproc
- 1113              		@ args = 0, pretend = 0, frame = 8
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 23
-
-
- 1114              		@ frame_needed = 1, uses_anonymous_args = 0
- 1115              		@ link register save eliminated.
- 1116 0000 80B4     		push	{r7}
- 1117              	.LCFI38:
- 1118              		.cfi_def_cfa_offset 4
- 1119              		.cfi_offset 7, -4
- 1120 0002 83B0     		sub	sp, sp, #12
- 1121              	.LCFI39:
- 1122              		.cfi_def_cfa_offset 16
- 1123 0004 00AF     		add	r7, sp, #0
- 1124              	.LCFI40:
- 1125              		.cfi_def_cfa_register 7
- 1126 0006 7860     		str	r0, [r7, #4]
+ 952              		.loc 1 149 45 is_stmt 1 view -0
+ 953              		.cfi_startproc
+ 954              		@ args = 0, pretend = 0, frame = 0
+ 955              		@ frame_needed = 0, uses_anonymous_args = 0
+ 956              		@ link register save eliminated.
  150:Core/Src/foc.c **** 
  151:Core/Src/foc.c **** 	TIM_PWM.Instance->CCR3 = ((TIM_PWM.Instance->ARR))*(0.5f);
- 1127              		.loc 1 151 36
- 1128 0008 364B     		ldr	r3, .L35
- 1129 000a 1B68     		ldr	r3, [r3]
- 1130              		.loc 1 151 45
- 1131 000c DB6A     		ldr	r3, [r3, #44]
- 1132              		.loc 1 151 52
- 1133 000e 07EE903A 		vmov	s15, r3	@ int
- 1134 0012 F8EE677A 		vcvt.f32.u32	s15, s15
- 1135 0016 B6EE007A 		vmov.f32	s14, #5.0e-1
- 1136 001a 67EE877A 		vmul.f32	s15, s15, s14
- 1137              		.loc 1 151 9
- 1138 001e 314B     		ldr	r3, .L35
- 1139 0020 1B68     		ldr	r3, [r3]
- 1140              		.loc 1 151 25
- 1141 0022 FCEEE77A 		vcvt.u32.f32	s15, s15
- 1142 0026 17EE902A 		vmov	r2, s15	@ int
- 1143 002a DA63     		str	r2, [r3, #60]
+ 957              		.loc 1 151 2 view .LVU268
+ 958              		.loc 1 151 36 is_stmt 0 view .LVU269
+ 959 0000 1A4B     		ldr	r3, .L42
+ 960 0002 1B68     		ldr	r3, [r3]
+ 961              		.loc 1 151 45 view .LVU270
+ 962 0004 93ED0B7A 		vldr.32	s14, [r3, #44]	@ int
+ 963              		.loc 1 151 52 view .LVU271
+ 964 0008 B8EE477A 		vcvt.f32.u32	s14, s14
+ 965 000c F6EE006A 		vmov.f32	s13, #5.0e-1
+ 966 0010 27EE267A 		vmul.f32	s14, s14, s13
+ 967              		.loc 1 151 25 view .LVU272
+ 968 0014 BCEEC77A 		vcvt.u32.f32	s14, s14
+ 969 0018 83ED0F7A 		vstr.32	s14, [r3, #60]	@ int
  152:Core/Src/foc.c **** 	TIM_PWM.Instance->CCR1 = ((TIM_PWM.Instance->ARR))*(0.5f);
- 1144              		.loc 1 152 36
- 1145 002c 2D4B     		ldr	r3, .L35
- 1146 002e 1B68     		ldr	r3, [r3]
- 1147              		.loc 1 152 45
- 1148 0030 DB6A     		ldr	r3, [r3, #44]
- 1149              		.loc 1 152 52
- 1150 0032 07EE903A 		vmov	s15, r3	@ int
- 1151 0036 F8EE677A 		vcvt.f32.u32	s15, s15
- 1152 003a B6EE007A 		vmov.f32	s14, #5.0e-1
- 1153 003e 67EE877A 		vmul.f32	s15, s15, s14
- 1154              		.loc 1 152 9
- 1155 0042 284B     		ldr	r3, .L35
- 1156 0044 1B68     		ldr	r3, [r3]
- 1157              		.loc 1 152 25
- 1158 0046 FCEEE77A 		vcvt.u32.f32	s15, s15
- 1159 004a 17EE902A 		vmov	r2, s15	@ int
- 1160 004e 5A63     		str	r2, [r3, #52]
+ 970              		.loc 1 152 2 is_stmt 1 view .LVU273
+ 971              		.loc 1 152 45 is_stmt 0 view .LVU274
+ 972 001c 93ED0B7A 		vldr.32	s14, [r3, #44]	@ int
+ 973              		.loc 1 152 52 view .LVU275
+ 974 0020 B8EE477A 		vcvt.f32.u32	s14, s14
+ 975 0024 27EE267A 		vmul.f32	s14, s14, s13
+ 976              		.loc 1 152 25 view .LVU276
+ 977 0028 BCEEC77A 		vcvt.u32.f32	s14, s14
+ 978 002c 83ED0D7A 		vstr.32	s14, [r3, #52]	@ int
  153:Core/Src/foc.c **** 	TIM_PWM.Instance->CCR2 = ((TIM_PWM.Instance->ARR))*(0.5f);
- 1161              		.loc 1 153 36
- 1162 0050 244B     		ldr	r3, .L35
- 1163 0052 1B68     		ldr	r3, [r3]
- 1164              		.loc 1 153 45
- 1165 0054 DB6A     		ldr	r3, [r3, #44]
- 1166              		.loc 1 153 52
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 24
+ 979              		.loc 1 153 2 is_stmt 1 view .LVU277
+ 980              		.loc 1 153 45 is_stmt 0 view .LVU278
+ 981 0030 D3ED0B7A 		vldr.32	s15, [r3, #44]	@ int
+ 982              		.loc 1 153 52 view .LVU279
+ 983 0034 F8EE677A 		vcvt.f32.u32	s15, s15
+ 984 0038 67EEA67A 		vmul.f32	s15, s15, s13
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 21
 
 
- 1167 0056 07EE903A 		vmov	s15, r3	@ int
- 1168 005a F8EE677A 		vcvt.f32.u32	s15, s15
- 1169 005e B6EE007A 		vmov.f32	s14, #5.0e-1
- 1170 0062 67EE877A 		vmul.f32	s15, s15, s14
- 1171              		.loc 1 153 9
- 1172 0066 1F4B     		ldr	r3, .L35
- 1173 0068 1B68     		ldr	r3, [r3]
- 1174              		.loc 1 153 25
- 1175 006a FCEEE77A 		vcvt.u32.f32	s15, s15
- 1176 006e 17EE902A 		vmov	r2, s15	@ int
- 1177 0072 9A63     		str	r2, [r3, #56]
+ 985              		.loc 1 153 25 view .LVU280
+ 986 003c FCEEE77A 		vcvt.u32.f32	s15, s15
+ 987 0040 C3ED0E7A 		vstr.32	s15, [r3, #56]	@ int
  154:Core/Src/foc.c ****     controller->i_d_des = 0;
- 1178              		.loc 1 154 25
- 1179 0074 7B68     		ldr	r3, [r7, #4]
- 1180 0076 4FF00002 		mov	r2, #0
- 1181 007a C3F8AC20 		str	r2, [r3, #172]	@ float
+ 988              		.loc 1 154 5 is_stmt 1 view .LVU281
+ 989              		.loc 1 154 25 is_stmt 0 view .LVU282
+ 990 0044 0023     		movs	r3, #0
+ 991 0046 C0F8AC30 		str	r3, [r0, #172]	@ float
  155:Core/Src/foc.c ****     controller->i_q_des = 0;
- 1182              		.loc 1 155 25
- 1183 007e 7B68     		ldr	r3, [r7, #4]
- 1184 0080 4FF00002 		mov	r2, #0
- 1185 0084 C3F8B020 		str	r2, [r3, #176]	@ float
+ 992              		.loc 1 155 5 is_stmt 1 view .LVU283
+ 993              		.loc 1 155 25 is_stmt 0 view .LVU284
+ 994 004a C0F8B030 		str	r3, [r0, #176]	@ float
  156:Core/Src/foc.c ****     controller->i_d = 0;
- 1186              		.loc 1 156 21
- 1187 0088 7B68     		ldr	r3, [r7, #4]
- 1188 008a 4FF00002 		mov	r2, #0
- 1189 008e DA63     		str	r2, [r3, #60]	@ float
+ 995              		.loc 1 156 5 is_stmt 1 view .LVU285
+ 996              		.loc 1 156 21 is_stmt 0 view .LVU286
+ 997 004e C363     		str	r3, [r0, #60]	@ float
  157:Core/Src/foc.c ****     controller->i_q = 0;
- 1190              		.loc 1 157 21
- 1191 0090 7B68     		ldr	r3, [r7, #4]
- 1192 0092 4FF00002 		mov	r2, #0
- 1193 0096 1A64     		str	r2, [r3, #64]	@ float
+ 998              		.loc 1 157 5 is_stmt 1 view .LVU287
+ 999              		.loc 1 157 21 is_stmt 0 view .LVU288
+ 1000 0050 0364     		str	r3, [r0, #64]	@ float
  158:Core/Src/foc.c ****     controller->i_q_filt = 0;
- 1194              		.loc 1 158 26
- 1195 0098 7B68     		ldr	r3, [r7, #4]
- 1196 009a 4FF00002 		mov	r2, #0
- 1197 009e 5A64     		str	r2, [r3, #68]	@ float
+ 1001              		.loc 1 158 5 is_stmt 1 view .LVU289
+ 1002              		.loc 1 158 26 is_stmt 0 view .LVU290
+ 1003 0052 4364     		str	r3, [r0, #68]	@ float
  159:Core/Src/foc.c ****     controller->q_int = 0;
- 1198              		.loc 1 159 23
- 1199 00a0 7B68     		ldr	r3, [r7, #4]
- 1200 00a2 4FF00002 		mov	r2, #0
- 1201 00a6 C3F89820 		str	r2, [r3, #152]	@ float
+ 1004              		.loc 1 159 5 is_stmt 1 view .LVU291
+ 1005              		.loc 1 159 23 is_stmt 0 view .LVU292
+ 1006 0054 C0F89830 		str	r3, [r0, #152]	@ float
  160:Core/Src/foc.c ****     controller->d_int = 0;
- 1202              		.loc 1 160 23
- 1203 00aa 7B68     		ldr	r3, [r7, #4]
- 1204 00ac 4FF00002 		mov	r2, #0
- 1205 00b0 C3F89420 		str	r2, [r3, #148]	@ float
+ 1007              		.loc 1 160 5 is_stmt 1 view .LVU293
+ 1008              		.loc 1 160 23 is_stmt 0 view .LVU294
+ 1009 0058 C0F89430 		str	r3, [r0, #148]	@ float
  161:Core/Src/foc.c ****     controller->v_q = 0;
- 1206              		.loc 1 161 21
- 1207 00b4 7B68     		ldr	r3, [r7, #4]
- 1208 00b6 4FF00002 		mov	r2, #0
- 1209 00ba 9A65     		str	r2, [r3, #88]	@ float
+ 1010              		.loc 1 161 5 is_stmt 1 view .LVU295
+ 1011              		.loc 1 161 21 is_stmt 0 view .LVU296
+ 1012 005c 8365     		str	r3, [r0, #88]	@ float
  162:Core/Src/foc.c ****     controller->v_d = 0;
- 1210              		.loc 1 162 21
- 1211 00bc 7B68     		ldr	r3, [r7, #4]
- 1212 00be 4FF00002 		mov	r2, #0
- 1213 00c2 5A65     		str	r2, [r3, #84]	@ float
+ 1013              		.loc 1 162 5 is_stmt 1 view .LVU297
+ 1014              		.loc 1 162 21 is_stmt 0 view .LVU298
+ 1015 005e 4365     		str	r3, [r0, #84]	@ float
  163:Core/Src/foc.c ****     controller->fw_int = 0;
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 25
-
-
- 1214              		.loc 1 163 24
- 1215 00c4 7B68     		ldr	r3, [r7, #4]
- 1216 00c6 4FF00002 		mov	r2, #0
- 1217 00ca C3F8F420 		str	r2, [r3, #244]	@ float
+ 1016              		.loc 1 163 5 is_stmt 1 view .LVU299
+ 1017              		.loc 1 163 24 is_stmt 0 view .LVU300
+ 1018 0060 C0F8F430 		str	r3, [r0, #244]	@ float
  164:Core/Src/foc.c ****     controller->otw_flag = 0;
- 1218              		.loc 1 164 26
- 1219 00ce 7B68     		ldr	r3, [r7, #4]
- 1220 00d0 0022     		movs	r2, #0
- 1221 00d2 C3F8FC20 		str	r2, [r3, #252]
+ 1019              		.loc 1 164 5 is_stmt 1 view .LVU301
+ 1020              		.loc 1 164 26 is_stmt 0 view .LVU302
+ 1021 0064 0023     		movs	r3, #0
+ 1022 0066 C0F8FC30 		str	r3, [r0, #252]
  165:Core/Src/foc.c **** 
  166:Core/Src/foc.c ****     }
- 1222              		.loc 1 166 5
- 1223 00d6 00BF     		nop
- 1224 00d8 0C37     		adds	r7, r7, #12
- 1225              	.LCFI41:
- 1226              		.cfi_def_cfa_offset 4
- 1227 00da BD46     		mov	sp, r7
- 1228              	.LCFI42:
- 1229              		.cfi_def_cfa_register 13
- 1230              		@ sp needed
- 1231 00dc 5DF8047B 		ldr	r7, [sp], #4
- 1232              	.LCFI43:
- 1233              		.cfi_restore 7
- 1234              		.cfi_def_cfa_offset 0
- 1235 00e0 7047     		bx	lr
- 1236              	.L36:
- 1237 00e2 00BF     		.align	2
- 1238              	.L35:
- 1239 00e4 00000000 		.word	htim1
- 1240              		.cfi_endproc
- 1241              	.LFE246:
- 1243              		.section	.text.reset_observer,"ax",%progbits
- 1244              		.align	1
- 1245              		.global	reset_observer
- 1246              		.syntax unified
- 1247              		.thumb
- 1248              		.thumb_func
- 1250              	reset_observer:
- 1251              	.LFB247:
+ 1023              		.loc 1 166 5 view .LVU303
+ 1024 006a 7047     		bx	lr
+ 1025              	.L43:
+ 1026              		.align	2
+ 1027              	.L42:
+ 1028 006c 00000000 		.word	htim1
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 22
+
+
+ 1029              		.cfi_endproc
+ 1030              	.LFE246:
+ 1032              		.section	.text.reset_observer,"ax",%progbits
+ 1033              		.align	1
+ 1034              		.global	reset_observer
+ 1035              		.syntax unified
+ 1036              		.thumb
+ 1037              		.thumb_func
+ 1039              	reset_observer:
+ 1040              	.LVL76:
+ 1041              	.LFB247:
  167:Core/Src/foc.c **** 
  168:Core/Src/foc.c **** void reset_observer(ObserverStruct *observer){
- 1252              		.loc 1 168 46
- 1253              		.cfi_startproc
- 1254              		@ args = 0, pretend = 0, frame = 8
- 1255              		@ frame_needed = 1, uses_anonymous_args = 0
- 1256              		@ link register save eliminated.
- 1257 0000 80B4     		push	{r7}
- 1258              	.LCFI44:
- 1259              		.cfi_def_cfa_offset 4
- 1260              		.cfi_offset 7, -4
- 1261 0002 83B0     		sub	sp, sp, #12
- 1262              	.LCFI45:
- 1263              		.cfi_def_cfa_offset 16
- 1264 0004 00AF     		add	r7, sp, #0
- 1265              	.LCFI46:
- 1266              		.cfi_def_cfa_register 7
- 1267 0006 7860     		str	r0, [r7, #4]
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 26
-
-
+ 1042              		.loc 1 168 46 is_stmt 1 view -0
+ 1043              		.cfi_startproc
+ 1044              		@ args = 0, pretend = 0, frame = 0
+ 1045              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1046              		@ link register save eliminated.
  169:Core/Src/foc.c **** /*
  170:Core/Src/foc.c ****     observer->temperature = 25.0f;
  171:Core/Src/foc.c ****     observer->temp_measured = 25.0f;
  172:Core/Src/foc.c ****     //observer->resistance = .1f;
  173:Core/Src/foc.c **** */
  174:Core/Src/foc.c **** }
- 1268              		.loc 1 174 1
- 1269 0008 00BF     		nop
- 1270 000a 0C37     		adds	r7, r7, #12
- 1271              	.LCFI47:
- 1272              		.cfi_def_cfa_offset 4
- 1273 000c BD46     		mov	sp, r7
- 1274              	.LCFI48:
- 1275              		.cfi_def_cfa_register 13
- 1276              		@ sp needed
- 1277 000e 5DF8047B 		ldr	r7, [sp], #4
- 1278              	.LCFI49:
- 1279              		.cfi_restore 7
- 1280              		.cfi_def_cfa_offset 0
- 1281 0012 7047     		bx	lr
- 1282              		.cfi_endproc
- 1283              	.LFE247:
- 1285              		.section	.text.update_observer,"ax",%progbits
- 1286              		.align	1
- 1287              		.global	update_observer
- 1288              		.syntax unified
- 1289              		.thumb
- 1290              		.thumb_func
- 1292              	update_observer:
- 1293              	.LFB248:
+ 1047              		.loc 1 174 1 view .LVU305
+ 1048 0000 7047     		bx	lr
+ 1049              		.cfi_endproc
+ 1050              	.LFE247:
+ 1052              		.section	.text.update_observer,"ax",%progbits
+ 1053              		.align	1
+ 1054              		.global	update_observer
+ 1055              		.syntax unified
+ 1056              		.thumb
+ 1057              		.thumb_func
+ 1059              	update_observer:
+ 1060              	.LVL77:
+ 1061              	.LFB248:
  175:Core/Src/foc.c **** 
  176:Core/Src/foc.c **** void update_observer(ControllerStruct *controller, ObserverStruct *observer)
  177:Core/Src/foc.c **** {
- 1294              		.loc 1 177 1
- 1295              		.cfi_startproc
- 1296              		@ args = 0, pretend = 0, frame = 8
- 1297              		@ frame_needed = 1, uses_anonymous_args = 0
- 1298              		@ link register save eliminated.
- 1299 0000 80B4     		push	{r7}
- 1300              	.LCFI50:
- 1301              		.cfi_def_cfa_offset 4
- 1302              		.cfi_offset 7, -4
- 1303 0002 83B0     		sub	sp, sp, #12
- 1304              	.LCFI51:
- 1305              		.cfi_def_cfa_offset 16
- 1306 0004 00AF     		add	r7, sp, #0
- 1307              	.LCFI52:
- 1308              		.cfi_def_cfa_register 7
- 1309 0006 7860     		str	r0, [r7, #4]
- 1310 0008 3960     		str	r1, [r7]
+ 1062              		.loc 1 177 1 view -0
+ 1063              		.cfi_startproc
+ 1064              		@ args = 0, pretend = 0, frame = 0
+ 1065              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1066              		@ link register save eliminated.
  178:Core/Src/foc.c **** 	/*
  179:Core/Src/foc.c ****     /// Update observer estimates ///
  180:Core/Src/foc.c ****     // Resistance observer //
@@ -1558,14 +1313,14 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 1
  182:Core/Src/foc.c ****     observer->delta_t = (float)observer->temperature - T_AMBIENT;
  183:Core/Src/foc.c ****     float i_sq = controller->i_d*controller->i_d + controller->i_q*controller->i_q;
  184:Core/Src/foc.c ****     observer->q_in = (R_NOMINAL*1.5f)*(1.0f + .00393f*observer->delta_t)*i_sq;
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 27
-
-
  185:Core/Src/foc.c ****     observer->q_out = observer->delta_t*R_TH;
  186:Core/Src/foc.c ****     observer->temperature += (INV_M_TH*DT)*(observer->q_in-observer->q_out);
  187:Core/Src/foc.c **** 
  188:Core/Src/foc.c ****     //float r_d = (controller->v_d*(DTC_MAX-DTC_MIN) + SQRT3*controller->dtheta_elec*(L_Q*controlle
  189:Core/Src/foc.c ****     float r_q = (controller->v_q*(DTC_MAX-DTC_MIN) - SQRT3*controller->dtheta_elec*(L_D*controller-
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 23
+
+
  190:Core/Src/foc.c ****     observer->resistance = r_q;//(r_d*controller->i_d + r_q*controller->i_q)/(controller->i_d + con
  191:Core/Src/foc.c **** 
  192:Core/Src/foc.c ****     //observer->resistance = controller->v_q/controller->i_q;
@@ -1583,1179 +1338,923 @@ ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 1
  204:Core/Src/foc.c ****     else{controller->otw_flag = 0;}
  205:Core/Src/foc.c ****     */
  206:Core/Src/foc.c **** }
- 1311              		.loc 1 206 1
- 1312 000a 00BF     		nop
- 1313 000c 0C37     		adds	r7, r7, #12
- 1314              	.LCFI53:
- 1315              		.cfi_def_cfa_offset 4
- 1316 000e BD46     		mov	sp, r7
- 1317              	.LCFI54:
- 1318              		.cfi_def_cfa_register 13
- 1319              		@ sp needed
- 1320 0010 5DF8047B 		ldr	r7, [sp], #4
- 1321              	.LCFI55:
- 1322              		.cfi_restore 7
- 1323              		.cfi_def_cfa_offset 0
- 1324 0014 7047     		bx	lr
- 1325              		.cfi_endproc
- 1326              	.LFE248:
- 1328              		.section	.text.linearize_dtc,"ax",%progbits
- 1329              		.align	1
- 1330              		.global	linearize_dtc
- 1331              		.syntax unified
- 1332              		.thumb
- 1333              		.thumb_func
- 1335              	linearize_dtc:
- 1336              	.LFB249:
+ 1067              		.loc 1 206 1 view .LVU307
+ 1068 0000 7047     		bx	lr
+ 1069              		.cfi_endproc
+ 1070              	.LFE248:
+ 1072              		.section	.text.linearize_dtc,"ax",%progbits
+ 1073              		.align	1
+ 1074              		.global	linearize_dtc
+ 1075              		.syntax unified
+ 1076              		.thumb
+ 1077              		.thumb_func
+ 1079              	linearize_dtc:
+ 1080              	.LVL78:
+ 1081              	.LFB249:
  207:Core/Src/foc.c **** 
  208:Core/Src/foc.c **** float linearize_dtc(ControllerStruct *controller, float dtc)
  209:Core/Src/foc.c **** {
- 1337              		.loc 1 209 1
- 1338              		.cfi_startproc
- 1339              		@ args = 0, pretend = 0, frame = 24
- 1340              		@ frame_needed = 1, uses_anonymous_args = 0
- 1341 0000 80B5     		push	{r7, lr}
- 1342              	.LCFI56:
- 1343              		.cfi_def_cfa_offset 8
- 1344              		.cfi_offset 7, -8
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 28
-
-
- 1345              		.cfi_offset 14, -4
- 1346 0002 86B0     		sub	sp, sp, #24
- 1347              	.LCFI57:
- 1348              		.cfi_def_cfa_offset 32
- 1349 0004 00AF     		add	r7, sp, #0
- 1350              	.LCFI58:
- 1351              		.cfi_def_cfa_register 7
- 1352 0006 7860     		str	r0, [r7, #4]
- 1353 0008 87ED000A 		vstr.32	s0, [r7]
+ 1082              		.loc 1 209 1 view -0
+ 1083              		.cfi_startproc
+ 1084              		@ args = 0, pretend = 0, frame = 0
+ 1085              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1086              		.loc 1 209 1 is_stmt 0 view .LVU309
+ 1087 0000 10B5     		push	{r4, lr}
+ 1088              		.cfi_def_cfa_offset 8
+ 1089              		.cfi_offset 4, -8
+ 1090              		.cfi_offset 14, -4
+ 1091 0002 0446     		mov	r4, r0
  210:Core/Src/foc.c ****     float duty = fast_fmaxf(fast_fminf(fabs(dtc), .999f), 0.0f);;
- 1354              		.loc 1 210 18
- 1355 000c D7ED007A 		vldr.32	s15, [r7]
- 1356 0010 F0EEE77A 		vabs.f32	s15, s15
- 1357 0014 DFED240A 		vldr.32	s1, .L41
- 1358 0018 B0EE670A 		vmov.f32	s0, s15
- 1359 001c FFF7FEFF 		bl	fast_fminf
- 1360 0020 F0EE407A 		vmov.f32	s15, s0
- 1361 0024 DFED210A 		vldr.32	s1, .L41+4
- 1362 0028 B0EE670A 		vmov.f32	s0, s15
- 1363 002c FFF7FEFF 		bl	fast_fmaxf
- 1364 0030 87ED050A 		vstr.32	s0, [r7, #20]
+ 1092              		.loc 1 210 5 is_stmt 1 view .LVU310
+ 1093              		.loc 1 210 18 is_stmt 0 view .LVU311
+ 1094 0004 DFED170A 		vldr.32	s1, .L48
+ 1095 0008 B0EEC00A 		vabs.f32	s0, s0
+ 1096              	.LVL79:
+ 1097              		.loc 1 210 18 view .LVU312
+ 1098 000c FFF7FEFF 		bl	fast_fminf
+ 1099              	.LVL80:
+ 1100              		.loc 1 210 18 view .LVU313
+ 1101 0010 DFED150A 		vldr.32	s1, .L48+4
+ 1102 0014 FFF7FEFF 		bl	fast_fmaxf
+ 1103              	.LVL81:
+ 1104              		.loc 1 210 65 is_stmt 1 view .LVU314
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 24
+
+
  211:Core/Src/foc.c ****     int index = (int) (duty*127.0f);
- 1365              		.loc 1 211 28
- 1366 0034 D7ED057A 		vldr.32	s15, [r7, #20]
- 1367 0038 9FED1D7A 		vldr.32	s14, .L41+8
- 1368 003c 67EE877A 		vmul.f32	s15, s15, s14
- 1369              		.loc 1 211 9
- 1370 0040 FDEEE77A 		vcvt.s32.f32	s15, s15
- 1371 0044 17EE903A 		vmov	r3, s15	@ int
- 1372 0048 3B61     		str	r3, [r7, #16]
+ 1105              		.loc 1 211 5 view .LVU315
+ 1106              		.loc 1 211 28 is_stmt 0 view .LVU316
+ 1107 0018 DFED147A 		vldr.32	s15, .L48+8
+ 1108 001c 60EE277A 		vmul.f32	s15, s0, s15
+ 1109              		.loc 1 211 9 view .LVU317
+ 1110 0020 FDEEE77A 		vcvt.s32.f32	s15, s15
+ 1111 0024 17EE903A 		vmov	r3, s15	@ int
+ 1112              	.LVL82:
  212:Core/Src/foc.c ****     float val1 = controller->inverter_tab[index];
- 1373              		.loc 1 212 11
- 1374 004a 7A68     		ldr	r2, [r7, #4]
- 1375 004c 3B69     		ldr	r3, [r7, #16]
- 1376 004e 4033     		adds	r3, r3, #64
- 1377 0050 9B00     		lsls	r3, r3, #2
- 1378 0052 1344     		add	r3, r3, r2
- 1379 0054 0433     		adds	r3, r3, #4
- 1380 0056 1B68     		ldr	r3, [r3]	@ float
- 1381 0058 FB60     		str	r3, [r7, #12]	@ float
+ 1113              		.loc 1 212 5 is_stmt 1 view .LVU318
+ 1114              		.loc 1 212 11 is_stmt 0 view .LVU319
+ 1115 0028 03F14002 		add	r2, r3, #64
+ 1116 002c 04EB8202 		add	r2, r4, r2, lsl #2
+ 1117 0030 D2ED016A 		vldr.32	s13, [r2, #4]
+ 1118              	.LVL83:
  213:Core/Src/foc.c ****     float val2 = controller->inverter_tab[index+1];
- 1382              		.loc 1 213 48
- 1383 005a 3B69     		ldr	r3, [r7, #16]
- 1384 005c 0133     		adds	r3, r3, #1
- 1385              		.loc 1 213 11
- 1386 005e 7A68     		ldr	r2, [r7, #4]
- 1387 0060 4033     		adds	r3, r3, #64
- 1388 0062 9B00     		lsls	r3, r3, #2
- 1389 0064 1344     		add	r3, r3, r2
- 1390 0066 0433     		adds	r3, r3, #4
- 1391 0068 1B68     		ldr	r3, [r3]	@ float
- 1392 006a BB60     		str	r3, [r7, #8]	@ float
+ 1119              		.loc 1 213 5 is_stmt 1 view .LVU320
+ 1120              		.loc 1 213 11 is_stmt 0 view .LVU321
+ 1121 0034 03F14100 		add	r0, r3, #65
+ 1122 0038 04EB8004 		add	r4, r4, r0, lsl #2
+ 1123              	.LVL84:
+ 1124              		.loc 1 213 11 view .LVU322
+ 1125 003c D4ED017A 		vldr.32	s15, [r4, #4]
+ 1126              	.LVL85:
  214:Core/Src/foc.c ****     return val1 + (val2 - val1)*(duty*128.0f - (float)index);
- 1393              		.loc 1 214 25
- 1394 006c 97ED027A 		vldr.32	s14, [r7, #8]
- 1395 0070 D7ED037A 		vldr.32	s15, [r7, #12]
- 1396 0074 37EE677A 		vsub.f32	s14, s14, s15
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 29
-
-
- 1397              		.loc 1 214 38
- 1398 0078 D7ED057A 		vldr.32	s15, [r7, #20]
- 1399 007c DFED0D6A 		vldr.32	s13, .L41+12
- 1400 0080 67EEA66A 		vmul.f32	s13, s15, s13
- 1401              		.loc 1 214 48
- 1402 0084 3B69     		ldr	r3, [r7, #16]
- 1403 0086 07EE903A 		vmov	s15, r3	@ int
- 1404 008a F8EEE77A 		vcvt.f32.s32	s15, s15
- 1405              		.loc 1 214 46
- 1406 008e 76EEE77A 		vsub.f32	s15, s13, s15
- 1407              		.loc 1 214 32
- 1408 0092 27EE277A 		vmul.f32	s14, s14, s15
- 1409              		.loc 1 214 17
- 1410 0096 D7ED037A 		vldr.32	s15, [r7, #12]
- 1411 009a 77EE277A 		vadd.f32	s15, s14, s15
+ 1127              		.loc 1 214 5 is_stmt 1 view .LVU323
+ 1128              		.loc 1 214 25 is_stmt 0 view .LVU324
+ 1129 0040 37EEE67A 		vsub.f32	s14, s15, s13
+ 1130              		.loc 1 214 38 view .LVU325
+ 1131 0044 DFED0A7A 		vldr.32	s15, .L48+12
+ 1132              	.LVL86:
+ 1133              		.loc 1 214 38 view .LVU326
+ 1134 0048 20EE270A 		vmul.f32	s0, s0, s15
+ 1135              	.LVL87:
+ 1136              		.loc 1 214 48 view .LVU327
+ 1137 004c 07EE903A 		vmov	s15, r3	@ int
+ 1138 0050 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 1139              		.loc 1 214 46 view .LVU328
+ 1140 0054 70EE677A 		vsub.f32	s15, s0, s15
+ 1141              		.loc 1 214 32 view .LVU329
+ 1142 0058 67EE277A 		vmul.f32	s15, s14, s15
  215:Core/Src/foc.c **** }
- 1412              		.loc 1 215 1
- 1413 009e B0EE670A 		vmov.f32	s0, s15
- 1414 00a2 1837     		adds	r7, r7, #24
- 1415              	.LCFI59:
- 1416              		.cfi_def_cfa_offset 8
- 1417 00a4 BD46     		mov	sp, r7
- 1418              	.LCFI60:
- 1419              		.cfi_def_cfa_register 13
- 1420              		@ sp needed
- 1421 00a6 80BD     		pop	{r7, pc}
- 1422              	.L42:
- 1423              		.align	2
- 1424              	.L41:
- 1425 00a8 77BE7F3F 		.word	1065336439
- 1426 00ac 00000000 		.word	0
- 1427 00b0 0000FE42 		.word	1123942400
- 1428 00b4 00000043 		.word	1124073472
- 1429              		.cfi_endproc
- 1430              	.LFE249:
- 1432              		.section	.text.field_weaken,"ax",%progbits
- 1433              		.align	1
- 1434              		.global	field_weaken
- 1435              		.syntax unified
- 1436              		.thumb
- 1437              		.thumb_func
- 1439              	field_weaken:
- 1440              	.LFB250:
+ 1143              		.loc 1 215 1 view .LVU330
+ 1144 005c 37EEA60A 		vadd.f32	s0, s15, s13
+ 1145 0060 10BD     		pop	{r4, pc}
+ 1146              	.LVL88:
+ 1147              	.L49:
+ 1148              		.loc 1 215 1 view .LVU331
+ 1149 0062 00BF     		.align	2
+ 1150              	.L48:
+ 1151 0064 77BE7F3F 		.word	1065336439
+ 1152 0068 00000000 		.word	0
+ 1153 006c 0000FE42 		.word	1123942400
+ 1154 0070 00000043 		.word	1124073472
+ 1155              		.cfi_endproc
+ 1156              	.LFE249:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 25
+
+
+ 1158              		.section	.text.field_weaken,"ax",%progbits
+ 1159              		.align	1
+ 1160              		.global	field_weaken
+ 1161              		.syntax unified
+ 1162              		.thumb
+ 1163              		.thumb_func
+ 1165              	field_weaken:
+ 1166              	.LVL89:
+ 1167              	.LFB250:
  216:Core/Src/foc.c **** 
  217:Core/Src/foc.c **** void field_weaken(ControllerStruct *controller)
  218:Core/Src/foc.c **** {
- 1441              		.loc 1 218 1
- 1442              		.cfi_startproc
- 1443              		@ args = 0, pretend = 0, frame = 16
- 1444              		@ frame_needed = 1, uses_anonymous_args = 0
- 1445 0000 80B5     		push	{r7, lr}
- 1446              	.LCFI61:
- 1447              		.cfi_def_cfa_offset 8
- 1448              		.cfi_offset 7, -8
- 1449              		.cfi_offset 14, -4
- 1450 0002 84B0     		sub	sp, sp, #16
- 1451              	.LCFI62:
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 30
-
-
- 1452              		.cfi_def_cfa_offset 24
- 1453 0004 00AF     		add	r7, sp, #0
- 1454              	.LCFI63:
- 1455              		.cfi_def_cfa_register 7
- 1456 0006 7860     		str	r0, [r7, #4]
+ 1168              		.loc 1 218 1 is_stmt 1 view -0
+ 1169              		.cfi_startproc
+ 1170              		@ args = 0, pretend = 0, frame = 0
+ 1171              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1172              		.loc 1 218 1 is_stmt 0 view .LVU333
+ 1173 0000 10B5     		push	{r4, lr}
+ 1174              		.cfi_def_cfa_offset 8
+ 1175              		.cfi_offset 4, -8
+ 1176              		.cfi_offset 14, -4
+ 1177 0002 2DED028B 		vpush.64	{d8}
+ 1178              		.cfi_def_cfa_offset 16
+ 1179              		.cfi_offset 80, -16
+ 1180              		.cfi_offset 81, -12
+ 1181 0006 0446     		mov	r4, r0
  219:Core/Src/foc.c ****        /// Field Weakening ///
  220:Core/Src/foc.c **** 
  221:Core/Src/foc.c ****        controller->fw_int += controller->ki_fw*(controller->v_max - 1.0f - controller->v_ref);
- 1457              		.loc 1 221 27
- 1458 0008 7B68     		ldr	r3, [r7, #4]
- 1459 000a 93ED3D7A 		vldr.32	s14, [r3, #244]
- 1460              		.loc 1 221 40
- 1461 000e 7B68     		ldr	r3, [r7, #4]
- 1462 0010 D3ED226A 		vldr.32	s13, [r3, #136]
- 1463              		.loc 1 221 59
- 1464 0014 7B68     		ldr	r3, [r7, #4]
- 1465 0016 D3ED3B7A 		vldr.32	s15, [r3, #236]
- 1466              		.loc 1 221 67
- 1467 001a B7EE006A 		vmov.f32	s12, #1.0e+0
- 1468 001e 37EEC66A 		vsub.f32	s12, s15, s12
- 1469              		.loc 1 221 86
- 1470 0022 7B68     		ldr	r3, [r7, #4]
- 1471 0024 D3ED3C7A 		vldr.32	s15, [r3, #240]
- 1472              		.loc 1 221 74
- 1473 0028 76EE677A 		vsub.f32	s15, s12, s15
- 1474              		.loc 1 221 47
- 1475 002c 66EEA77A 		vmul.f32	s15, s13, s15
- 1476              		.loc 1 221 27
- 1477 0030 77EE277A 		vadd.f32	s15, s14, s15
- 1478 0034 7B68     		ldr	r3, [r7, #4]
- 1479 0036 C3ED3D7A 		vstr.32	s15, [r3, #244]
+ 1182              		.loc 1 221 8 is_stmt 1 view .LVU334
+ 1183              		.loc 1 221 40 is_stmt 0 view .LVU335
+ 1184 0008 90ED220A 		vldr.32	s0, [r0, #136]
+ 1185              		.loc 1 221 59 view .LVU336
+ 1186 000c D0ED3B7A 		vldr.32	s15, [r0, #236]
+ 1187              		.loc 1 221 67 view .LVU337
+ 1188 0010 B7EE007A 		vmov.f32	s14, #1.0e+0
+ 1189 0014 77EEC77A 		vsub.f32	s15, s15, s14
+ 1190              		.loc 1 221 86 view .LVU338
+ 1191 0018 90ED3C7A 		vldr.32	s14, [r0, #240]
+ 1192              		.loc 1 221 74 view .LVU339
+ 1193 001c 77EEC77A 		vsub.f32	s15, s15, s14
+ 1194              		.loc 1 221 47 view .LVU340
+ 1195 0020 20EE270A 		vmul.f32	s0, s0, s15
+ 1196              		.loc 1 221 27 view .LVU341
+ 1197 0024 D0ED3D7A 		vldr.32	s15, [r0, #244]
+ 1198 0028 30EE270A 		vadd.f32	s0, s0, s15
+ 1199 002c 80ED3D0A 		vstr.32	s0, [r0, #244]
  222:Core/Src/foc.c ****        controller->fw_int = fast_fmaxf(fast_fminf(controller->fw_int, 0.0f), -I_FW_MAX);
- 1480              		.loc 1 222 29
- 1481 003a 7B68     		ldr	r3, [r7, #4]
- 1482 003c D3ED3D7A 		vldr.32	s15, [r3, #244]
- 1483 0040 DFED400A 		vldr.32	s1, .L54
- 1484 0044 B0EE670A 		vmov.f32	s0, s15
- 1485 0048 FFF7FEFF 		bl	fast_fminf
- 1486 004c B0EE407A 		vmov.f32	s14, s0
- 1487              		.loc 1 222 79
- 1488 0050 3D4B     		ldr	r3, .L54+4
- 1489 0052 D3ED067A 		vldr.32	s15, [r3, #24]
- 1490              		.loc 1 222 29
- 1491 0056 F1EE677A 		vneg.f32	s15, s15
- 1492 005a F0EE670A 		vmov.f32	s1, s15
- 1493 005e B0EE470A 		vmov.f32	s0, s14
- 1494 0062 FFF7FEFF 		bl	fast_fmaxf
- 1495 0066 F0EE407A 		vmov.f32	s15, s0
- 1496              		.loc 1 222 27
- 1497 006a 7B68     		ldr	r3, [r7, #4]
- 1498 006c C3ED3D7A 		vstr.32	s15, [r3, #244]
+ 1200              		.loc 1 222 8 is_stmt 1 view .LVU342
+ 1201              		.loc 1 222 29 is_stmt 0 view .LVU343
+ 1202 0030 DFED240A 		vldr.32	s1, .L63
+ 1203 0034 FFF7FEFF 		bl	fast_fminf
+ 1204              	.LVL90:
+ 1205              		.loc 1 222 79 view .LVU344
+ 1206 0038 234B     		ldr	r3, .L63+4
+ 1207 003a D3ED060A 		vldr.32	s1, [r3, #24]
+ 1208              		.loc 1 222 29 view .LVU345
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 26
+
+
+ 1209 003e F1EE600A 		vneg.f32	s1, s1
+ 1210 0042 FFF7FEFF 		bl	fast_fmaxf
+ 1211              	.LVL91:
+ 1212              		.loc 1 222 27 view .LVU346
+ 1213 0046 84ED3D0A 		vstr.32	s0, [r4, #244]
  223:Core/Src/foc.c ****        controller->i_q_des = controller->i_q_des + (controller->i_q_des > 0)*controller->fw_int + (
- 1499              		.loc 1 223 40
- 1500 0070 7B68     		ldr	r3, [r7, #4]
- 1501 0072 93ED2C7A 		vldr.32	s14, [r3, #176]
- 1502              		.loc 1 223 63
- 1503 0076 7B68     		ldr	r3, [r7, #4]
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 31
-
-
- 1504 0078 D3ED2C7A 		vldr.32	s15, [r3, #176]
- 1505              		.loc 1 223 77
- 1506 007c F5EEC07A 		vcmpe.f32	s15, #0
- 1507 0080 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 1508 0084 02DD     		ble	.L52
- 1509              		.loc 1 223 77 is_stmt 0 discriminator 1
- 1510 0086 F7EE006A 		vmov.f32	s13, #1.0e+0
- 1511 008a 01E0     		b	.L46
- 1512              	.L52:
- 1513              		.loc 1 223 77 discriminator 2
- 1514 008c DFED2D6A 		vldr.32	s13, .L54
- 1515              	.L46:
- 1516              		.loc 1 223 88 is_stmt 1 discriminator 4
- 1517 0090 7B68     		ldr	r3, [r7, #4]
- 1518 0092 D3ED3D7A 		vldr.32	s15, [r3, #244]
- 1519              		.loc 1 223 77 discriminator 4
- 1520 0096 66EEA77A 		vmul.f32	s15, s13, s15
- 1521              		.loc 1 223 50 discriminator 4
- 1522 009a 37EE277A 		vadd.f32	s14, s14, s15
- 1523              		.loc 1 223 110 discriminator 4
- 1524 009e 7B68     		ldr	r3, [r7, #4]
- 1525 00a0 D3ED2C7A 		vldr.32	s15, [r3, #176]
- 1526              		.loc 1 223 124 discriminator 4
- 1527 00a4 F5EEC07A 		vcmpe.f32	s15, #0
- 1528 00a8 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 1529 00ac 02D5     		bpl	.L53
- 1530              		.loc 1 223 124 is_stmt 0 discriminator 5
- 1531 00ae F7EE006A 		vmov.f32	s13, #1.0e+0
- 1532 00b2 01E0     		b	.L49
- 1533              	.L53:
- 1534              		.loc 1 223 124 discriminator 6
- 1535 00b4 DFED236A 		vldr.32	s13, .L54
- 1536              	.L49:
- 1537              		.loc 1 223 135 is_stmt 1 discriminator 8
- 1538 00b8 7B68     		ldr	r3, [r7, #4]
- 1539 00ba D3ED3D7A 		vldr.32	s15, [r3, #244]
- 1540              		.loc 1 223 124 discriminator 8
- 1541 00be 66EEA77A 		vmul.f32	s15, s13, s15
- 1542              		.loc 1 223 97 discriminator 8
- 1543 00c2 77EE277A 		vadd.f32	s15, s14, s15
- 1544              		.loc 1 223 28 discriminator 8
- 1545 00c6 7B68     		ldr	r3, [r7, #4]
- 1546 00c8 C3ED2C7A 		vstr.32	s15, [r3, #176]
+ 1214              		.loc 1 223 8 is_stmt 1 view .LVU347
+ 1215              		.loc 1 223 40 is_stmt 0 view .LVU348
+ 1216 004a 94ED2C7A 		vldr.32	s14, [r4, #176]
+ 1217              		.loc 1 223 77 view .LVU349
+ 1218 004e B5EEC07A 		vcmpe.f32	s14, #0
+ 1219 0052 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1220 0056 2FDD     		ble	.L59
+ 1221 0058 F7EE007A 		vmov.f32	s15, #1.0e+0
+ 1222              	.L51:
+ 1223              		.loc 1 223 77 discriminator 4 view .LVU350
+ 1224 005c 60EE277A 		vmul.f32	s15, s0, s15
+ 1225              		.loc 1 223 50 discriminator 4 view .LVU351
+ 1226 0060 77EE277A 		vadd.f32	s15, s14, s15
+ 1227              		.loc 1 223 124 discriminator 4 view .LVU352
+ 1228 0064 B5EEC07A 		vcmpe.f32	s14, #0
+ 1229 0068 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1230 006c 27D4     		bmi	.L62
+ 1231              		.loc 1 223 124 view .LVU353
+ 1232 006e 9FED157A 		vldr.32	s14, .L63
+ 1233              	.L53:
+ 1234              		.loc 1 223 124 discriminator 8 view .LVU354
+ 1235 0072 20EE077A 		vmul.f32	s14, s0, s14
+ 1236              		.loc 1 223 97 discriminator 8 view .LVU355
+ 1237 0076 77EE877A 		vadd.f32	s15, s15, s14
+ 1238              		.loc 1 223 28 discriminator 8 view .LVU356
+ 1239 007a C4ED2C7A 		vstr.32	s15, [r4, #176]
  224:Core/Src/foc.c ****        controller->i_d_des = controller->fw_int;
- 1547              		.loc 1 224 40 discriminator 8
- 1548 00cc 7B68     		ldr	r3, [r7, #4]
- 1549 00ce D3F8F420 		ldr	r2, [r3, #244]	@ float
- 1550              		.loc 1 224 28 discriminator 8
- 1551 00d2 7B68     		ldr	r3, [r7, #4]
- 1552 00d4 C3F8AC20 		str	r2, [r3, #172]	@ float
+ 1240              		.loc 1 224 8 is_stmt 1 discriminator 8 view .LVU357
+ 1241              		.loc 1 224 28 is_stmt 0 discriminator 8 view .LVU358
+ 1242 007e 84ED2B0A 		vstr.32	s0, [r4, #172]
  225:Core/Src/foc.c ****        float q_max = sqrtf(controller->i_max*controller->i_max - controller->i_d_des*controller->i_
- 1553              		.loc 1 225 38 discriminator 8
- 1554 00d8 7B68     		ldr	r3, [r7, #4]
- 1555 00da 93ED407A 		vldr.32	s14, [r3, #256]
- 1556              		.loc 1 225 56 discriminator 8
- 1557 00de 7B68     		ldr	r3, [r7, #4]
- 1558 00e0 D3ED407A 		vldr.32	s15, [r3, #256]
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 32
-
-
- 1559              		.loc 1 225 45 discriminator 8
- 1560 00e4 27EE277A 		vmul.f32	s14, s14, s15
- 1561              		.loc 1 225 76 discriminator 8
- 1562 00e8 7B68     		ldr	r3, [r7, #4]
- 1563 00ea D3ED2B6A 		vldr.32	s13, [r3, #172]
- 1564              		.loc 1 225 96 discriminator 8
- 1565 00ee 7B68     		ldr	r3, [r7, #4]
- 1566 00f0 D3ED2B7A 		vldr.32	s15, [r3, #172]
- 1567              		.loc 1 225 85 discriminator 8
- 1568 00f4 66EEA77A 		vmul.f32	s15, s13, s15
- 1569              		.loc 1 225 22 discriminator 8
- 1570 00f8 77EE677A 		vsub.f32	s15, s14, s15
- 1571 00fc B0EE670A 		vmov.f32	s0, s15
- 1572 0100 FFF7FEFF 		bl	sqrtf
- 1573 0104 87ED030A 		vstr.32	s0, [r7, #12]
+ 1243              		.loc 1 225 8 is_stmt 1 discriminator 8 view .LVU359
+ 1244              		.loc 1 225 38 is_stmt 0 discriminator 8 view .LVU360
+ 1245 0082 D4ED407A 		vldr.32	s15, [r4, #256]
+ 1246              		.loc 1 225 45 discriminator 8 view .LVU361
+ 1247 0086 67EEA77A 		vmul.f32	s15, s15, s15
+ 1248              		.loc 1 225 85 discriminator 8 view .LVU362
+ 1249 008a 20EE000A 		vmul.f32	s0, s0, s0
+ 1250              		.loc 1 225 22 discriminator 8 view .LVU363
+ 1251 008e 37EEC00A 		vsub.f32	s0, s15, s0
+ 1252 0092 FFF7FEFF 		bl	sqrtf
+ 1253              	.LVL92:
+ 1254 0096 B0EE408A 		vmov.f32	s16, s0
+ 1255              	.LVL93:
  226:Core/Src/foc.c ****        controller->i_q_des = fast_fmaxf(fast_fminf(controller->i_q_des, q_max), -q_max);
- 1574              		.loc 1 226 30 discriminator 8
- 1575 0108 7B68     		ldr	r3, [r7, #4]
- 1576 010a D3ED2C7A 		vldr.32	s15, [r3, #176]
- 1577 010e D7ED030A 		vldr.32	s1, [r7, #12]
- 1578 0112 B0EE670A 		vmov.f32	s0, s15
- 1579 0116 FFF7FEFF 		bl	fast_fminf
- 1580 011a B0EE407A 		vmov.f32	s14, s0
- 1581 011e D7ED037A 		vldr.32	s15, [r7, #12]
- 1582 0122 F1EE677A 		vneg.f32	s15, s15
- 1583 0126 F0EE670A 		vmov.f32	s1, s15
- 1584 012a B0EE470A 		vmov.f32	s0, s14
- 1585 012e FFF7FEFF 		bl	fast_fmaxf
- 1586 0132 F0EE407A 		vmov.f32	s15, s0
- 1587              		.loc 1 226 28 discriminator 8
- 1588 0136 7B68     		ldr	r3, [r7, #4]
- 1589 0138 C3ED2C7A 		vstr.32	s15, [r3, #176]
+ 1256              		.loc 1 226 8 is_stmt 1 discriminator 8 view .LVU364
+ 1257              		.loc 1 226 30 is_stmt 0 discriminator 8 view .LVU365
+ 1258 009a F0EE400A 		vmov.f32	s1, s0
+ 1259 009e 94ED2C0A 		vldr.32	s0, [r4, #176]
+ 1260              	.LVL94:
+ 1261              		.loc 1 226 30 discriminator 8 view .LVU366
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 27
+
+
+ 1262 00a2 FFF7FEFF 		bl	fast_fminf
+ 1263              	.LVL95:
+ 1264              		.loc 1 226 30 discriminator 8 view .LVU367
+ 1265 00a6 F1EE480A 		vneg.f32	s1, s16
+ 1266 00aa FFF7FEFF 		bl	fast_fmaxf
+ 1267              	.LVL96:
+ 1268              		.loc 1 226 28 discriminator 8 view .LVU368
+ 1269 00ae 84ED2C0A 		vstr.32	s0, [r4, #176]
  227:Core/Src/foc.c **** 
  228:Core/Src/foc.c **** 
  229:Core/Src/foc.c **** }
- 1590              		.loc 1 229 1 discriminator 8
- 1591 013c 00BF     		nop
- 1592 013e 1037     		adds	r7, r7, #16
- 1593              	.LCFI64:
- 1594              		.cfi_def_cfa_offset 8
- 1595 0140 BD46     		mov	sp, r7
- 1596              	.LCFI65:
- 1597              		.cfi_def_cfa_register 13
- 1598              		@ sp needed
- 1599 0142 80BD     		pop	{r7, pc}
- 1600              	.L55:
- 1601              		.align	2
- 1602              	.L54:
- 1603 0144 00000000 		.word	0
- 1604 0148 00000000 		.word	__float_reg
- 1605              		.cfi_endproc
- 1606              	.LFE250:
- 1608              		.section	.text.commutate,"ax",%progbits
- 1609              		.align	1
- 1610              		.global	commutate
- 1611              		.syntax unified
- 1612              		.thumb
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 33
-
-
- 1613              		.thumb_func
- 1615              	commutate:
- 1616              	.LFB251:
+ 1270              		.loc 1 229 1 discriminator 8 view .LVU369
+ 1271 00b2 BDEC028B 		vldm	sp!, {d8}
+ 1272              		.cfi_remember_state
+ 1273              		.cfi_restore 80
+ 1274              		.cfi_restore 81
+ 1275              		.cfi_def_cfa_offset 8
+ 1276              	.LVL97:
+ 1277              		.loc 1 229 1 discriminator 8 view .LVU370
+ 1278 00b6 10BD     		pop	{r4, pc}
+ 1279              	.LVL98:
+ 1280              	.L59:
+ 1281              		.cfi_restore_state
+ 223:Core/Src/foc.c ****        controller->i_d_des = controller->fw_int;
+ 1282              		.loc 1 223 77 view .LVU371
+ 1283 00b8 DFED027A 		vldr.32	s15, .L63
+ 1284 00bc CEE7     		b	.L51
+ 1285              	.L62:
+ 223:Core/Src/foc.c ****        controller->i_d_des = controller->fw_int;
+ 1286              		.loc 1 223 124 view .LVU372
+ 1287 00be B7EE007A 		vmov.f32	s14, #1.0e+0
+ 1288 00c2 D6E7     		b	.L53
+ 1289              	.L64:
+ 1290              		.align	2
+ 1291              	.L63:
+ 1292 00c4 00000000 		.word	0
+ 1293 00c8 00000000 		.word	__float_reg
+ 1294              		.cfi_endproc
+ 1295              	.LFE250:
+ 1297              		.section	.text.commutate,"ax",%progbits
+ 1298              		.align	1
+ 1299              		.global	commutate
+ 1300              		.syntax unified
+ 1301              		.thumb
+ 1302              		.thumb_func
+ 1304              	commutate:
+ 1305              	.LVL99:
+ 1306              	.LFB251:
  230:Core/Src/foc.c **** void commutate(ControllerStruct *controller, EncoderStruct *encoder)//电流环 控制
  231:Core/Src/foc.c **** {
- 1617              		.loc 1 231 1
- 1618              		.cfi_startproc
- 1619              		@ args = 0, pretend = 0, frame = 32
- 1620              		@ frame_needed = 1, uses_anonymous_args = 0
- 1621 0000 80B5     		push	{r7, lr}
- 1622              	.LCFI66:
- 1623              		.cfi_def_cfa_offset 8
- 1624              		.cfi_offset 7, -8
- 1625              		.cfi_offset 14, -4
- 1626 0002 88B0     		sub	sp, sp, #32
- 1627              	.LCFI67:
- 1628              		.cfi_def_cfa_offset 40
- 1629 0004 00AF     		add	r7, sp, #0
- 1630              	.LCFI68:
- 1631              		.cfi_def_cfa_register 7
- 1632 0006 7860     		str	r0, [r7, #4]
- 1633 0008 3960     		str	r1, [r7]
+ 1307              		.loc 1 231 1 is_stmt 1 view -0
+ 1308              		.cfi_startproc
+ 1309              		@ args = 0, pretend = 0, frame = 0
+ 1310              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1311              		.loc 1 231 1 is_stmt 0 view .LVU374
+ 1312 0000 38B5     		push	{r3, r4, r5, lr}
+ 1313              		.cfi_def_cfa_offset 16
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 28
+
+
+ 1314              		.cfi_offset 3, -16
+ 1315              		.cfi_offset 4, -12
+ 1316              		.cfi_offset 5, -8
+ 1317              		.cfi_offset 14, -4
+ 1318 0002 2DED048B 		vpush.64	{d8, d9}
+ 1319              		.cfi_def_cfa_offset 32
+ 1320              		.cfi_offset 80, -32
+ 1321              		.cfi_offset 81, -28
+ 1322              		.cfi_offset 82, -24
+ 1323              		.cfi_offset 83, -20
+ 1324 0006 0446     		mov	r4, r0
  232:Core/Src/foc.c **** 	/* Do Field Oriented Control */
  233:Core/Src/foc.c **** 
  234:Core/Src/foc.c **** 		controller->theta_elec = encoder->elec_angle;
- 1634              		.loc 1 234 35
- 1635 000a 3B68     		ldr	r3, [r7]
- 1636 000c DA6D     		ldr	r2, [r3, #92]	@ float
- 1637              		.loc 1 234 26
- 1638 000e 7B68     		ldr	r3, [r7, #4]
- 1639 0010 DA62     		str	r2, [r3, #44]	@ float
+ 1325              		.loc 1 234 3 is_stmt 1 view .LVU375
+ 1326              		.loc 1 234 35 is_stmt 0 view .LVU376
+ 1327 0008 91ED170A 		vldr.32	s0, [r1, #92]
+ 1328              		.loc 1 234 26 view .LVU377
+ 1329 000c 80ED0B0A 		vstr.32	s0, [r0, #44]
  235:Core/Src/foc.c **** 		controller->dtheta_elec = encoder->elec_velocity;
- 1640              		.loc 1 235 36
- 1641 0012 3B68     		ldr	r3, [r7]
- 1642 0014 5A6E     		ldr	r2, [r3, #100]	@ float
- 1643              		.loc 1 235 27
- 1644 0016 7B68     		ldr	r3, [r7, #4]
- 1645 0018 5A63     		str	r2, [r3, #52]	@ float
+ 1330              		.loc 1 235 3 is_stmt 1 view .LVU378
+ 1331              		.loc 1 235 36 is_stmt 0 view .LVU379
+ 1332 0010 4B6E     		ldr	r3, [r1, #100]	@ float
+ 1333              		.loc 1 235 27 view .LVU380
+ 1334 0012 4363     		str	r3, [r0, #52]	@ float
  236:Core/Src/foc.c **** 		controller->dtheta_mech = encoder->velocity/GR;
- 1646              		.loc 1 236 36
- 1647 001a 3B68     		ldr	r3, [r7]
- 1648 001c D3ED186A 		vldr.32	s13, [r3, #96]
- 1649              		.loc 1 236 47
- 1650 0020 5C4B     		ldr	r3, .L60
- 1651 0022 93ED117A 		vldr.32	s14, [r3, #68]
- 1652              		.loc 1 236 46
- 1653 0026 C6EE877A 		vdiv.f32	s15, s13, s14
- 1654              		.loc 1 236 27
- 1655 002a 7B68     		ldr	r3, [r7, #4]
- 1656 002c C3ED0C7A 		vstr.32	s15, [r3, #48]
+ 1335              		.loc 1 236 3 is_stmt 1 view .LVU381
+ 1336              		.loc 1 236 36 is_stmt 0 view .LVU382
+ 1337 0014 D1ED186A 		vldr.32	s13, [r1, #96]
+ 1338              		.loc 1 236 47 view .LVU383
+ 1339 0018 8B4D     		ldr	r5, .L70
+ 1340 001a 95ED117A 		vldr.32	s14, [r5, #68]
+ 1341              		.loc 1 236 46 view .LVU384
+ 1342 001e C6EE877A 		vdiv.f32	s15, s13, s14
+ 1343              		.loc 1 236 27 view .LVU385
+ 1344 0022 C0ED0C7A 		vstr.32	s15, [r0, #48]
  237:Core/Src/foc.c **** 		controller->theta_mech = encoder->angle_multiturn[0]/GR;
- 1657              		.loc 1 237 52
- 1658 0030 3B68     		ldr	r3, [r7]
- 1659 0032 D3ED036A 		vldr.32	s13, [r3, #12]
- 1660              		.loc 1 237 56
- 1661 0036 574B     		ldr	r3, .L60
- 1662 0038 93ED117A 		vldr.32	s14, [r3, #68]
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 34
-
-
- 1663              		.loc 1 237 55
- 1664 003c C6EE877A 		vdiv.f32	s15, s13, s14
- 1665              		.loc 1 237 26
- 1666 0040 7B68     		ldr	r3, [r7, #4]
- 1667 0042 C3ED0A7A 		vstr.32	s15, [r3, #40]
+ 1345              		.loc 1 237 3 is_stmt 1 view .LVU386
+ 1346              		.loc 1 237 52 is_stmt 0 view .LVU387
+ 1347 0026 D1ED036A 		vldr.32	s13, [r1, #12]
+ 1348              		.loc 1 237 56 view .LVU388
+ 1349 002a 95ED117A 		vldr.32	s14, [r5, #68]
+ 1350              		.loc 1 237 55 view .LVU389
+ 1351 002e C6EE877A 		vdiv.f32	s15, s13, s14
+ 1352              		.loc 1 237 26 view .LVU390
+ 1353 0032 C0ED0A7A 		vstr.32	s15, [r0, #40]
  238:Core/Src/foc.c **** 
  239:Core/Src/foc.c ****        /// Commutation  ///
  240:Core/Src/foc.c ****        dq0(controller->theta_elec, controller->i_a, controller->i_b, controller->i_c, &controller->
- 1668              		.loc 1 240 8
- 1669 0046 7B68     		ldr	r3, [r7, #4]
- 1670 0048 D3ED0B7A 		vldr.32	s15, [r3, #44]
- 1671 004c 7B68     		ldr	r3, [r7, #4]
- 1672 004e 93ED057A 		vldr.32	s14, [r3, #20]
- 1673 0052 7B68     		ldr	r3, [r7, #4]
- 1674 0054 D3ED066A 		vldr.32	s13, [r3, #24]
- 1675 0058 7B68     		ldr	r3, [r7, #4]
- 1676 005a 93ED076A 		vldr.32	s12, [r3, #28]
- 1677 005e 7B68     		ldr	r3, [r7, #4]
- 1678 0060 03F13C02 		add	r2, r3, #60
- 1679 0064 7B68     		ldr	r3, [r7, #4]
- 1680 0066 4033     		adds	r3, r3, #64
- 1681 0068 1946     		mov	r1, r3
- 1682 006a 1046     		mov	r0, r2
- 1683 006c F0EE461A 		vmov.f32	s3, s12
- 1684 0070 B0EE661A 		vmov.f32	s2, s13
- 1685 0074 F0EE470A 		vmov.f32	s1, s14
- 1686 0078 B0EE670A 		vmov.f32	s0, s15
- 1687 007c FFF7FEFF 		bl	dq0
+ 1354              		.loc 1 240 8 is_stmt 1 view .LVU391
+ 1355 0036 00F14001 		add	r1, r0, #64
+ 1356              	.LVL100:
+ 1357              		.loc 1 240 8 is_stmt 0 view .LVU392
+ 1358 003a 3C30     		adds	r0, r0, #60
+ 1359              	.LVL101:
+ 1360              		.loc 1 240 8 view .LVU393
+ 1361 003c D4ED071A 		vldr.32	s3, [r4, #28]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 29
+
+
+ 1362 0040 94ED061A 		vldr.32	s2, [r4, #24]
+ 1363 0044 D4ED050A 		vldr.32	s1, [r4, #20]
+ 1364 0048 FFF7FEFF 		bl	dq0
+ 1365              	.LVL102:
  241:Core/Src/foc.c **** 
  242:Core/Src/foc.c ****        controller->i_q_filt = (1.0f-CURRENT_FILT_ALPHA)*controller->i_q_filt + CURRENT_FILT_ALPHA*c
- 1688              		.loc 1 242 67
- 1689 0080 7B68     		ldr	r3, [r7, #4]
- 1690 0082 D3ED117A 		vldr.32	s15, [r3, #68]
- 1691              		.loc 1 242 56
- 1692 0086 9FED447A 		vldr.32	s14, .L60+4
- 1693 008a 27EE877A 		vmul.f32	s14, s15, s14
- 1694              		.loc 1 242 109
- 1695 008e 7B68     		ldr	r3, [r7, #4]
- 1696 0090 D3ED107A 		vldr.32	s15, [r3, #64]
- 1697              		.loc 1 242 98
- 1698 0094 DFED416A 		vldr.32	s13, .L60+8
- 1699 0098 67EEA67A 		vmul.f32	s15, s15, s13
- 1700              		.loc 1 242 78
- 1701 009c 77EE277A 		vadd.f32	s15, s14, s15
- 1702              		.loc 1 242 29
- 1703 00a0 7B68     		ldr	r3, [r7, #4]
- 1704 00a2 C3ED117A 		vstr.32	s15, [r3, #68]
+ 1366              		.loc 1 242 8 is_stmt 1 view .LVU394
+ 1367              		.loc 1 242 67 is_stmt 0 view .LVU395
+ 1368 004c 94ED117A 		vldr.32	s14, [r4, #68]
+ 1369              		.loc 1 242 56 view .LVU396
+ 1370 0050 9FED7E6A 		vldr.32	s12, .L70+4
+ 1371 0054 27EE067A 		vmul.f32	s14, s14, s12
+ 1372              		.loc 1 242 109 view .LVU397
+ 1373 0058 D4ED107A 		vldr.32	s15, [r4, #64]
+ 1374              		.loc 1 242 98 view .LVU398
+ 1375 005c DFED7C6A 		vldr.32	s13, .L70+8
+ 1376 0060 67EEA67A 		vmul.f32	s15, s15, s13
+ 1377              		.loc 1 242 78 view .LVU399
+ 1378 0064 37EE277A 		vadd.f32	s14, s14, s15
+ 1379              		.loc 1 242 29 view .LVU400
+ 1380 0068 84ED117A 		vstr.32	s14, [r4, #68]
  243:Core/Src/foc.c ****        controller->i_d_filt = (1.0f-CURRENT_FILT_ALPHA)*controller->i_d_filt + CURRENT_FILT_ALPHA*c
- 1705              		.loc 1 243 67
- 1706 00a6 7B68     		ldr	r3, [r7, #4]
- 1707 00a8 D3ED127A 		vldr.32	s15, [r3, #72]
- 1708              		.loc 1 243 56
- 1709 00ac 9FED3A7A 		vldr.32	s14, .L60+4
- 1710 00b0 27EE877A 		vmul.f32	s14, s15, s14
- 1711              		.loc 1 243 109
- 1712 00b4 7B68     		ldr	r3, [r7, #4]
- 1713 00b6 D3ED0F7A 		vldr.32	s15, [r3, #60]
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 35
-
-
- 1714              		.loc 1 243 98
- 1715 00ba DFED386A 		vldr.32	s13, .L60+8
- 1716 00be 67EEA67A 		vmul.f32	s15, s15, s13
- 1717              		.loc 1 243 78
- 1718 00c2 77EE277A 		vadd.f32	s15, s14, s15
- 1719              		.loc 1 243 29
- 1720 00c6 7B68     		ldr	r3, [r7, #4]
- 1721 00c8 C3ED127A 		vstr.32	s15, [r3, #72]
+ 1381              		.loc 1 243 8 is_stmt 1 view .LVU401
+ 1382              		.loc 1 243 67 is_stmt 0 view .LVU402
+ 1383 006c 94ED127A 		vldr.32	s14, [r4, #72]
+ 1384              		.loc 1 243 56 view .LVU403
+ 1385 0070 27EE067A 		vmul.f32	s14, s14, s12
+ 1386              		.loc 1 243 109 view .LVU404
+ 1387 0074 D4ED0F7A 		vldr.32	s15, [r4, #60]
+ 1388              		.loc 1 243 98 view .LVU405
+ 1389 0078 67EEA67A 		vmul.f32	s15, s15, s13
+ 1390              		.loc 1 243 78 view .LVU406
+ 1391 007c 37EE277A 		vadd.f32	s14, s14, s15
+ 1392              		.loc 1 243 29 view .LVU407
+ 1393 0080 84ED127A 		vstr.32	s14, [r4, #72]
  244:Core/Src/foc.c ****        controller->v_bus_filt = (1.0f-VBUS_FILT_ALPHA)*controller->v_bus_filt + VBUS_FILT_ALPHA*con
- 1722              		.loc 1 244 66
- 1723 00cc 7B68     		ldr	r3, [r7, #4]
- 1724 00ce D3ED097A 		vldr.32	s15, [r3, #36]
- 1725              		.loc 1 244 55
- 1726 00d2 9FED317A 		vldr.32	s14, .L60+4
- 1727 00d6 27EE877A 		vmul.f32	s14, s15, s14
- 1728              		.loc 1 244 107
- 1729 00da 7B68     		ldr	r3, [r7, #4]
- 1730 00dc D3ED087A 		vldr.32	s15, [r3, #32]
- 1731              		.loc 1 244 96
- 1732 00e0 DFED2E6A 		vldr.32	s13, .L60+8
- 1733 00e4 67EEA67A 		vmul.f32	s15, s15, s13
- 1734              		.loc 1 244 79
- 1735 00e8 77EE277A 		vadd.f32	s15, s14, s15
- 1736              		.loc 1 244 31
- 1737 00ec 7B68     		ldr	r3, [r7, #4]
- 1738 00ee C3ED097A 		vstr.32	s15, [r3, #36]
+ 1394              		.loc 1 244 8 is_stmt 1 view .LVU408
+ 1395              		.loc 1 244 66 is_stmt 0 view .LVU409
+ 1396 0084 D4ED097A 		vldr.32	s15, [r4, #36]
+ 1397              		.loc 1 244 55 view .LVU410
+ 1398 0088 67EE867A 		vmul.f32	s15, s15, s12
+ 1399              		.loc 1 244 107 view .LVU411
+ 1400 008c 94ED087A 		vldr.32	s14, [r4, #32]
+ 1401              		.loc 1 244 96 view .LVU412
+ 1402 0090 27EE267A 		vmul.f32	s14, s14, s13
+ 1403              		.loc 1 244 79 view .LVU413
+ 1404 0094 77EE877A 		vadd.f32	s15, s15, s14
+ 1405              		.loc 1 244 31 view .LVU414
+ 1406 0098 C4ED097A 		vstr.32	s15, [r4, #36]
  245:Core/Src/foc.c **** 
  246:Core/Src/foc.c ****        controller->v_max = OVERMODULATION*controller->v_bus_filt*(DTC_MAX-DTC_MIN)*SQRT1_3;
- 1739              		.loc 1 246 42
- 1740 00f2 7B68     		ldr	r3, [r7, #4]
- 1741 00f4 D3ED097A 		vldr.32	s15, [r3, #36]
- 1742              		.loc 1 246 65
- 1743 00f8 9FED297A 		vldr.32	s14, .L60+12
- 1744 00fc 67EE877A 		vmul.f32	s15, s15, s14
- 1745              		.loc 1 246 83
- 1746 0100 9FED287A 		vldr.32	s14, .L60+16
- 1747 0104 67EE877A 		vmul.f32	s15, s15, s14
- 1748              		.loc 1 246 26
- 1749 0108 7B68     		ldr	r3, [r7, #4]
- 1750 010a C3ED3B7A 		vstr.32	s15, [r3, #236]
+ 1407              		.loc 1 246 8 is_stmt 1 view .LVU415
+ 1408              		.loc 1 246 65 is_stmt 0 view .LVU416
+ 1409 009c 9FED6D7A 		vldr.32	s14, .L70+12
+ 1410 00a0 67EE877A 		vmul.f32	s15, s15, s14
+ 1411              		.loc 1 246 83 view .LVU417
+ 1412 00a4 9FED6C7A 		vldr.32	s14, .L70+16
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 30
+
+
+ 1413 00a8 67EE877A 		vmul.f32	s15, s15, s14
+ 1414              		.loc 1 246 26 view .LVU418
+ 1415 00ac C4ED3B7A 		vstr.32	s15, [r4, #236]
  247:Core/Src/foc.c ****        controller->v_margin = controller->v_max - controller->v_ref;
- 1751              		.loc 1 247 41
- 1752 010e 7B68     		ldr	r3, [r7, #4]
- 1753 0110 93ED3B7A 		vldr.32	s14, [r3, #236]
- 1754              		.loc 1 247 61
- 1755 0114 7B68     		ldr	r3, [r7, #4]
- 1756 0116 D3ED3C7A 		vldr.32	s15, [r3, #240]
- 1757              		.loc 1 247 49
- 1758 011a 77EE677A 		vsub.f32	s15, s14, s15
- 1759              		.loc 1 247 29
- 1760 011e 7B68     		ldr	r3, [r7, #4]
- 1761 0120 C3ED3E7A 		vstr.32	s15, [r3, #248]
+ 1416              		.loc 1 247 8 is_stmt 1 view .LVU419
+ 1417              		.loc 1 247 61 is_stmt 0 view .LVU420
+ 1418 00b0 94ED3C7A 		vldr.32	s14, [r4, #240]
+ 1419              		.loc 1 247 49 view .LVU421
+ 1420 00b4 77EEC77A 		vsub.f32	s15, s15, s14
+ 1421              		.loc 1 247 29 view .LVU422
+ 1422 00b8 C4ED3E7A 		vstr.32	s15, [r4, #248]
  248:Core/Src/foc.c ****        controller->i_max = I_MAX; //I_MAX*(!controller->otw_flag) + I_MAX_CONT*controller->otw_flag
- 1762              		.loc 1 248 28
- 1763 0124 1B4B     		ldr	r3, .L60
- 1764 0126 DA68     		ldr	r2, [r3, #12]	@ float
- 1765              		.loc 1 248 26
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 36
-
-
- 1766 0128 7B68     		ldr	r3, [r7, #4]
- 1767 012a C3F80021 		str	r2, [r3, #256]	@ float
+ 1423              		.loc 1 248 8 is_stmt 1 view .LVU423
+ 1424              		.loc 1 248 28 is_stmt 0 view .LVU424
+ 1425 00bc 95ED030A 		vldr.32	s0, [r5, #12]
+ 1426              		.loc 1 248 26 view .LVU425
+ 1427 00c0 84ED400A 		vstr.32	s0, [r4, #256]
  249:Core/Src/foc.c **** 
  250:Core/Src/foc.c ****        limit_norm(&controller->i_d_des, &controller->i_q_des, controller->i_max);	// 2.3 us
- 1768              		.loc 1 250 8
- 1769 012e 7B68     		ldr	r3, [r7, #4]
- 1770 0130 03F1AC02 		add	r2, r3, #172
- 1771 0134 7B68     		ldr	r3, [r7, #4]
- 1772 0136 03F1B001 		add	r1, r3, #176
- 1773 013a 7B68     		ldr	r3, [r7, #4]
- 1774 013c D3ED407A 		vldr.32	s15, [r3, #256]
- 1775 0140 B0EE670A 		vmov.f32	s0, s15
- 1776 0144 1046     		mov	r0, r2
- 1777 0146 FFF7FEFF 		bl	limit_norm
+ 1428              		.loc 1 250 8 is_stmt 1 view .LVU426
+ 1429 00c4 04F1B001 		add	r1, r4, #176
+ 1430 00c8 04F1AC00 		add	r0, r4, #172
+ 1431 00cc FFF7FEFF 		bl	limit_norm
+ 1432              	.LVL103:
  251:Core/Src/foc.c **** 
  252:Core/Src/foc.c ****        /// PI Controller ///
  253:Core/Src/foc.c ****        float i_d_error = controller->i_d_des - controller->i_d;
- 1778              		.loc 1 253 36
- 1779 014a 7B68     		ldr	r3, [r7, #4]
- 1780 014c 93ED2B7A 		vldr.32	s14, [r3, #172]
- 1781              		.loc 1 253 58
- 1782 0150 7B68     		ldr	r3, [r7, #4]
- 1783 0152 D3ED0F7A 		vldr.32	s15, [r3, #60]
- 1784              		.loc 1 253 14
- 1785 0156 77EE677A 		vsub.f32	s15, s14, s15
- 1786 015a C7ED077A 		vstr.32	s15, [r7, #28]
+ 1433              		.loc 1 253 8 view .LVU427
+ 1434              		.loc 1 253 36 is_stmt 0 view .LVU428
+ 1435 00d0 94ED2B0A 		vldr.32	s0, [r4, #172]
+ 1436              		.loc 1 253 58 view .LVU429
+ 1437 00d4 D4ED0F8A 		vldr.32	s17, [r4, #60]
+ 1438              		.loc 1 253 14 view .LVU430
+ 1439 00d8 70EE688A 		vsub.f32	s17, s0, s17
+ 1440              	.LVL104:
  254:Core/Src/foc.c ****        float i_q_error = controller->i_q_des - controller->i_q;
- 1787              		.loc 1 254 36
- 1788 015e 7B68     		ldr	r3, [r7, #4]
- 1789 0160 93ED2C7A 		vldr.32	s14, [r3, #176]
- 1790              		.loc 1 254 58
- 1791 0164 7B68     		ldr	r3, [r7, #4]
- 1792 0166 D3ED107A 		vldr.32	s15, [r3, #64]
- 1793              		.loc 1 254 14
- 1794 016a 77EE677A 		vsub.f32	s15, s14, s15
- 1795 016e C7ED067A 		vstr.32	s15, [r7, #24]
+ 1441              		.loc 1 254 8 is_stmt 1 view .LVU431
+ 1442              		.loc 1 254 36 is_stmt 0 view .LVU432
+ 1443 00dc D4ED2C7A 		vldr.32	s15, [r4, #176]
+ 1444              		.loc 1 254 58 view .LVU433
+ 1445 00e0 94ED107A 		vldr.32	s14, [r4, #64]
+ 1446              		.loc 1 254 14 view .LVU434
+ 1447 00e4 37EEC78A 		vsub.f32	s16, s15, s14
+ 1448              	.LVL105:
  255:Core/Src/foc.c **** 
  256:Core/Src/foc.c ****        if(controller->i_q > controller->i_mag_max){
- 1796              		.loc 1 256 21
- 1797 0172 7B68     		ldr	r3, [r7, #4]
- 1798 0174 93ED107A 		vldr.32	s14, [r3, #64]
- 1799              		.loc 1 256 39
- 1800 0178 7B68     		ldr	r3, [r7, #4]
- 1801 017a D3ED147A 		vldr.32	s15, [r3, #80]
- 1802              		.loc 1 256 10
- 1803 017e B4EEE77A 		vcmpe.f32	s14, s15
- 1804 0182 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 1805 0186 11DD     		ble	.L57
+ 1449              		.loc 1 256 8 is_stmt 1 view .LVU435
+ 1450              		.loc 1 256 39 is_stmt 0 view .LVU436
+ 1451 00e8 D4ED147A 		vldr.32	s15, [r4, #80]
+ 1452              		.loc 1 256 10 view .LVU437
+ 1453 00ec B4EEE77A 		vcmpe.f32	s14, s15
+ 1454 00f0 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1455 00f4 01DD     		ble	.L66
  257:Core/Src/foc.c ****     	   controller->i_mag_max = controller->i_q;
- 1806              		.loc 1 257 43
- 1807 0188 7B68     		ldr	r3, [r7, #4]
- 1808 018a 1A6C     		ldr	r2, [r3, #64]	@ float
- 1809              		.loc 1 257 31
- 1810 018c 7B68     		ldr	r3, [r7, #4]
- 1811 018e 1A65     		str	r2, [r3, #80]	@ float
- 1812 0190 0CE0     		b	.L61
- 1813              	.L62:
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 37
+ 1456              		.loc 1 257 9 is_stmt 1 view .LVU438
+ 1457              		.loc 1 257 31 is_stmt 0 view .LVU439
+ 1458 00f6 84ED147A 		vstr.32	s14, [r4, #80]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 31
 
 
- 1814 0192 00BF     		.align	2
- 1815              	.L60:
- 1816 0194 00000000 		.word	__float_reg
- 1817 0198 6666663F 		.word	1063675494
- 1818 019c CDCCCC3D 		.word	1036831949
- 1819 01a0 D7A3703F 		.word	1064346583
- 1820 01a4 3ACD133F 		.word	1058262330
- 1821 01a8 51491D38 		.word	941443409
- 1822              	.L61:
- 1823              	.L57:
+ 1459              	.L66:
  258:Core/Src/foc.c ****        }
  259:Core/Src/foc.c **** 
  260:Core/Src/foc.c **** 
  261:Core/Src/foc.c ****        // Calculate decoupling feed-forward voltages //
  262:Core/Src/foc.c **** 
  263:Core/Src/foc.c ****        float v_d_ff = 0.0f;//-SQRT3*controller->dtheta_elec*L_Q*controller->i_q;
- 1824              		.loc 1 263 14
- 1825 01ac 4FF00003 		mov	r3, #0
- 1826 01b0 7B61     		str	r3, [r7, #20]	@ float
+ 1460              		.loc 1 263 8 is_stmt 1 view .LVU440
+ 1461              	.LVL106:
  264:Core/Src/foc.c ****        float v_q_ff = 0.0f;//SQRT3*controller->dtheta_elec*(0.0f*L_D*controller->i_d + controller->
- 1827              		.loc 1 264 14
- 1828 01b2 4FF00003 		mov	r3, #0
- 1829 01b6 3B61     		str	r3, [r7, #16]	@ float
+ 1462              		.loc 1 264 8 view .LVU441
  265:Core/Src/foc.c **** 
  266:Core/Src/foc.c ****        controller->v_d = controller->k_d*i_d_error + controller->d_int + v_d_ff;
- 1830              		.loc 1 266 36
- 1831 01b8 7B68     		ldr	r3, [r7, #4]
- 1832 01ba 93ED1E7A 		vldr.32	s14, [r3, #120]
- 1833              		.loc 1 266 41
- 1834 01be D7ED077A 		vldr.32	s15, [r7, #28]
- 1835 01c2 27EE277A 		vmul.f32	s14, s14, s15
- 1836              		.loc 1 266 64
- 1837 01c6 7B68     		ldr	r3, [r7, #4]
- 1838 01c8 D3ED257A 		vldr.32	s15, [r3, #148]
- 1839              		.loc 1 266 52
- 1840 01cc 37EE277A 		vadd.f32	s14, s14, s15
- 1841              		.loc 1 266 72
- 1842 01d0 D7ED057A 		vldr.32	s15, [r7, #20]
- 1843 01d4 77EE277A 		vadd.f32	s15, s14, s15
- 1844              		.loc 1 266 24
- 1845 01d8 7B68     		ldr	r3, [r7, #4]
- 1846 01da C3ED157A 		vstr.32	s15, [r3, #84]
+ 1463              		.loc 1 266 8 view .LVU442
+ 1464              		.loc 1 266 36 is_stmt 0 view .LVU443
+ 1465 00fa 94ED1E0A 		vldr.32	s0, [r4, #120]
+ 1466              		.loc 1 266 41 view .LVU444
+ 1467 00fe 20EE280A 		vmul.f32	s0, s0, s17
+ 1468              		.loc 1 266 64 view .LVU445
+ 1469 0102 D4ED257A 		vldr.32	s15, [r4, #148]
+ 1470              		.loc 1 266 52 view .LVU446
+ 1471 0106 30EE270A 		vadd.f32	s0, s0, s15
+ 1472              		.loc 1 266 72 view .LVU447
+ 1473 010a 9FED549A 		vldr.32	s18, .L70+20
+ 1474 010e 30EE090A 		vadd.f32	s0, s0, s18
+ 1475              		.loc 1 266 24 view .LVU448
+ 1476 0112 84ED150A 		vstr.32	s0, [r4, #84]
  267:Core/Src/foc.c **** 
  268:Core/Src/foc.c ****        controller->v_d = fast_fmaxf(fast_fminf(controller->v_d, controller->v_max), -controller->v_
- 1847              		.loc 1 268 26
- 1848 01de 7B68     		ldr	r3, [r7, #4]
- 1849 01e0 D3ED157A 		vldr.32	s15, [r3, #84]
- 1850 01e4 7B68     		ldr	r3, [r7, #4]
- 1851 01e6 93ED3B7A 		vldr.32	s14, [r3, #236]
- 1852 01ea F0EE470A 		vmov.f32	s1, s14
- 1853 01ee B0EE670A 		vmov.f32	s0, s15
- 1854 01f2 FFF7FEFF 		bl	fast_fminf
- 1855 01f6 B0EE407A 		vmov.f32	s14, s0
- 1856              		.loc 1 268 96
- 1857 01fa 7B68     		ldr	r3, [r7, #4]
- 1858 01fc D3ED3B7A 		vldr.32	s15, [r3, #236]
- 1859              		.loc 1 268 26
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 38
-
-
- 1860 0200 F1EE677A 		vneg.f32	s15, s15
- 1861 0204 F0EE670A 		vmov.f32	s1, s15
- 1862 0208 B0EE470A 		vmov.f32	s0, s14
- 1863 020c FFF7FEFF 		bl	fast_fmaxf
- 1864 0210 F0EE407A 		vmov.f32	s15, s0
- 1865              		.loc 1 268 24
- 1866 0214 7B68     		ldr	r3, [r7, #4]
- 1867 0216 C3ED157A 		vstr.32	s15, [r3, #84]
+ 1477              		.loc 1 268 8 is_stmt 1 view .LVU449
+ 1478              		.loc 1 268 26 is_stmt 0 view .LVU450
+ 1479 0116 D4ED3B0A 		vldr.32	s1, [r4, #236]
+ 1480 011a FFF7FEFF 		bl	fast_fminf
+ 1481              	.LVL107:
+ 1482              		.loc 1 268 96 view .LVU451
+ 1483 011e D4ED3B0A 		vldr.32	s1, [r4, #236]
+ 1484              		.loc 1 268 26 view .LVU452
+ 1485 0122 F1EE600A 		vneg.f32	s1, s1
+ 1486 0126 FFF7FEFF 		bl	fast_fmaxf
+ 1487              	.LVL108:
+ 1488              		.loc 1 268 24 view .LVU453
+ 1489 012a 84ED150A 		vstr.32	s0, [r4, #84]
  269:Core/Src/foc.c **** 
  270:Core/Src/foc.c ****        controller->d_int += controller->k_d*controller->ki_d*i_d_error;
- 1868              		.loc 1 270 26
- 1869 021a 7B68     		ldr	r3, [r7, #4]
- 1870 021c 93ED257A 		vldr.32	s14, [r3, #148]
- 1871              		.loc 1 270 39
- 1872 0220 7B68     		ldr	r3, [r7, #4]
- 1873 0222 D3ED1E6A 		vldr.32	s13, [r3, #120]
- 1874              		.loc 1 270 55
- 1875 0226 7B68     		ldr	r3, [r7, #4]
- 1876 0228 D3ED207A 		vldr.32	s15, [r3, #128]
- 1877              		.loc 1 270 44
- 1878 022c 66EEA76A 		vmul.f32	s13, s13, s15
- 1879              		.loc 1 270 61
- 1880 0230 D7ED077A 		vldr.32	s15, [r7, #28]
- 1881 0234 66EEA77A 		vmul.f32	s15, s13, s15
- 1882              		.loc 1 270 26
- 1883 0238 77EE277A 		vadd.f32	s15, s14, s15
- 1884 023c 7B68     		ldr	r3, [r7, #4]
- 1885 023e C3ED257A 		vstr.32	s15, [r3, #148]
+ 1490              		.loc 1 270 8 is_stmt 1 view .LVU454
+ 1491              		.loc 1 270 39 is_stmt 0 view .LVU455
+ 1492 012e 94ED1E0A 		vldr.32	s0, [r4, #120]
+ 1493              		.loc 1 270 55 view .LVU456
+ 1494 0132 D4ED207A 		vldr.32	s15, [r4, #128]
+ 1495              		.loc 1 270 44 view .LVU457
+ 1496 0136 20EE270A 		vmul.f32	s0, s0, s15
+ 1497              		.loc 1 270 61 view .LVU458
+ 1498 013a 20EE280A 		vmul.f32	s0, s0, s17
+ 1499              		.loc 1 270 26 view .LVU459
+ 1500 013e D4ED257A 		vldr.32	s15, [r4, #148]
+ 1501 0142 30EE270A 		vadd.f32	s0, s0, s15
+ 1502 0146 84ED250A 		vstr.32	s0, [r4, #148]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 32
+
+
  271:Core/Src/foc.c ****        controller->d_int = fast_fmaxf(fast_fminf(controller->d_int, controller->v_max), -controller
- 1886              		.loc 1 271 28
- 1887 0242 7B68     		ldr	r3, [r7, #4]
- 1888 0244 D3ED257A 		vldr.32	s15, [r3, #148]
- 1889 0248 7B68     		ldr	r3, [r7, #4]
- 1890 024a 93ED3B7A 		vldr.32	s14, [r3, #236]
- 1891 024e F0EE470A 		vmov.f32	s1, s14
- 1892 0252 B0EE670A 		vmov.f32	s0, s15
- 1893 0256 FFF7FEFF 		bl	fast_fminf
- 1894 025a B0EE407A 		vmov.f32	s14, s0
- 1895              		.loc 1 271 100
- 1896 025e 7B68     		ldr	r3, [r7, #4]
- 1897 0260 D3ED3B7A 		vldr.32	s15, [r3, #236]
- 1898              		.loc 1 271 28
- 1899 0264 F1EE677A 		vneg.f32	s15, s15
- 1900 0268 F0EE670A 		vmov.f32	s1, s15
- 1901 026c B0EE470A 		vmov.f32	s0, s14
- 1902 0270 FFF7FEFF 		bl	fast_fmaxf
- 1903 0274 F0EE407A 		vmov.f32	s15, s0
- 1904              		.loc 1 271 26
- 1905 0278 7B68     		ldr	r3, [r7, #4]
- 1906 027a C3ED257A 		vstr.32	s15, [r3, #148]
+ 1503              		.loc 1 271 8 is_stmt 1 view .LVU460
+ 1504              		.loc 1 271 28 is_stmt 0 view .LVU461
+ 1505 014a D4ED3B0A 		vldr.32	s1, [r4, #236]
+ 1506 014e FFF7FEFF 		bl	fast_fminf
+ 1507              	.LVL109:
+ 1508              		.loc 1 271 100 view .LVU462
+ 1509 0152 D4ED3B0A 		vldr.32	s1, [r4, #236]
+ 1510              		.loc 1 271 28 view .LVU463
+ 1511 0156 F1EE600A 		vneg.f32	s1, s1
+ 1512 015a FFF7FEFF 		bl	fast_fmaxf
+ 1513              	.LVL110:
+ 1514              		.loc 1 271 26 view .LVU464
+ 1515 015e 84ED250A 		vstr.32	s0, [r4, #148]
  272:Core/Src/foc.c ****        float vq_max = controller->v_max;//sqrtf(controller->v_max*controller->v_max - controller->v
- 1907              		.loc 1 272 14
- 1908 027e 7B68     		ldr	r3, [r7, #4]
- 1909 0280 D3F8EC30 		ldr	r3, [r3, #236]	@ float
- 1910 0284 FB60     		str	r3, [r7, #12]	@ float
+ 1516              		.loc 1 272 8 is_stmt 1 view .LVU465
+ 1517              		.loc 1 272 14 is_stmt 0 view .LVU466
+ 1518 0162 D4ED3B8A 		vldr.32	s17, [r4, #236]
+ 1519              	.LVL111:
  273:Core/Src/foc.c **** 
  274:Core/Src/foc.c ****        controller->v_q = controller->k_q*i_q_error + controller->q_int + v_q_ff;
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 39
-
-
- 1911              		.loc 1 274 36
- 1912 0286 7B68     		ldr	r3, [r7, #4]
- 1913 0288 93ED1F7A 		vldr.32	s14, [r3, #124]
- 1914              		.loc 1 274 41
- 1915 028c D7ED067A 		vldr.32	s15, [r7, #24]
- 1916 0290 27EE277A 		vmul.f32	s14, s14, s15
- 1917              		.loc 1 274 64
- 1918 0294 7B68     		ldr	r3, [r7, #4]
- 1919 0296 D3ED267A 		vldr.32	s15, [r3, #152]
- 1920              		.loc 1 274 52
- 1921 029a 37EE277A 		vadd.f32	s14, s14, s15
- 1922              		.loc 1 274 72
- 1923 029e D7ED047A 		vldr.32	s15, [r7, #16]
- 1924 02a2 77EE277A 		vadd.f32	s15, s14, s15
- 1925              		.loc 1 274 24
- 1926 02a6 7B68     		ldr	r3, [r7, #4]
- 1927 02a8 C3ED167A 		vstr.32	s15, [r3, #88]
+ 1520              		.loc 1 274 8 is_stmt 1 view .LVU467
+ 1521              		.loc 1 274 36 is_stmt 0 view .LVU468
+ 1522 0166 D4ED1F7A 		vldr.32	s15, [r4, #124]
+ 1523              		.loc 1 274 41 view .LVU469
+ 1524 016a 27EE887A 		vmul.f32	s14, s15, s16
+ 1525              		.loc 1 274 64 view .LVU470
+ 1526 016e 94ED260A 		vldr.32	s0, [r4, #152]
+ 1527              		.loc 1 274 52 view .LVU471
+ 1528 0172 37EE007A 		vadd.f32	s14, s14, s0
+ 1529              		.loc 1 274 72 view .LVU472
+ 1530 0176 37EE097A 		vadd.f32	s14, s14, s18
+ 1531              		.loc 1 274 24 view .LVU473
+ 1532 017a 84ED167A 		vstr.32	s14, [r4, #88]
  275:Core/Src/foc.c ****        controller->q_int += controller->k_q*controller->ki_q*i_q_error;
- 1928              		.loc 1 275 26
- 1929 02ac 7B68     		ldr	r3, [r7, #4]
- 1930 02ae 93ED267A 		vldr.32	s14, [r3, #152]
- 1931              		.loc 1 275 39
- 1932 02b2 7B68     		ldr	r3, [r7, #4]
- 1933 02b4 D3ED1F6A 		vldr.32	s13, [r3, #124]
- 1934              		.loc 1 275 55
- 1935 02b8 7B68     		ldr	r3, [r7, #4]
- 1936 02ba D3ED217A 		vldr.32	s15, [r3, #132]
- 1937              		.loc 1 275 44
- 1938 02be 66EEA76A 		vmul.f32	s13, s13, s15
- 1939              		.loc 1 275 61
- 1940 02c2 D7ED067A 		vldr.32	s15, [r7, #24]
- 1941 02c6 66EEA77A 		vmul.f32	s15, s13, s15
- 1942              		.loc 1 275 26
- 1943 02ca 77EE277A 		vadd.f32	s15, s14, s15
- 1944 02ce 7B68     		ldr	r3, [r7, #4]
- 1945 02d0 C3ED267A 		vstr.32	s15, [r3, #152]
+ 1533              		.loc 1 275 8 is_stmt 1 view .LVU474
+ 1534              		.loc 1 275 55 is_stmt 0 view .LVU475
+ 1535 017e 94ED217A 		vldr.32	s14, [r4, #132]
+ 1536              		.loc 1 275 44 view .LVU476
+ 1537 0182 67EE877A 		vmul.f32	s15, s15, s14
+ 1538              		.loc 1 275 61 view .LVU477
+ 1539 0186 67EE887A 		vmul.f32	s15, s15, s16
+ 1540              		.loc 1 275 26 view .LVU478
+ 1541 018a 30EE270A 		vadd.f32	s0, s0, s15
+ 1542 018e 84ED260A 		vstr.32	s0, [r4, #152]
  276:Core/Src/foc.c ****        controller->q_int = fast_fmaxf(fast_fminf(controller->q_int, controller->v_max), -controller
- 1946              		.loc 1 276 28
- 1947 02d4 7B68     		ldr	r3, [r7, #4]
- 1948 02d6 D3ED267A 		vldr.32	s15, [r3, #152]
- 1949 02da 7B68     		ldr	r3, [r7, #4]
- 1950 02dc 93ED3B7A 		vldr.32	s14, [r3, #236]
- 1951 02e0 F0EE470A 		vmov.f32	s1, s14
- 1952 02e4 B0EE670A 		vmov.f32	s0, s15
- 1953 02e8 FFF7FEFF 		bl	fast_fminf
- 1954 02ec B0EE407A 		vmov.f32	s14, s0
- 1955              		.loc 1 276 100
- 1956 02f0 7B68     		ldr	r3, [r7, #4]
- 1957 02f2 D3ED3B7A 		vldr.32	s15, [r3, #236]
- 1958              		.loc 1 276 28
- 1959 02f6 F1EE677A 		vneg.f32	s15, s15
- 1960 02fa F0EE670A 		vmov.f32	s1, s15
- 1961 02fe B0EE470A 		vmov.f32	s0, s14
- 1962 0302 FFF7FEFF 		bl	fast_fmaxf
- 1963 0306 F0EE407A 		vmov.f32	s15, s0
- 1964              		.loc 1 276 26
- 1965 030a 7B68     		ldr	r3, [r7, #4]
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 40
+ 1543              		.loc 1 276 8 is_stmt 1 view .LVU479
+ 1544              		.loc 1 276 28 is_stmt 0 view .LVU480
+ 1545 0192 F0EE680A 		vmov.f32	s1, s17
+ 1546 0196 FFF7FEFF 		bl	fast_fminf
+ 1547              	.LVL112:
+ 1548              		.loc 1 276 100 view .LVU481
+ 1549 019a D4ED3B0A 		vldr.32	s1, [r4, #236]
+ 1550              		.loc 1 276 28 view .LVU482
+ 1551 019e F1EE600A 		vneg.f32	s1, s1
+ 1552 01a2 FFF7FEFF 		bl	fast_fmaxf
+ 1553              	.LVL113:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 33
 
 
- 1966 030c C3ED267A 		vstr.32	s15, [r3, #152]
+ 1554              		.loc 1 276 26 view .LVU483
+ 1555 01a6 84ED260A 		vstr.32	s0, [r4, #152]
  277:Core/Src/foc.c ****        controller->v_ref = sqrtf(controller->v_d*controller->v_d + controller->v_q*controller->v_q)
- 1967              		.loc 1 277 44
- 1968 0310 7B68     		ldr	r3, [r7, #4]
- 1969 0312 93ED157A 		vldr.32	s14, [r3, #84]
- 1970              		.loc 1 277 60
- 1971 0316 7B68     		ldr	r3, [r7, #4]
- 1972 0318 D3ED157A 		vldr.32	s15, [r3, #84]
- 1973              		.loc 1 277 49
- 1974 031c 27EE277A 		vmul.f32	s14, s14, s15
- 1975              		.loc 1 277 78
- 1976 0320 7B68     		ldr	r3, [r7, #4]
- 1977 0322 D3ED166A 		vldr.32	s13, [r3, #88]
- 1978              		.loc 1 277 94
- 1979 0326 7B68     		ldr	r3, [r7, #4]
- 1980 0328 D3ED167A 		vldr.32	s15, [r3, #88]
- 1981              		.loc 1 277 83
- 1982 032c 66EEA77A 		vmul.f32	s15, s13, s15
- 1983              		.loc 1 277 28
- 1984 0330 77EE277A 		vadd.f32	s15, s14, s15
- 1985 0334 B0EE670A 		vmov.f32	s0, s15
- 1986 0338 FFF7FEFF 		bl	sqrtf
- 1987 033c F0EE407A 		vmov.f32	s15, s0
- 1988              		.loc 1 277 26
- 1989 0340 7B68     		ldr	r3, [r7, #4]
- 1990 0342 C3ED3C7A 		vstr.32	s15, [r3, #240]
+ 1556              		.loc 1 277 8 is_stmt 1 view .LVU484
+ 1557              		.loc 1 277 44 is_stmt 0 view .LVU485
+ 1558 01aa 94ED150A 		vldr.32	s0, [r4, #84]
+ 1559              		.loc 1 277 49 view .LVU486
+ 1560 01ae 20EE000A 		vmul.f32	s0, s0, s0
+ 1561              		.loc 1 277 78 view .LVU487
+ 1562 01b2 D4ED167A 		vldr.32	s15, [r4, #88]
+ 1563              		.loc 1 277 83 view .LVU488
+ 1564 01b6 67EEA77A 		vmul.f32	s15, s15, s15
+ 1565              		.loc 1 277 28 view .LVU489
+ 1566 01ba 30EE270A 		vadd.f32	s0, s0, s15
+ 1567 01be FFF7FEFF 		bl	sqrtf
+ 1568              	.LVL114:
+ 1569              		.loc 1 277 26 view .LVU490
+ 1570 01c2 84ED3C0A 		vstr.32	s0, [r4, #240]
  278:Core/Src/foc.c ****        controller->v_q = fast_fmaxf(fast_fminf(controller->v_q, vq_max), -vq_max);
- 1991              		.loc 1 278 26
- 1992 0346 7B68     		ldr	r3, [r7, #4]
- 1993 0348 D3ED167A 		vldr.32	s15, [r3, #88]
- 1994 034c D7ED030A 		vldr.32	s1, [r7, #12]
- 1995 0350 B0EE670A 		vmov.f32	s0, s15
- 1996 0354 FFF7FEFF 		bl	fast_fminf
- 1997 0358 B0EE407A 		vmov.f32	s14, s0
- 1998 035c D7ED037A 		vldr.32	s15, [r7, #12]
- 1999 0360 F1EE677A 		vneg.f32	s15, s15
- 2000 0364 F0EE670A 		vmov.f32	s1, s15
- 2001 0368 B0EE470A 		vmov.f32	s0, s14
- 2002 036c FFF7FEFF 		bl	fast_fmaxf
- 2003 0370 F0EE407A 		vmov.f32	s15, s0
- 2004              		.loc 1 278 24
- 2005 0374 7B68     		ldr	r3, [r7, #4]
- 2006 0376 C3ED167A 		vstr.32	s15, [r3, #88]
+ 1571              		.loc 1 278 8 is_stmt 1 view .LVU491
+ 1572              		.loc 1 278 26 is_stmt 0 view .LVU492
+ 1573 01c6 F0EE680A 		vmov.f32	s1, s17
+ 1574 01ca 94ED160A 		vldr.32	s0, [r4, #88]
+ 1575 01ce FFF7FEFF 		bl	fast_fminf
+ 1576              	.LVL115:
+ 1577 01d2 F1EE680A 		vneg.f32	s1, s17
+ 1578 01d6 FFF7FEFF 		bl	fast_fmaxf
+ 1579              	.LVL116:
+ 1580              		.loc 1 278 24 view .LVU493
+ 1581 01da 84ED160A 		vstr.32	s0, [r4, #88]
  279:Core/Src/foc.c **** 
  280:Core/Src/foc.c ****        limit_norm(&controller->v_d, &controller->v_q, controller->v_max);
- 2007              		.loc 1 280 8
- 2008 037a 7B68     		ldr	r3, [r7, #4]
- 2009 037c 03F15402 		add	r2, r3, #84
- 2010 0380 7B68     		ldr	r3, [r7, #4]
- 2011 0382 03F15801 		add	r1, r3, #88
- 2012 0386 7B68     		ldr	r3, [r7, #4]
- 2013 0388 D3ED3B7A 		vldr.32	s15, [r3, #236]
- 2014 038c B0EE670A 		vmov.f32	s0, s15
- 2015 0390 1046     		mov	r0, r2
- 2016 0392 FFF7FEFF 		bl	limit_norm
+ 1582              		.loc 1 280 8 is_stmt 1 view .LVU494
+ 1583 01de 94ED3B0A 		vldr.32	s0, [r4, #236]
+ 1584 01e2 04F15801 		add	r1, r4, #88
+ 1585 01e6 04F15400 		add	r0, r4, #84
+ 1586 01ea FFF7FEFF 		bl	limit_norm
+ 1587              	.LVL117:
  281:Core/Src/foc.c **** 
  282:Core/Src/foc.c ****        abc(controller->theta_elec + 1.5f*DT*controller->dtheta_elec, controller->v_d, controller->v
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 41
+ 1588              		.loc 1 282 8 view .LVU495
+ 1589              		.loc 1 282 22 is_stmt 0 view .LVU496
+ 1590 01ee 94ED0B0A 		vldr.32	s0, [r4, #44]
+ 1591              		.loc 1 282 55 view .LVU497
+ 1592 01f2 D4ED0D7A 		vldr.32	s15, [r4, #52]
+ 1593              		.loc 1 282 44 view .LVU498
+ 1594 01f6 9FED1A7A 		vldr.32	s14, .L70+24
+ 1595 01fa 67EE877A 		vmul.f32	s15, s15, s14
+ 1596              		.loc 1 282 8 view .LVU499
+ 1597 01fe 04F17002 		add	r2, r4, #112
+ 1598 0202 04F16C01 		add	r1, r4, #108
+ 1599 0206 04F16800 		add	r0, r4, #104
+ 1600 020a 94ED161A 		vldr.32	s2, [r4, #88]
+ 1601 020e D4ED150A 		vldr.32	s1, [r4, #84]
+ 1602 0212 30EE270A 		vadd.f32	s0, s0, s15
+ 1603 0216 FFF7FEFF 		bl	abc
+ 1604              	.LVL118:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 34
 
 
- 2017              		.loc 1 282 22
- 2018 0396 7B68     		ldr	r3, [r7, #4]
- 2019 0398 93ED0B7A 		vldr.32	s14, [r3, #44]
- 2020              		.loc 1 282 55
- 2021 039c 7B68     		ldr	r3, [r7, #4]
- 2022 039e D3ED0D7A 		vldr.32	s15, [r3, #52]
- 2023              		.loc 1 282 44
- 2024 03a2 5FED7F6A 		vldr.32	s13, .L60+20
- 2025 03a6 67EEA67A 		vmul.f32	s15, s15, s13
- 2026              		.loc 1 282 8
- 2027 03aa 77EE277A 		vadd.f32	s15, s14, s15
- 2028 03ae 7B68     		ldr	r3, [r7, #4]
- 2029 03b0 93ED157A 		vldr.32	s14, [r3, #84]
- 2030 03b4 7B68     		ldr	r3, [r7, #4]
- 2031 03b6 D3ED166A 		vldr.32	s13, [r3, #88]
- 2032 03ba 7B68     		ldr	r3, [r7, #4]
- 2033 03bc 03F16800 		add	r0, r3, #104
- 2034 03c0 7B68     		ldr	r3, [r7, #4]
- 2035 03c2 03F16C01 		add	r1, r3, #108
- 2036 03c6 7B68     		ldr	r3, [r7, #4]
- 2037 03c8 7033     		adds	r3, r3, #112
- 2038 03ca 1A46     		mov	r2, r3
- 2039 03cc B0EE661A 		vmov.f32	s2, s13
- 2040 03d0 F0EE470A 		vmov.f32	s1, s14
- 2041 03d4 B0EE670A 		vmov.f32	s0, s15
- 2042 03d8 FFF7FEFF 		bl	abc
  283:Core/Src/foc.c ****        svm(controller->v_max, controller->v_u, controller->v_v, controller->v_w, &controller->dtc_u
- 2043              		.loc 1 283 8
- 2044 03dc 7B68     		ldr	r3, [r7, #4]
- 2045 03de D3ED3B7A 		vldr.32	s15, [r3, #236]
- 2046 03e2 7B68     		ldr	r3, [r7, #4]
- 2047 03e4 93ED1A7A 		vldr.32	s14, [r3, #104]
- 2048 03e8 7B68     		ldr	r3, [r7, #4]
- 2049 03ea D3ED1B6A 		vldr.32	s13, [r3, #108]
- 2050 03ee 7B68     		ldr	r3, [r7, #4]
- 2051 03f0 93ED1C6A 		vldr.32	s12, [r3, #112]
- 2052 03f4 7B68     		ldr	r3, [r7, #4]
- 2053 03f6 03F15C00 		add	r0, r3, #92
- 2054 03fa 7B68     		ldr	r3, [r7, #4]
- 2055 03fc 03F16001 		add	r1, r3, #96
- 2056 0400 7B68     		ldr	r3, [r7, #4]
- 2057 0402 6433     		adds	r3, r3, #100
- 2058 0404 1A46     		mov	r2, r3
- 2059 0406 F0EE461A 		vmov.f32	s3, s12
- 2060 040a B0EE661A 		vmov.f32	s2, s13
- 2061 040e F0EE470A 		vmov.f32	s1, s14
- 2062 0412 B0EE670A 		vmov.f32	s0, s15
- 2063 0416 FFF7FEFF 		bl	svm
+ 1605              		.loc 1 283 8 is_stmt 1 view .LVU500
+ 1606 021a 04F16402 		add	r2, r4, #100
+ 1607 021e 04F16001 		add	r1, r4, #96
+ 1608 0222 04F15C00 		add	r0, r4, #92
+ 1609 0226 D4ED1C1A 		vldr.32	s3, [r4, #112]
+ 1610 022a 94ED1B1A 		vldr.32	s2, [r4, #108]
+ 1611 022e D4ED1A0A 		vldr.32	s1, [r4, #104]
+ 1612 0232 94ED3B0A 		vldr.32	s0, [r4, #236]
+ 1613 0236 FFF7FEFF 		bl	svm
+ 1614              	.LVL119:
  284:Core/Src/foc.c **** 
  285:Core/Src/foc.c ****        set_dtc(controller);
- 2064              		.loc 1 285 8
- 2065 041a 7868     		ldr	r0, [r7, #4]
- 2066 041c FFF7FEFF 		bl	set_dtc
+ 1615              		.loc 1 285 8 view .LVU501
+ 1616 023a 2046     		mov	r0, r4
+ 1617 023c FFF7FEFF 		bl	set_dtc
+ 1618              	.LVL120:
  286:Core/Src/foc.c **** 
  287:Core/Src/foc.c ****     }
- 2067              		.loc 1 287 5
- 2068 0420 00BF     		nop
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 42
-
-
- 2069 0422 2037     		adds	r7, r7, #32
- 2070              	.LCFI69:
- 2071              		.cfi_def_cfa_offset 8
- 2072 0424 BD46     		mov	sp, r7
- 2073              	.LCFI70:
- 2074              		.cfi_def_cfa_register 13
- 2075              		@ sp needed
- 2076 0426 80BD     		pop	{r7, pc}
- 2077              		.cfi_endproc
- 2078              	.LFE251:
- 2080              		.section	.text.torque_control,"ax",%progbits
- 2081              		.align	1
- 2082              		.global	torque_control
- 2083              		.syntax unified
- 2084              		.thumb
- 2085              		.thumb_func
- 2087              	torque_control:
- 2088              	.LFB252:
+ 1619              		.loc 1 287 5 is_stmt 0 view .LVU502
+ 1620 0240 BDEC048B 		vldm	sp!, {d8-d9}
+ 1621              		.cfi_restore 82
+ 1622              		.cfi_restore 83
+ 1623              		.cfi_restore 80
+ 1624              		.cfi_restore 81
+ 1625              		.cfi_def_cfa_offset 16
+ 1626              	.LVL121:
+ 1627              		.loc 1 287 5 view .LVU503
+ 1628 0244 38BD     		pop	{r3, r4, r5, pc}
+ 1629              	.LVL122:
+ 1630              	.L71:
+ 1631              		.loc 1 287 5 view .LVU504
+ 1632 0246 00BF     		.align	2
+ 1633              	.L70:
+ 1634 0248 00000000 		.word	__float_reg
+ 1635 024c 6666663F 		.word	1063675494
+ 1636 0250 CDCCCC3D 		.word	1036831949
+ 1637 0254 D7A3703F 		.word	1064346583
+ 1638 0258 3ACD133F 		.word	1058262330
+ 1639 025c 00000000 		.word	0
+ 1640 0260 51491D38 		.word	941443409
+ 1641              		.cfi_endproc
+ 1642              	.LFE251:
+ 1644              		.section	.text.torque_control,"ax",%progbits
+ 1645              		.align	1
+ 1646              		.global	torque_control
+ 1647              		.syntax unified
+ 1648              		.thumb
+ 1649              		.thumb_func
+ 1651              	torque_control:
+ 1652              	.LVL123:
+ 1653              	.LFB252:
  288:Core/Src/foc.c **** 
  289:Core/Src/foc.c **** 
  290:Core/Src/foc.c **** void torque_control(ControllerStruct *controller){
- 2089              		.loc 1 290 50
- 2090              		.cfi_startproc
- 2091              		@ args = 0, pretend = 0, frame = 16
- 2092              		@ frame_needed = 1, uses_anonymous_args = 0
- 2093 0000 80B5     		push	{r7, lr}
- 2094              	.LCFI71:
- 2095              		.cfi_def_cfa_offset 8
- 2096              		.cfi_offset 7, -8
- 2097              		.cfi_offset 14, -4
- 2098 0002 84B0     		sub	sp, sp, #16
- 2099              	.LCFI72:
- 2100              		.cfi_def_cfa_offset 24
- 2101 0004 00AF     		add	r7, sp, #0
- 2102              	.LCFI73:
- 2103              		.cfi_def_cfa_register 7
- 2104 0006 7860     		str	r0, [r7, #4]
+ 1654              		.loc 1 290 50 is_stmt 1 view -0
+ 1655              		.cfi_startproc
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 35
+
+
+ 1656              		@ args = 0, pretend = 0, frame = 0
+ 1657              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1658              		.loc 1 290 50 is_stmt 0 view .LVU506
+ 1659 0000 10B5     		push	{r4, lr}
+ 1660              		.cfi_def_cfa_offset 8
+ 1661              		.cfi_offset 4, -8
+ 1662              		.cfi_offset 14, -4
+ 1663 0002 0446     		mov	r4, r0
  291:Core/Src/foc.c **** 	// don't use filter for RF company
  292:Core/Src/foc.c ****     // controller->t_ff_filt = 0.9f*controller->t_ff_filt + 0.1f*controller->t_ff;
  293:Core/Src/foc.c ****     controller->t_ff_filt = controller->t_ff;
- 2105              		.loc 1 293 39
- 2106 0008 7B68     		ldr	r3, [r7, #4]
- 2107 000a D3F8E820 		ldr	r2, [r3, #232]	@ float
- 2108              		.loc 1 293 27
- 2109 000e 7B68     		ldr	r3, [r7, #4]
- 2110 0010 C3F8BC20 		str	r2, [r3, #188]	@ float
+ 1664              		.loc 1 293 5 is_stmt 1 view .LVU507
+ 1665              		.loc 1 293 39 is_stmt 0 view .LVU508
+ 1666 0004 90ED3A0A 		vldr.32	s0, [r0, #232]
+ 1667              		.loc 1 293 27 view .LVU509
+ 1668 0008 80ED2F0A 		vstr.32	s0, [r0, #188]
  294:Core/Src/foc.c ****     float torque_des = controller->kp*(controller->p_des - controller->theta_mech) + controller->t_
- 2111              		.loc 1 294 34
- 2112 0014 7B68     		ldr	r3, [r7, #4]
- 2113 0016 93ED387A 		vldr.32	s14, [r3, #224]
- 2114              		.loc 1 294 50
- 2115 001a 7B68     		ldr	r3, [r7, #4]
- 2116 001c D3ED366A 		vldr.32	s13, [r3, #216]
- 2117              		.loc 1 294 70
- 2118 0020 7B68     		ldr	r3, [r7, #4]
- 2119 0022 D3ED0A7A 		vldr.32	s15, [r3, #40]
- 2120              		.loc 1 294 58
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 43
-
-
- 2121 0026 76EEE77A 		vsub.f32	s15, s13, s15
- 2122              		.loc 1 294 38
- 2123 002a 27EE277A 		vmul.f32	s14, s14, s15
- 2124              		.loc 1 294 96
- 2125 002e 7B68     		ldr	r3, [r7, #4]
- 2126 0030 D3ED2F7A 		vldr.32	s15, [r3, #188]
- 2127              		.loc 1 294 84
- 2128 0034 37EE277A 		vadd.f32	s14, s14, s15
- 2129              		.loc 1 294 120
- 2130 0038 7B68     		ldr	r3, [r7, #4]
- 2131 003a D3ED396A 		vldr.32	s13, [r3, #228]
- 2132              		.loc 1 294 136
- 2133 003e 7B68     		ldr	r3, [r7, #4]
- 2134 0040 93ED376A 		vldr.32	s12, [r3, #220]
- 2135              		.loc 1 294 156
- 2136 0044 7B68     		ldr	r3, [r7, #4]
- 2137 0046 D3ED0C7A 		vldr.32	s15, [r3, #48]
- 2138              		.loc 1 294 144
- 2139 004a 76EE677A 		vsub.f32	s15, s12, s15
- 2140              		.loc 1 294 124
- 2141 004e 66EEA77A 		vmul.f32	s15, s13, s15
- 2142              		.loc 1 294 11
- 2143 0052 77EE277A 		vadd.f32	s15, s14, s15
- 2144 0056 C7ED037A 		vstr.32	s15, [r7, #12]
+ 1669              		.loc 1 294 5 is_stmt 1 view .LVU510
+ 1670              		.loc 1 294 34 is_stmt 0 view .LVU511
+ 1671 000c D0ED387A 		vldr.32	s15, [r0, #224]
+ 1672              		.loc 1 294 50 view .LVU512
+ 1673 0010 90ED367A 		vldr.32	s14, [r0, #216]
+ 1674              		.loc 1 294 70 view .LVU513
+ 1675 0014 D0ED0A6A 		vldr.32	s13, [r0, #40]
+ 1676              		.loc 1 294 58 view .LVU514
+ 1677 0018 37EE667A 		vsub.f32	s14, s14, s13
+ 1678              		.loc 1 294 38 view .LVU515
+ 1679 001c 67EE877A 		vmul.f32	s15, s15, s14
+ 1680              		.loc 1 294 84 view .LVU516
+ 1681 0020 30EE270A 		vadd.f32	s0, s0, s15
+ 1682              		.loc 1 294 120 view .LVU517
+ 1683 0024 D0ED397A 		vldr.32	s15, [r0, #228]
+ 1684              		.loc 1 294 136 view .LVU518
+ 1685 0028 90ED377A 		vldr.32	s14, [r0, #220]
+ 1686              		.loc 1 294 156 view .LVU519
+ 1687 002c D0ED0C6A 		vldr.32	s13, [r0, #48]
+ 1688              		.loc 1 294 144 view .LVU520
+ 1689 0030 37EE667A 		vsub.f32	s14, s14, s13
+ 1690              		.loc 1 294 124 view .LVU521
+ 1691 0034 67EE877A 		vmul.f32	s15, s15, s14
+ 1692              		.loc 1 294 11 view .LVU522
+ 1693 0038 30EE270A 		vadd.f32	s0, s0, s15
+ 1694              	.LVL124:
  295:Core/Src/foc.c ****     controller->i_q_des = fast_fmaxf(fast_fminf(torque_des/(KT*GR), controller->i_max), -controller
- 2145              		.loc 1 295 61
- 2146 005a 1F4B     		ldr	r3, .L67
- 2147 005c 93ED0E7A 		vldr.32	s14, [r3, #56]
- 2148              		.loc 1 295 64
- 2149 0060 1D4B     		ldr	r3, .L67
- 2150 0062 D3ED117A 		vldr.32	s15, [r3, #68]
- 2151              		.loc 1 295 63
- 2152 0066 67EE277A 		vmul.f32	s15, s14, s15
- 2153              		.loc 1 295 27
- 2154 006a 97ED037A 		vldr.32	s14, [r7, #12]
- 2155 006e C7EE276A 		vdiv.f32	s13, s14, s15
- 2156 0072 7B68     		ldr	r3, [r7, #4]
- 2157 0074 D3ED407A 		vldr.32	s15, [r3, #256]
- 2158 0078 F0EE670A 		vmov.f32	s1, s15
- 2159 007c B0EE660A 		vmov.f32	s0, s13
- 2160 0080 FFF7FEFF 		bl	fast_fminf
- 2161 0084 B0EE407A 		vmov.f32	s14, s0
- 2162              		.loc 1 295 100
- 2163 0088 7B68     		ldr	r3, [r7, #4]
- 2164 008a D3ED407A 		vldr.32	s15, [r3, #256]
- 2165              		.loc 1 295 27
- 2166 008e F1EE677A 		vneg.f32	s15, s15
- 2167 0092 F0EE670A 		vmov.f32	s1, s15
- 2168 0096 B0EE470A 		vmov.f32	s0, s14
- 2169 009a FFF7FEFF 		bl	fast_fmaxf
- 2170 009e F0EE407A 		vmov.f32	s15, s0
- 2171              		.loc 1 295 25
- 2172 00a2 7B68     		ldr	r3, [r7, #4]
- 2173 00a4 C3ED2C7A 		vstr.32	s15, [r3, #176]
+ 1695              		.loc 1 295 5 is_stmt 1 view .LVU523
+ 1696              		.loc 1 295 61 is_stmt 0 view .LVU524
+ 1697 003c 124B     		ldr	r3, .L77
+ 1698 003e D3ED0E7A 		vldr.32	s15, [r3, #56]
+ 1699              		.loc 1 295 64 view .LVU525
+ 1700 0042 93ED117A 		vldr.32	s14, [r3, #68]
+ 1701              		.loc 1 295 63 view .LVU526
+ 1702 0046 67EE877A 		vmul.f32	s15, s15, s14
+ 1703              		.loc 1 295 27 view .LVU527
+ 1704 004a D0ED400A 		vldr.32	s1, [r0, #256]
+ 1705 004e 80EE270A 		vdiv.f32	s0, s0, s15
+ 1706              	.LVL125:
+ 1707              		.loc 1 295 27 view .LVU528
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 36
+
+
+ 1708 0052 FFF7FEFF 		bl	fast_fminf
+ 1709              	.LVL126:
+ 1710              		.loc 1 295 100 view .LVU529
+ 1711 0056 D4ED400A 		vldr.32	s1, [r4, #256]
+ 1712              		.loc 1 295 27 view .LVU530
+ 1713 005a F1EE600A 		vneg.f32	s1, s1
+ 1714 005e FFF7FEFF 		bl	fast_fmaxf
+ 1715              	.LVL127:
+ 1716              		.loc 1 295 25 view .LVU531
+ 1717 0062 84ED2C0A 		vstr.32	s0, [r4, #176]
  296:Core/Src/foc.c ****     if(controller->v_bus > V_BUS_MAX){controller->i_q_des = 0;}
- 2174              		.loc 1 296 18
- 2175 00a8 7B68     		ldr	r3, [r7, #4]
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 44
-
-
- 2176 00aa D3ED087A 		vldr.32	s15, [r3, #32]
- 2177              		.loc 1 296 7
- 2178 00ae 9FED0B7A 		vldr.32	s14, .L67+4
- 2179 00b2 F4EEC77A 		vcmpe.f32	s15, s14
- 2180 00b6 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
- 2181 00ba 04DD     		ble	.L64
- 2182              		.loc 1 296 59 discriminator 1
- 2183 00bc 7B68     		ldr	r3, [r7, #4]
- 2184 00be 4FF00002 		mov	r2, #0
- 2185 00c2 C3F8B020 		str	r2, [r3, #176]	@ float
- 2186              	.L64:
+ 1718              		.loc 1 296 5 is_stmt 1 view .LVU532
+ 1719              		.loc 1 296 18 is_stmt 0 view .LVU533
+ 1720 0066 94ED087A 		vldr.32	s14, [r4, #32]
+ 1721              		.loc 1 296 7 view .LVU534
+ 1722 006a DFED087A 		vldr.32	s15, .L77+4
+ 1723 006e B4EEE77A 		vcmpe.f32	s14, s15
+ 1724 0072 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1725 0076 02DD     		ble	.L73
+ 1726              		.loc 1 296 39 is_stmt 1 discriminator 1 view .LVU535
+ 1727              		.loc 1 296 59 is_stmt 0 discriminator 1 view .LVU536
+ 1728 0078 0023     		movs	r3, #0
+ 1729 007a C4F8B030 		str	r3, [r4, #176]	@ float
+ 1730              	.L73:
  297:Core/Src/foc.c ****     controller->i_d_des = 0.0f;
- 2187              		.loc 1 297 25
- 2188 00c6 7B68     		ldr	r3, [r7, #4]
- 2189 00c8 4FF00002 		mov	r2, #0
- 2190 00cc C3F8AC20 		str	r2, [r3, #172]	@ float
+ 1731              		.loc 1 297 5 is_stmt 1 view .LVU537
+ 1732              		.loc 1 297 25 is_stmt 0 view .LVU538
+ 1733 007e 0023     		movs	r3, #0
+ 1734 0080 C4F8AC30 		str	r3, [r4, #172]	@ float
  298:Core/Src/foc.c **** }
- 2191              		.loc 1 298 1
- 2192 00d0 00BF     		nop
- 2193 00d2 1037     		adds	r7, r7, #16
- 2194              	.LCFI74:
- 2195              		.cfi_def_cfa_offset 8
- 2196 00d4 BD46     		mov	sp, r7
- 2197              	.LCFI75:
- 2198              		.cfi_def_cfa_register 13
- 2199              		@ sp needed
- 2200 00d6 80BD     		pop	{r7, pc}
- 2201              	.L68:
- 2202              		.align	2
- 2203              	.L67:
- 2204 00d8 00000000 		.word	__float_reg
- 2205 00dc 00002042 		.word	1109393408
- 2206              		.cfi_endproc
- 2207              	.LFE252:
- 2209              		.section	.text.zero_commands,"ax",%progbits
- 2210              		.align	1
- 2211              		.global	zero_commands
- 2212              		.syntax unified
- 2213              		.thumb
- 2214              		.thumb_func
- 2216              	zero_commands:
- 2217              	.LFB253:
+ 1735              		.loc 1 298 1 view .LVU539
+ 1736 0084 10BD     		pop	{r4, pc}
+ 1737              	.LVL128:
+ 1738              	.L78:
+ 1739              		.loc 1 298 1 view .LVU540
+ 1740 0086 00BF     		.align	2
+ 1741              	.L77:
+ 1742 0088 00000000 		.word	__float_reg
+ 1743 008c 00002042 		.word	1109393408
+ 1744              		.cfi_endproc
+ 1745              	.LFE252:
+ 1747              		.section	.text.zero_commands,"ax",%progbits
+ 1748              		.align	1
+ 1749              		.global	zero_commands
+ 1750              		.syntax unified
+ 1751              		.thumb
+ 1752              		.thumb_func
+ 1754              	zero_commands:
+ 1755              	.LVL129:
+ 1756              	.LFB253:
  299:Core/Src/foc.c **** 
  300:Core/Src/foc.c **** void zero_commands(ControllerStruct * controller){
- 2218              		.loc 1 300 50
- 2219              		.cfi_startproc
- 2220              		@ args = 0, pretend = 0, frame = 8
- 2221              		@ frame_needed = 1, uses_anonymous_args = 0
- 2222              		@ link register save eliminated.
- 2223 0000 80B4     		push	{r7}
- 2224              	.LCFI76:
- 2225              		.cfi_def_cfa_offset 4
- 2226              		.cfi_offset 7, -4
- 2227 0002 83B0     		sub	sp, sp, #12
- 2228              	.LCFI77:
- 2229              		.cfi_def_cfa_offset 16
- 2230 0004 00AF     		add	r7, sp, #0
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 45
+ 1757              		.loc 1 300 50 is_stmt 1 view -0
+ 1758              		.cfi_startproc
+ 1759              		@ args = 0, pretend = 0, frame = 0
+ 1760              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1761              		@ link register save eliminated.
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 37
 
 
- 2231              	.LCFI78:
- 2232              		.cfi_def_cfa_register 7
- 2233 0006 7860     		str	r0, [r7, #4]
  301:Core/Src/foc.c **** 	controller->t_ff = 0;
- 2234              		.loc 1 301 19
- 2235 0008 7B68     		ldr	r3, [r7, #4]
- 2236 000a 4FF00002 		mov	r2, #0
- 2237 000e C3F8E820 		str	r2, [r3, #232]	@ float
+ 1762              		.loc 1 301 2 view .LVU542
+ 1763              		.loc 1 301 19 is_stmt 0 view .LVU543
+ 1764 0000 0023     		movs	r3, #0
+ 1765 0002 C0F8E830 		str	r3, [r0, #232]	@ float
  302:Core/Src/foc.c **** 	controller->kp = 0;
- 2238              		.loc 1 302 17
- 2239 0012 7B68     		ldr	r3, [r7, #4]
- 2240 0014 4FF00002 		mov	r2, #0
- 2241 0018 C3F8E020 		str	r2, [r3, #224]	@ float
+ 1766              		.loc 1 302 2 is_stmt 1 view .LVU544
+ 1767              		.loc 1 302 17 is_stmt 0 view .LVU545
+ 1768 0006 C0F8E030 		str	r3, [r0, #224]	@ float
  303:Core/Src/foc.c **** 	controller->kd = 0;
- 2242              		.loc 1 303 17
- 2243 001c 7B68     		ldr	r3, [r7, #4]
- 2244 001e 4FF00002 		mov	r2, #0
- 2245 0022 C3F8E420 		str	r2, [r3, #228]	@ float
+ 1769              		.loc 1 303 2 is_stmt 1 view .LVU546
+ 1770              		.loc 1 303 17 is_stmt 0 view .LVU547
+ 1771 000a C0F8E430 		str	r3, [r0, #228]	@ float
  304:Core/Src/foc.c **** 	controller->p_des = 0;
- 2246              		.loc 1 304 20
- 2247 0026 7B68     		ldr	r3, [r7, #4]
- 2248 0028 4FF00002 		mov	r2, #0
- 2249 002c C3F8D820 		str	r2, [r3, #216]	@ float
+ 1772              		.loc 1 304 2 is_stmt 1 view .LVU548
+ 1773              		.loc 1 304 20 is_stmt 0 view .LVU549
+ 1774 000e C0F8D830 		str	r3, [r0, #216]	@ float
  305:Core/Src/foc.c **** 	controller->v_des = 0;
- 2250              		.loc 1 305 20
- 2251 0030 7B68     		ldr	r3, [r7, #4]
- 2252 0032 4FF00002 		mov	r2, #0
- 2253 0036 C3F8DC20 		str	r2, [r3, #220]	@ float
+ 1775              		.loc 1 305 2 is_stmt 1 view .LVU550
+ 1776              		.loc 1 305 20 is_stmt 0 view .LVU551
+ 1777 0012 C0F8DC30 		str	r3, [r0, #220]	@ float
  306:Core/Src/foc.c **** 	controller->i_q_des = 0;
- 2254              		.loc 1 306 22
- 2255 003a 7B68     		ldr	r3, [r7, #4]
- 2256 003c 4FF00002 		mov	r2, #0
- 2257 0040 C3F8B020 		str	r2, [r3, #176]	@ float
+ 1778              		.loc 1 306 2 is_stmt 1 view .LVU552
+ 1779              		.loc 1 306 22 is_stmt 0 view .LVU553
+ 1780 0016 C0F8B030 		str	r3, [r0, #176]	@ float
  307:Core/Src/foc.c **** }
- 2258              		.loc 1 307 1
- 2259 0044 00BF     		nop
- 2260 0046 0C37     		adds	r7, r7, #12
- 2261              	.LCFI79:
- 2262              		.cfi_def_cfa_offset 4
- 2263 0048 BD46     		mov	sp, r7
- 2264              	.LCFI80:
- 2265              		.cfi_def_cfa_register 13
- 2266              		@ sp needed
- 2267 004a 5DF8047B 		ldr	r7, [sp], #4
- 2268              	.LCFI81:
- 2269              		.cfi_restore 7
- 2270              		.cfi_def_cfa_offset 0
- 2271 004e 7047     		bx	lr
- 2272              		.cfi_endproc
- 2273              	.LFE253:
- 2275              		.text
- 2276              	.Letext0:
- 2277              		.file 2 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\machine\\_default
- 2278              		.file 3 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\sys\\_stdint.h"
- 2279              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
- 2280              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
- 2281              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 46
-
-
- 2282              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
- 2283              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h"
- 2284              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
- 2285              		.file 10 "Core/Inc/position_sensor.h"
- 2286              		.file 11 "Core/Inc/foc.h"
- 2287              		.file 12 "Core/Inc/adc.h"
- 2288              		.file 13 "Core/Inc/tim.h"
- 2289              		.file 14 "Core/Inc/user_config.h"
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 47
+ 1781              		.loc 1 307 1 view .LVU554
+ 1782 001a 7047     		bx	lr
+ 1783              		.cfi_endproc
+ 1784              	.LFE253:
+ 1786              		.text
+ 1787              	.Letext0:
+ 1788              		.file 2 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\machine\\_default
+ 1789              		.file 3 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 1790              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
+ 1791              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
+ 1792              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 1793              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 1794              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h"
+ 1795              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 1796              		.file 10 "Core/Inc/position_sensor.h"
+ 1797              		.file 11 "Core/Inc/foc.h"
+ 1798              		.file 12 "Core/Inc/adc.h"
+ 1799              		.file 13 "Core/Inc/tim.h"
+ 1800              		.file 14 "Core/Inc/user_config.h"
+ 1801              		.file 15 "Core/Inc/math_ops.h"
+ 1802              		.file 16 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\math.h"
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 38
 
 
 DEFINED SYMBOLS
                             *ABS*:00000000 foc.c
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:20     .text.set_dtc:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:26     .text.set_dtc:00000000 set_dtc
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:183    .text.set_dtc:00000140 $d
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:189    .text.analog_sample:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:195    .text.analog_sample:00000000 analog_sample
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:345    .text.analog_sample:000000ec $d
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:354    .text.abc:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:360    .text.abc:00000000 abc
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:479    .text.abc:00000100 $d
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:485    .text.dq0:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:491    .text.dq0:00000000 dq0
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:617    .text.dq0:00000114 $d
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:624    .text.svm:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:630    .text.svm:00000000 svm
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:770    .text.svm:00000148 $d
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:777    .text.zero_current:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:783    .text.zero_current:00000000 zero_current
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:892    .text.init_controller_params:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:898    .text.init_controller_params:00000000 init_controller_params
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:1085   .text.init_controller_params:00000158 $d
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:1103   .text.reset_foc:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:1109   .text.reset_foc:00000000 reset_foc
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:1239   .text.reset_foc:000000e4 $d
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:1244   .text.reset_observer:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:1250   .text.reset_observer:00000000 reset_observer
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:1286   .text.update_observer:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:1292   .text.update_observer:00000000 update_observer
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:1329   .text.linearize_dtc:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:1335   .text.linearize_dtc:00000000 linearize_dtc
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:1425   .text.linearize_dtc:000000a8 $d
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:1433   .text.field_weaken:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:1439   .text.field_weaken:00000000 field_weaken
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:1603   .text.field_weaken:00000144 $d
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:1609   .text.commutate:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:1615   .text.commutate:00000000 commutate
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:1816   .text.commutate:00000194 $d
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:1825   .text.commutate:000001ac $t
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:2081   .text.torque_control:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:2087   .text.torque_control:00000000 torque_control
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:2204   .text.torque_control:000000d8 $d
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:2210   .text.zero_commands:00000000 $t
-C:\Users\16323\AppData\Local\Temp\ccXEezqh.s:2216   .text.zero_commands:00000000 zero_commands
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:20     .text.set_dtc:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:26     .text.set_dtc:00000000 set_dtc
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:119    .text.set_dtc:000000a8 $d
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:125    .text.analog_sample:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:131    .text.analog_sample:00000000 analog_sample
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:257    .text.analog_sample:000000a0 $d
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:266    .text.abc:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:272    .text.abc:00000000 abc
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:378    .text.abc:00000094 $d
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:384    .text.dq0:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:390    .text.dq0:00000000 dq0
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:506    .text.dq0:000000a0 $d
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:513    .text.svm:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:519    .text.svm:00000000 svm
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:654    .text.svm:000000cc $d
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:661    .text.zero_current:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:667    .text.zero_current:00000000 zero_current
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:764    .text.zero_current:00000050 $d
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:773    .text.init_controller_params:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:779    .text.init_controller_params:00000000 init_controller_params
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:925    .text.init_controller_params:000000e4 $d
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:943    .text.reset_foc:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:949    .text.reset_foc:00000000 reset_foc
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:1028   .text.reset_foc:0000006c $d
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:1033   .text.reset_observer:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:1039   .text.reset_observer:00000000 reset_observer
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:1053   .text.update_observer:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:1059   .text.update_observer:00000000 update_observer
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:1073   .text.linearize_dtc:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:1079   .text.linearize_dtc:00000000 linearize_dtc
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:1151   .text.linearize_dtc:00000064 $d
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:1159   .text.field_weaken:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:1165   .text.field_weaken:00000000 field_weaken
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:1292   .text.field_weaken:000000c4 $d
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:1298   .text.commutate:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:1304   .text.commutate:00000000 commutate
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:1634   .text.commutate:00000248 $d
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:1645   .text.torque_control:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:1651   .text.torque_control:00000000 torque_control
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:1742   .text.torque_control:00000088 $d
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:1748   .text.zero_commands:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cczSWZNV.s:1754   .text.zero_commands:00000000 zero_commands
 
 UNDEFINED SYMBOLS
 __int_reg
@@ -2769,7 +2268,7 @@ hadc3
 cos_lut
 sin_lut
 fminf3
-ARM GAS  C:\Users\16323\AppData\Local\Temp\ccXEezqh.s 			page 48
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cczSWZNV.s 			page 39
 
 
 fmaxf3
