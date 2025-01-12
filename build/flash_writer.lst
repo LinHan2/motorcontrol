@@ -1,0 +1,728 @@
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 6
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"flash_writer.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.data.__SECTOR_ADDRS,"aw"
+  20              		.align	2
+  23              	__SECTOR_ADDRS:
+  24 0000 00000008 		.word	134217728
+  25 0004 00400008 		.word	134234112
+  26 0008 00800008 		.word	134250496
+  27 000c 00C00008 		.word	134266880
+  28 0010 00000108 		.word	134283264
+  29 0014 00000208 		.word	134348800
+  30 0018 00000408 		.word	134479872
+  31 001c 00000608 		.word	134610944
+  32              		.section	.data.__SECTORS,"aw"
+  33              		.align	2
+  36              	__SECTORS:
+  37 0000 00000000 		.word	0
+  38 0004 08000000 		.word	8
+  39 0008 10000000 		.word	16
+  40 000c 18000000 		.word	24
+  41 0010 20000000 		.word	32
+  42 0014 30000000 		.word	48
+  43 0018 30000000 		.word	48
+  44 001c 38000000 		.word	56
+  45              		.section	.text.flash_writer_init,"ax",%progbits
+  46              		.align	1
+  47              		.global	flash_writer_init
+  48              		.syntax unified
+  49              		.thumb
+  50              		.thumb_func
+  52              	flash_writer_init:
+  53              	.LFB239:
+  54              		.file 1 "Core/Src/flash_writer.c"
+   1:Core/Src/flash_writer.c **** #include "stm32f4xx_flash.h"
+   2:Core/Src/flash_writer.c **** #include "flash_writer.h"
+   3:Core/Src/flash_writer.c **** 
+   4:Core/Src/flash_writer.c **** 
+   5:Core/Src/flash_writer.c **** 
+   6:Core/Src/flash_writer.c **** 
+   7:Core/Src/flash_writer.c **** void flash_writer_init(FlashWriter *fw, uint32_t sector) {
+  55              		.loc 1 7 58
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 2
+
+
+  56              		.cfi_startproc
+  57              		@ args = 0, pretend = 0, frame = 8
+  58              		@ frame_needed = 1, uses_anonymous_args = 0
+  59              		@ link register save eliminated.
+  60 0000 80B4     		push	{r7}
+  61              	.LCFI0:
+  62              		.cfi_def_cfa_offset 4
+  63              		.cfi_offset 7, -4
+  64 0002 83B0     		sub	sp, sp, #12
+  65              	.LCFI1:
+  66              		.cfi_def_cfa_offset 16
+  67 0004 00AF     		add	r7, sp, #0
+  68              	.LCFI2:
+  69              		.cfi_def_cfa_register 7
+  70 0006 7860     		str	r0, [r7, #4]
+  71 0008 3960     		str	r1, [r7]
+   8:Core/Src/flash_writer.c **** 	if(sector>7) sector = 7;
+  72              		.loc 1 8 4
+  73 000a 3B68     		ldr	r3, [r7]
+  74 000c 072B     		cmp	r3, #7
+  75 000e 01D9     		bls	.L2
+  76              		.loc 1 8 22 discriminator 1
+  77 0010 0723     		movs	r3, #7
+  78 0012 3B60     		str	r3, [r7]
+  79              	.L2:
+   9:Core/Src/flash_writer.c **** 	fw->sector = sector;
+  80              		.loc 1 9 13
+  81 0014 7B68     		ldr	r3, [r7, #4]
+  82 0016 3A68     		ldr	r2, [r7]
+  83 0018 9A60     		str	r2, [r3, #8]
+  10:Core/Src/flash_writer.c **** 	fw->base = __SECTOR_ADDRS[sector];
+  84              		.loc 1 10 27
+  85 001a 074A     		ldr	r2, .L3
+  86 001c 3B68     		ldr	r3, [r7]
+  87 001e 52F82320 		ldr	r2, [r2, r3, lsl #2]
+  88              		.loc 1 10 11
+  89 0022 7B68     		ldr	r3, [r7, #4]
+  90 0024 5A60     		str	r2, [r3, #4]
+  11:Core/Src/flash_writer.c **** 	fw->ready = false;
+  91              		.loc 1 11 12
+  92 0026 7B68     		ldr	r3, [r7, #4]
+  93 0028 0022     		movs	r2, #0
+  94 002a 1A70     		strb	r2, [r3]
+  12:Core/Src/flash_writer.c **** }
+  95              		.loc 1 12 1
+  96 002c 00BF     		nop
+  97 002e 0C37     		adds	r7, r7, #12
+  98              	.LCFI3:
+  99              		.cfi_def_cfa_offset 4
+ 100 0030 BD46     		mov	sp, r7
+ 101              	.LCFI4:
+ 102              		.cfi_def_cfa_register 13
+ 103              		@ sp needed
+ 104 0032 5DF8047B 		ldr	r7, [sp], #4
+ 105              	.LCFI5:
+ 106              		.cfi_restore 7
+ 107              		.cfi_def_cfa_offset 0
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 3
+
+
+ 108 0036 7047     		bx	lr
+ 109              	.L4:
+ 110              		.align	2
+ 111              	.L3:
+ 112 0038 00000000 		.word	__SECTOR_ADDRS
+ 113              		.cfi_endproc
+ 114              	.LFE239:
+ 116              		.section	.text.flash_writer_ready,"ax",%progbits
+ 117              		.align	1
+ 118              		.global	flash_writer_ready
+ 119              		.syntax unified
+ 120              		.thumb
+ 121              		.thumb_func
+ 123              	flash_writer_ready:
+ 124              	.LFB240:
+  13:Core/Src/flash_writer.c **** bool flash_writer_ready(FlashWriter fw) {
+ 125              		.loc 1 13 41
+ 126              		.cfi_startproc
+ 127              		@ args = 0, pretend = 0, frame = 16
+ 128              		@ frame_needed = 1, uses_anonymous_args = 0
+ 129              		@ link register save eliminated.
+ 130 0000 80B4     		push	{r7}
+ 131              	.LCFI6:
+ 132              		.cfi_def_cfa_offset 4
+ 133              		.cfi_offset 7, -4
+ 134 0002 85B0     		sub	sp, sp, #20
+ 135              	.LCFI7:
+ 136              		.cfi_def_cfa_offset 24
+ 137 0004 00AF     		add	r7, sp, #0
+ 138              	.LCFI8:
+ 139              		.cfi_def_cfa_register 7
+ 140 0006 3B1D     		adds	r3, r7, #4
+ 141 0008 83E80700 		stm	r3, {r0, r1, r2}
+  14:Core/Src/flash_writer.c ****     return fw.ready;
+ 142              		.loc 1 14 14
+ 143 000c 3B79     		ldrb	r3, [r7, #4]	@ zero_extendqisi2
+  15:Core/Src/flash_writer.c **** }
+ 144              		.loc 1 15 1
+ 145 000e 1846     		mov	r0, r3
+ 146 0010 1437     		adds	r7, r7, #20
+ 147              	.LCFI9:
+ 148              		.cfi_def_cfa_offset 4
+ 149 0012 BD46     		mov	sp, r7
+ 150              	.LCFI10:
+ 151              		.cfi_def_cfa_register 13
+ 152              		@ sp needed
+ 153 0014 5DF8047B 		ldr	r7, [sp], #4
+ 154              	.LCFI11:
+ 155              		.cfi_restore 7
+ 156              		.cfi_def_cfa_offset 0
+ 157 0018 7047     		bx	lr
+ 158              		.cfi_endproc
+ 159              	.LFE240:
+ 161              		.section	.text.flash_writer_open,"ax",%progbits
+ 162              		.align	1
+ 163              		.global	flash_writer_open
+ 164              		.syntax unified
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 4
+
+
+ 165              		.thumb
+ 166              		.thumb_func
+ 168              	flash_writer_open:
+ 169              	.LFB241:
+  16:Core/Src/flash_writer.c **** 
+  17:Core/Src/flash_writer.c **** void flash_writer_open(FlashWriter * fw) {
+ 170              		.loc 1 17 42
+ 171              		.cfi_startproc
+ 172              		@ args = 0, pretend = 0, frame = 8
+ 173              		@ frame_needed = 1, uses_anonymous_args = 0
+ 174 0000 80B5     		push	{r7, lr}
+ 175              	.LCFI12:
+ 176              		.cfi_def_cfa_offset 8
+ 177              		.cfi_offset 7, -8
+ 178              		.cfi_offset 14, -4
+ 179 0002 82B0     		sub	sp, sp, #8
+ 180              	.LCFI13:
+ 181              		.cfi_def_cfa_offset 16
+ 182 0004 00AF     		add	r7, sp, #0
+ 183              	.LCFI14:
+ 184              		.cfi_def_cfa_register 7
+ 185 0006 7860     		str	r0, [r7, #4]
+  18:Core/Src/flash_writer.c ****     FLASH_Unlock();
+ 186              		.loc 1 18 5
+ 187 0008 FFF7FEFF 		bl	FLASH_Unlock
+  19:Core/Src/flash_writer.c ****     FLASH_ClearFlag( FLASH_FLAG_EOP |  FLASH_FLAG_WRPERR | FLASH_FLAG_PGAERR | FLASH_FLAG_PGPERR | 
+ 188              		.loc 1 19 5
+ 189 000c F120     		movs	r0, #241
+ 190 000e FFF7FEFF 		bl	FLASH_ClearFlag
+  20:Core/Src/flash_writer.c ****     FLASH_EraseSector(__SECTORS[fw->sector], VoltageRange_3);
+ 191              		.loc 1 20 35
+ 192 0012 7B68     		ldr	r3, [r7, #4]
+ 193 0014 9B68     		ldr	r3, [r3, #8]
+ 194              		.loc 1 20 5
+ 195 0016 074A     		ldr	r2, .L8
+ 196 0018 52F82330 		ldr	r3, [r2, r3, lsl #2]
+ 197 001c 0221     		movs	r1, #2
+ 198 001e 1846     		mov	r0, r3
+ 199 0020 FFF7FEFF 		bl	FLASH_EraseSector
+  21:Core/Src/flash_writer.c ****     fw->ready = true;
+ 200              		.loc 1 21 15
+ 201 0024 7B68     		ldr	r3, [r7, #4]
+ 202 0026 0122     		movs	r2, #1
+ 203 0028 1A70     		strb	r2, [r3]
+  22:Core/Src/flash_writer.c **** }
+ 204              		.loc 1 22 1
+ 205 002a 00BF     		nop
+ 206 002c 0837     		adds	r7, r7, #8
+ 207              	.LCFI15:
+ 208              		.cfi_def_cfa_offset 8
+ 209 002e BD46     		mov	sp, r7
+ 210              	.LCFI16:
+ 211              		.cfi_def_cfa_register 13
+ 212              		@ sp needed
+ 213 0030 80BD     		pop	{r7, pc}
+ 214              	.L9:
+ 215 0032 00BF     		.align	2
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 5
+
+
+ 216              	.L8:
+ 217 0034 00000000 		.word	__SECTORS
+ 218              		.cfi_endproc
+ 219              	.LFE241:
+ 221              		.section	.text.flash_writer_write_int,"ax",%progbits
+ 222              		.align	1
+ 223              		.global	flash_writer_write_int
+ 224              		.syntax unified
+ 225              		.thumb
+ 226              		.thumb_func
+ 228              	flash_writer_write_int:
+ 229              	.LFB242:
+  23:Core/Src/flash_writer.c **** 
+  24:Core/Src/flash_writer.c **** void flash_writer_write_int(FlashWriter fw, uint32_t index, int x) {
+ 230              		.loc 1 24 68
+ 231              		.cfi_startproc
+ 232              		@ args = 4, pretend = 0, frame = 24
+ 233              		@ frame_needed = 1, uses_anonymous_args = 0
+ 234 0000 90B5     		push	{r4, r7, lr}
+ 235              	.LCFI17:
+ 236              		.cfi_def_cfa_offset 12
+ 237              		.cfi_offset 4, -12
+ 238              		.cfi_offset 7, -8
+ 239              		.cfi_offset 14, -4
+ 240 0002 87B0     		sub	sp, sp, #28
+ 241              	.LCFI18:
+ 242              		.cfi_def_cfa_offset 40
+ 243 0004 00AF     		add	r7, sp, #0
+ 244              	.LCFI19:
+ 245              		.cfi_def_cfa_register 7
+ 246 0006 3C1D     		adds	r4, r7, #4
+ 247 0008 84E80700 		stm	r4, {r0, r1, r2}
+ 248 000c 3B60     		str	r3, [r7]
+  25:Core/Src/flash_writer.c ****     union UN {int a; uint32_t b;};
+  26:Core/Src/flash_writer.c ****     union UN un;
+  27:Core/Src/flash_writer.c ****     un.a = x;
+ 249              		.loc 1 27 10
+ 250 000e BB6A     		ldr	r3, [r7, #40]
+ 251 0010 7B61     		str	r3, [r7, #20]
+  28:Core/Src/flash_writer.c ****     FLASH_ProgramWord(fw.base + 4 * index, un.b);
+ 252              		.loc 1 28 25
+ 253 0012 BA68     		ldr	r2, [r7, #8]
+ 254              		.loc 1 28 35
+ 255 0014 3B68     		ldr	r3, [r7]
+ 256 0016 9B00     		lsls	r3, r3, #2
+ 257              		.loc 1 28 5
+ 258 0018 1344     		add	r3, r3, r2
+ 259 001a 7A69     		ldr	r2, [r7, #20]
+ 260 001c 1146     		mov	r1, r2
+ 261 001e 1846     		mov	r0, r3
+ 262 0020 FFF7FEFF 		bl	FLASH_ProgramWord
+  29:Core/Src/flash_writer.c **** }
+ 263              		.loc 1 29 1
+ 264 0024 00BF     		nop
+ 265 0026 1C37     		adds	r7, r7, #28
+ 266              	.LCFI20:
+ 267              		.cfi_def_cfa_offset 12
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 6
+
+
+ 268 0028 BD46     		mov	sp, r7
+ 269              	.LCFI21:
+ 270              		.cfi_def_cfa_register 13
+ 271              		@ sp needed
+ 272 002a 90BD     		pop	{r4, r7, pc}
+ 273              		.cfi_endproc
+ 274              	.LFE242:
+ 276              		.section	.text.flash_writer_write_uint,"ax",%progbits
+ 277              		.align	1
+ 278              		.global	flash_writer_write_uint
+ 279              		.syntax unified
+ 280              		.thumb
+ 281              		.thumb_func
+ 283              	flash_writer_write_uint:
+ 284              	.LFB243:
+  30:Core/Src/flash_writer.c **** 
+  31:Core/Src/flash_writer.c **** void flash_writer_write_uint(FlashWriter fw, uint32_t index, unsigned int x) {
+ 285              		.loc 1 31 78
+ 286              		.cfi_startproc
+ 287              		@ args = 4, pretend = 0, frame = 16
+ 288              		@ frame_needed = 1, uses_anonymous_args = 0
+ 289 0000 90B5     		push	{r4, r7, lr}
+ 290              	.LCFI22:
+ 291              		.cfi_def_cfa_offset 12
+ 292              		.cfi_offset 4, -12
+ 293              		.cfi_offset 7, -8
+ 294              		.cfi_offset 14, -4
+ 295 0002 85B0     		sub	sp, sp, #20
+ 296              	.LCFI23:
+ 297              		.cfi_def_cfa_offset 32
+ 298 0004 00AF     		add	r7, sp, #0
+ 299              	.LCFI24:
+ 300              		.cfi_def_cfa_register 7
+ 301 0006 3C1D     		adds	r4, r7, #4
+ 302 0008 84E80700 		stm	r4, {r0, r1, r2}
+ 303 000c 3B60     		str	r3, [r7]
+  32:Core/Src/flash_writer.c ****     FLASH_ProgramWord(fw.base + 4 * index, x);
+ 304              		.loc 1 32 25
+ 305 000e BA68     		ldr	r2, [r7, #8]
+ 306              		.loc 1 32 35
+ 307 0010 3B68     		ldr	r3, [r7]
+ 308 0012 9B00     		lsls	r3, r3, #2
+ 309              		.loc 1 32 5
+ 310 0014 1344     		add	r3, r3, r2
+ 311 0016 396A     		ldr	r1, [r7, #32]
+ 312 0018 1846     		mov	r0, r3
+ 313 001a FFF7FEFF 		bl	FLASH_ProgramWord
+  33:Core/Src/flash_writer.c **** }
+ 314              		.loc 1 33 1
+ 315 001e 00BF     		nop
+ 316 0020 1437     		adds	r7, r7, #20
+ 317              	.LCFI25:
+ 318              		.cfi_def_cfa_offset 12
+ 319 0022 BD46     		mov	sp, r7
+ 320              	.LCFI26:
+ 321              		.cfi_def_cfa_register 13
+ 322              		@ sp needed
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 7
+
+
+ 323 0024 90BD     		pop	{r4, r7, pc}
+ 324              		.cfi_endproc
+ 325              	.LFE243:
+ 327              		.section	.text.flash_writer_write_float,"ax",%progbits
+ 328              		.align	1
+ 329              		.global	flash_writer_write_float
+ 330              		.syntax unified
+ 331              		.thumb
+ 332              		.thumb_func
+ 334              	flash_writer_write_float:
+ 335              	.LFB244:
+  34:Core/Src/flash_writer.c **** 
+  35:Core/Src/flash_writer.c **** void flash_writer_write_float(FlashWriter fw, uint32_t index, float x) {
+ 336              		.loc 1 35 72
+ 337              		.cfi_startproc
+ 338              		@ args = 0, pretend = 0, frame = 32
+ 339              		@ frame_needed = 1, uses_anonymous_args = 0
+ 340 0000 90B5     		push	{r4, r7, lr}
+ 341              	.LCFI27:
+ 342              		.cfi_def_cfa_offset 12
+ 343              		.cfi_offset 4, -12
+ 344              		.cfi_offset 7, -8
+ 345              		.cfi_offset 14, -4
+ 346 0002 89B0     		sub	sp, sp, #36
+ 347              	.LCFI28:
+ 348              		.cfi_def_cfa_offset 48
+ 349 0004 00AF     		add	r7, sp, #0
+ 350              	.LCFI29:
+ 351              		.cfi_def_cfa_register 7
+ 352 0006 07F10C04 		add	r4, r7, #12
+ 353 000a 84E80700 		stm	r4, {r0, r1, r2}
+ 354 000e BB60     		str	r3, [r7, #8]
+ 355 0010 87ED010A 		vstr.32	s0, [r7, #4]
+  36:Core/Src/flash_writer.c ****     union UN {float a; uint32_t b;};
+  37:Core/Src/flash_writer.c ****     union UN un;
+  38:Core/Src/flash_writer.c ****     un.a = x;
+ 356              		.loc 1 38 10
+ 357 0014 7B68     		ldr	r3, [r7, #4]	@ float
+ 358 0016 FB61     		str	r3, [r7, #28]	@ float
+  39:Core/Src/flash_writer.c ****     FLASH_ProgramWord(fw.base + 4 * index, un.b);
+ 359              		.loc 1 39 25
+ 360 0018 3A69     		ldr	r2, [r7, #16]
+ 361              		.loc 1 39 35
+ 362 001a BB68     		ldr	r3, [r7, #8]
+ 363 001c 9B00     		lsls	r3, r3, #2
+ 364              		.loc 1 39 5
+ 365 001e 1344     		add	r3, r3, r2
+ 366 0020 FA69     		ldr	r2, [r7, #28]
+ 367 0022 1146     		mov	r1, r2
+ 368 0024 1846     		mov	r0, r3
+ 369 0026 FFF7FEFF 		bl	FLASH_ProgramWord
+  40:Core/Src/flash_writer.c **** }
+ 370              		.loc 1 40 1
+ 371 002a 00BF     		nop
+ 372 002c 2437     		adds	r7, r7, #36
+ 373              	.LCFI30:
+ 374              		.cfi_def_cfa_offset 12
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 8
+
+
+ 375 002e BD46     		mov	sp, r7
+ 376              	.LCFI31:
+ 377              		.cfi_def_cfa_register 13
+ 378              		@ sp needed
+ 379 0030 90BD     		pop	{r4, r7, pc}
+ 380              		.cfi_endproc
+ 381              	.LFE244:
+ 383              		.section	.text.flash_writer_close,"ax",%progbits
+ 384              		.align	1
+ 385              		.global	flash_writer_close
+ 386              		.syntax unified
+ 387              		.thumb
+ 388              		.thumb_func
+ 390              	flash_writer_close:
+ 391              	.LFB245:
+  41:Core/Src/flash_writer.c **** 
+  42:Core/Src/flash_writer.c **** void flash_writer_close(FlashWriter * fw) {
+ 392              		.loc 1 42 43
+ 393              		.cfi_startproc
+ 394              		@ args = 0, pretend = 0, frame = 8
+ 395              		@ frame_needed = 1, uses_anonymous_args = 0
+ 396 0000 80B5     		push	{r7, lr}
+ 397              	.LCFI32:
+ 398              		.cfi_def_cfa_offset 8
+ 399              		.cfi_offset 7, -8
+ 400              		.cfi_offset 14, -4
+ 401 0002 82B0     		sub	sp, sp, #8
+ 402              	.LCFI33:
+ 403              		.cfi_def_cfa_offset 16
+ 404 0004 00AF     		add	r7, sp, #0
+ 405              	.LCFI34:
+ 406              		.cfi_def_cfa_register 7
+ 407 0006 7860     		str	r0, [r7, #4]
+  43:Core/Src/flash_writer.c ****     FLASH_Lock();
+ 408              		.loc 1 43 5
+ 409 0008 FFF7FEFF 		bl	FLASH_Lock
+  44:Core/Src/flash_writer.c ****     fw->ready = false;
+ 410              		.loc 1 44 15
+ 411 000c 7B68     		ldr	r3, [r7, #4]
+ 412 000e 0022     		movs	r2, #0
+ 413 0010 1A70     		strb	r2, [r3]
+  45:Core/Src/flash_writer.c **** }
+ 414              		.loc 1 45 1
+ 415 0012 00BF     		nop
+ 416 0014 0837     		adds	r7, r7, #8
+ 417              	.LCFI35:
+ 418              		.cfi_def_cfa_offset 8
+ 419 0016 BD46     		mov	sp, r7
+ 420              	.LCFI36:
+ 421              		.cfi_def_cfa_register 13
+ 422              		@ sp needed
+ 423 0018 80BD     		pop	{r7, pc}
+ 424              		.cfi_endproc
+ 425              	.LFE245:
+ 427              		.section	.text.flash_read_int,"ax",%progbits
+ 428              		.align	1
+ 429              		.global	flash_read_int
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 9
+
+
+ 430              		.syntax unified
+ 431              		.thumb
+ 432              		.thumb_func
+ 434              	flash_read_int:
+ 435              	.LFB246:
+  46:Core/Src/flash_writer.c **** 
+  47:Core/Src/flash_writer.c **** int flash_read_int(FlashWriter fw, uint32_t index) {
+ 436              		.loc 1 47 52
+ 437              		.cfi_startproc
+ 438              		@ args = 0, pretend = 0, frame = 16
+ 439              		@ frame_needed = 1, uses_anonymous_args = 0
+ 440              		@ link register save eliminated.
+ 441 0000 90B4     		push	{r4, r7}
+ 442              	.LCFI37:
+ 443              		.cfi_def_cfa_offset 8
+ 444              		.cfi_offset 4, -8
+ 445              		.cfi_offset 7, -4
+ 446 0002 84B0     		sub	sp, sp, #16
+ 447              	.LCFI38:
+ 448              		.cfi_def_cfa_offset 24
+ 449 0004 00AF     		add	r7, sp, #0
+ 450              	.LCFI39:
+ 451              		.cfi_def_cfa_register 7
+ 452 0006 3C1D     		adds	r4, r7, #4
+ 453 0008 84E80700 		stm	r4, {r0, r1, r2}
+ 454 000c 3B60     		str	r3, [r7]
+  48:Core/Src/flash_writer.c ****     return *(int*) (__SECTOR_ADDRS[fw.sector] + 4 * index);
+ 455              		.loc 1 48 38
+ 456 000e FB68     		ldr	r3, [r7, #12]
+ 457              		.loc 1 48 35
+ 458 0010 054A     		ldr	r2, .L16
+ 459 0012 52F82320 		ldr	r2, [r2, r3, lsl #2]
+ 460              		.loc 1 48 51
+ 461 0016 3B68     		ldr	r3, [r7]
+ 462 0018 9B00     		lsls	r3, r3, #2
+ 463              		.loc 1 48 47
+ 464 001a 1344     		add	r3, r3, r2
+ 465              		.loc 1 48 12
+ 466 001c 1B68     		ldr	r3, [r3]
+  49:Core/Src/flash_writer.c **** }
+ 467              		.loc 1 49 1
+ 468 001e 1846     		mov	r0, r3
+ 469 0020 1037     		adds	r7, r7, #16
+ 470              	.LCFI40:
+ 471              		.cfi_def_cfa_offset 8
+ 472 0022 BD46     		mov	sp, r7
+ 473              	.LCFI41:
+ 474              		.cfi_def_cfa_register 13
+ 475              		@ sp needed
+ 476 0024 90BC     		pop	{r4, r7}
+ 477              	.LCFI42:
+ 478              		.cfi_restore 7
+ 479              		.cfi_restore 4
+ 480              		.cfi_def_cfa_offset 0
+ 481 0026 7047     		bx	lr
+ 482              	.L17:
+ 483              		.align	2
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 10
+
+
+ 484              	.L16:
+ 485 0028 00000000 		.word	__SECTOR_ADDRS
+ 486              		.cfi_endproc
+ 487              	.LFE246:
+ 489              		.section	.text.flash_read_uint,"ax",%progbits
+ 490              		.align	1
+ 491              		.global	flash_read_uint
+ 492              		.syntax unified
+ 493              		.thumb
+ 494              		.thumb_func
+ 496              	flash_read_uint:
+ 497              	.LFB247:
+  50:Core/Src/flash_writer.c **** 
+  51:Core/Src/flash_writer.c **** uint32_t flash_read_uint(FlashWriter fw, uint32_t index) {
+ 498              		.loc 1 51 58
+ 499              		.cfi_startproc
+ 500              		@ args = 0, pretend = 0, frame = 16
+ 501              		@ frame_needed = 1, uses_anonymous_args = 0
+ 502              		@ link register save eliminated.
+ 503 0000 90B4     		push	{r4, r7}
+ 504              	.LCFI43:
+ 505              		.cfi_def_cfa_offset 8
+ 506              		.cfi_offset 4, -8
+ 507              		.cfi_offset 7, -4
+ 508 0002 84B0     		sub	sp, sp, #16
+ 509              	.LCFI44:
+ 510              		.cfi_def_cfa_offset 24
+ 511 0004 00AF     		add	r7, sp, #0
+ 512              	.LCFI45:
+ 513              		.cfi_def_cfa_register 7
+ 514 0006 3C1D     		adds	r4, r7, #4
+ 515 0008 84E80700 		stm	r4, {r0, r1, r2}
+ 516 000c 3B60     		str	r3, [r7]
+  52:Core/Src/flash_writer.c ****     return *(uint32_t*) (__SECTOR_ADDRS[fw.sector] + 4 * index);
+ 517              		.loc 1 52 43
+ 518 000e FB68     		ldr	r3, [r7, #12]
+ 519              		.loc 1 52 40
+ 520 0010 054A     		ldr	r2, .L20
+ 521 0012 52F82320 		ldr	r2, [r2, r3, lsl #2]
+ 522              		.loc 1 52 56
+ 523 0016 3B68     		ldr	r3, [r7]
+ 524 0018 9B00     		lsls	r3, r3, #2
+ 525              		.loc 1 52 52
+ 526 001a 1344     		add	r3, r3, r2
+ 527              		.loc 1 52 12
+ 528 001c 1B68     		ldr	r3, [r3]
+  53:Core/Src/flash_writer.c **** }
+ 529              		.loc 1 53 1
+ 530 001e 1846     		mov	r0, r3
+ 531 0020 1037     		adds	r7, r7, #16
+ 532              	.LCFI46:
+ 533              		.cfi_def_cfa_offset 8
+ 534 0022 BD46     		mov	sp, r7
+ 535              	.LCFI47:
+ 536              		.cfi_def_cfa_register 13
+ 537              		@ sp needed
+ 538 0024 90BC     		pop	{r4, r7}
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 11
+
+
+ 539              	.LCFI48:
+ 540              		.cfi_restore 7
+ 541              		.cfi_restore 4
+ 542              		.cfi_def_cfa_offset 0
+ 543 0026 7047     		bx	lr
+ 544              	.L21:
+ 545              		.align	2
+ 546              	.L20:
+ 547 0028 00000000 		.word	__SECTOR_ADDRS
+ 548              		.cfi_endproc
+ 549              	.LFE247:
+ 551              		.section	.text.flash_read_float,"ax",%progbits
+ 552              		.align	1
+ 553              		.global	flash_read_float
+ 554              		.syntax unified
+ 555              		.thumb
+ 556              		.thumb_func
+ 558              	flash_read_float:
+ 559              	.LFB248:
+  54:Core/Src/flash_writer.c **** 
+  55:Core/Src/flash_writer.c **** float flash_read_float(FlashWriter fw, uint32_t index) {
+ 560              		.loc 1 55 56
+ 561              		.cfi_startproc
+ 562              		@ args = 0, pretend = 0, frame = 16
+ 563              		@ frame_needed = 1, uses_anonymous_args = 0
+ 564              		@ link register save eliminated.
+ 565 0000 90B4     		push	{r4, r7}
+ 566              	.LCFI49:
+ 567              		.cfi_def_cfa_offset 8
+ 568              		.cfi_offset 4, -8
+ 569              		.cfi_offset 7, -4
+ 570 0002 84B0     		sub	sp, sp, #16
+ 571              	.LCFI50:
+ 572              		.cfi_def_cfa_offset 24
+ 573 0004 00AF     		add	r7, sp, #0
+ 574              	.LCFI51:
+ 575              		.cfi_def_cfa_register 7
+ 576 0006 3C1D     		adds	r4, r7, #4
+ 577 0008 84E80700 		stm	r4, {r0, r1, r2}
+ 578 000c 3B60     		str	r3, [r7]
+  56:Core/Src/flash_writer.c ****     return *(float*) (__SECTOR_ADDRS[fw.sector] + 4 * index);
+ 579              		.loc 1 56 40
+ 580 000e FB68     		ldr	r3, [r7, #12]
+ 581              		.loc 1 56 37
+ 582 0010 074A     		ldr	r2, .L24
+ 583 0012 52F82320 		ldr	r2, [r2, r3, lsl #2]
+ 584              		.loc 1 56 53
+ 585 0016 3B68     		ldr	r3, [r7]
+ 586 0018 9B00     		lsls	r3, r3, #2
+ 587              		.loc 1 56 49
+ 588 001a 1344     		add	r3, r3, r2
+ 589              		.loc 1 56 12
+ 590 001c 1B68     		ldr	r3, [r3]	@ float
+ 591 001e 07EE903A 		vmov	s15, r3
+  57:Core/Src/flash_writer.c **** }
+ 592              		.loc 1 57 1
+ 593 0022 B0EE670A 		vmov.f32	s0, s15
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 12
+
+
+ 594 0026 1037     		adds	r7, r7, #16
+ 595              	.LCFI52:
+ 596              		.cfi_def_cfa_offset 8
+ 597 0028 BD46     		mov	sp, r7
+ 598              	.LCFI53:
+ 599              		.cfi_def_cfa_register 13
+ 600              		@ sp needed
+ 601 002a 90BC     		pop	{r4, r7}
+ 602              	.LCFI54:
+ 603              		.cfi_restore 7
+ 604              		.cfi_restore 4
+ 605              		.cfi_def_cfa_offset 0
+ 606 002c 7047     		bx	lr
+ 607              	.L25:
+ 608 002e 00BF     		.align	2
+ 609              	.L24:
+ 610 0030 00000000 		.word	__SECTOR_ADDRS
+ 611              		.cfi_endproc
+ 612              	.LFE248:
+ 614              		.text
+ 615              	.Letext0:
+ 616              		.file 2 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\machine\\_default
+ 617              		.file 3 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 618              		.file 4 "Core/Inc/flash_writer.h"
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cckztGb8.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 flash_writer.c
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:20     .data.__SECTOR_ADDRS:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:23     .data.__SECTOR_ADDRS:00000000 __SECTOR_ADDRS
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:33     .data.__SECTORS:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:36     .data.__SECTORS:00000000 __SECTORS
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:46     .text.flash_writer_init:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:52     .text.flash_writer_init:00000000 flash_writer_init
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:112    .text.flash_writer_init:00000038 $d
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:117    .text.flash_writer_ready:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:123    .text.flash_writer_ready:00000000 flash_writer_ready
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:162    .text.flash_writer_open:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:168    .text.flash_writer_open:00000000 flash_writer_open
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:217    .text.flash_writer_open:00000034 $d
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:222    .text.flash_writer_write_int:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:228    .text.flash_writer_write_int:00000000 flash_writer_write_int
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:277    .text.flash_writer_write_uint:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:283    .text.flash_writer_write_uint:00000000 flash_writer_write_uint
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:328    .text.flash_writer_write_float:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:334    .text.flash_writer_write_float:00000000 flash_writer_write_float
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:384    .text.flash_writer_close:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:390    .text.flash_writer_close:00000000 flash_writer_close
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:428    .text.flash_read_int:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:434    .text.flash_read_int:00000000 flash_read_int
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:485    .text.flash_read_int:00000028 $d
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:490    .text.flash_read_uint:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:496    .text.flash_read_uint:00000000 flash_read_uint
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:547    .text.flash_read_uint:00000028 $d
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:552    .text.flash_read_float:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:558    .text.flash_read_float:00000000 flash_read_float
+C:\Users\16323\AppData\Local\Temp\cckztGb8.s:610    .text.flash_read_float:00000030 $d
+
+UNDEFINED SYMBOLS
+FLASH_Unlock
+FLASH_ClearFlag
+FLASH_EraseSector
+FLASH_ProgramWord
+FLASH_Lock

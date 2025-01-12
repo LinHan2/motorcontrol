@@ -1,0 +1,11 @@
+{
+	"cortex-debug.armToolchainPath": "D:\\ST\\GNU Arm Embedded Toolchain\\10 2021.10\\bin",
+	"cortex-debug.openocdPath": "D:\\ST\\OPENOCD-20231002\\OPENOCD-20231002-0.12.0\\BIN\\OPENOCD.EXE",
+	"makefile.launchConfigurations": [
+		{
+			"cwd": "d:\\HLgit\\motorcontrol-makefile\\motorcontrol-makefile\\build",
+			"binaryPath": "d:\\HLgit\\motorcontrol-makefile\\motorcontrol-makefile\\build\\motorcontrol.elf",
+			"binaryArgs": []
+		}
+	]
+}

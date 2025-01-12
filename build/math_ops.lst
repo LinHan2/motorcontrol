@@ -1,0 +1,1400 @@
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 6
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"math_ops.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	sin_tab
+  20              		.section	.rodata.sin_tab,"a"
+  21              		.align	2
+  24              	sin_tab:
+  25 0000 00000000 		.word	0
+  26 0004 2975493C 		.word	1011447081
+  27 0008 DF6EC93C 		.word	1019834079
+  28 000c 6F0E173D 		.word	1024921199
+  29 0010 3160493D 		.word	1028218929
+  30 0014 8FA97B3D 		.word	1031514511
+  31 0018 38F4963D 		.word	1033303096
+  32 001c 6B0EB03D 		.word	1034948203
+  33 0020 4721C93D 		.word	1036591431
+  34 0024 5E2EE23D 		.word	1038233182
+  35 0028 EC2FFB3D 		.word	1039871980
+  36 002c 7F130A3E 		.word	1040847743
+  37 0030 698C163E 		.word	1041665129
+  38 0034 76FD223E 		.word	1042480502
+  39 0038 A5662F3E 		.word	1043293861
+  40 003c 97CA3B3E 		.word	1044105879
+  41 0040 4A29483E 		.word	1044916554
+  42 0044 807D543E 		.word	1045724544
+  43 0048 DAC9603E 		.word	1046530522
+  44 004c 560E6D3E 		.word	1047334486
+  45 0050 F54A793E 		.word	1048136437
+  46 0054 3CBD823E 		.word	1048755516
+  47 0058 0FD1883E 		.word	1049153807
+  48 005c A4DF8E3E 		.word	1049550756
+  49 0060 FBE8943E 		.word	1049946363
+  50 0064 C4EB9A3E 		.word	1050340292
+  51 0068 FFE7A03E 		.word	1050732543
+  52 006c FCDEA63E 		.word	1051123452
+  53 0070 6CCFAC3E 		.word	1051512684
+  54 0074 4EB9B23E 		.word	1051900238
+  55 0078 A29CB83E 		.word	1052286114
+  56 007c 1878BE3E 		.word	1052669976
+  57 0080 B24BC43E 		.word	1053051826
+  58 0084 BD18CA3E 		.word	1053431997
+  59 0088 ECDDCF3E 		.word	1053810156
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 2
+
+
+  60 008c ED99D53E 		.word	1054185965
+  61 0090 614FDB3E 		.word	1054560097
+  62 0094 59FAE03E 		.word	1054931545
+  63 0098 C39EE63E 		.word	1055301315
+  64 009c B038EC3E 		.word	1055668400
+  65 00a0 71C9F13E 		.word	1056033137
+  66 00a4 5452F73E 		.word	1056395860
+  67 00a8 BBD0FC3E 		.word	1056755899
+  68 00ac 5322013F 		.word	1057038931
+  69 00b0 B2D7033F 		.word	1057216434
+  70 00b4 D387063F 		.word	1057392595
+  71 00b8 B532093F 		.word	1057567413
+  72 00bc 5AD80B3F 		.word	1057740890
+  73 00c0 C0780E3F 		.word	1057913024
+  74 00c4 4013113F 		.word	1058083648
+  75 00c8 82A8133F 		.word	1058252930
+  76 00cc DF37163F 		.word	1058420703
+  77 00d0 55C1183F 		.word	1058586965
+  78 00d4 E5441B3F 		.word	1058751717
+  79 00d8 8FC21D3F 		.word	1058914959
+  80 00dc 543A203F 		.word	1059076692
+  81 00e0 8AAB223F 		.word	1059236746
+  82 00e4 DB16253F 		.word	1059395291
+  83 00e8 9E7B273F 		.word	1059552158
+  84 00ec D3D9293F 		.word	1059707347
+  85 00f0 7B312C3F 		.word	1059860859
+  86 00f4 ED812E3F 		.word	1060012525
+  87 00f8 79CC303F 		.word	1060162681
+  88 00fc D00F333F 		.word	1060310992
+  89 0100 F14B353F 		.word	1060457457
+  90 0104 8481373F 		.word	1060602244
+  91 0108 E2AF393F 		.word	1060745186
+  92 010c 0AD73B3F 		.word	1060886282
+  93 0110 FDF63D3F 		.word	1061025533
+  94 0114 130F403F 		.word	1061162771
+  95 0118 9B20423F 		.word	1061298331
+  96 011c 9E29443F 		.word	1061431710
+  97 0120 132C463F 		.word	1061563411
+  98 0124 0326483F 		.word	1061692931
+  99 0128 BD184A3F 		.word	1061820605
+ 100 012c 9B034C3F 		.word	1061946267
+ 101 0130 F3E54D3F 		.word	1062069747
+ 102 0134 16C14F3F 		.word	1062191382
+ 103 0138 B493513F 		.word	1062310836
+ 104 013c 745E533F 		.word	1062428276
+ 105 0140 5721553F 		.word	1062543703
+ 106 0144 0EDB563F 		.word	1062656782
+ 107 0148 8F8D583F 		.word	1062768015
+ 108 014c E3365A3F 		.word	1062876899
+ 109 0150 B2D75B3F 		.word	1062983602
+ 110 0154 A4705D3F 		.word	1063088292
+ 111 0158 69005F3F 		.word	1063190633
+ 112 015c 5188603F 		.word	1063290961
+ 113 0160 0C07623F 		.word	1063388940
+ 114 0164 9A7C633F 		.word	1063484570
+ 115 0168 A3E9643F 		.word	1063578019
+ 116 016c 274E663F 		.word	1063669287
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 3
+
+
+ 117 0170 7EA9673F 		.word	1063758206
+ 118 0174 50FC683F 		.word	1063844944
+ 119 0178 4E456A3F 		.word	1063929166
+ 120 017c C6856B3F 		.word	1064011206
+ 121 0180 12BD6C3F 		.word	1064090898
+ 122 0184 31EB6D3F 		.word	1064168241
+ 123 0188 23106F3F 		.word	1064243235
+ 124 018c 412B703F 		.word	1064315713
+ 125 0190 D93D713F 		.word	1064386009
+ 126 0194 9D46723F 		.word	1064453789
+ 127 0198 3546733F 		.word	1064519221
+ 128 019c 9F3C743F 		.word	1064582303
+ 129 01a0 3529753F 		.word	1064642869
+ 130 01a4 9E0C763F 		.word	1064701086
+ 131 01a8 32E6763F 		.word	1064756786
+ 132 01ac 9AB6773F 		.word	1064810138
+ 133 01b0 2C7D783F 		.word	1064860972
+ 134 01b4 EB39793F 		.word	1064909291
+ 135 01b8 7CED793F 		.word	1064955260
+ 136 01bc 39977A3F 		.word	1064998713
+ 137 01c0 22377B3F 		.word	1065039650
+ 138 01c4 36CD7B3F 		.word	1065078070
+ 139 01c8 75597C3F 		.word	1065113973
+ 140 01cc 87DC7C3F 		.word	1065147527
+ 141 01d0 1D557D3F 		.word	1065178397
+ 142 01d4 87C47D3F 		.word	1065206919
+ 143 01d8 74297E3F 		.word	1065232756
+ 144 01dc 34857E3F 		.word	1065256244
+ 145 01e0 77D67E3F 		.word	1065277047
+ 146 01e4 8E1E7F3F 		.word	1065295502
+ 147 01e8 295C7F3F 		.word	1065311273
+ 148 01ec EF8F7F3F 		.word	1065324527
+ 149 01f0 88BA7F3F 		.word	1065335432
+ 150 01f4 A5DA7F3F 		.word	1065343653
+ 151 01f8 EDF07F3F 		.word	1065349357
+ 152 01fc 61FD7F3F 		.word	1065352545
+ 153 0200 0000803F 		.word	1065353216
+ 154 0204 23F87F3F 		.word	1065351203
+ 155 0208 19E77F3F 		.word	1065346841
+ 156 020c 92CB7F3F 		.word	1065339794
+ 157 0210 37A67F3F 		.word	1065330231
+ 158 0214 AF777F3F 		.word	1065318319
+ 159 0218 AB3E7F3F 		.word	1065303723
+ 160 021c D2FB7E3F 		.word	1065286610
+ 161 0220 25AF7E3F 		.word	1065266981
+ 162 0224 A3587E3F 		.word	1065244835
+ 163 0228 4DF87D3F 		.word	1065220173
+ 164 022c 228E7D3F 		.word	1065192994
+ 165 0230 221A7D3F 		.word	1065163298
+ 166 0234 4E9C7C3F 		.word	1065131086
+ 167 0238 A5147C3F 		.word	1065096357
+ 168 023c 27837B3F 		.word	1065059111
+ 169 0240 D5E77A3F 		.word	1065019349
+ 170 0244 57437A3F 		.word	1064977239
+ 171 0248 0395793F 		.word	1064932611
+ 172 024c DBDC783F 		.word	1064885467
+ 173 0250 DF1A783F 		.word	1064835807
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 4
+
+
+ 174 0254 B54F773F 		.word	1064783797
+ 175 0258 B77A763F 		.word	1064729271
+ 176 025c E59B753F 		.word	1064672229
+ 177 0260 E5B3743F 		.word	1064612837
+ 178 0264 B9C2733F 		.word	1064551097
+ 179 0268 B9C7723F 		.word	1064486841
+ 180 026c 8BC3713F 		.word	1064420235
+ 181 0270 31B6703F 		.word	1064351281
+ 182 0274 029F6F3F 		.word	1064279810
+ 183 0278 A67E6E3F 		.word	1064205990
+ 184 027c 1D556D3F 		.word	1064129821
+ 185 0280 68226C3F 		.word	1064051304
+ 186 0284 86E66A3F 		.word	1063970438
+ 187 0288 1FA2693F 		.word	1063887391
+ 188 028c E353683F 		.word	1063801827
+ 189 0290 22FD663F 		.word	1063714082
+ 190 0294 349D653F 		.word	1063623988
+ 191 0298 1A34643F 		.word	1063531546
+ 192 029c 22C3623F 		.word	1063437090
+ 193 02a0 5648613F 		.word	1063340118
+ 194 02a4 ACC55F3F 		.word	1063241132
+ 195 02a8 D6395E3F 		.word	1063139798
+ 196 02ac 7AA55C3F 		.word	1063036282
+ 197 02b0 9A085B3F 		.word	1062930586
+ 198 02b4 3563593F 		.word	1062822709
+ 199 02b8 4AB5573F 		.word	1062712650
+ 200 02bc 82FF553F 		.word	1062600578
+ 201 02c0 8E40543F 		.word	1062486158
+ 202 02c4 637A523F 		.word	1062369891
+ 203 02c8 B4AB503F 		.word	1062251444
+ 204 02cc 80D44E3F 		.word	1062130816
+ 205 02d0 6FF54C3F 		.word	1062008175
+ 206 02d4 280F4B3F 		.word	1061883688
+ 207 02d8 5C20493F 		.word	1061757020
+ 208 02dc B329473F 		.word	1061628339
+ 209 02e0 D42B453F 		.word	1061497812
+ 210 02e4 1826433F 		.word	1061365272
+ 211 02e8 7E18413F 		.word	1061230718
+ 212 02ec B0033F3F 		.word	1061094320
+ 213 02f0 ABE73C3F 		.word	1060956075
+ 214 02f4 72C43A3F 		.word	1060815986
+ 215 02f8 5B99383F 		.word	1060673883
+ 216 02fc B667363F 		.word	1060530102
+ 217 0300 DC2E343F 		.word	1060384476
+ 218 0304 CCEE313F 		.word	1060237004
+ 219 0308 2FA82F3F 		.word	1060087855
+ 220 030c 5C5A2D3F 		.word	1059936860
+ 221 0310 FB052B3F 		.word	1059784187
+ 222 0314 0DAB283F 		.word	1059629837
+ 223 0318 9049263F 		.word	1059473808
+ 224 031c 2EE2233F 		.word	1059316270
+ 225 0320 9773213F 		.word	1059156887
+ 226 0324 19FF1E3F 		.word	1058995993
+ 227 0328 B6841C3F 		.word	1058833590
+ 228 032c C5031A3F 		.word	1058669509
+ 229 0330 957D173F 		.word	1058504085
+ 230 0334 D8F0143F 		.word	1058336984
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 5
+
+
+ 231 0338 DD5E123F 		.word	1058168541
+ 232 033c FCC60F3F 		.word	1057998588
+ 233 0340 35290D3F 		.word	1057827125
+ 234 0344 2F860A3F 		.word	1057654319
+ 235 0348 ECDD073F 		.word	1057480172
+ 236 034c 6A30053F 		.word	1057304682
+ 237 0350 AA7D023F 		.word	1057127850
+ 238 0354 598BFF3E 		.word	1056934745
+ 239 0358 3012FA3E 		.word	1056576048
+ 240 035c 8A8EF43E 		.word	1056214666
+ 241 0360 0803EF3E 		.word	1055851272
+ 242 0364 096DE93E 		.word	1055485193
+ 243 0368 DDCDE33E 		.word	1055116765
+ 244 036c 8525DE3E 		.word	1054745989
+ 245 0370 4F75D83E 		.word	1054373199
+ 246 0374 3CBDD23E 		.word	1053998396
+ 247 0378 FCFBCC3E 		.word	1053621244
+ 248 037c DF32C73E 		.word	1053242079
+ 249 0380 3563C13E 		.word	1052861237
+ 250 0384 5D8ABB3E 		.word	1052478045
+ 251 0388 47ACB53E 		.word	1052093511
+ 252 038c 05C5AF3E 		.word	1051706629
+ 253 0390 84D8A93E 		.word	1051318404
+ 254 0394 75E5A33E 		.word	1050928501
+ 255 0398 89EA9D3E 		.word	1050536585
+ 256 039c 60EA973E 		.word	1050143328
+ 257 03a0 F7E4913E 		.word	1049748727
+ 258 03a4 02D98B3E 		.word	1049352450
+ 259 03a8 CEC7853E 		.word	1048954830
+ 260 03ac B7627F3E 		.word	1048535735
+ 261 03b0 F52D733E 		.word	1047735797
+ 262 03b4 B7EE663E 		.word	1046933175
+ 263 03b8 FDA45A3E 		.word	1046127869
+ 264 03bc 65534E3E 		.word	1045320549
+ 265 03c0 F0F9413E 		.word	1044511216
+ 266 03c4 3D9B353E 		.word	1043700541
+ 267 03c8 0E32293E 		.word	1042887182
+ 268 03cc A0C31C3E 		.word	1042072480
+ 269 03d0 F44F103E 		.word	1041256436
+ 270 03d4 0AD7033E 		.word	1040439050
+ 271 03d8 C4B1EE3D 		.word	1039053252
+ 272 03dc B9A5D53D 		.word	1037411769
+ 273 03e0 A298BC3D 		.word	1035770018
+ 274 03e4 1B82A33D 		.word	1034125851
+ 275 03e8 49658A3D 		.word	1032480073
+ 276 03ec 6685623D 		.word	1029866854
+ 277 03f0 D637303D 		.word	1026570198
+ 278 03f4 F7C7FB3C 		.word	1023133687
+ 279 03f8 C615973C 		.word	1016534470
+ 280 03fc 5374C93B 		.word	1003058259
+ 281 0400 5374C9BB 		.word	-1144425389
+ 282 0404 C61597BC 		.word	-1130949178
+ 283 0408 F7C7FBBC 		.word	-1124349961
+ 284 040c D63730BD 		.word	-1120913450
+ 285 0410 668562BD 		.word	-1117616794
+ 286 0414 49658ABD 		.word	-1115003575
+ 287 0418 1B82A3BD 		.word	-1113357797
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 6
+
+
+ 288 041c A298BCBD 		.word	-1111713630
+ 289 0420 B9A5D5BD 		.word	-1110071879
+ 290 0424 C4B1EEBD 		.word	-1108430396
+ 291 0428 0AD703BE 		.word	-1107044598
+ 292 042c F44F10BE 		.word	-1106227212
+ 293 0430 A0C31CBE 		.word	-1105411168
+ 294 0434 0E3229BE 		.word	-1104596466
+ 295 0438 3D9B35BE 		.word	-1103783107
+ 296 043c F0F941BE 		.word	-1102972432
+ 297 0440 65534EBE 		.word	-1102163099
+ 298 0444 FDA45ABE 		.word	-1101355779
+ 299 0448 B7EE66BE 		.word	-1100550473
+ 300 044c F52D73BE 		.word	-1099747851
+ 301 0450 B7627FBE 		.word	-1098947913
+ 302 0454 CEC785BE 		.word	-1098528818
+ 303 0458 02D98BBE 		.word	-1098131198
+ 304 045c F7E491BE 		.word	-1097734921
+ 305 0460 60EA97BE 		.word	-1097340320
+ 306 0464 89EA9DBE 		.word	-1096947063
+ 307 0468 75E5A3BE 		.word	-1096555147
+ 308 046c 84D8A9BE 		.word	-1096165244
+ 309 0470 05C5AFBE 		.word	-1095777019
+ 310 0474 47ACB5BE 		.word	-1095390137
+ 311 0478 5D8ABBBE 		.word	-1095005603
+ 312 047c 3563C1BE 		.word	-1094622411
+ 313 0480 DF32C7BE 		.word	-1094241569
+ 314 0484 FCFBCCBE 		.word	-1093862404
+ 315 0488 3CBDD2BE 		.word	-1093485252
+ 316 048c 4F75D8BE 		.word	-1093110449
+ 317 0490 8525DEBE 		.word	-1092737659
+ 318 0494 DDCDE3BE 		.word	-1092366883
+ 319 0498 096DE9BE 		.word	-1091998455
+ 320 049c 0803EFBE 		.word	-1091632376
+ 321 04a0 8A8EF4BE 		.word	-1091268982
+ 322 04a4 3012FABE 		.word	-1090907600
+ 323 04a8 598BFFBE 		.word	-1090548903
+ 324 04ac AA7D02BF 		.word	-1090355798
+ 325 04b0 6A3005BF 		.word	-1090178966
+ 326 04b4 ECDD07BF 		.word	-1090003476
+ 327 04b8 2F860ABF 		.word	-1089829329
+ 328 04bc 35290DBF 		.word	-1089656523
+ 329 04c0 FCC60FBF 		.word	-1089485060
+ 330 04c4 DD5E12BF 		.word	-1089315107
+ 331 04c8 D8F014BF 		.word	-1089146664
+ 332 04cc 957D17BF 		.word	-1088979563
+ 333 04d0 C5031ABF 		.word	-1088814139
+ 334 04d4 B6841CBF 		.word	-1088650058
+ 335 04d8 19FF1EBF 		.word	-1088487655
+ 336 04dc 977321BF 		.word	-1088326761
+ 337 04e0 2EE223BF 		.word	-1088167378
+ 338 04e4 904926BF 		.word	-1088009840
+ 339 04e8 0DAB28BF 		.word	-1087853811
+ 340 04ec FB052BBF 		.word	-1087699461
+ 341 04f0 5C5A2DBF 		.word	-1087546788
+ 342 04f4 2FA82FBF 		.word	-1087395793
+ 343 04f8 CCEE31BF 		.word	-1087246644
+ 344 04fc DC2E34BF 		.word	-1087099172
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 7
+
+
+ 345 0500 B66736BF 		.word	-1086953546
+ 346 0504 5B9938BF 		.word	-1086809765
+ 347 0508 72C43ABF 		.word	-1086667662
+ 348 050c ABE73CBF 		.word	-1086527573
+ 349 0510 B0033FBF 		.word	-1086389328
+ 350 0514 7E1841BF 		.word	-1086252930
+ 351 0518 182643BF 		.word	-1086118376
+ 352 051c D42B45BF 		.word	-1085985836
+ 353 0520 B32947BF 		.word	-1085855309
+ 354 0524 5C2049BF 		.word	-1085726628
+ 355 0528 280F4BBF 		.word	-1085599960
+ 356 052c 6FF54CBF 		.word	-1085475473
+ 357 0530 80D44EBF 		.word	-1085352832
+ 358 0534 B4AB50BF 		.word	-1085232204
+ 359 0538 637A52BF 		.word	-1085113757
+ 360 053c 8E4054BF 		.word	-1084997490
+ 361 0540 82FF55BF 		.word	-1084883070
+ 362 0544 4AB557BF 		.word	-1084770998
+ 363 0548 356359BF 		.word	-1084660939
+ 364 054c 9A085BBF 		.word	-1084553062
+ 365 0550 7AA55CBF 		.word	-1084447366
+ 366 0554 D6395EBF 		.word	-1084343850
+ 367 0558 ACC55FBF 		.word	-1084242516
+ 368 055c 564861BF 		.word	-1084143530
+ 369 0560 22C362BF 		.word	-1084046558
+ 370 0564 1A3464BF 		.word	-1083952102
+ 371 0568 349D65BF 		.word	-1083859660
+ 372 056c 22FD66BF 		.word	-1083769566
+ 373 0570 E35368BF 		.word	-1083681821
+ 374 0574 1FA269BF 		.word	-1083596257
+ 375 0578 86E66ABF 		.word	-1083513210
+ 376 057c 68226CBF 		.word	-1083432344
+ 377 0580 1D556DBF 		.word	-1083353827
+ 378 0584 A67E6EBF 		.word	-1083277658
+ 379 0588 029F6FBF 		.word	-1083203838
+ 380 058c 31B670BF 		.word	-1083132367
+ 381 0590 8BC371BF 		.word	-1083063413
+ 382 0594 B9C772BF 		.word	-1082996807
+ 383 0598 B9C273BF 		.word	-1082932551
+ 384 059c E5B374BF 		.word	-1082870811
+ 385 05a0 E59B75BF 		.word	-1082811419
+ 386 05a4 B77A76BF 		.word	-1082754377
+ 387 05a8 B54F77BF 		.word	-1082699851
+ 388 05ac DF1A78BF 		.word	-1082647841
+ 389 05b0 DBDC78BF 		.word	-1082598181
+ 390 05b4 039579BF 		.word	-1082551037
+ 391 05b8 57437ABF 		.word	-1082506409
+ 392 05bc D5E77ABF 		.word	-1082464299
+ 393 05c0 27837BBF 		.word	-1082424537
+ 394 05c4 A5147CBF 		.word	-1082387291
+ 395 05c8 4E9C7CBF 		.word	-1082352562
+ 396 05cc 221A7DBF 		.word	-1082320350
+ 397 05d0 228E7DBF 		.word	-1082290654
+ 398 05d4 4DF87DBF 		.word	-1082263475
+ 399 05d8 A3587EBF 		.word	-1082238813
+ 400 05dc 25AF7EBF 		.word	-1082216667
+ 401 05e0 D2FB7EBF 		.word	-1082197038
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 8
+
+
+ 402 05e4 AB3E7FBF 		.word	-1082179925
+ 403 05e8 AF777FBF 		.word	-1082165329
+ 404 05ec 37A67FBF 		.word	-1082153417
+ 405 05f0 92CB7FBF 		.word	-1082143854
+ 406 05f4 19E77FBF 		.word	-1082136807
+ 407 05f8 23F87FBF 		.word	-1082132445
+ 408 05fc 000080BF 		.word	-1082130432
+ 409 0600 61FD7FBF 		.word	-1082131103
+ 410 0604 EDF07FBF 		.word	-1082134291
+ 411 0608 A5DA7FBF 		.word	-1082139995
+ 412 060c 88BA7FBF 		.word	-1082148216
+ 413 0610 EF8F7FBF 		.word	-1082159121
+ 414 0614 295C7FBF 		.word	-1082172375
+ 415 0618 8E1E7FBF 		.word	-1082188146
+ 416 061c 77D67EBF 		.word	-1082206601
+ 417 0620 34857EBF 		.word	-1082227404
+ 418 0624 74297EBF 		.word	-1082250892
+ 419 0628 87C47DBF 		.word	-1082276729
+ 420 062c 1D557DBF 		.word	-1082305251
+ 421 0630 87DC7CBF 		.word	-1082336121
+ 422 0634 75597CBF 		.word	-1082369675
+ 423 0638 36CD7BBF 		.word	-1082405578
+ 424 063c 22377BBF 		.word	-1082443998
+ 425 0640 39977ABF 		.word	-1082484935
+ 426 0644 7CED79BF 		.word	-1082528388
+ 427 0648 EB3979BF 		.word	-1082574357
+ 428 064c 2C7D78BF 		.word	-1082622676
+ 429 0650 9AB677BF 		.word	-1082673510
+ 430 0654 32E676BF 		.word	-1082726862
+ 431 0658 9E0C76BF 		.word	-1082782562
+ 432 065c 352975BF 		.word	-1082840779
+ 433 0660 9F3C74BF 		.word	-1082901345
+ 434 0664 354673BF 		.word	-1082964427
+ 435 0668 9D4672BF 		.word	-1083029859
+ 436 066c D93D71BF 		.word	-1083097639
+ 437 0670 412B70BF 		.word	-1083167935
+ 438 0674 23106FBF 		.word	-1083240413
+ 439 0678 31EB6DBF 		.word	-1083315407
+ 440 067c 12BD6CBF 		.word	-1083392750
+ 441 0680 C6856BBF 		.word	-1083472442
+ 442 0684 4E456ABF 		.word	-1083554482
+ 443 0688 50FC68BF 		.word	-1083638704
+ 444 068c 7EA967BF 		.word	-1083725442
+ 445 0690 274E66BF 		.word	-1083814361
+ 446 0694 A3E964BF 		.word	-1083905629
+ 447 0698 9A7C63BF 		.word	-1083999078
+ 448 069c 0C0762BF 		.word	-1084094708
+ 449 06a0 518860BF 		.word	-1084192687
+ 450 06a4 69005FBF 		.word	-1084293015
+ 451 06a8 A4705DBF 		.word	-1084395356
+ 452 06ac B2D75BBF 		.word	-1084500046
+ 453 06b0 E3365ABF 		.word	-1084606749
+ 454 06b4 8F8D58BF 		.word	-1084715633
+ 455 06b8 0EDB56BF 		.word	-1084826866
+ 456 06bc 572155BF 		.word	-1084939945
+ 457 06c0 745E53BF 		.word	-1085055372
+ 458 06c4 B49351BF 		.word	-1085172812
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 9
+
+
+ 459 06c8 16C14FBF 		.word	-1085292266
+ 460 06cc F3E54DBF 		.word	-1085413901
+ 461 06d0 9B034CBF 		.word	-1085537381
+ 462 06d4 BD184ABF 		.word	-1085663043
+ 463 06d8 032648BF 		.word	-1085790717
+ 464 06dc 132C46BF 		.word	-1085920237
+ 465 06e0 9E2944BF 		.word	-1086051938
+ 466 06e4 9B2042BF 		.word	-1086185317
+ 467 06e8 130F40BF 		.word	-1086320877
+ 468 06ec FDF63DBF 		.word	-1086458115
+ 469 06f0 0AD73BBF 		.word	-1086597366
+ 470 06f4 E2AF39BF 		.word	-1086738462
+ 471 06f8 848137BF 		.word	-1086881404
+ 472 06fc F14B35BF 		.word	-1087026191
+ 473 0700 D00F33BF 		.word	-1087172656
+ 474 0704 79CC30BF 		.word	-1087320967
+ 475 0708 ED812EBF 		.word	-1087471123
+ 476 070c 7B312CBF 		.word	-1087622789
+ 477 0710 D3D929BF 		.word	-1087776301
+ 478 0714 9E7B27BF 		.word	-1087931490
+ 479 0718 DB1625BF 		.word	-1088088357
+ 480 071c 8AAB22BF 		.word	-1088246902
+ 481 0720 543A20BF 		.word	-1088406956
+ 482 0724 8FC21DBF 		.word	-1088568689
+ 483 0728 E5441BBF 		.word	-1088731931
+ 484 072c 55C118BF 		.word	-1088896683
+ 485 0730 DF3716BF 		.word	-1089062945
+ 486 0734 82A813BF 		.word	-1089230718
+ 487 0738 401311BF 		.word	-1089400000
+ 488 073c C0780EBF 		.word	-1089570624
+ 489 0740 5AD80BBF 		.word	-1089742758
+ 490 0744 B53209BF 		.word	-1089916235
+ 491 0748 D38706BF 		.word	-1090091053
+ 492 074c B2D703BF 		.word	-1090267214
+ 493 0750 532201BF 		.word	-1090444717
+ 494 0754 BBD0FCBE 		.word	-1090727749
+ 495 0758 5452F7BE 		.word	-1091087788
+ 496 075c 71C9F1BE 		.word	-1091450511
+ 497 0760 B038ECBE 		.word	-1091815248
+ 498 0764 C39EE6BE 		.word	-1092182333
+ 499 0768 59FAE0BE 		.word	-1092552103
+ 500 076c 614FDBBE 		.word	-1092923551
+ 501 0770 ED99D5BE 		.word	-1093297683
+ 502 0774 ECDDCFBE 		.word	-1093673492
+ 503 0778 BD18CABE 		.word	-1094051651
+ 504 077c B24BC4BE 		.word	-1094431822
+ 505 0780 1878BEBE 		.word	-1094813672
+ 506 0784 A29CB8BE 		.word	-1095197534
+ 507 0788 4EB9B2BE 		.word	-1095583410
+ 508 078c 6CCFACBE 		.word	-1095970964
+ 509 0790 FCDEA6BE 		.word	-1096360196
+ 510 0794 FFE7A0BE 		.word	-1096751105
+ 511 0798 C4EB9ABE 		.word	-1097143356
+ 512 079c FBE894BE 		.word	-1097537285
+ 513 07a0 A4DF8EBE 		.word	-1097932892
+ 514 07a4 0FD188BE 		.word	-1098329841
+ 515 07a8 3CBD82BE 		.word	-1098728132
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 10
+
+
+ 516 07ac F54A79BE 		.word	-1099347211
+ 517 07b0 560E6DBE 		.word	-1100149162
+ 518 07b4 DAC960BE 		.word	-1100953126
+ 519 07b8 807D54BE 		.word	-1101759104
+ 520 07bc 4A2948BE 		.word	-1102567094
+ 521 07c0 97CA3BBE 		.word	-1103377769
+ 522 07c4 A5662FBE 		.word	-1104189787
+ 523 07c8 76FD22BE 		.word	-1105003146
+ 524 07cc 698C16BE 		.word	-1105818519
+ 525 07d0 7F130ABE 		.word	-1106635905
+ 526 07d4 EC2FFBBD 		.word	-1107611668
+ 527 07d8 5E2EE2BD 		.word	-1109250466
+ 528 07dc 4721C9BD 		.word	-1110892217
+ 529 07e0 6B0EB0BD 		.word	-1112535445
+ 530 07e4 38F496BD 		.word	-1114180552
+ 531 07e8 8FA97BBD 		.word	-1115969137
+ 532 07ec 316049BD 		.word	-1119264719
+ 533 07f0 6F0E17BD 		.word	-1122562449
+ 534 07f4 DF6EC9BC 		.word	-1127649569
+ 535 07f8 297549BC 		.word	-1136036567
+ 536 07fc 00000000 		.word	0
+ 537              		.section	.text.fast_fmaxf,"ax",%progbits
+ 538              		.align	1
+ 539              		.global	fast_fmaxf
+ 540              		.syntax unified
+ 541              		.thumb
+ 542              		.thumb_func
+ 544              	fast_fmaxf:
+ 545              	.LFB0:
+ 546              		.file 1 "Core/Src/math_ops.c"
+   1:Core/Src/math_ops.c **** 
+   2:Core/Src/math_ops.c **** #include "math_ops.h"
+   3:Core/Src/math_ops.c **** #include "lookup.h"
+   4:Core/Src/math_ops.c **** 
+   5:Core/Src/math_ops.c **** 
+   6:Core/Src/math_ops.c **** float fast_fmaxf(float x, float y){
+ 547              		.loc 1 6 35
+ 548              		.cfi_startproc
+ 549              		@ args = 0, pretend = 0, frame = 8
+ 550              		@ frame_needed = 1, uses_anonymous_args = 0
+ 551              		@ link register save eliminated.
+ 552 0000 80B4     		push	{r7}
+ 553              	.LCFI0:
+ 554              		.cfi_def_cfa_offset 4
+ 555              		.cfi_offset 7, -4
+ 556 0002 83B0     		sub	sp, sp, #12
+ 557              	.LCFI1:
+ 558              		.cfi_def_cfa_offset 16
+ 559 0004 00AF     		add	r7, sp, #0
+ 560              	.LCFI2:
+ 561              		.cfi_def_cfa_register 7
+ 562 0006 87ED010A 		vstr.32	s0, [r7, #4]
+ 563 000a C7ED000A 		vstr.32	s1, [r7]
+   7:Core/Src/math_ops.c ****     /// Returns maximum of x, y ///
+   8:Core/Src/math_ops.c ****     return (((x)>(y))?(x):(y));
+ 564              		.loc 1 8 26
+ 565 000e 97ED017A 		vldr.32	s14, [r7, #4]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 11
+
+
+ 566 0012 D7ED007A 		vldr.32	s15, [r7]
+ 567 0016 B4EEE77A 		vcmpe.f32	s14, s15
+ 568 001a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 569 001e 01DD     		ble	.L7
+ 570              		.loc 1 8 26 is_stmt 0 discriminator 1
+ 571 0020 7B68     		ldr	r3, [r7, #4]	@ float
+ 572 0022 00E0     		b	.L5
+ 573              	.L7:
+ 574              		.loc 1 8 26 discriminator 2
+ 575 0024 3B68     		ldr	r3, [r7]	@ float
+ 576              	.L5:
+ 577              		.loc 1 8 26 discriminator 5
+ 578 0026 07EE903A 		vmov	s15, r3
+   9:Core/Src/math_ops.c ****     }
+ 579              		.loc 1 9 5 is_stmt 1 discriminator 5
+ 580 002a B0EE670A 		vmov.f32	s0, s15
+ 581 002e 0C37     		adds	r7, r7, #12
+ 582              	.LCFI3:
+ 583              		.cfi_def_cfa_offset 4
+ 584 0030 BD46     		mov	sp, r7
+ 585              	.LCFI4:
+ 586              		.cfi_def_cfa_register 13
+ 587              		@ sp needed
+ 588 0032 5DF8047B 		ldr	r7, [sp], #4
+ 589              	.LCFI5:
+ 590              		.cfi_restore 7
+ 591              		.cfi_def_cfa_offset 0
+ 592 0036 7047     		bx	lr
+ 593              		.cfi_endproc
+ 594              	.LFE0:
+ 596              		.section	.text.fast_fminf,"ax",%progbits
+ 597              		.align	1
+ 598              		.global	fast_fminf
+ 599              		.syntax unified
+ 600              		.thumb
+ 601              		.thumb_func
+ 603              	fast_fminf:
+ 604              	.LFB1:
+  10:Core/Src/math_ops.c **** 
+  11:Core/Src/math_ops.c **** float fast_fminf(float x, float y){
+ 605              		.loc 1 11 35
+ 606              		.cfi_startproc
+ 607              		@ args = 0, pretend = 0, frame = 8
+ 608              		@ frame_needed = 1, uses_anonymous_args = 0
+ 609              		@ link register save eliminated.
+ 610 0000 80B4     		push	{r7}
+ 611              	.LCFI6:
+ 612              		.cfi_def_cfa_offset 4
+ 613              		.cfi_offset 7, -4
+ 614 0002 83B0     		sub	sp, sp, #12
+ 615              	.LCFI7:
+ 616              		.cfi_def_cfa_offset 16
+ 617 0004 00AF     		add	r7, sp, #0
+ 618              	.LCFI8:
+ 619              		.cfi_def_cfa_register 7
+ 620 0006 87ED010A 		vstr.32	s0, [r7, #4]
+ 621 000a C7ED000A 		vstr.32	s1, [r7]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 12
+
+
+  12:Core/Src/math_ops.c ****     /// Returns minimum of x, y ///
+  13:Core/Src/math_ops.c ****     return (((x)<(y))?(x):(y));
+ 622              		.loc 1 13 26
+ 623 000e 97ED017A 		vldr.32	s14, [r7, #4]
+ 624 0012 D7ED007A 		vldr.32	s15, [r7]
+ 625 0016 B4EEE77A 		vcmpe.f32	s14, s15
+ 626 001a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 627 001e 01D5     		bpl	.L14
+ 628              		.loc 1 13 26 is_stmt 0 discriminator 1
+ 629 0020 7B68     		ldr	r3, [r7, #4]	@ float
+ 630 0022 00E0     		b	.L12
+ 631              	.L14:
+ 632              		.loc 1 13 26 discriminator 2
+ 633 0024 3B68     		ldr	r3, [r7]	@ float
+ 634              	.L12:
+ 635              		.loc 1 13 26 discriminator 5
+ 636 0026 07EE903A 		vmov	s15, r3
+  14:Core/Src/math_ops.c ****     }
+ 637              		.loc 1 14 5 is_stmt 1 discriminator 5
+ 638 002a B0EE670A 		vmov.f32	s0, s15
+ 639 002e 0C37     		adds	r7, r7, #12
+ 640              	.LCFI9:
+ 641              		.cfi_def_cfa_offset 4
+ 642 0030 BD46     		mov	sp, r7
+ 643              	.LCFI10:
+ 644              		.cfi_def_cfa_register 13
+ 645              		@ sp needed
+ 646 0032 5DF8047B 		ldr	r7, [sp], #4
+ 647              	.LCFI11:
+ 648              		.cfi_restore 7
+ 649              		.cfi_def_cfa_offset 0
+ 650 0036 7047     		bx	lr
+ 651              		.cfi_endproc
+ 652              	.LFE1:
+ 654              		.section	.text.fmaxf3,"ax",%progbits
+ 655              		.align	1
+ 656              		.global	fmaxf3
+ 657              		.syntax unified
+ 658              		.thumb
+ 659              		.thumb_func
+ 661              	fmaxf3:
+ 662              	.LFB2:
+  15:Core/Src/math_ops.c **** 
+  16:Core/Src/math_ops.c **** float fmaxf3(float x, float y, float z){
+ 663              		.loc 1 16 40
+ 664              		.cfi_startproc
+ 665              		@ args = 0, pretend = 0, frame = 16
+ 666              		@ frame_needed = 1, uses_anonymous_args = 0
+ 667              		@ link register save eliminated.
+ 668 0000 80B4     		push	{r7}
+ 669              	.LCFI12:
+ 670              		.cfi_def_cfa_offset 4
+ 671              		.cfi_offset 7, -4
+ 672 0002 85B0     		sub	sp, sp, #20
+ 673              	.LCFI13:
+ 674              		.cfi_def_cfa_offset 24
+ 675 0004 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 13
+
+
+ 676              	.LCFI14:
+ 677              		.cfi_def_cfa_register 7
+ 678 0006 87ED030A 		vstr.32	s0, [r7, #12]
+ 679 000a C7ED020A 		vstr.32	s1, [r7, #8]
+ 680 000e 87ED011A 		vstr.32	s2, [r7, #4]
+  17:Core/Src/math_ops.c ****     /// Returns maximum of x, y, z ///
+  18:Core/Src/math_ops.c ****     return (x > y ? (x > z ? x : z) : (y > z ? y : z));
+ 681              		.loc 1 18 37
+ 682 0012 97ED037A 		vldr.32	s14, [r7, #12]
+ 683 0016 D7ED027A 		vldr.32	s15, [r7, #8]
+ 684 001a B4EEE77A 		vcmpe.f32	s14, s15
+ 685 001e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 686 0022 0CDD     		ble	.L29
+ 687              		.loc 1 18 32 discriminator 1
+ 688 0024 97ED037A 		vldr.32	s14, [r7, #12]
+ 689 0028 D7ED017A 		vldr.32	s15, [r7, #4]
+ 690 002c B4EEE77A 		vcmpe.f32	s14, s15
+ 691 0030 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 692 0034 01DD     		ble	.L30
+ 693              		.loc 1 18 32 is_stmt 0 discriminator 3
+ 694 0036 FB68     		ldr	r3, [r7, #12]	@ float
+ 695              		.loc 1 18 37 is_stmt 1 discriminator 3
+ 696 0038 0DE0     		b	.L25
+ 697              	.L30:
+ 698              		.loc 1 18 32 discriminator 4
+ 699 003a 7B68     		ldr	r3, [r7, #4]	@ float
+ 700              		.loc 1 18 37 discriminator 4
+ 701 003c 0BE0     		b	.L25
+ 702              	.L29:
+ 703              		.loc 1 18 50 discriminator 2
+ 704 003e 97ED027A 		vldr.32	s14, [r7, #8]
+ 705 0042 D7ED017A 		vldr.32	s15, [r7, #4]
+ 706 0046 B4EEE77A 		vcmpe.f32	s14, s15
+ 707 004a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 708 004e 01DD     		ble	.L31
+ 709              		.loc 1 18 50 is_stmt 0 discriminator 8
+ 710 0050 BB68     		ldr	r3, [r7, #8]	@ float
+ 711              		.loc 1 18 37 is_stmt 1 discriminator 8
+ 712 0052 00E0     		b	.L25
+ 713              	.L31:
+ 714              		.loc 1 18 50 discriminator 9
+ 715 0054 7B68     		ldr	r3, [r7, #4]	@ float
+ 716              	.L25:
+ 717              		.loc 1 18 37 discriminator 13
+ 718 0056 07EE903A 		vmov	s15, r3
+  19:Core/Src/math_ops.c ****     }
+ 719              		.loc 1 19 5 discriminator 13
+ 720 005a B0EE670A 		vmov.f32	s0, s15
+ 721 005e 1437     		adds	r7, r7, #20
+ 722              	.LCFI15:
+ 723              		.cfi_def_cfa_offset 4
+ 724 0060 BD46     		mov	sp, r7
+ 725              	.LCFI16:
+ 726              		.cfi_def_cfa_register 13
+ 727              		@ sp needed
+ 728 0062 5DF8047B 		ldr	r7, [sp], #4
+ 729              	.LCFI17:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 14
+
+
+ 730              		.cfi_restore 7
+ 731              		.cfi_def_cfa_offset 0
+ 732 0066 7047     		bx	lr
+ 733              		.cfi_endproc
+ 734              	.LFE2:
+ 736              		.section	.text.fminf3,"ax",%progbits
+ 737              		.align	1
+ 738              		.global	fminf3
+ 739              		.syntax unified
+ 740              		.thumb
+ 741              		.thumb_func
+ 743              	fminf3:
+ 744              	.LFB3:
+  20:Core/Src/math_ops.c **** 
+  21:Core/Src/math_ops.c **** float fminf3(float x, float y, float z){
+ 745              		.loc 1 21 40
+ 746              		.cfi_startproc
+ 747              		@ args = 0, pretend = 0, frame = 16
+ 748              		@ frame_needed = 1, uses_anonymous_args = 0
+ 749              		@ link register save eliminated.
+ 750 0000 80B4     		push	{r7}
+ 751              	.LCFI18:
+ 752              		.cfi_def_cfa_offset 4
+ 753              		.cfi_offset 7, -4
+ 754 0002 85B0     		sub	sp, sp, #20
+ 755              	.LCFI19:
+ 756              		.cfi_def_cfa_offset 24
+ 757 0004 00AF     		add	r7, sp, #0
+ 758              	.LCFI20:
+ 759              		.cfi_def_cfa_register 7
+ 760 0006 87ED030A 		vstr.32	s0, [r7, #12]
+ 761 000a C7ED020A 		vstr.32	s1, [r7, #8]
+ 762 000e 87ED011A 		vstr.32	s2, [r7, #4]
+  22:Core/Src/math_ops.c ****     /// Returns minimum of x, y, z ///
+  23:Core/Src/math_ops.c ****     return (x < y ? (x < z ? x : z) : (y < z ? y : z));
+ 763              		.loc 1 23 37
+ 764 0012 97ED037A 		vldr.32	s14, [r7, #12]
+ 765 0016 D7ED027A 		vldr.32	s15, [r7, #8]
+ 766 001a B4EEE77A 		vcmpe.f32	s14, s15
+ 767 001e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 768 0022 0CD5     		bpl	.L46
+ 769              		.loc 1 23 32 discriminator 1
+ 770 0024 97ED037A 		vldr.32	s14, [r7, #12]
+ 771 0028 D7ED017A 		vldr.32	s15, [r7, #4]
+ 772 002c B4EEE77A 		vcmpe.f32	s14, s15
+ 773 0030 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 774 0034 01D5     		bpl	.L47
+ 775              		.loc 1 23 32 is_stmt 0 discriminator 3
+ 776 0036 FB68     		ldr	r3, [r7, #12]	@ float
+ 777              		.loc 1 23 37 is_stmt 1 discriminator 3
+ 778 0038 0DE0     		b	.L42
+ 779              	.L47:
+ 780              		.loc 1 23 32 discriminator 4
+ 781 003a 7B68     		ldr	r3, [r7, #4]	@ float
+ 782              		.loc 1 23 37 discriminator 4
+ 783 003c 0BE0     		b	.L42
+ 784              	.L46:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 15
+
+
+ 785              		.loc 1 23 50 discriminator 2
+ 786 003e 97ED027A 		vldr.32	s14, [r7, #8]
+ 787 0042 D7ED017A 		vldr.32	s15, [r7, #4]
+ 788 0046 B4EEE77A 		vcmpe.f32	s14, s15
+ 789 004a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 790 004e 01D5     		bpl	.L48
+ 791              		.loc 1 23 50 is_stmt 0 discriminator 8
+ 792 0050 BB68     		ldr	r3, [r7, #8]	@ float
+ 793              		.loc 1 23 37 is_stmt 1 discriminator 8
+ 794 0052 00E0     		b	.L42
+ 795              	.L48:
+ 796              		.loc 1 23 50 discriminator 9
+ 797 0054 7B68     		ldr	r3, [r7, #4]	@ float
+ 798              	.L42:
+ 799              		.loc 1 23 37 discriminator 13
+ 800 0056 07EE903A 		vmov	s15, r3
+  24:Core/Src/math_ops.c ****     }
+ 801              		.loc 1 24 5 discriminator 13
+ 802 005a B0EE670A 		vmov.f32	s0, s15
+ 803 005e 1437     		adds	r7, r7, #20
+ 804              	.LCFI21:
+ 805              		.cfi_def_cfa_offset 4
+ 806 0060 BD46     		mov	sp, r7
+ 807              	.LCFI22:
+ 808              		.cfi_def_cfa_register 13
+ 809              		@ sp needed
+ 810 0062 5DF8047B 		ldr	r7, [sp], #4
+ 811              	.LCFI23:
+ 812              		.cfi_restore 7
+ 813              		.cfi_def_cfa_offset 0
+ 814 0066 7047     		bx	lr
+ 815              		.cfi_endproc
+ 816              	.LFE3:
+ 818              		.section	.text.limit_norm,"ax",%progbits
+ 819              		.align	1
+ 820              		.global	limit_norm
+ 821              		.syntax unified
+ 822              		.thumb
+ 823              		.thumb_func
+ 825              	limit_norm:
+ 826              	.LFB4:
+  25:Core/Src/math_ops.c **** /*
+  26:Core/Src/math_ops.c **** float roundf(float x){
+  27:Core/Src/math_ops.c ****     /// Returns nearest integer ///
+  28:Core/Src/math_ops.c ****     return x < 0.0f ? ceilf(x - 0.5f) : floorf(x + 0.5f);
+  29:Core/Src/math_ops.c ****     }
+  30:Core/Src/math_ops.c ****   */
+  31:Core/Src/math_ops.c **** void limit_norm(float *x, float *y, float limit){
+ 827              		.loc 1 31 49
+ 828              		.cfi_startproc
+ 829              		@ args = 0, pretend = 0, frame = 24
+ 830              		@ frame_needed = 1, uses_anonymous_args = 0
+ 831 0000 80B5     		push	{r7, lr}
+ 832              	.LCFI24:
+ 833              		.cfi_def_cfa_offset 8
+ 834              		.cfi_offset 7, -8
+ 835              		.cfi_offset 14, -4
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 16
+
+
+ 836 0002 86B0     		sub	sp, sp, #24
+ 837              	.LCFI25:
+ 838              		.cfi_def_cfa_offset 32
+ 839 0004 00AF     		add	r7, sp, #0
+ 840              	.LCFI26:
+ 841              		.cfi_def_cfa_register 7
+ 842 0006 F860     		str	r0, [r7, #12]
+ 843 0008 B960     		str	r1, [r7, #8]
+ 844 000a 87ED010A 		vstr.32	s0, [r7, #4]
+  32:Core/Src/math_ops.c ****     /// Scales the lenght of vector (x, y) to be <= limit ///
+  33:Core/Src/math_ops.c ****     float norm = sqrtf(*x * *x + *y * *y);
+ 845              		.loc 1 33 24
+ 846 000e FB68     		ldr	r3, [r7, #12]
+ 847 0010 93ED007A 		vldr.32	s14, [r3]
+ 848              		.loc 1 33 29
+ 849 0014 FB68     		ldr	r3, [r7, #12]
+ 850 0016 D3ED007A 		vldr.32	s15, [r3]
+ 851              		.loc 1 33 27
+ 852 001a 27EE277A 		vmul.f32	s14, s14, s15
+ 853              		.loc 1 33 34
+ 854 001e BB68     		ldr	r3, [r7, #8]
+ 855 0020 D3ED006A 		vldr.32	s13, [r3]
+ 856              		.loc 1 33 39
+ 857 0024 BB68     		ldr	r3, [r7, #8]
+ 858 0026 D3ED007A 		vldr.32	s15, [r3]
+ 859              		.loc 1 33 37
+ 860 002a 66EEA77A 		vmul.f32	s15, s13, s15
+ 861              		.loc 1 33 18
+ 862 002e 77EE277A 		vadd.f32	s15, s14, s15
+ 863 0032 B0EE670A 		vmov.f32	s0, s15
+ 864 0036 FFF7FEFF 		bl	sqrtf
+ 865 003a 87ED050A 		vstr.32	s0, [r7, #20]
+  34:Core/Src/math_ops.c ****     if(norm > limit){
+ 866              		.loc 1 34 7
+ 867 003e 97ED057A 		vldr.32	s14, [r7, #20]
+ 868 0042 D7ED017A 		vldr.32	s15, [r7, #4]
+ 869 0046 B4EEE77A 		vcmpe.f32	s14, s15
+ 870 004a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 871 004e 00DC     		bgt	.L52
+  35:Core/Src/math_ops.c ****         *x = *x * limit/norm;
+  36:Core/Src/math_ops.c ****         *y = *y * limit/norm;
+  37:Core/Src/math_ops.c ****         }
+  38:Core/Src/math_ops.c ****     }
+ 872              		.loc 1 38 5
+ 873 0050 1BE0     		b	.L53
+ 874              	.L52:
+  35:Core/Src/math_ops.c ****         *x = *x * limit/norm;
+ 875              		.loc 1 35 14
+ 876 0052 FB68     		ldr	r3, [r7, #12]
+ 877 0054 93ED007A 		vldr.32	s14, [r3]
+  35:Core/Src/math_ops.c ****         *x = *x * limit/norm;
+ 878              		.loc 1 35 17
+ 879 0058 D7ED017A 		vldr.32	s15, [r7, #4]
+ 880 005c 67EE276A 		vmul.f32	s13, s14, s15
+  35:Core/Src/math_ops.c ****         *x = *x * limit/norm;
+ 881              		.loc 1 35 24
+ 882 0060 97ED057A 		vldr.32	s14, [r7, #20]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 17
+
+
+ 883 0064 C6EE877A 		vdiv.f32	s15, s13, s14
+  35:Core/Src/math_ops.c ****         *x = *x * limit/norm;
+ 884              		.loc 1 35 12
+ 885 0068 FB68     		ldr	r3, [r7, #12]
+ 886 006a C3ED007A 		vstr.32	s15, [r3]
+  36:Core/Src/math_ops.c ****         }
+ 887              		.loc 1 36 14
+ 888 006e BB68     		ldr	r3, [r7, #8]
+ 889 0070 93ED007A 		vldr.32	s14, [r3]
+  36:Core/Src/math_ops.c ****         }
+ 890              		.loc 1 36 17
+ 891 0074 D7ED017A 		vldr.32	s15, [r7, #4]
+ 892 0078 67EE276A 		vmul.f32	s13, s14, s15
+  36:Core/Src/math_ops.c ****         }
+ 893              		.loc 1 36 24
+ 894 007c 97ED057A 		vldr.32	s14, [r7, #20]
+ 895 0080 C6EE877A 		vdiv.f32	s15, s13, s14
+  36:Core/Src/math_ops.c ****         }
+ 896              		.loc 1 36 12
+ 897 0084 BB68     		ldr	r3, [r7, #8]
+ 898 0086 C3ED007A 		vstr.32	s15, [r3]
+ 899              	.L53:
+ 900              		.loc 1 38 5
+ 901 008a 00BF     		nop
+ 902 008c 1837     		adds	r7, r7, #24
+ 903              	.LCFI27:
+ 904              		.cfi_def_cfa_offset 8
+ 905 008e BD46     		mov	sp, r7
+ 906              	.LCFI28:
+ 907              		.cfi_def_cfa_register 13
+ 908              		@ sp needed
+ 909 0090 80BD     		pop	{r7, pc}
+ 910              		.cfi_endproc
+ 911              	.LFE4:
+ 913              		.section	.text.limit,"ax",%progbits
+ 914              		.align	1
+ 915              		.global	limit
+ 916              		.syntax unified
+ 917              		.thumb
+ 918              		.thumb_func
+ 920              	limit:
+ 921              	.LFB5:
+  39:Core/Src/math_ops.c ****     
+  40:Core/Src/math_ops.c **** void limit(float *x, float min, float max){
+ 922              		.loc 1 40 43
+ 923              		.cfi_startproc
+ 924              		@ args = 0, pretend = 0, frame = 16
+ 925              		@ frame_needed = 1, uses_anonymous_args = 0
+ 926 0000 80B5     		push	{r7, lr}
+ 927              	.LCFI29:
+ 928              		.cfi_def_cfa_offset 8
+ 929              		.cfi_offset 7, -8
+ 930              		.cfi_offset 14, -4
+ 931 0002 84B0     		sub	sp, sp, #16
+ 932              	.LCFI30:
+ 933              		.cfi_def_cfa_offset 24
+ 934 0004 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 18
+
+
+ 935              	.LCFI31:
+ 936              		.cfi_def_cfa_register 7
+ 937 0006 F860     		str	r0, [r7, #12]
+ 938 0008 87ED020A 		vstr.32	s0, [r7, #8]
+ 939 000c C7ED010A 		vstr.32	s1, [r7, #4]
+  41:Core/Src/math_ops.c ****     *x = fast_fmaxf(fast_fminf(*x, max), min);
+ 940              		.loc 1 41 10
+ 941 0010 FB68     		ldr	r3, [r7, #12]
+ 942 0012 D3ED007A 		vldr.32	s15, [r3]
+ 943 0016 D7ED010A 		vldr.32	s1, [r7, #4]
+ 944 001a B0EE670A 		vmov.f32	s0, s15
+ 945 001e FFF7FEFF 		bl	fast_fminf
+ 946 0022 F0EE407A 		vmov.f32	s15, s0
+ 947 0026 D7ED020A 		vldr.32	s1, [r7, #8]
+ 948 002a B0EE670A 		vmov.f32	s0, s15
+ 949 002e FFF7FEFF 		bl	fast_fmaxf
+ 950 0032 F0EE407A 		vmov.f32	s15, s0
+ 951              		.loc 1 41 8
+ 952 0036 FB68     		ldr	r3, [r7, #12]
+ 953 0038 C3ED007A 		vstr.32	s15, [r3]
+  42:Core/Src/math_ops.c ****     }
+ 954              		.loc 1 42 5
+ 955 003c 00BF     		nop
+ 956 003e 1037     		adds	r7, r7, #16
+ 957              	.LCFI32:
+ 958              		.cfi_def_cfa_offset 8
+ 959 0040 BD46     		mov	sp, r7
+ 960              	.LCFI33:
+ 961              		.cfi_def_cfa_register 13
+ 962              		@ sp needed
+ 963 0042 80BD     		pop	{r7, pc}
+ 964              		.cfi_endproc
+ 965              	.LFE5:
+ 967              		.section	.text.float_to_uint,"ax",%progbits
+ 968              		.align	1
+ 969              		.global	float_to_uint
+ 970              		.syntax unified
+ 971              		.thumb
+ 972              		.thumb_func
+ 974              	float_to_uint:
+ 975              	.LFB6:
+  43:Core/Src/math_ops.c **** 
+  44:Core/Src/math_ops.c **** int float_to_uint(float x, float x_min, float x_max, int bits){
+ 976              		.loc 1 44 63
+ 977              		.cfi_startproc
+ 978              		@ args = 0, pretend = 0, frame = 24
+ 979              		@ frame_needed = 1, uses_anonymous_args = 0
+ 980              		@ link register save eliminated.
+ 981 0000 80B4     		push	{r7}
+ 982              	.LCFI34:
+ 983              		.cfi_def_cfa_offset 4
+ 984              		.cfi_offset 7, -4
+ 985 0002 87B0     		sub	sp, sp, #28
+ 986              	.LCFI35:
+ 987              		.cfi_def_cfa_offset 32
+ 988 0004 00AF     		add	r7, sp, #0
+ 989              	.LCFI36:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 19
+
+
+ 990              		.cfi_def_cfa_register 7
+ 991 0006 87ED030A 		vstr.32	s0, [r7, #12]
+ 992 000a C7ED020A 		vstr.32	s1, [r7, #8]
+ 993 000e 87ED011A 		vstr.32	s2, [r7, #4]
+ 994 0012 3860     		str	r0, [r7]
+  45:Core/Src/math_ops.c ****     /// Converts a float to an unsigned int, given range and number of bits ///
+  46:Core/Src/math_ops.c ****     float span = x_max - x_min;
+ 995              		.loc 1 46 11
+ 996 0014 97ED017A 		vldr.32	s14, [r7, #4]
+ 997 0018 D7ED027A 		vldr.32	s15, [r7, #8]
+ 998 001c 77EE677A 		vsub.f32	s15, s14, s15
+ 999 0020 C7ED057A 		vstr.32	s15, [r7, #20]
+  47:Core/Src/math_ops.c ****     float offset = x_min;
+ 1000              		.loc 1 47 11
+ 1001 0024 BB68     		ldr	r3, [r7, #8]	@ float
+ 1002 0026 3B61     		str	r3, [r7, #16]	@ float
+  48:Core/Src/math_ops.c ****     return (int) ((x-offset)*((float)((1<<bits)-1))/span);
+ 1003              		.loc 1 48 21
+ 1004 0028 97ED037A 		vldr.32	s14, [r7, #12]
+ 1005 002c D7ED047A 		vldr.32	s15, [r7, #16]
+ 1006 0030 37EE677A 		vsub.f32	s14, s14, s15
+ 1007              		.loc 1 48 41
+ 1008 0034 0122     		movs	r2, #1
+ 1009 0036 3B68     		ldr	r3, [r7]
+ 1010 0038 02FA03F3 		lsl	r3, r2, r3
+ 1011              		.loc 1 48 48
+ 1012 003c 013B     		subs	r3, r3, #1
+ 1013              		.loc 1 48 31
+ 1014 003e 07EE903A 		vmov	s15, r3	@ int
+ 1015 0042 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 1016              		.loc 1 48 29
+ 1017 0046 67EE276A 		vmul.f32	s13, s14, s15
+ 1018              		.loc 1 48 52
+ 1019 004a 97ED057A 		vldr.32	s14, [r7, #20]
+ 1020 004e C6EE877A 		vdiv.f32	s15, s13, s14
+ 1021              		.loc 1 48 12
+ 1022 0052 FDEEE77A 		vcvt.s32.f32	s15, s15
+ 1023 0056 17EE903A 		vmov	r3, s15	@ int
+  49:Core/Src/math_ops.c ****     }
+ 1024              		.loc 1 49 5
+ 1025 005a 1846     		mov	r0, r3
+ 1026 005c 1C37     		adds	r7, r7, #28
+ 1027              	.LCFI37:
+ 1028              		.cfi_def_cfa_offset 4
+ 1029 005e BD46     		mov	sp, r7
+ 1030              	.LCFI38:
+ 1031              		.cfi_def_cfa_register 13
+ 1032              		@ sp needed
+ 1033 0060 5DF8047B 		ldr	r7, [sp], #4
+ 1034              	.LCFI39:
+ 1035              		.cfi_restore 7
+ 1036              		.cfi_def_cfa_offset 0
+ 1037 0064 7047     		bx	lr
+ 1038              		.cfi_endproc
+ 1039              	.LFE6:
+ 1041              		.section	.text.uint_to_float,"ax",%progbits
+ 1042              		.align	1
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 20
+
+
+ 1043              		.global	uint_to_float
+ 1044              		.syntax unified
+ 1045              		.thumb
+ 1046              		.thumb_func
+ 1048              	uint_to_float:
+ 1049              	.LFB7:
+  50:Core/Src/math_ops.c ****     
+  51:Core/Src/math_ops.c ****     
+  52:Core/Src/math_ops.c **** float uint_to_float(int x_int, float x_min, float x_max, int bits){
+ 1050              		.loc 1 52 67
+ 1051              		.cfi_startproc
+ 1052              		@ args = 0, pretend = 0, frame = 24
+ 1053              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1054              		@ link register save eliminated.
+ 1055 0000 80B4     		push	{r7}
+ 1056              	.LCFI40:
+ 1057              		.cfi_def_cfa_offset 4
+ 1058              		.cfi_offset 7, -4
+ 1059 0002 87B0     		sub	sp, sp, #28
+ 1060              	.LCFI41:
+ 1061              		.cfi_def_cfa_offset 32
+ 1062 0004 00AF     		add	r7, sp, #0
+ 1063              	.LCFI42:
+ 1064              		.cfi_def_cfa_register 7
+ 1065 0006 F860     		str	r0, [r7, #12]
+ 1066 0008 87ED020A 		vstr.32	s0, [r7, #8]
+ 1067 000c C7ED010A 		vstr.32	s1, [r7, #4]
+ 1068 0010 3960     		str	r1, [r7]
+  53:Core/Src/math_ops.c ****     /// converts unsigned int to float, given range and number of bits ///
+  54:Core/Src/math_ops.c ****     float span = x_max - x_min;
+ 1069              		.loc 1 54 11
+ 1070 0012 97ED017A 		vldr.32	s14, [r7, #4]
+ 1071 0016 D7ED027A 		vldr.32	s15, [r7, #8]
+ 1072 001a 77EE677A 		vsub.f32	s15, s14, s15
+ 1073 001e C7ED057A 		vstr.32	s15, [r7, #20]
+  55:Core/Src/math_ops.c ****     float offset = x_min;
+ 1074              		.loc 1 55 11
+ 1075 0022 BB68     		ldr	r3, [r7, #8]	@ float
+ 1076 0024 3B61     		str	r3, [r7, #16]	@ float
+  56:Core/Src/math_ops.c ****     return ((float)x_int)*span/((float)((1<<bits)-1)) + offset;
+ 1077              		.loc 1 56 13
+ 1078 0026 FB68     		ldr	r3, [r7, #12]
+ 1079 0028 07EE903A 		vmov	s15, r3	@ int
+ 1080 002c B8EEE77A 		vcvt.f32.s32	s14, s15
+ 1081              		.loc 1 56 26
+ 1082 0030 D7ED057A 		vldr.32	s15, [r7, #20]
+ 1083 0034 67EE276A 		vmul.f32	s13, s14, s15
+ 1084              		.loc 1 56 43
+ 1085 0038 0122     		movs	r2, #1
+ 1086 003a 3B68     		ldr	r3, [r7]
+ 1087 003c 02FA03F3 		lsl	r3, r2, r3
+ 1088              		.loc 1 56 50
+ 1089 0040 013B     		subs	r3, r3, #1
+ 1090              		.loc 1 56 33
+ 1091 0042 07EE903A 		vmov	s15, r3	@ int
+ 1092 0046 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 1093              		.loc 1 56 31
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 21
+
+
+ 1094 004a 86EEA77A 		vdiv.f32	s14, s13, s15
+ 1095              		.loc 1 56 55
+ 1096 004e D7ED047A 		vldr.32	s15, [r7, #16]
+ 1097 0052 77EE277A 		vadd.f32	s15, s14, s15
+  57:Core/Src/math_ops.c ****     }
+ 1098              		.loc 1 57 5
+ 1099 0056 B0EE670A 		vmov.f32	s0, s15
+ 1100 005a 1C37     		adds	r7, r7, #28
+ 1101              	.LCFI43:
+ 1102              		.cfi_def_cfa_offset 4
+ 1103 005c BD46     		mov	sp, r7
+ 1104              	.LCFI44:
+ 1105              		.cfi_def_cfa_register 13
+ 1106              		@ sp needed
+ 1107 005e 5DF8047B 		ldr	r7, [sp], #4
+ 1108              	.LCFI45:
+ 1109              		.cfi_restore 7
+ 1110              		.cfi_def_cfa_offset 0
+ 1111 0062 7047     		bx	lr
+ 1112              		.cfi_endproc
+ 1113              	.LFE7:
+ 1115              		.section	.text.sin_lut,"ax",%progbits
+ 1116              		.align	1
+ 1117              		.global	sin_lut
+ 1118              		.syntax unified
+ 1119              		.thumb
+ 1120              		.thumb_func
+ 1122              	sin_lut:
+ 1123              	.LFB8:
+  58:Core/Src/math_ops.c **** 
+  59:Core/Src/math_ops.c **** float sin_lut(float theta){
+ 1124              		.loc 1 59 27
+ 1125              		.cfi_startproc
+ 1126              		@ args = 0, pretend = 0, frame = 8
+ 1127              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1128 0000 80B5     		push	{r7, lr}
+ 1129              	.LCFI46:
+ 1130              		.cfi_def_cfa_offset 8
+ 1131              		.cfi_offset 7, -8
+ 1132              		.cfi_offset 14, -4
+ 1133 0002 82B0     		sub	sp, sp, #8
+ 1134              	.LCFI47:
+ 1135              		.cfi_def_cfa_offset 16
+ 1136 0004 00AF     		add	r7, sp, #0
+ 1137              	.LCFI48:
+ 1138              		.cfi_def_cfa_register 7
+ 1139 0006 87ED010A 		vstr.32	s0, [r7, #4]
+  60:Core/Src/math_ops.c **** 	theta = fmodf(theta, TWO_PI_F);
+ 1140              		.loc 1 60 10
+ 1141 000a DFED170A 		vldr.32	s1, .L66
+ 1142 000e 97ED010A 		vldr.32	s0, [r7, #4]
+ 1143 0012 FFF7FEFF 		bl	fmodf
+ 1144 0016 87ED010A 		vstr.32	s0, [r7, #4]
+  61:Core/Src/math_ops.c **** 	theta = theta<0 ? theta + TWO_PI_F : theta;
+ 1145              		.loc 1 61 37
+ 1146 001a D7ED017A 		vldr.32	s15, [r7, #4]
+ 1147 001e F5EEC07A 		vcmpe.f32	s15, #0
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 22
+
+
+ 1148 0022 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1149 0026 06D5     		bpl	.L65
+ 1150              		.loc 1 61 37 is_stmt 0 discriminator 1
+ 1151 0028 D7ED017A 		vldr.32	s15, [r7, #4]
+ 1152 002c 9FED0E7A 		vldr.32	s14, .L66
+ 1153 0030 77EE877A 		vadd.f32	s15, s15, s14
+ 1154 0034 01E0     		b	.L62
+ 1155              	.L65:
+ 1156              		.loc 1 61 37 discriminator 2
+ 1157 0036 D7ED017A 		vldr.32	s15, [r7, #4]
+ 1158              	.L62:
+ 1159              		.loc 1 61 8 is_stmt 1 discriminator 4
+ 1160 003a C7ED017A 		vstr.32	s15, [r7, #4]
+  62:Core/Src/math_ops.c **** 
+  63:Core/Src/math_ops.c **** 	return sin_tab[(int) (LUT_MULT*theta)];
+ 1161              		.loc 1 63 32 discriminator 4
+ 1162 003e D7ED017A 		vldr.32	s15, [r7, #4]
+ 1163 0042 9FED0A7A 		vldr.32	s14, .L66+4
+ 1164 0046 67EE877A 		vmul.f32	s15, s15, s14
+ 1165              		.loc 1 63 17 discriminator 4
+ 1166 004a FDEEE77A 		vcvt.s32.f32	s15, s15
+ 1167 004e 17EE903A 		vmov	r3, s15	@ int
+ 1168              		.loc 1 63 16 discriminator 4
+ 1169 0052 074A     		ldr	r2, .L66+8
+ 1170 0054 9B00     		lsls	r3, r3, #2
+ 1171 0056 1344     		add	r3, r3, r2
+ 1172 0058 1B68     		ldr	r3, [r3]	@ float
+ 1173 005a 07EE903A 		vmov	s15, r3
+  64:Core/Src/math_ops.c **** }
+ 1174              		.loc 1 64 1 discriminator 4
+ 1175 005e B0EE670A 		vmov.f32	s0, s15
+ 1176 0062 0837     		adds	r7, r7, #8
+ 1177              	.LCFI49:
+ 1178              		.cfi_def_cfa_offset 8
+ 1179 0064 BD46     		mov	sp, r7
+ 1180              	.LCFI50:
+ 1181              		.cfi_def_cfa_register 13
+ 1182              		@ sp needed
+ 1183 0066 80BD     		pop	{r7, pc}
+ 1184              	.L67:
+ 1185              		.align	2
+ 1186              	.L66:
+ 1187 0068 DB0FC940 		.word	1086918619
+ 1188 006c 83F9A242 		.word	1117976963
+ 1189 0070 00000000 		.word	sin_tab
+ 1190              		.cfi_endproc
+ 1191              	.LFE8:
+ 1193              		.section	.text.cos_lut,"ax",%progbits
+ 1194              		.align	1
+ 1195              		.global	cos_lut
+ 1196              		.syntax unified
+ 1197              		.thumb
+ 1198              		.thumb_func
+ 1200              	cos_lut:
+ 1201              	.LFB9:
+  65:Core/Src/math_ops.c **** 
+  66:Core/Src/math_ops.c **** float cos_lut(float theta){
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 23
+
+
+ 1202              		.loc 1 66 27
+ 1203              		.cfi_startproc
+ 1204              		@ args = 0, pretend = 0, frame = 8
+ 1205              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1206 0000 80B5     		push	{r7, lr}
+ 1207              	.LCFI51:
+ 1208              		.cfi_def_cfa_offset 8
+ 1209              		.cfi_offset 7, -8
+ 1210              		.cfi_offset 14, -4
+ 1211 0002 82B0     		sub	sp, sp, #8
+ 1212              	.LCFI52:
+ 1213              		.cfi_def_cfa_offset 16
+ 1214 0004 00AF     		add	r7, sp, #0
+ 1215              	.LCFI53:
+ 1216              		.cfi_def_cfa_register 7
+ 1217 0006 87ED010A 		vstr.32	s0, [r7, #4]
+  67:Core/Src/math_ops.c **** 	return sin_lut(PI_OVER_2_F - theta);
+ 1218              		.loc 1 67 9
+ 1219 000a 9FED087A 		vldr.32	s14, .L70
+ 1220 000e D7ED017A 		vldr.32	s15, [r7, #4]
+ 1221 0012 77EE677A 		vsub.f32	s15, s14, s15
+ 1222 0016 B0EE670A 		vmov.f32	s0, s15
+ 1223 001a FFF7FEFF 		bl	sin_lut
+ 1224 001e F0EE407A 		vmov.f32	s15, s0
+  68:Core/Src/math_ops.c **** }
+ 1225              		.loc 1 68 1
+ 1226 0022 B0EE670A 		vmov.f32	s0, s15
+ 1227 0026 0837     		adds	r7, r7, #8
+ 1228              	.LCFI54:
+ 1229              		.cfi_def_cfa_offset 8
+ 1230 0028 BD46     		mov	sp, r7
+ 1231              	.LCFI55:
+ 1232              		.cfi_def_cfa_register 13
+ 1233              		@ sp needed
+ 1234 002a 80BD     		pop	{r7, pc}
+ 1235              	.L71:
+ 1236              		.align	2
+ 1237              	.L70:
+ 1238 002c DB0FC93F 		.word	1070141403
+ 1239              		.cfi_endproc
+ 1240              	.LFE9:
+ 1242              		.text
+ 1243              	.Letext0:
+ 1244              		.file 2 "Core/Inc/lookup.h"
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cclz46c7.s 			page 24
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 math_ops.c
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:24     .rodata.sin_tab:00000000 sin_tab
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:21     .rodata.sin_tab:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:538    .text.fast_fmaxf:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:544    .text.fast_fmaxf:00000000 fast_fmaxf
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:597    .text.fast_fminf:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:603    .text.fast_fminf:00000000 fast_fminf
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:655    .text.fmaxf3:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:661    .text.fmaxf3:00000000 fmaxf3
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:737    .text.fminf3:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:743    .text.fminf3:00000000 fminf3
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:819    .text.limit_norm:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:825    .text.limit_norm:00000000 limit_norm
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:914    .text.limit:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:920    .text.limit:00000000 limit
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:968    .text.float_to_uint:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:974    .text.float_to_uint:00000000 float_to_uint
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:1042   .text.uint_to_float:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:1048   .text.uint_to_float:00000000 uint_to_float
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:1116   .text.sin_lut:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:1122   .text.sin_lut:00000000 sin_lut
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:1187   .text.sin_lut:00000068 $d
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:1194   .text.cos_lut:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:1200   .text.cos_lut:00000000 cos_lut
+C:\Users\16323\AppData\Local\Temp\cclz46c7.s:1238   .text.cos_lut:0000002c $d
+
+UNDEFINED SYMBOLS
+sqrtf
+fmodf

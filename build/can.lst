@@ -1,0 +1,1303 @@
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 6
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"can.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	hcan1
+  20              		.section	.bss.hcan1,"aw",%nobits
+  21              		.align	2
+  24              	hcan1:
+  25 0000 00000000 		.space	40
+  25      00000000 
+  25      00000000 
+  25      00000000 
+  25      00000000 
+  26              		.section	.text.MX_CAN1_Init,"ax",%progbits
+  27              		.align	1
+  28              		.global	MX_CAN1_Init
+  29              		.syntax unified
+  30              		.thumb
+  31              		.thumb_func
+  33              	MX_CAN1_Init:
+  34              	.LFB239:
+  35              		.file 1 "Core/Src/can.c"
+   1:Core/Src/can.c **** /* USER CODE BEGIN Header */
+   2:Core/Src/can.c **** /**
+   3:Core/Src/can.c ****   ******************************************************************************
+   4:Core/Src/can.c ****   * @file    can.c
+   5:Core/Src/can.c ****   * @brief   This file provides code for the configuration
+   6:Core/Src/can.c ****   *          of the CAN instances.
+   7:Core/Src/can.c ****   ******************************************************************************
+   8:Core/Src/can.c ****   * @attention
+   9:Core/Src/can.c ****   *
+  10:Core/Src/can.c ****   * Copyright (c) 2024 STMicroelectronics.
+  11:Core/Src/can.c ****   * All rights reserved.
+  12:Core/Src/can.c ****   *
+  13:Core/Src/can.c ****   * This software is licensed under terms that can be found in the LICENSE file
+  14:Core/Src/can.c ****   * in the root directory of this software component.
+  15:Core/Src/can.c ****   * If no LICENSE file comes with this software, it is provided AS-IS.
+  16:Core/Src/can.c ****   *
+  17:Core/Src/can.c ****   ******************************************************************************
+  18:Core/Src/can.c ****   */
+  19:Core/Src/can.c **** /* USER CODE END Header */
+  20:Core/Src/can.c **** /* Includes ------------------------------------------------------------------*/
+  21:Core/Src/can.c **** #include "can.h"
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 2
+
+
+  22:Core/Src/can.c **** 
+  23:Core/Src/can.c **** /* USER CODE BEGIN 0 */
+  24:Core/Src/can.c **** #include "hw_config.h"
+  25:Core/Src/can.c **** #include "user_config.h"
+  26:Core/Src/can.c **** #include "math_ops.h"
+  27:Core/Src/can.c **** /* USER CODE END 0 */
+  28:Core/Src/can.c **** 
+  29:Core/Src/can.c **** CAN_HandleTypeDef hcan1;
+  30:Core/Src/can.c **** 
+  31:Core/Src/can.c **** /* CAN1 init function */
+  32:Core/Src/can.c **** void MX_CAN1_Init(void)
+  33:Core/Src/can.c **** {
+  36              		.loc 1 33 1
+  37              		.cfi_startproc
+  38              		@ args = 0, pretend = 0, frame = 0
+  39              		@ frame_needed = 1, uses_anonymous_args = 0
+  40 0000 80B5     		push	{r7, lr}
+  41              	.LCFI0:
+  42              		.cfi_def_cfa_offset 8
+  43              		.cfi_offset 7, -8
+  44              		.cfi_offset 14, -4
+  45 0002 00AF     		add	r7, sp, #0
+  46              	.LCFI1:
+  47              		.cfi_def_cfa_register 7
+  34:Core/Src/can.c **** 
+  35:Core/Src/can.c ****   /* USER CODE BEGIN CAN1_Init 0 */
+  36:Core/Src/can.c **** 
+  37:Core/Src/can.c ****   /* USER CODE END CAN1_Init 0 */
+  38:Core/Src/can.c **** 
+  39:Core/Src/can.c ****   /* USER CODE BEGIN CAN1_Init 1 */
+  40:Core/Src/can.c **** 
+  41:Core/Src/can.c ****   /* USER CODE END CAN1_Init 1 */
+  42:Core/Src/can.c ****   hcan1.Instance = CAN1;
+  48              		.loc 1 42 18
+  49 0004 174B     		ldr	r3, .L4
+  50 0006 184A     		ldr	r2, .L4+4
+  51 0008 1A60     		str	r2, [r3]
+  43:Core/Src/can.c ****   hcan1.Init.Prescaler = 3;
+  52              		.loc 1 43 24
+  53 000a 164B     		ldr	r3, .L4
+  54 000c 0322     		movs	r2, #3
+  55 000e 5A60     		str	r2, [r3, #4]
+  44:Core/Src/can.c ****   hcan1.Init.Mode = CAN_MODE_NORMAL;
+  56              		.loc 1 44 19
+  57 0010 144B     		ldr	r3, .L4
+  58 0012 0022     		movs	r2, #0
+  59 0014 9A60     		str	r2, [r3, #8]
+  45:Core/Src/can.c ****   hcan1.Init.SyncJumpWidth = CAN_SJW_1TQ;
+  60              		.loc 1 45 28
+  61 0016 134B     		ldr	r3, .L4
+  62 0018 0022     		movs	r2, #0
+  63 001a DA60     		str	r2, [r3, #12]
+  46:Core/Src/can.c ****   hcan1.Init.TimeSeg1 = CAN_BS1_12TQ;
+  64              		.loc 1 46 23
+  65 001c 114B     		ldr	r3, .L4
+  66 001e 4FF43022 		mov	r2, #720896
+  67 0022 1A61     		str	r2, [r3, #16]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 3
+
+
+  47:Core/Src/can.c ****   hcan1.Init.TimeSeg2 = CAN_BS2_2TQ;
+  68              		.loc 1 47 23
+  69 0024 0F4B     		ldr	r3, .L4
+  70 0026 4FF48012 		mov	r2, #1048576
+  71 002a 5A61     		str	r2, [r3, #20]
+  48:Core/Src/can.c ****   hcan1.Init.TimeTriggeredMode = DISABLE;
+  72              		.loc 1 48 32
+  73 002c 0D4B     		ldr	r3, .L4
+  74 002e 0022     		movs	r2, #0
+  75 0030 1A76     		strb	r2, [r3, #24]
+  49:Core/Src/can.c ****   hcan1.Init.AutoBusOff = DISABLE;
+  76              		.loc 1 49 25
+  77 0032 0C4B     		ldr	r3, .L4
+  78 0034 0022     		movs	r2, #0
+  79 0036 5A76     		strb	r2, [r3, #25]
+  50:Core/Src/can.c ****   hcan1.Init.AutoWakeUp = DISABLE;
+  80              		.loc 1 50 25
+  81 0038 0A4B     		ldr	r3, .L4
+  82 003a 0022     		movs	r2, #0
+  83 003c 9A76     		strb	r2, [r3, #26]
+  51:Core/Src/can.c ****   hcan1.Init.AutoRetransmission = DISABLE;
+  84              		.loc 1 51 33
+  85 003e 094B     		ldr	r3, .L4
+  86 0040 0022     		movs	r2, #0
+  87 0042 DA76     		strb	r2, [r3, #27]
+  52:Core/Src/can.c ****   hcan1.Init.ReceiveFifoLocked = DISABLE;
+  88              		.loc 1 52 32
+  89 0044 074B     		ldr	r3, .L4
+  90 0046 0022     		movs	r2, #0
+  91 0048 1A77     		strb	r2, [r3, #28]
+  53:Core/Src/can.c ****   hcan1.Init.TransmitFifoPriority = DISABLE;
+  92              		.loc 1 53 35
+  93 004a 064B     		ldr	r3, .L4
+  94 004c 0022     		movs	r2, #0
+  95 004e 5A77     		strb	r2, [r3, #29]
+  54:Core/Src/can.c ****   if (HAL_CAN_Init(&hcan1) != HAL_OK)
+  96              		.loc 1 54 7
+  97 0050 0448     		ldr	r0, .L4
+  98 0052 FFF7FEFF 		bl	HAL_CAN_Init
+  99 0056 0346     		mov	r3, r0
+ 100              		.loc 1 54 6
+ 101 0058 002B     		cmp	r3, #0
+ 102 005a 01D0     		beq	.L3
+  55:Core/Src/can.c ****   {
+  56:Core/Src/can.c ****     Error_Handler();
+ 103              		.loc 1 56 5
+ 104 005c FFF7FEFF 		bl	Error_Handler
+ 105              	.L3:
+  57:Core/Src/can.c ****   }
+  58:Core/Src/can.c ****   /* USER CODE BEGIN CAN1_Init 2 */
+  59:Core/Src/can.c **** 
+  60:Core/Src/can.c ****   /* USER CODE END CAN1_Init 2 */
+  61:Core/Src/can.c **** 
+  62:Core/Src/can.c **** }
+ 106              		.loc 1 62 1
+ 107 0060 00BF     		nop
+ 108 0062 80BD     		pop	{r7, pc}
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 4
+
+
+ 109              	.L5:
+ 110              		.align	2
+ 111              	.L4:
+ 112 0064 00000000 		.word	hcan1
+ 113 0068 00640040 		.word	1073767424
+ 114              		.cfi_endproc
+ 115              	.LFE239:
+ 117              		.section	.text.HAL_CAN_MspInit,"ax",%progbits
+ 118              		.align	1
+ 119              		.global	HAL_CAN_MspInit
+ 120              		.syntax unified
+ 121              		.thumb
+ 122              		.thumb_func
+ 124              	HAL_CAN_MspInit:
+ 125              	.LFB240:
+  63:Core/Src/can.c **** 
+  64:Core/Src/can.c **** void HAL_CAN_MspInit(CAN_HandleTypeDef* canHandle)
+  65:Core/Src/can.c **** {
+ 126              		.loc 1 65 1
+ 127              		.cfi_startproc
+ 128              		@ args = 0, pretend = 0, frame = 40
+ 129              		@ frame_needed = 1, uses_anonymous_args = 0
+ 130 0000 80B5     		push	{r7, lr}
+ 131              	.LCFI2:
+ 132              		.cfi_def_cfa_offset 8
+ 133              		.cfi_offset 7, -8
+ 134              		.cfi_offset 14, -4
+ 135 0002 8AB0     		sub	sp, sp, #40
+ 136              	.LCFI3:
+ 137              		.cfi_def_cfa_offset 48
+ 138 0004 00AF     		add	r7, sp, #0
+ 139              	.LCFI4:
+ 140              		.cfi_def_cfa_register 7
+ 141 0006 7860     		str	r0, [r7, #4]
+  66:Core/Src/can.c **** 
+  67:Core/Src/can.c ****   GPIO_InitTypeDef GPIO_InitStruct = {0};
+ 142              		.loc 1 67 20
+ 143 0008 07F11403 		add	r3, r7, #20
+ 144 000c 0022     		movs	r2, #0
+ 145 000e 1A60     		str	r2, [r3]
+ 146 0010 5A60     		str	r2, [r3, #4]
+ 147 0012 9A60     		str	r2, [r3, #8]
+ 148 0014 DA60     		str	r2, [r3, #12]
+ 149 0016 1A61     		str	r2, [r3, #16]
+  68:Core/Src/can.c ****   if(canHandle->Instance==CAN1)
+ 150              		.loc 1 68 15
+ 151 0018 7B68     		ldr	r3, [r7, #4]
+ 152 001a 1B68     		ldr	r3, [r3]
+ 153              		.loc 1 68 5
+ 154 001c 1D4A     		ldr	r2, .L9
+ 155 001e 9342     		cmp	r3, r2
+ 156 0020 34D1     		bne	.L8
+ 157              	.LBB2:
+  69:Core/Src/can.c ****   {
+  70:Core/Src/can.c ****   /* USER CODE BEGIN CAN1_MspInit 0 */
+  71:Core/Src/can.c **** 
+  72:Core/Src/can.c ****   /* USER CODE END CAN1_MspInit 0 */
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 5
+
+
+  73:Core/Src/can.c ****     /* CAN1 clock enable */
+  74:Core/Src/can.c ****     __HAL_RCC_CAN1_CLK_ENABLE();
+ 158              		.loc 1 74 5
+ 159 0022 0023     		movs	r3, #0
+ 160 0024 3B61     		str	r3, [r7, #16]
+ 161 0026 1C4B     		ldr	r3, .L9+4
+ 162 0028 1B6C     		ldr	r3, [r3, #64]
+ 163 002a 1B4A     		ldr	r2, .L9+4
+ 164 002c 43F00073 		orr	r3, r3, #33554432
+ 165 0030 1364     		str	r3, [r2, #64]
+ 166 0032 194B     		ldr	r3, .L9+4
+ 167 0034 1B6C     		ldr	r3, [r3, #64]
+ 168 0036 03F00073 		and	r3, r3, #33554432
+ 169 003a 3B61     		str	r3, [r7, #16]
+ 170 003c 3B69     		ldr	r3, [r7, #16]
+ 171              	.LBE2:
+ 172              	.LBB3:
+  75:Core/Src/can.c **** 
+  76:Core/Src/can.c ****     __HAL_RCC_GPIOB_CLK_ENABLE();
+ 173              		.loc 1 76 5
+ 174 003e 0023     		movs	r3, #0
+ 175 0040 FB60     		str	r3, [r7, #12]
+ 176 0042 154B     		ldr	r3, .L9+4
+ 177 0044 1B6B     		ldr	r3, [r3, #48]
+ 178 0046 144A     		ldr	r2, .L9+4
+ 179 0048 43F00203 		orr	r3, r3, #2
+ 180 004c 1363     		str	r3, [r2, #48]
+ 181 004e 124B     		ldr	r3, .L9+4
+ 182 0050 1B6B     		ldr	r3, [r3, #48]
+ 183 0052 03F00203 		and	r3, r3, #2
+ 184 0056 FB60     		str	r3, [r7, #12]
+ 185 0058 FB68     		ldr	r3, [r7, #12]
+ 186              	.LBE3:
+  77:Core/Src/can.c ****     /**CAN1 GPIO Configuration
+  78:Core/Src/can.c ****     PB8     ------> CAN1_RX
+  79:Core/Src/can.c ****     PB9     ------> CAN1_TX
+  80:Core/Src/can.c ****     */
+  81:Core/Src/can.c ****     GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9;
+ 187              		.loc 1 81 25
+ 188 005a 4FF44073 		mov	r3, #768
+ 189 005e 7B61     		str	r3, [r7, #20]
+  82:Core/Src/can.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 190              		.loc 1 82 26
+ 191 0060 0223     		movs	r3, #2
+ 192 0062 BB61     		str	r3, [r7, #24]
+  83:Core/Src/can.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 193              		.loc 1 83 26
+ 194 0064 0023     		movs	r3, #0
+ 195 0066 FB61     		str	r3, [r7, #28]
+  84:Core/Src/can.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+ 196              		.loc 1 84 27
+ 197 0068 0323     		movs	r3, #3
+ 198 006a 3B62     		str	r3, [r7, #32]
+  85:Core/Src/can.c ****     GPIO_InitStruct.Alternate = GPIO_AF9_CAN1;
+ 199              		.loc 1 85 31
+ 200 006c 0923     		movs	r3, #9
+ 201 006e 7B62     		str	r3, [r7, #36]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 6
+
+
+  86:Core/Src/can.c ****     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 202              		.loc 1 86 5
+ 203 0070 07F11403 		add	r3, r7, #20
+ 204 0074 1946     		mov	r1, r3
+ 205 0076 0948     		ldr	r0, .L9+8
+ 206 0078 FFF7FEFF 		bl	HAL_GPIO_Init
+  87:Core/Src/can.c **** 
+  88:Core/Src/can.c ****     /* CAN1 interrupt Init */
+  89:Core/Src/can.c ****     HAL_NVIC_SetPriority(CAN1_RX0_IRQn, 0, 0);
+ 207              		.loc 1 89 5
+ 208 007c 0022     		movs	r2, #0
+ 209 007e 0021     		movs	r1, #0
+ 210 0080 1420     		movs	r0, #20
+ 211 0082 FFF7FEFF 		bl	HAL_NVIC_SetPriority
+  90:Core/Src/can.c ****     HAL_NVIC_EnableIRQ(CAN1_RX0_IRQn);
+ 212              		.loc 1 90 5
+ 213 0086 1420     		movs	r0, #20
+ 214 0088 FFF7FEFF 		bl	HAL_NVIC_EnableIRQ
+ 215              	.L8:
+  91:Core/Src/can.c ****   /* USER CODE BEGIN CAN1_MspInit 1 */
+  92:Core/Src/can.c **** 
+  93:Core/Src/can.c ****   /* USER CODE END CAN1_MspInit 1 */
+  94:Core/Src/can.c ****   }
+  95:Core/Src/can.c **** }
+ 216              		.loc 1 95 1
+ 217 008c 00BF     		nop
+ 218 008e 2837     		adds	r7, r7, #40
+ 219              	.LCFI5:
+ 220              		.cfi_def_cfa_offset 8
+ 221 0090 BD46     		mov	sp, r7
+ 222              	.LCFI6:
+ 223              		.cfi_def_cfa_register 13
+ 224              		@ sp needed
+ 225 0092 80BD     		pop	{r7, pc}
+ 226              	.L10:
+ 227              		.align	2
+ 228              	.L9:
+ 229 0094 00640040 		.word	1073767424
+ 230 0098 00380240 		.word	1073887232
+ 231 009c 00040240 		.word	1073873920
+ 232              		.cfi_endproc
+ 233              	.LFE240:
+ 235              		.section	.text.HAL_CAN_MspDeInit,"ax",%progbits
+ 236              		.align	1
+ 237              		.global	HAL_CAN_MspDeInit
+ 238              		.syntax unified
+ 239              		.thumb
+ 240              		.thumb_func
+ 242              	HAL_CAN_MspDeInit:
+ 243              	.LFB241:
+  96:Core/Src/can.c **** 
+  97:Core/Src/can.c **** void HAL_CAN_MspDeInit(CAN_HandleTypeDef* canHandle)
+  98:Core/Src/can.c **** {
+ 244              		.loc 1 98 1
+ 245              		.cfi_startproc
+ 246              		@ args = 0, pretend = 0, frame = 8
+ 247              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 7
+
+
+ 248 0000 80B5     		push	{r7, lr}
+ 249              	.LCFI7:
+ 250              		.cfi_def_cfa_offset 8
+ 251              		.cfi_offset 7, -8
+ 252              		.cfi_offset 14, -4
+ 253 0002 82B0     		sub	sp, sp, #8
+ 254              	.LCFI8:
+ 255              		.cfi_def_cfa_offset 16
+ 256 0004 00AF     		add	r7, sp, #0
+ 257              	.LCFI9:
+ 258              		.cfi_def_cfa_register 7
+ 259 0006 7860     		str	r0, [r7, #4]
+  99:Core/Src/can.c **** 
+ 100:Core/Src/can.c ****   if(canHandle->Instance==CAN1)
+ 260              		.loc 1 100 15
+ 261 0008 7B68     		ldr	r3, [r7, #4]
+ 262 000a 1B68     		ldr	r3, [r3]
+ 263              		.loc 1 100 5
+ 264 000c 0A4A     		ldr	r2, .L14
+ 265 000e 9342     		cmp	r3, r2
+ 266 0010 0DD1     		bne	.L13
+ 101:Core/Src/can.c ****   {
+ 102:Core/Src/can.c ****   /* USER CODE BEGIN CAN1_MspDeInit 0 */
+ 103:Core/Src/can.c **** 
+ 104:Core/Src/can.c ****   /* USER CODE END CAN1_MspDeInit 0 */
+ 105:Core/Src/can.c ****     /* Peripheral clock disable */
+ 106:Core/Src/can.c ****     __HAL_RCC_CAN1_CLK_DISABLE();
+ 267              		.loc 1 106 5
+ 268 0012 0A4B     		ldr	r3, .L14+4
+ 269 0014 1B6C     		ldr	r3, [r3, #64]
+ 270 0016 094A     		ldr	r2, .L14+4
+ 271 0018 23F00073 		bic	r3, r3, #33554432
+ 272 001c 1364     		str	r3, [r2, #64]
+ 107:Core/Src/can.c **** 
+ 108:Core/Src/can.c ****     /**CAN1 GPIO Configuration
+ 109:Core/Src/can.c ****     PB8     ------> CAN1_RX
+ 110:Core/Src/can.c ****     PB9     ------> CAN1_TX
+ 111:Core/Src/can.c ****     */
+ 112:Core/Src/can.c ****     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_8|GPIO_PIN_9);
+ 273              		.loc 1 112 5
+ 274 001e 4FF44071 		mov	r1, #768
+ 275 0022 0748     		ldr	r0, .L14+8
+ 276 0024 FFF7FEFF 		bl	HAL_GPIO_DeInit
+ 113:Core/Src/can.c **** 
+ 114:Core/Src/can.c ****     /* CAN1 interrupt Deinit */
+ 115:Core/Src/can.c ****     HAL_NVIC_DisableIRQ(CAN1_RX0_IRQn);
+ 277              		.loc 1 115 5
+ 278 0028 1420     		movs	r0, #20
+ 279 002a FFF7FEFF 		bl	HAL_NVIC_DisableIRQ
+ 280              	.L13:
+ 116:Core/Src/can.c ****   /* USER CODE BEGIN CAN1_MspDeInit 1 */
+ 117:Core/Src/can.c **** 
+ 118:Core/Src/can.c ****   /* USER CODE END CAN1_MspDeInit 1 */
+ 119:Core/Src/can.c ****   }
+ 120:Core/Src/can.c **** }
+ 281              		.loc 1 120 1
+ 282 002e 00BF     		nop
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 8
+
+
+ 283 0030 0837     		adds	r7, r7, #8
+ 284              	.LCFI10:
+ 285              		.cfi_def_cfa_offset 8
+ 286 0032 BD46     		mov	sp, r7
+ 287              	.LCFI11:
+ 288              		.cfi_def_cfa_register 13
+ 289              		@ sp needed
+ 290 0034 80BD     		pop	{r7, pc}
+ 291              	.L15:
+ 292 0036 00BF     		.align	2
+ 293              	.L14:
+ 294 0038 00640040 		.word	1073767424
+ 295 003c 00380240 		.word	1073887232
+ 296 0040 00040240 		.word	1073873920
+ 297              		.cfi_endproc
+ 298              	.LFE241:
+ 300              		.section	.text.can_rx_init,"ax",%progbits
+ 301              		.align	1
+ 302              		.global	can_rx_init
+ 303              		.syntax unified
+ 304              		.thumb
+ 305              		.thumb_func
+ 307              	can_rx_init:
+ 308              	.LFB242:
+ 121:Core/Src/can.c **** 
+ 122:Core/Src/can.c **** /* USER CODE BEGIN 1 */
+ 123:Core/Src/can.c **** 
+ 124:Core/Src/can.c **** void can_rx_init(CANRxMessage *msg){
+ 309              		.loc 1 124 36
+ 310              		.cfi_startproc
+ 311              		@ args = 0, pretend = 0, frame = 8
+ 312              		@ frame_needed = 1, uses_anonymous_args = 0
+ 313 0000 80B5     		push	{r7, lr}
+ 314              	.LCFI12:
+ 315              		.cfi_def_cfa_offset 8
+ 316              		.cfi_offset 7, -8
+ 317              		.cfi_offset 14, -4
+ 318 0002 82B0     		sub	sp, sp, #8
+ 319              	.LCFI13:
+ 320              		.cfi_def_cfa_offset 16
+ 321 0004 00AF     		add	r7, sp, #0
+ 322              	.LCFI14:
+ 323              		.cfi_def_cfa_register 7
+ 324 0006 7860     		str	r0, [r7, #4]
+ 125:Core/Src/can.c **** 	msg->filter.FilterFIFOAssignment=CAN_FILTER_FIFO0; 	// set fifo assignment
+ 325              		.loc 1 125 34
+ 326 0008 7B68     		ldr	r3, [r7, #4]
+ 327 000a 0022     		movs	r2, #0
+ 328 000c 9A63     		str	r2, [r3, #56]
+ 126:Core/Src/can.c **** 	msg->filter.FilterIdHigh=CAN_ID<<5; 				// CAN ID
+ 329              		.loc 1 126 27
+ 330 000e 114B     		ldr	r3, .L17
+ 331 0010 5B68     		ldr	r3, [r3, #4]
+ 332              		.loc 1 126 33
+ 333 0012 5B01     		lsls	r3, r3, #5
+ 334 0014 1A46     		mov	r2, r3
+ 335              		.loc 1 126 26
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 9
+
+
+ 336 0016 7B68     		ldr	r3, [r7, #4]
+ 337 0018 9A62     		str	r2, [r3, #40]
+ 127:Core/Src/can.c **** 	msg->filter.FilterIdLow=0x0;
+ 338              		.loc 1 127 25
+ 339 001a 7B68     		ldr	r3, [r7, #4]
+ 340 001c 0022     		movs	r2, #0
+ 341 001e DA62     		str	r2, [r3, #44]
+ 128:Core/Src/can.c **** 	msg->filter.FilterMaskIdHigh=0xFFF;
+ 342              		.loc 1 128 30
+ 343 0020 7B68     		ldr	r3, [r7, #4]
+ 344 0022 40F6FF72 		movw	r2, #4095
+ 345 0026 1A63     		str	r2, [r3, #48]
+ 129:Core/Src/can.c **** 	msg->filter.FilterMaskIdLow=0;
+ 346              		.loc 1 129 29
+ 347 0028 7B68     		ldr	r3, [r7, #4]
+ 348 002a 0022     		movs	r2, #0
+ 349 002c 5A63     		str	r2, [r3, #52]
+ 130:Core/Src/can.c **** 	msg->filter.FilterMode = CAN_FILTERMODE_IDMASK;
+ 350              		.loc 1 130 25
+ 351 002e 7B68     		ldr	r3, [r7, #4]
+ 352 0030 0022     		movs	r2, #0
+ 353 0032 1A64     		str	r2, [r3, #64]
+ 131:Core/Src/can.c **** 	msg->filter.FilterScale=CAN_FILTERSCALE_32BIT;
+ 354              		.loc 1 131 25
+ 355 0034 7B68     		ldr	r3, [r7, #4]
+ 356 0036 0122     		movs	r2, #1
+ 357 0038 5A64     		str	r2, [r3, #68]
+ 132:Core/Src/can.c **** 	msg->filter.FilterActivation=ENABLE;
+ 358              		.loc 1 132 30
+ 359 003a 7B68     		ldr	r3, [r7, #4]
+ 360 003c 0122     		movs	r2, #1
+ 361 003e 9A64     		str	r2, [r3, #72]
+ 133:Core/Src/can.c **** 	HAL_CAN_ConfigFilter(&CAN_H, &msg->filter);
+ 362              		.loc 1 133 31
+ 363 0040 7B68     		ldr	r3, [r7, #4]
+ 364 0042 2833     		adds	r3, r3, #40
+ 365              		.loc 1 133 2
+ 366 0044 1946     		mov	r1, r3
+ 367 0046 0448     		ldr	r0, .L17+4
+ 368 0048 FFF7FEFF 		bl	HAL_CAN_ConfigFilter
+ 134:Core/Src/can.c **** }
+ 369              		.loc 1 134 1
+ 370 004c 00BF     		nop
+ 371 004e 0837     		adds	r7, r7, #8
+ 372              	.LCFI15:
+ 373              		.cfi_def_cfa_offset 8
+ 374 0050 BD46     		mov	sp, r7
+ 375              	.LCFI16:
+ 376              		.cfi_def_cfa_register 13
+ 377              		@ sp needed
+ 378 0052 80BD     		pop	{r7, pc}
+ 379              	.L18:
+ 380              		.align	2
+ 381              	.L17:
+ 382 0054 00000000 		.word	__int_reg
+ 383 0058 00000000 		.word	hcan1
+ 384              		.cfi_endproc
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 10
+
+
+ 385              	.LFE242:
+ 387              		.section	.text.can_tx_init,"ax",%progbits
+ 388              		.align	1
+ 389              		.global	can_tx_init
+ 390              		.syntax unified
+ 391              		.thumb
+ 392              		.thumb_func
+ 394              	can_tx_init:
+ 395              	.LFB243:
+ 135:Core/Src/can.c **** 
+ 136:Core/Src/can.c **** void can_tx_init(CANTxMessage *msg){
+ 396              		.loc 1 136 36
+ 397              		.cfi_startproc
+ 398              		@ args = 0, pretend = 0, frame = 8
+ 399              		@ frame_needed = 1, uses_anonymous_args = 0
+ 400              		@ link register save eliminated.
+ 401 0000 80B4     		push	{r7}
+ 402              	.LCFI17:
+ 403              		.cfi_def_cfa_offset 4
+ 404              		.cfi_offset 7, -4
+ 405 0002 83B0     		sub	sp, sp, #12
+ 406              	.LCFI18:
+ 407              		.cfi_def_cfa_offset 16
+ 408 0004 00AF     		add	r7, sp, #0
+ 409              	.LCFI19:
+ 410              		.cfi_def_cfa_register 7
+ 411 0006 7860     		str	r0, [r7, #4]
+ 137:Core/Src/can.c **** 	msg->tx_header.DLC = 7; 			// message size of 7 byte
+ 412              		.loc 1 137 21
+ 413 0008 7B68     		ldr	r3, [r7, #4]
+ 414 000a 0722     		movs	r2, #7
+ 415 000c 9A61     		str	r2, [r3, #24]
+ 138:Core/Src/can.c **** 	msg->tx_header.IDE=CAN_ID_STD; 		// set identifier to standard
+ 416              		.loc 1 138 20
+ 417 000e 7B68     		ldr	r3, [r7, #4]
+ 418 0010 0022     		movs	r2, #0
+ 419 0012 1A61     		str	r2, [r3, #16]
+ 139:Core/Src/can.c **** 	msg->tx_header.RTR=CAN_RTR_DATA; 	// set data type to remote transmission request?
+ 420              		.loc 1 139 20
+ 421 0014 7B68     		ldr	r3, [r7, #4]
+ 422 0016 0022     		movs	r2, #0
+ 423 0018 5A61     		str	r2, [r3, #20]
+ 140:Core/Src/can.c **** 	msg->tx_header.StdId = CAN_MASTER;  // recipient CAN ID
+ 424              		.loc 1 140 25
+ 425 001a 054B     		ldr	r3, .L20
+ 426 001c 9B68     		ldr	r3, [r3, #8]
+ 427 001e 1A46     		mov	r2, r3
+ 428              		.loc 1 140 23
+ 429 0020 7B68     		ldr	r3, [r7, #4]
+ 430 0022 9A60     		str	r2, [r3, #8]
+ 141:Core/Src/can.c **** }
+ 431              		.loc 1 141 1
+ 432 0024 00BF     		nop
+ 433 0026 0C37     		adds	r7, r7, #12
+ 434              	.LCFI20:
+ 435              		.cfi_def_cfa_offset 4
+ 436 0028 BD46     		mov	sp, r7
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 11
+
+
+ 437              	.LCFI21:
+ 438              		.cfi_def_cfa_register 13
+ 439              		@ sp needed
+ 440 002a 5DF8047B 		ldr	r7, [sp], #4
+ 441              	.LCFI22:
+ 442              		.cfi_restore 7
+ 443              		.cfi_def_cfa_offset 0
+ 444 002e 7047     		bx	lr
+ 445              	.L21:
+ 446              		.align	2
+ 447              	.L20:
+ 448 0030 00000000 		.word	__int_reg
+ 449              		.cfi_endproc
+ 450              	.LFE243:
+ 452              		.section	.text.pack_reply,"ax",%progbits
+ 453              		.align	1
+ 454              		.global	pack_reply
+ 455              		.syntax unified
+ 456              		.thumb
+ 457              		.thumb_func
+ 459              	pack_reply:
+ 460              	.LFB244:
+ 142:Core/Src/can.c **** 
+ 143:Core/Src/can.c **** /// CAN Reply Packet Structure ///
+ 144:Core/Src/can.c **** /// 16 bit position, between -4*pi and 4*pi
+ 145:Core/Src/can.c **** /// 12 bit velocity, between -30 and + 30 rad/s
+ 146:Core/Src/can.c **** /// 12 bit current, between -40 and 40;
+ 147:Core/Src/can.c **** /// CAN Packet is 5 8-bit words
+ 148:Core/Src/can.c **** /// Formatted as follows.  For each quantity, bit 0 is LSB
+ 149:Core/Src/can.c **** /// 0: [position[15-8]]
+ 150:Core/Src/can.c **** /// 1: [position[7-0]]
+ 151:Core/Src/can.c **** /// 2: [velocity[11-4]]
+ 152:Core/Src/can.c **** /// 3: [velocity[3-0], current[11-8]]
+ 153:Core/Src/can.c **** /// 4: [current[7-0]]
+ 154:Core/Src/can.c **** void pack_reply(CANTxMessage *msg, uint8_t id, float p, float v, float t, float vb){
+ 461              		.loc 1 154 84
+ 462              		.cfi_startproc
+ 463              		@ args = 0, pretend = 0, frame = 40
+ 464              		@ frame_needed = 1, uses_anonymous_args = 0
+ 465 0000 80B5     		push	{r7, lr}
+ 466              	.LCFI23:
+ 467              		.cfi_def_cfa_offset 8
+ 468              		.cfi_offset 7, -8
+ 469              		.cfi_offset 14, -4
+ 470 0002 8AB0     		sub	sp, sp, #40
+ 471              	.LCFI24:
+ 472              		.cfi_def_cfa_offset 48
+ 473 0004 00AF     		add	r7, sp, #0
+ 474              	.LCFI25:
+ 475              		.cfi_def_cfa_register 7
+ 476 0006 7861     		str	r0, [r7, #20]
+ 477 0008 0B46     		mov	r3, r1
+ 478 000a 87ED030A 		vstr.32	s0, [r7, #12]
+ 479 000e C7ED020A 		vstr.32	s1, [r7, #8]
+ 480 0012 87ED011A 		vstr.32	s2, [r7, #4]
+ 481 0016 C7ED001A 		vstr.32	s3, [r7]
+ 482 001a FB74     		strb	r3, [r7, #19]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 12
+
+
+ 155:Core/Src/can.c ****     int p_int = float_to_uint(p, P_MIN, P_MAX, 16);
+ 483              		.loc 1 155 17
+ 484 001c 3F4B     		ldr	r3, .L23
+ 485 001e D3ED137A 		vldr.32	s15, [r3, #76]
+ 486 0022 3E4B     		ldr	r3, .L23
+ 487 0024 93ED147A 		vldr.32	s14, [r3, #80]
+ 488 0028 1020     		movs	r0, #16
+ 489 002a B0EE471A 		vmov.f32	s2, s14
+ 490 002e F0EE670A 		vmov.f32	s1, s15
+ 491 0032 97ED030A 		vldr.32	s0, [r7, #12]
+ 492 0036 FFF7FEFF 		bl	float_to_uint
+ 493 003a 7862     		str	r0, [r7, #36]
+ 156:Core/Src/can.c ****     int v_int = float_to_uint(v, V_MIN, V_MAX, 12);
+ 494              		.loc 1 156 17
+ 495 003c 374B     		ldr	r3, .L23
+ 496 003e D3ED157A 		vldr.32	s15, [r3, #84]
+ 497 0042 364B     		ldr	r3, .L23
+ 498 0044 93ED167A 		vldr.32	s14, [r3, #88]
+ 499 0048 0C20     		movs	r0, #12
+ 500 004a B0EE471A 		vmov.f32	s2, s14
+ 501 004e F0EE670A 		vmov.f32	s1, s15
+ 502 0052 97ED020A 		vldr.32	s0, [r7, #8]
+ 503 0056 FFF7FEFF 		bl	float_to_uint
+ 504 005a 3862     		str	r0, [r7, #32]
+ 157:Core/Src/can.c ****     int t_int = float_to_uint(t, -(I_MAX+SENSE_BUFFER)*KT*GR, (I_MAX+SENSE_BUFFER)*KT*GR, 12);
+ 505              		.loc 1 157 36
+ 506 005c 2F4B     		ldr	r3, .L23
+ 507 005e D3ED037A 		vldr.32	s15, [r3, #12]
+ 508              		.loc 1 157 41
+ 509 0062 9FED2F7A 		vldr.32	s14, .L23+4
+ 510 0066 77EE877A 		vadd.f32	s15, s15, s14
+ 511              		.loc 1 157 34
+ 512 006a B1EE677A 		vneg.f32	s14, s15
+ 513              		.loc 1 157 56
+ 514 006e 2B4B     		ldr	r3, .L23
+ 515 0070 D3ED0E7A 		vldr.32	s15, [r3, #56]
+ 516              		.loc 1 157 55
+ 517 0074 27EE277A 		vmul.f32	s14, s14, s15
+ 518              		.loc 1 157 59
+ 519 0078 284B     		ldr	r3, .L23
+ 520 007a D3ED117A 		vldr.32	s15, [r3, #68]
+ 521              		.loc 1 157 17
+ 522 007e 67EE276A 		vmul.f32	s13, s14, s15
+ 523              		.loc 1 157 64
+ 524 0082 264B     		ldr	r3, .L23
+ 525 0084 D3ED037A 		vldr.32	s15, [r3, #12]
+ 526              		.loc 1 157 69
+ 527 0088 9FED257A 		vldr.32	s14, .L23+4
+ 528 008c 37EE877A 		vadd.f32	s14, s15, s14
+ 529              		.loc 1 157 84
+ 530 0090 224B     		ldr	r3, .L23
+ 531 0092 D3ED0E7A 		vldr.32	s15, [r3, #56]
+ 532              		.loc 1 157 83
+ 533 0096 27EE277A 		vmul.f32	s14, s14, s15
+ 534              		.loc 1 157 87
+ 535 009a 204B     		ldr	r3, .L23
+ 536 009c D3ED117A 		vldr.32	s15, [r3, #68]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 13
+
+
+ 537              		.loc 1 157 17
+ 538 00a0 67EE277A 		vmul.f32	s15, s14, s15
+ 539 00a4 0C20     		movs	r0, #12
+ 540 00a6 B0EE671A 		vmov.f32	s2, s15
+ 541 00aa F0EE660A 		vmov.f32	s1, s13
+ 542 00ae 97ED010A 		vldr.32	s0, [r7, #4]
+ 543 00b2 FFF7FEFF 		bl	float_to_uint
+ 544 00b6 F861     		str	r0, [r7, #28]
+ 158:Core/Src/can.c ****     int vb_int = float_to_uint(vb, VB_MIN, VB_MAX, 8);
+ 545              		.loc 1 158 18
+ 546 00b8 0820     		movs	r0, #8
+ 547 00ba 9FED1A1A 		vldr.32	s2, .L23+8
+ 548 00be DFED180A 		vldr.32	s1, .L23+4
+ 549 00c2 97ED000A 		vldr.32	s0, [r7]
+ 550 00c6 FFF7FEFF 		bl	float_to_uint
+ 551 00ca B861     		str	r0, [r7, #24]
+ 159:Core/Src/can.c ****     msg->data[0] = id;
+ 552              		.loc 1 159 18
+ 553 00cc 7B69     		ldr	r3, [r7, #20]
+ 554 00ce FA7C     		ldrb	r2, [r7, #19]
+ 555 00d0 5A70     		strb	r2, [r3, #1]
+ 160:Core/Src/can.c ****     msg->data[1] = p_int>>8;
+ 556              		.loc 1 160 25
+ 557 00d2 7B6A     		ldr	r3, [r7, #36]
+ 558 00d4 1B12     		asrs	r3, r3, #8
+ 559              		.loc 1 160 18
+ 560 00d6 DAB2     		uxtb	r2, r3
+ 561 00d8 7B69     		ldr	r3, [r7, #20]
+ 562 00da 9A70     		strb	r2, [r3, #2]
+ 161:Core/Src/can.c ****     msg->data[2] = p_int&0xFF;
+ 563              		.loc 1 161 18
+ 564 00dc 7B6A     		ldr	r3, [r7, #36]
+ 565 00de DAB2     		uxtb	r2, r3
+ 566 00e0 7B69     		ldr	r3, [r7, #20]
+ 567 00e2 DA70     		strb	r2, [r3, #3]
+ 162:Core/Src/can.c ****     msg->data[3] = v_int>>4;
+ 568              		.loc 1 162 25
+ 569 00e4 3B6A     		ldr	r3, [r7, #32]
+ 570 00e6 1B11     		asrs	r3, r3, #4
+ 571              		.loc 1 162 18
+ 572 00e8 DAB2     		uxtb	r2, r3
+ 573 00ea 7B69     		ldr	r3, [r7, #20]
+ 574 00ec 1A71     		strb	r2, [r3, #4]
+ 163:Core/Src/can.c ****     msg->data[4] = ((v_int&0xF)<<4) + (t_int>>8);
+ 575              		.loc 1 163 32
+ 576 00ee 3B6A     		ldr	r3, [r7, #32]
+ 577 00f0 1B01     		lsls	r3, r3, #4
+ 578              		.loc 1 163 37
+ 579 00f2 DAB2     		uxtb	r2, r3
+ 580              		.loc 1 163 45
+ 581 00f4 FB69     		ldr	r3, [r7, #28]
+ 582 00f6 1B12     		asrs	r3, r3, #8
+ 583              		.loc 1 163 37
+ 584 00f8 DBB2     		uxtb	r3, r3
+ 585 00fa 1344     		add	r3, r3, r2
+ 586 00fc DAB2     		uxtb	r2, r3
+ 587              		.loc 1 163 18
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 14
+
+
+ 588 00fe 7B69     		ldr	r3, [r7, #20]
+ 589 0100 5A71     		strb	r2, [r3, #5]
+ 164:Core/Src/can.c ****     msg->data[5] = t_int&0xFF;
+ 590              		.loc 1 164 18
+ 591 0102 FB69     		ldr	r3, [r7, #28]
+ 592 0104 DAB2     		uxtb	r2, r3
+ 593 0106 7B69     		ldr	r3, [r7, #20]
+ 594 0108 9A71     		strb	r2, [r3, #6]
+ 165:Core/Src/can.c ****     msg->data[6] = vb_int;
+ 595              		.loc 1 165 18
+ 596 010a BB69     		ldr	r3, [r7, #24]
+ 597 010c DAB2     		uxtb	r2, r3
+ 598 010e 7B69     		ldr	r3, [r7, #20]
+ 599 0110 DA71     		strb	r2, [r3, #7]
+ 166:Core/Src/can.c ****     }
+ 600              		.loc 1 166 5
+ 601 0112 00BF     		nop
+ 602 0114 2837     		adds	r7, r7, #40
+ 603              	.LCFI26:
+ 604              		.cfi_def_cfa_offset 8
+ 605 0116 BD46     		mov	sp, r7
+ 606              	.LCFI27:
+ 607              		.cfi_def_cfa_register 13
+ 608              		@ sp needed
+ 609 0118 80BD     		pop	{r7, pc}
+ 610              	.L24:
+ 611 011a 00BF     		.align	2
+ 612              	.L23:
+ 613 011c 00000000 		.word	__float_reg
+ 614 0120 00000000 		.word	0
+ 615 0124 00002042 		.word	1109393408
+ 616              		.cfi_endproc
+ 617              	.LFE244:
+ 619              		.section	.text.pack_reply_raw,"ax",%progbits
+ 620              		.align	1
+ 621              		.global	pack_reply_raw
+ 622              		.syntax unified
+ 623              		.thumb
+ 624              		.thumb_func
+ 626              	pack_reply_raw:
+ 627              	.LFB245:
+ 167:Core/Src/can.c **** 
+ 168:Core/Src/can.c **** void pack_reply_raw(CANTxMessage *msg, uint8_t id, uint16_t p, float v, float t, float vb){
+ 628              		.loc 1 168 91
+ 629              		.cfi_startproc
+ 630              		@ args = 0, pretend = 0, frame = 40
+ 631              		@ frame_needed = 1, uses_anonymous_args = 0
+ 632 0000 80B5     		push	{r7, lr}
+ 633              	.LCFI28:
+ 634              		.cfi_def_cfa_offset 8
+ 635              		.cfi_offset 7, -8
+ 636              		.cfi_offset 14, -4
+ 637 0002 8AB0     		sub	sp, sp, #40
+ 638              	.LCFI29:
+ 639              		.cfi_def_cfa_offset 48
+ 640 0004 00AF     		add	r7, sp, #0
+ 641              	.LCFI30:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 15
+
+
+ 642              		.cfi_def_cfa_register 7
+ 643 0006 7861     		str	r0, [r7, #20]
+ 644 0008 0B46     		mov	r3, r1
+ 645 000a 87ED030A 		vstr.32	s0, [r7, #12]
+ 646 000e C7ED020A 		vstr.32	s1, [r7, #8]
+ 647 0012 87ED011A 		vstr.32	s2, [r7, #4]
+ 648 0016 FB74     		strb	r3, [r7, #19]
+ 649 0018 1346     		mov	r3, r2	@ movhi
+ 650 001a 3B82     		strh	r3, [r7, #16]	@ movhi
+ 169:Core/Src/can.c ****     int v_int = float_to_uint(v, V_MIN, V_MAX, 12);
+ 651              		.loc 1 169 17
+ 652 001c 374B     		ldr	r3, .L26
+ 653 001e D3ED157A 		vldr.32	s15, [r3, #84]
+ 654 0022 364B     		ldr	r3, .L26
+ 655 0024 93ED167A 		vldr.32	s14, [r3, #88]
+ 656 0028 0C20     		movs	r0, #12
+ 657 002a B0EE471A 		vmov.f32	s2, s14
+ 658 002e F0EE670A 		vmov.f32	s1, s15
+ 659 0032 97ED030A 		vldr.32	s0, [r7, #12]
+ 660 0036 FFF7FEFF 		bl	float_to_uint
+ 661 003a 7862     		str	r0, [r7, #36]
+ 170:Core/Src/can.c ****     int t_int = float_to_uint(t, -(I_MAX+SENSE_BUFFER)*KT*GR, (I_MAX+SENSE_BUFFER)*KT*GR, 12);
+ 662              		.loc 1 170 36
+ 663 003c 2F4B     		ldr	r3, .L26
+ 664 003e D3ED037A 		vldr.32	s15, [r3, #12]
+ 665              		.loc 1 170 41
+ 666 0042 9FED2F7A 		vldr.32	s14, .L26+4
+ 667 0046 77EE877A 		vadd.f32	s15, s15, s14
+ 668              		.loc 1 170 34
+ 669 004a B1EE677A 		vneg.f32	s14, s15
+ 670              		.loc 1 170 56
+ 671 004e 2B4B     		ldr	r3, .L26
+ 672 0050 D3ED0E7A 		vldr.32	s15, [r3, #56]
+ 673              		.loc 1 170 55
+ 674 0054 27EE277A 		vmul.f32	s14, s14, s15
+ 675              		.loc 1 170 59
+ 676 0058 284B     		ldr	r3, .L26
+ 677 005a D3ED117A 		vldr.32	s15, [r3, #68]
+ 678              		.loc 1 170 17
+ 679 005e 67EE276A 		vmul.f32	s13, s14, s15
+ 680              		.loc 1 170 64
+ 681 0062 264B     		ldr	r3, .L26
+ 682 0064 D3ED037A 		vldr.32	s15, [r3, #12]
+ 683              		.loc 1 170 69
+ 684 0068 9FED257A 		vldr.32	s14, .L26+4
+ 685 006c 37EE877A 		vadd.f32	s14, s15, s14
+ 686              		.loc 1 170 84
+ 687 0070 224B     		ldr	r3, .L26
+ 688 0072 D3ED0E7A 		vldr.32	s15, [r3, #56]
+ 689              		.loc 1 170 83
+ 690 0076 27EE277A 		vmul.f32	s14, s14, s15
+ 691              		.loc 1 170 87
+ 692 007a 204B     		ldr	r3, .L26
+ 693 007c D3ED117A 		vldr.32	s15, [r3, #68]
+ 694              		.loc 1 170 17
+ 695 0080 67EE277A 		vmul.f32	s15, s14, s15
+ 696 0084 0C20     		movs	r0, #12
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 16
+
+
+ 697 0086 B0EE671A 		vmov.f32	s2, s15
+ 698 008a F0EE660A 		vmov.f32	s1, s13
+ 699 008e 97ED020A 		vldr.32	s0, [r7, #8]
+ 700 0092 FFF7FEFF 		bl	float_to_uint
+ 701 0096 3862     		str	r0, [r7, #32]
+ 171:Core/Src/can.c ****     int vb_int = float_to_uint(vb, VB_MIN, VB_MAX, 8);
+ 702              		.loc 1 171 18
+ 703 0098 0820     		movs	r0, #8
+ 704 009a 9FED1A1A 		vldr.32	s2, .L26+8
+ 705 009e DFED180A 		vldr.32	s1, .L26+4
+ 706 00a2 97ED010A 		vldr.32	s0, [r7, #4]
+ 707 00a6 FFF7FEFF 		bl	float_to_uint
+ 708 00aa F861     		str	r0, [r7, #28]
+ 172:Core/Src/can.c ****     msg->data[0] = id;
+ 709              		.loc 1 172 18
+ 710 00ac 7B69     		ldr	r3, [r7, #20]
+ 711 00ae FA7C     		ldrb	r2, [r7, #19]
+ 712 00b0 5A70     		strb	r2, [r3, #1]
+ 173:Core/Src/can.c ****     msg->data[1] = p>>8;
+ 713              		.loc 1 173 18
+ 714 00b2 3B8A     		ldrh	r3, [r7, #16]
+ 715 00b4 1B0A     		lsrs	r3, r3, #8
+ 716 00b6 9BB2     		uxth	r3, r3
+ 717 00b8 DAB2     		uxtb	r2, r3
+ 718 00ba 7B69     		ldr	r3, [r7, #20]
+ 719 00bc 9A70     		strb	r2, [r3, #2]
+ 174:Core/Src/can.c ****     msg->data[2] = p&0xFF;
+ 720              		.loc 1 174 18
+ 721 00be 3B8A     		ldrh	r3, [r7, #16]	@ movhi
+ 722 00c0 DAB2     		uxtb	r2, r3
+ 723 00c2 7B69     		ldr	r3, [r7, #20]
+ 724 00c4 DA70     		strb	r2, [r3, #3]
+ 175:Core/Src/can.c ****     msg->data[3] = v_int>>4;
+ 725              		.loc 1 175 25
+ 726 00c6 7B6A     		ldr	r3, [r7, #36]
+ 727 00c8 1B11     		asrs	r3, r3, #4
+ 728              		.loc 1 175 18
+ 729 00ca DAB2     		uxtb	r2, r3
+ 730 00cc 7B69     		ldr	r3, [r7, #20]
+ 731 00ce 1A71     		strb	r2, [r3, #4]
+ 176:Core/Src/can.c ****     msg->data[4] = ((v_int&0xF)<<4) + (t_int>>8);
+ 732              		.loc 1 176 32
+ 733 00d0 7B6A     		ldr	r3, [r7, #36]
+ 734 00d2 1B01     		lsls	r3, r3, #4
+ 735              		.loc 1 176 37
+ 736 00d4 DAB2     		uxtb	r2, r3
+ 737              		.loc 1 176 45
+ 738 00d6 3B6A     		ldr	r3, [r7, #32]
+ 739 00d8 1B12     		asrs	r3, r3, #8
+ 740              		.loc 1 176 37
+ 741 00da DBB2     		uxtb	r3, r3
+ 742 00dc 1344     		add	r3, r3, r2
+ 743 00de DAB2     		uxtb	r2, r3
+ 744              		.loc 1 176 18
+ 745 00e0 7B69     		ldr	r3, [r7, #20]
+ 746 00e2 5A71     		strb	r2, [r3, #5]
+ 177:Core/Src/can.c ****     msg->data[5] = t_int&0xFF;
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 17
+
+
+ 747              		.loc 1 177 18
+ 748 00e4 3B6A     		ldr	r3, [r7, #32]
+ 749 00e6 DAB2     		uxtb	r2, r3
+ 750 00e8 7B69     		ldr	r3, [r7, #20]
+ 751 00ea 9A71     		strb	r2, [r3, #6]
+ 178:Core/Src/can.c ****     msg->data[6] = vb_int;
+ 752              		.loc 1 178 18
+ 753 00ec FB69     		ldr	r3, [r7, #28]
+ 754 00ee DAB2     		uxtb	r2, r3
+ 755 00f0 7B69     		ldr	r3, [r7, #20]
+ 756 00f2 DA71     		strb	r2, [r3, #7]
+ 179:Core/Src/can.c ****     }
+ 757              		.loc 1 179 5
+ 758 00f4 00BF     		nop
+ 759 00f6 2837     		adds	r7, r7, #40
+ 760              	.LCFI31:
+ 761              		.cfi_def_cfa_offset 8
+ 762 00f8 BD46     		mov	sp, r7
+ 763              	.LCFI32:
+ 764              		.cfi_def_cfa_register 13
+ 765              		@ sp needed
+ 766 00fa 80BD     		pop	{r7, pc}
+ 767              	.L27:
+ 768              		.align	2
+ 769              	.L26:
+ 770 00fc 00000000 		.word	__float_reg
+ 771 0100 00000000 		.word	0
+ 772 0104 00002042 		.word	1109393408
+ 773              		.cfi_endproc
+ 774              	.LFE245:
+ 776              		.section	.text.unpack_cmd,"ax",%progbits
+ 777              		.align	1
+ 778              		.global	unpack_cmd
+ 779              		.syntax unified
+ 780              		.thumb
+ 781              		.thumb_func
+ 783              	unpack_cmd:
+ 784              	.LFB246:
+ 180:Core/Src/can.c **** 
+ 181:Core/Src/can.c **** /// CAN Command Packet Structure ///
+ 182:Core/Src/can.c **** /// 16 bit position command, between -4*pi and 4*pi
+ 183:Core/Src/can.c **** /// 12 bit velocity command, between -30 and + 30 rad/s
+ 184:Core/Src/can.c **** /// 12 bit kp, between 0 and 500 N-m/rad
+ 185:Core/Src/can.c **** /// 12 bit kd, between 0 and 100 N-m*s/rad
+ 186:Core/Src/can.c **** /// 12 bit feed forward torque, between -18 and 18 N-m
+ 187:Core/Src/can.c **** /// CAN Packet is 8 8-bit words
+ 188:Core/Src/can.c **** /// Formatted as follows.  For each quantity, bit 0 is LSB
+ 189:Core/Src/can.c **** /// 0: [position[15-8]]
+ 190:Core/Src/can.c **** /// 1: [position[7-0]]
+ 191:Core/Src/can.c **** /// 2: [velocity[11-4]]
+ 192:Core/Src/can.c **** /// 3: [velocity[3-0], kp[11-8]]
+ 193:Core/Src/can.c **** /// 4: [kp[7-0]]
+ 194:Core/Src/can.c **** /// 5: [kd[11-4]]
+ 195:Core/Src/can.c **** /// 6: [kd[3-0], torque[11-8]]
+ 196:Core/Src/can.c **** /// 7: [torque[7-0]]
+ 197:Core/Src/can.c **** void unpack_cmd(CANRxMessage msg, float *commands){// ControllerStruct * controller){
+ 785              		.loc 1 197 51
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 18
+
+
+ 786              		.cfi_startproc
+ 787              		@ args = 84, pretend = 16, frame = 24
+ 788              		@ frame_needed = 1, uses_anonymous_args = 0
+ 789 0000 84B0     		sub	sp, sp, #16
+ 790              	.LCFI33:
+ 791              		.cfi_def_cfa_offset 16
+ 792 0002 90B5     		push	{r4, r7, lr}
+ 793              	.LCFI34:
+ 794              		.cfi_def_cfa_offset 28
+ 795              		.cfi_offset 4, -28
+ 796              		.cfi_offset 7, -24
+ 797              		.cfi_offset 14, -20
+ 798 0004 87B0     		sub	sp, sp, #28
+ 799              	.LCFI35:
+ 800              		.cfi_def_cfa_offset 56
+ 801 0006 00AF     		add	r7, sp, #0
+ 802              	.LCFI36:
+ 803              		.cfi_def_cfa_register 7
+ 804 0008 07F12804 		add	r4, r7, #40
+ 805 000c 84E80F00 		stm	r4, {r0, r1, r2, r3}
+ 198:Core/Src/can.c ****         int p_int = (msg.data[0]<<8)|msg.data[1];
+ 806              		.loc 1 198 30
+ 807 0010 97F82930 		ldrb	r3, [r7, #41]	@ zero_extendqisi2
+ 808              		.loc 1 198 33
+ 809 0014 1B02     		lsls	r3, r3, #8
+ 810              		.loc 1 198 46
+ 811 0016 97F82A20 		ldrb	r2, [r7, #42]	@ zero_extendqisi2
+ 812              		.loc 1 198 13
+ 813 001a 1343     		orrs	r3, r3, r2
+ 814 001c 7B61     		str	r3, [r7, #20]
+ 199:Core/Src/can.c ****         int v_int = (msg.data[2]<<4)|(msg.data[3]>>4);
+ 815              		.loc 1 199 30
+ 816 001e 97F82B30 		ldrb	r3, [r7, #43]	@ zero_extendqisi2
+ 817              		.loc 1 199 33
+ 818 0022 1B01     		lsls	r3, r3, #4
+ 819              		.loc 1 199 47
+ 820 0024 97F82C20 		ldrb	r2, [r7, #44]	@ zero_extendqisi2
+ 821              		.loc 1 199 50
+ 822 0028 1209     		lsrs	r2, r2, #4
+ 823 002a D2B2     		uxtb	r2, r2
+ 824              		.loc 1 199 13
+ 825 002c 1343     		orrs	r3, r3, r2
+ 826 002e 3B61     		str	r3, [r7, #16]
+ 200:Core/Src/can.c ****         int kp_int = ((msg.data[3]&0xF)<<8)|msg.data[4];
+ 827              		.loc 1 200 32
+ 828 0030 97F82C30 		ldrb	r3, [r7, #44]	@ zero_extendqisi2
+ 829              		.loc 1 200 40
+ 830 0034 1B02     		lsls	r3, r3, #8
+ 831 0036 03F47063 		and	r3, r3, #3840
+ 832              		.loc 1 200 53
+ 833 003a 97F82D20 		ldrb	r2, [r7, #45]	@ zero_extendqisi2
+ 834              		.loc 1 200 13
+ 835 003e 1343     		orrs	r3, r3, r2
+ 836 0040 FB60     		str	r3, [r7, #12]
+ 201:Core/Src/can.c ****         int kd_int = (msg.data[5]<<4)|(msg.data[6]>>4);
+ 837              		.loc 1 201 31
+ 838 0042 97F82E30 		ldrb	r3, [r7, #46]	@ zero_extendqisi2
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 19
+
+
+ 839              		.loc 1 201 34
+ 840 0046 1B01     		lsls	r3, r3, #4
+ 841              		.loc 1 201 48
+ 842 0048 97F82F20 		ldrb	r2, [r7, #47]	@ zero_extendqisi2
+ 843              		.loc 1 201 51
+ 844 004c 1209     		lsrs	r2, r2, #4
+ 845 004e D2B2     		uxtb	r2, r2
+ 846              		.loc 1 201 13
+ 847 0050 1343     		orrs	r3, r3, r2
+ 848 0052 BB60     		str	r3, [r7, #8]
+ 202:Core/Src/can.c ****         int t_int = ((msg.data[6]&0xF)<<8)|msg.data[7];
+ 849              		.loc 1 202 31
+ 850 0054 97F82F30 		ldrb	r3, [r7, #47]	@ zero_extendqisi2
+ 851              		.loc 1 202 39
+ 852 0058 1B02     		lsls	r3, r3, #8
+ 853 005a 03F47063 		and	r3, r3, #3840
+ 854              		.loc 1 202 52
+ 855 005e 97F83020 		ldrb	r2, [r7, #48]	@ zero_extendqisi2
+ 856              		.loc 1 202 13
+ 857 0062 1343     		orrs	r3, r3, r2
+ 858 0064 7B60     		str	r3, [r7, #4]
+ 203:Core/Src/can.c **** 
+ 204:Core/Src/can.c ****         commands[0] = uint_to_float(p_int, P_MIN, P_MAX, 16);
+ 859              		.loc 1 204 23
+ 860 0066 3E4B     		ldr	r3, .L29
+ 861 0068 D3ED137A 		vldr.32	s15, [r3, #76]
+ 862 006c 3C4B     		ldr	r3, .L29
+ 863 006e 93ED147A 		vldr.32	s14, [r3, #80]
+ 864 0072 1021     		movs	r1, #16
+ 865 0074 F0EE470A 		vmov.f32	s1, s14
+ 866 0078 B0EE670A 		vmov.f32	s0, s15
+ 867 007c 7869     		ldr	r0, [r7, #20]
+ 868 007e FFF7FEFF 		bl	uint_to_float
+ 869 0082 F0EE407A 		vmov.f32	s15, s0
+ 870              		.loc 1 204 21
+ 871 0086 BB6F     		ldr	r3, [r7, #120]
+ 872 0088 C3ED007A 		vstr.32	s15, [r3]
+ 205:Core/Src/can.c ****         commands[1] = uint_to_float(v_int, V_MIN, V_MAX, 12);
+ 873              		.loc 1 205 23
+ 874 008c 344B     		ldr	r3, .L29
+ 875 008e D3ED157A 		vldr.32	s15, [r3, #84]
+ 876 0092 334B     		ldr	r3, .L29
+ 877 0094 93ED167A 		vldr.32	s14, [r3, #88]
+ 878              		.loc 1 205 17
+ 879 0098 BB6F     		ldr	r3, [r7, #120]
+ 880 009a 1C1D     		adds	r4, r3, #4
+ 881              		.loc 1 205 23
+ 882 009c 0C21     		movs	r1, #12
+ 883 009e F0EE470A 		vmov.f32	s1, s14
+ 884 00a2 B0EE670A 		vmov.f32	s0, s15
+ 885 00a6 3869     		ldr	r0, [r7, #16]
+ 886 00a8 FFF7FEFF 		bl	uint_to_float
+ 887 00ac F0EE407A 		vmov.f32	s15, s0
+ 888              		.loc 1 205 21
+ 889 00b0 C4ED007A 		vstr.32	s15, [r4]
+ 206:Core/Src/can.c ****         commands[2] = uint_to_float(kp_int, KP_MIN, KP_MAX, 12);
+ 890              		.loc 1 206 23
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 20
+
+
+ 891 00b4 2A4B     		ldr	r3, .L29
+ 892 00b6 D3ED177A 		vldr.32	s15, [r3, #92]
+ 893              		.loc 1 206 17
+ 894 00ba BB6F     		ldr	r3, [r7, #120]
+ 895 00bc 03F10804 		add	r4, r3, #8
+ 896              		.loc 1 206 23
+ 897 00c0 0C21     		movs	r1, #12
+ 898 00c2 F0EE670A 		vmov.f32	s1, s15
+ 899 00c6 9FED270A 		vldr.32	s0, .L29+4
+ 900 00ca F868     		ldr	r0, [r7, #12]
+ 901 00cc FFF7FEFF 		bl	uint_to_float
+ 902 00d0 F0EE407A 		vmov.f32	s15, s0
+ 903              		.loc 1 206 21
+ 904 00d4 C4ED007A 		vstr.32	s15, [r4]
+ 207:Core/Src/can.c ****         commands[3] = uint_to_float(kd_int, KD_MIN, KD_MAX, 12);
+ 905              		.loc 1 207 23
+ 906 00d8 214B     		ldr	r3, .L29
+ 907 00da D3ED187A 		vldr.32	s15, [r3, #96]
+ 908              		.loc 1 207 17
+ 909 00de BB6F     		ldr	r3, [r7, #120]
+ 910 00e0 03F10C04 		add	r4, r3, #12
+ 911              		.loc 1 207 23
+ 912 00e4 0C21     		movs	r1, #12
+ 913 00e6 F0EE670A 		vmov.f32	s1, s15
+ 914 00ea 9FED1E0A 		vldr.32	s0, .L29+4
+ 915 00ee B868     		ldr	r0, [r7, #8]
+ 916 00f0 FFF7FEFF 		bl	uint_to_float
+ 917 00f4 F0EE407A 		vmov.f32	s15, s0
+ 918              		.loc 1 207 21
+ 919 00f8 C4ED007A 		vstr.32	s15, [r4]
+ 208:Core/Src/can.c ****         commands[4] = uint_to_float(t_int, -I_MAX*KT*GR, I_MAX*KT*GR, 12);
+ 920              		.loc 1 208 45
+ 921 00fc 184B     		ldr	r3, .L29
+ 922 00fe D3ED037A 		vldr.32	s15, [r3, #12]
+ 923              		.loc 1 208 44
+ 924 0102 B1EE677A 		vneg.f32	s14, s15
+ 925              		.loc 1 208 51
+ 926 0106 164B     		ldr	r3, .L29
+ 927 0108 D3ED0E7A 		vldr.32	s15, [r3, #56]
+ 928              		.loc 1 208 50
+ 929 010c 27EE277A 		vmul.f32	s14, s14, s15
+ 930              		.loc 1 208 54
+ 931 0110 134B     		ldr	r3, .L29
+ 932 0112 D3ED117A 		vldr.32	s15, [r3, #68]
+ 933              		.loc 1 208 23
+ 934 0116 67EE276A 		vmul.f32	s13, s14, s15
+ 935              		.loc 1 208 58
+ 936 011a 114B     		ldr	r3, .L29
+ 937 011c 93ED037A 		vldr.32	s14, [r3, #12]
+ 938              		.loc 1 208 64
+ 939 0120 0F4B     		ldr	r3, .L29
+ 940 0122 D3ED0E7A 		vldr.32	s15, [r3, #56]
+ 941              		.loc 1 208 63
+ 942 0126 27EE277A 		vmul.f32	s14, s14, s15
+ 943              		.loc 1 208 67
+ 944 012a 0D4B     		ldr	r3, .L29
+ 945 012c D3ED117A 		vldr.32	s15, [r3, #68]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 21
+
+
+ 946              		.loc 1 208 23
+ 947 0130 67EE277A 		vmul.f32	s15, s14, s15
+ 948              		.loc 1 208 17
+ 949 0134 BB6F     		ldr	r3, [r7, #120]
+ 950 0136 03F11004 		add	r4, r3, #16
+ 951              		.loc 1 208 23
+ 952 013a 0C21     		movs	r1, #12
+ 953 013c F0EE670A 		vmov.f32	s1, s15
+ 954 0140 B0EE660A 		vmov.f32	s0, s13
+ 955 0144 7868     		ldr	r0, [r7, #4]
+ 956 0146 FFF7FEFF 		bl	uint_to_float
+ 957 014a F0EE407A 		vmov.f32	s15, s0
+ 958              		.loc 1 208 21
+ 959 014e C4ED007A 		vstr.32	s15, [r4]
+ 209:Core/Src/can.c ****     //printf("Received   ");
+ 210:Core/Src/can.c ****     //printf("%.3f  %.3f  %.3f  %.3f  %.3f   %.3f", controller->p_des, controller->v_des, controlle
+ 211:Core/Src/can.c ****     //printf("\n\r");
+ 212:Core/Src/can.c ****     }
+ 960              		.loc 1 212 5
+ 961 0152 00BF     		nop
+ 962 0154 1C37     		adds	r7, r7, #28
+ 963              	.LCFI37:
+ 964              		.cfi_def_cfa_offset 28
+ 965 0156 BD46     		mov	sp, r7
+ 966              	.LCFI38:
+ 967              		.cfi_def_cfa_register 13
+ 968              		@ sp needed
+ 969 0158 BDE89040 		pop	{r4, r7, lr}
+ 970              	.LCFI39:
+ 971              		.cfi_restore 14
+ 972              		.cfi_restore 7
+ 973              		.cfi_restore 4
+ 974              		.cfi_def_cfa_offset 16
+ 975 015c 04B0     		add	sp, sp, #16
+ 976              	.LCFI40:
+ 977              		.cfi_def_cfa_offset 0
+ 978 015e 7047     		bx	lr
+ 979              	.L30:
+ 980              		.align	2
+ 981              	.L29:
+ 982 0160 00000000 		.word	__float_reg
+ 983 0164 00000000 		.word	0
+ 984              		.cfi_endproc
+ 985              	.LFE246:
+ 987              		.text
+ 988              	.Letext0:
+ 989              		.file 2 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\machine\\_default
+ 990              		.file 3 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 991              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
+ 992              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
+ 993              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 994              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ 995              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h"
+ 996              		.file 9 "Core/Inc/can.h"
+ 997              		.file 10 "Core/Inc/user_config.h"
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s 			page 22
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 can.c
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:24     .bss.hcan1:00000000 hcan1
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:21     .bss.hcan1:00000000 $d
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:27     .text.MX_CAN1_Init:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:33     .text.MX_CAN1_Init:00000000 MX_CAN1_Init
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:112    .text.MX_CAN1_Init:00000064 $d
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:118    .text.HAL_CAN_MspInit:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:124    .text.HAL_CAN_MspInit:00000000 HAL_CAN_MspInit
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:229    .text.HAL_CAN_MspInit:00000094 $d
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:236    .text.HAL_CAN_MspDeInit:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:242    .text.HAL_CAN_MspDeInit:00000000 HAL_CAN_MspDeInit
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:294    .text.HAL_CAN_MspDeInit:00000038 $d
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:301    .text.can_rx_init:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:307    .text.can_rx_init:00000000 can_rx_init
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:382    .text.can_rx_init:00000054 $d
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:388    .text.can_tx_init:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:394    .text.can_tx_init:00000000 can_tx_init
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:448    .text.can_tx_init:00000030 $d
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:453    .text.pack_reply:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:459    .text.pack_reply:00000000 pack_reply
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:613    .text.pack_reply:0000011c $d
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:620    .text.pack_reply_raw:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:626    .text.pack_reply_raw:00000000 pack_reply_raw
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:770    .text.pack_reply_raw:000000fc $d
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:777    .text.unpack_cmd:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:783    .text.unpack_cmd:00000000 unpack_cmd
+C:\Users\16323\AppData\Local\Temp\ccrGWTb6.s:982    .text.unpack_cmd:00000160 $d
+
+UNDEFINED SYMBOLS
+HAL_CAN_Init
+Error_Handler
+HAL_GPIO_Init
+HAL_NVIC_SetPriority
+HAL_NVIC_EnableIRQ
+HAL_GPIO_DeInit
+HAL_NVIC_DisableIRQ
+HAL_CAN_ConfigFilter
+__int_reg
+float_to_uint
+__float_reg
+uint_to_float

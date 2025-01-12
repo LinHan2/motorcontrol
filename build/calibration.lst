@@ -1,0 +1,1523 @@
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 6
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"calibration.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.rodata
+  20              		.align	2
+  21              	.LC0:
+  22 0000 43686563 		.ascii	"Checking phase sign, pole pairs\015\000"
+  22      6B696E67 
+  22      20706861 
+  22      73652073 
+  22      69676E2C 
+  23              		.global	__aeabi_f2d
+  24              		.global	__aeabi_d2uiz
+  25 0021 000000   		.align	2
+  26              	.LC1:
+  27 0024 50686173 		.ascii	"Phase order correct\015\000"
+  27      65206F72 
+  27      64657220 
+  27      636F7272 
+  27      6563740D 
+  28 0039 000000   		.align	2
+  29              	.LC2:
+  30 003c 53776170 		.ascii	"Swapping phase sign\015\000"
+  30      70696E67 
+  30      20706861 
+  30      73652073 
+  30      69676E0D 
+  31 0051 000000   		.align	2
+  32              	.LC3:
+  33 0054 506F6C65 		.ascii	"Pole Pairs: %d\015\012\000"
+  33      20506169 
+  33      72733A20 
+  33      25640D0A 
+  33      00
+  34 0065 000000   		.align	2
+  35              	.LC4:
+  36 0068 53746172 		.ascii	"Start: %.3f   End: %.3f\015\012\000"
+  36      743A2025 
+  36      2E336620 
+  36      2020456E 
+  36      643A2025 
+  37              		.section	.text.order_phases,"ax",%progbits
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 2
+
+
+  38              		.align	1
+  39              		.global	order_phases
+  40              		.syntax unified
+  41              		.thumb
+  42              		.thumb_func
+  44              	order_phases:
+  45              	.LFB242:
+  46              		.file 1 "Core/Src/calibration.c"
+   1:Core/Src/calibration.c **** /*
+   2:Core/Src/calibration.c ****  * calibration.c
+   3:Core/Src/calibration.c ****  *
+   4:Core/Src/calibration.c ****  *  Created on: Aug 11, 2020
+   5:Core/Src/calibration.c ****  *      Author: ben
+   6:Core/Src/calibration.c ****  */
+   7:Core/Src/calibration.c **** 
+   8:Core/Src/calibration.c **** 
+   9:Core/Src/calibration.c **** #include "calibration.h"
+  10:Core/Src/calibration.c **** #include "hw_config.h"
+  11:Core/Src/calibration.c **** #include "user_config.h"
+  12:Core/Src/calibration.c **** #include <stdio.h>
+  13:Core/Src/calibration.c **** #include <stdlib.h>
+  14:Core/Src/calibration.c **** #include "usart.h"
+  15:Core/Src/calibration.c **** #include "math_ops.h"
+  16:Core/Src/calibration.c **** 
+  17:Core/Src/calibration.c **** void order_phases(EncoderStruct *encoder, ControllerStruct *controller, CalStruct * cal, int loop_c
+  47              		.loc 1 17 105
+  48              		.cfi_startproc
+  49              		@ args = 0, pretend = 0, frame = 24
+  50              		@ frame_needed = 1, uses_anonymous_args = 0
+  51 0000 B0B5     		push	{r4, r5, r7, lr}
+  52              	.LCFI0:
+  53              		.cfi_def_cfa_offset 16
+  54              		.cfi_offset 4, -16
+  55              		.cfi_offset 5, -12
+  56              		.cfi_offset 7, -8
+  57              		.cfi_offset 14, -4
+  58 0002 88B0     		sub	sp, sp, #32
+  59              	.LCFI1:
+  60              		.cfi_def_cfa_offset 48
+  61 0004 02AF     		add	r7, sp, #8
+  62              	.LCFI2:
+  63              		.cfi_def_cfa 7, 40
+  64 0006 F860     		str	r0, [r7, #12]
+  65 0008 B960     		str	r1, [r7, #8]
+  66 000a 7A60     		str	r2, [r7, #4]
+  67 000c 3B60     		str	r3, [r7]
+  18:Core/Src/calibration.c **** 	/* Checks phase order, to ensure that positive Q current produces
+  19:Core/Src/calibration.c **** 	   torque in the positive direction wrt the position sensor */
+  20:Core/Src/calibration.c **** 	PHASE_ORDER = 0;
+  68              		.loc 1 20 14
+  69 000e 764B     		ldr	r3, .L17
+  70 0010 0022     		movs	r2, #0
+  71 0012 1A60     		str	r2, [r3]
+  21:Core/Src/calibration.c **** 
+  22:Core/Src/calibration.c **** 	if(!cal->started){
+  72              		.loc 1 22 9
+  73 0014 7B68     		ldr	r3, [r7, #4]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 3
+
+
+  74 0016 1B7C     		ldrb	r3, [r3, #16]	@ zero_extendqisi2
+  75              		.loc 1 22 4
+  76 0018 002B     		cmp	r3, #0
+  77 001a 08D1     		bne	.L2
+  23:Core/Src/calibration.c **** 		printf("Checking phase sign, pole pairs\r\n");
+  78              		.loc 1 23 3
+  79 001c 7348     		ldr	r0, .L17+4
+  80 001e FFF7FEFF 		bl	puts
+  24:Core/Src/calibration.c **** 		cal->started = 1;
+  81              		.loc 1 24 16
+  82 0022 7B68     		ldr	r3, [r7, #4]
+  83 0024 0122     		movs	r2, #1
+  84 0026 1A74     		strb	r2, [r3, #16]
+  25:Core/Src/calibration.c **** 		cal->start_count = loop_count;
+  85              		.loc 1 25 20
+  86 0028 7B68     		ldr	r3, [r7, #4]
+  87 002a 3A68     		ldr	r2, [r7]
+  88 002c DA60     		str	r2, [r3, #12]
+  89              	.L2:
+  26:Core/Src/calibration.c **** 	}
+  27:Core/Src/calibration.c **** 	cal->time = (float)(loop_count - cal->start_count)*DT;
+  90              		.loc 1 27 38
+  91 002e 7B68     		ldr	r3, [r7, #4]
+  92 0030 DB68     		ldr	r3, [r3, #12]
+  93              		.loc 1 27 33
+  94 0032 3A68     		ldr	r2, [r7]
+  95 0034 D31A     		subs	r3, r2, r3
+  96              		.loc 1 27 14
+  97 0036 07EE903A 		vmov	s15, r3	@ int
+  98 003a F8EEE77A 		vcvt.f32.s32	s15, s15
+  99              		.loc 1 27 52
+ 100 003e 9FED6C7A 		vldr.32	s14, .L17+8
+ 101 0042 67EE877A 		vmul.f32	s15, s15, s14
+ 102              		.loc 1 27 12
+ 103 0046 7B68     		ldr	r3, [r7, #4]
+ 104 0048 C3ED057A 		vstr.32	s15, [r3, #20]
+  28:Core/Src/calibration.c **** 
+  29:Core/Src/calibration.c ****     if(cal->time < T1){
+ 105              		.loc 1 29 11
+ 106 004c 7B68     		ldr	r3, [r7, #4]
+ 107 004e D3ED057A 		vldr.32	s15, [r3, #20]
+ 108              		.loc 1 29 7
+ 109 0052 B7EE007A 		vmov.f32	s14, #1.0e+0
+ 110 0056 F4EEC77A 		vcmpe.f32	s15, s14
+ 111 005a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 112 005e 29D5     		bpl	.L14
+  30:Core/Src/calibration.c ****         // Set voltage angle to zero, wait for rotor position to settle
+  31:Core/Src/calibration.c ****         cal->theta_ref = 0;//W_CAL*cal->time;
+ 113              		.loc 1 31 24
+ 114 0060 7B68     		ldr	r3, [r7, #4]
+ 115 0062 4FF00002 		mov	r2, #0
+ 116 0066 9A60     		str	r2, [r3, #8]	@ float
+  32:Core/Src/calibration.c ****         cal->cal_position.elec_angle = cal->theta_ref;
+ 117              		.loc 1 32 43
+ 118 0068 7B68     		ldr	r3, [r7, #4]
+ 119 006a 9B68     		ldr	r3, [r3, #8]	@ float
+ 120              		.loc 1 32 38
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 4
+
+
+ 121 006c 7A68     		ldr	r2, [r7, #4]
+ 122 006e 02F50042 		add	r2, r2, #32768
+ 123 0072 C2F88832 		str	r3, [r2, #648]	@ float
+  33:Core/Src/calibration.c ****         cal->cal_position.elec_velocity = 0;
+ 124              		.loc 1 33 41
+ 125 0076 7B68     		ldr	r3, [r7, #4]
+ 126 0078 03F50043 		add	r3, r3, #32768
+ 127 007c 1A46     		mov	r2, r3
+ 128 007e 4FF00003 		mov	r3, #0
+ 129 0082 C2F89032 		str	r3, [r2, #656]	@ float
+  34:Core/Src/calibration.c ****         controller->i_d_des = I_CAL;
+ 130              		.loc 1 34 31
+ 131 0086 5B4B     		ldr	r3, .L17+12
+ 132 0088 9A6C     		ldr	r2, [r3, #72]	@ float
+ 133              		.loc 1 34 29
+ 134 008a BB68     		ldr	r3, [r7, #8]
+ 135 008c C3F8AC20 		str	r2, [r3, #172]	@ float
+  35:Core/Src/calibration.c ****         controller->i_q_des = 0.0f;
+ 136              		.loc 1 35 29
+ 137 0090 BB68     		ldr	r3, [r7, #8]
+ 138 0092 4FF00002 		mov	r2, #0
+ 139 0096 C3F8B020 		str	r2, [r3, #176]	@ float
+  36:Core/Src/calibration.c ****         commutate(controller, &cal->cal_position);
+ 140              		.loc 1 36 9
+ 141 009a 7B68     		ldr	r3, [r7, #4]
+ 142 009c 03F50243 		add	r3, r3, #33280
+ 143 00a0 2C33     		adds	r3, r3, #44
+ 144 00a2 1946     		mov	r1, r3
+ 145 00a4 B868     		ldr	r0, [r7, #8]
+ 146 00a6 FFF7FEFF 		bl	commutate
+  37:Core/Src/calibration.c ****     	cal->theta_start = encoder->angle_multiturn[0];
+ 147              		.loc 1 37 49
+ 148 00aa FB68     		ldr	r3, [r7, #12]
+ 149 00ac DA68     		ldr	r2, [r3, #12]	@ float
+ 150              		.loc 1 37 23
+ 151 00ae 7B68     		ldr	r3, [r7, #4]
+ 152 00b0 9A61     		str	r2, [r3, #24]	@ float
+  38:Core/Src/calibration.c ****     	return;
+ 153              		.loc 1 38 6
+ 154 00b2 96E0     		b	.L1
+ 155              	.L14:
+  39:Core/Src/calibration.c ****     }
+  40:Core/Src/calibration.c **** 
+  41:Core/Src/calibration.c ****     else if(cal->time < T1+2.0f*PI_F/W_CAL){
+ 156              		.loc 1 41 16
+ 157 00b4 7B68     		ldr	r3, [r7, #4]
+ 158 00b6 D3ED057A 		vldr.32	s15, [r3, #20]
+ 159              		.loc 1 41 12
+ 160 00ba 9FED4F7A 		vldr.32	s14, .L17+16
+ 161 00be F4EEC77A 		vcmpe.f32	s15, s14
+ 162 00c2 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 163 00c6 1DD5     		bpl	.L15
+  42:Core/Src/calibration.c ****     	// rotate voltage vector through one electrical cycle
+  43:Core/Src/calibration.c ****     	cal->theta_ref = W_CAL*(cal->time-T1);
+ 164              		.loc 1 43 33
+ 165 00c8 7B68     		ldr	r3, [r7, #4]
+ 166 00ca D3ED057A 		vldr.32	s15, [r3, #20]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 5
+
+
+ 167              		.loc 1 43 39
+ 168 00ce B7EE007A 		vmov.f32	s14, #1.0e+0
+ 169 00d2 77EEC77A 		vsub.f32	s15, s15, s14
+ 170              		.loc 1 43 28
+ 171 00d6 B2EE047A 		vmov.f32	s14, #1.0e+1
+ 172 00da 67EE877A 		vmul.f32	s15, s15, s14
+ 173              		.loc 1 43 21
+ 174 00de 7B68     		ldr	r3, [r7, #4]
+ 175 00e0 C3ED027A 		vstr.32	s15, [r3, #8]
+  44:Core/Src/calibration.c ****     	cal->cal_position.elec_angle = cal->theta_ref;
+ 176              		.loc 1 44 40
+ 177 00e4 7B68     		ldr	r3, [r7, #4]
+ 178 00e6 9B68     		ldr	r3, [r3, #8]	@ float
+ 179              		.loc 1 44 35
+ 180 00e8 7A68     		ldr	r2, [r7, #4]
+ 181 00ea 02F50042 		add	r2, r2, #32768
+ 182 00ee C2F88832 		str	r3, [r2, #648]	@ float
+  45:Core/Src/calibration.c **** 		commutate(controller, &cal->cal_position);
+ 183              		.loc 1 45 3
+ 184 00f2 7B68     		ldr	r3, [r7, #4]
+ 185 00f4 03F50243 		add	r3, r3, #33280
+ 186 00f8 2C33     		adds	r3, r3, #44
+ 187 00fa 1946     		mov	r1, r3
+ 188 00fc B868     		ldr	r0, [r7, #8]
+ 189 00fe FFF7FEFF 		bl	commutate
+  46:Core/Src/calibration.c ****     	return;
+ 190              		.loc 1 46 6
+ 191 0102 6EE0     		b	.L1
+ 192              	.L15:
+  47:Core/Src/calibration.c ****     }
+  48:Core/Src/calibration.c **** 
+  49:Core/Src/calibration.c **** 	reset_foc(controller);
+ 193              		.loc 1 49 2
+ 194 0104 B868     		ldr	r0, [r7, #8]
+ 195 0106 FFF7FEFF 		bl	reset_foc
+  50:Core/Src/calibration.c **** 
+  51:Core/Src/calibration.c **** 	float theta_end = encoder->angle_multiturn[0];
+ 196              		.loc 1 51 8
+ 197 010a FB68     		ldr	r3, [r7, #12]
+ 198 010c DB68     		ldr	r3, [r3, #12]	@ float
+ 199 010e 7B61     		str	r3, [r7, #20]	@ float
+  52:Core/Src/calibration.c **** 	cal->ppairs = round(2.0f*PI_F/fabsf(theta_end-cal->theta_start));
+ 200              		.loc 1 52 51
+ 201 0110 7B68     		ldr	r3, [r7, #4]
+ 202 0112 D3ED067A 		vldr.32	s15, [r3, #24]
+ 203              		.loc 1 52 47
+ 204 0116 97ED057A 		vldr.32	s14, [r7, #20]
+ 205 011a 77EE677A 		vsub.f32	s15, s14, s15
+ 206              		.loc 1 52 32
+ 207 011e F0EEE77A 		vabs.f32	s15, s15
+ 208              		.loc 1 52 31
+ 209 0122 9FED367A 		vldr.32	s14, .L17+20
+ 210 0126 C7EE276A 		vdiv.f32	s13, s14, s15
+ 211              		.loc 1 52 16
+ 212 012a 16EE900A 		vmov	r0, s13
+ 213 012e FFF7FEFF 		bl	__aeabi_f2d
+ 214 0132 0246     		mov	r2, r0
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 6
+
+
+ 215 0134 0B46     		mov	r3, r1
+ 216 0136 43EC102B 		vmov	d0, r2, r3
+ 217 013a FFF7FEFF 		bl	round
+ 218 013e 53EC102B 		vmov	r2, r3, d0
+ 219              		.loc 1 52 14
+ 220 0142 1046     		mov	r0, r2
+ 221 0144 1946     		mov	r1, r3
+ 222 0146 FFF7FEFF 		bl	__aeabi_d2uiz
+ 223 014a 0346     		mov	r3, r0
+ 224 014c DAB2     		uxtb	r2, r3
+ 225 014e 7B68     		ldr	r3, [r7, #4]
+ 226 0150 1A70     		strb	r2, [r3]
+  53:Core/Src/calibration.c **** 
+  54:Core/Src/calibration.c **** 	if(cal->theta_start < theta_end){
+ 227              		.loc 1 54 8
+ 228 0152 7B68     		ldr	r3, [r7, #4]
+ 229 0154 D3ED067A 		vldr.32	s15, [r3, #24]
+ 230              		.loc 1 54 4
+ 231 0158 97ED057A 		vldr.32	s14, [r7, #20]
+ 232 015c B4EEE77A 		vcmpe.f32	s14, s15
+ 233 0160 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 234 0164 07DD     		ble	.L16
+  55:Core/Src/calibration.c **** 		cal->phase_order = 0;
+ 235              		.loc 1 55 20
+ 236 0166 7B68     		ldr	r3, [r7, #4]
+ 237 0168 0022     		movs	r2, #0
+ 238 016a 83F82020 		strb	r2, [r3, #32]
+  56:Core/Src/calibration.c **** 		printf("Phase order correct\r\n");
+ 239              		.loc 1 56 3
+ 240 016e 2448     		ldr	r0, .L17+24
+ 241 0170 FFF7FEFF 		bl	puts
+ 242 0174 06E0     		b	.L10
+ 243              	.L16:
+  57:Core/Src/calibration.c **** 	}
+  58:Core/Src/calibration.c **** 	else{
+  59:Core/Src/calibration.c **** 		cal->phase_order = 1;
+ 244              		.loc 1 59 20
+ 245 0176 7B68     		ldr	r3, [r7, #4]
+ 246 0178 0122     		movs	r2, #1
+ 247 017a 83F82020 		strb	r2, [r3, #32]
+  60:Core/Src/calibration.c **** 		printf("Swapping phase sign\r\n");
+ 248              		.loc 1 60 3
+ 249 017e 2148     		ldr	r0, .L17+28
+ 250 0180 FFF7FEFF 		bl	puts
+ 251              	.L10:
+  61:Core/Src/calibration.c **** 	}
+  62:Core/Src/calibration.c ****     printf("Pole Pairs: %d\r\n", cal->ppairs);
+ 252              		.loc 1 62 37
+ 253 0184 7B68     		ldr	r3, [r7, #4]
+ 254 0186 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 255              		.loc 1 62 5
+ 256 0188 1946     		mov	r1, r3
+ 257 018a 1F48     		ldr	r0, .L17+32
+ 258 018c FFF7FEFF 		bl	printf
+  63:Core/Src/calibration.c ****     printf("Start: %.3f   End: %.3f\r\n", cal->theta_start, theta_end);
+ 259              		.loc 1 63 46
+ 260 0190 7B68     		ldr	r3, [r7, #4]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 7
+
+
+ 261 0192 9B69     		ldr	r3, [r3, #24]	@ float
+ 262              		.loc 1 63 5
+ 263 0194 1846     		mov	r0, r3	@ float
+ 264 0196 FFF7FEFF 		bl	__aeabi_f2d
+ 265 019a 0446     		mov	r4, r0
+ 266 019c 0D46     		mov	r5, r1
+ 267 019e 7869     		ldr	r0, [r7, #20]	@ float
+ 268 01a0 FFF7FEFF 		bl	__aeabi_f2d
+ 269 01a4 0246     		mov	r2, r0
+ 270 01a6 0B46     		mov	r3, r1
+ 271 01a8 CDE90023 		strd	r2, [sp]
+ 272 01ac 2246     		mov	r2, r4
+ 273 01ae 2B46     		mov	r3, r5
+ 274 01b0 1648     		ldr	r0, .L17+36
+ 275 01b2 FFF7FEFF 		bl	printf
+  64:Core/Src/calibration.c ****     PHASE_ORDER = cal->phase_order;
+ 276              		.loc 1 64 22
+ 277 01b6 7B68     		ldr	r3, [r7, #4]
+ 278 01b8 93F82030 		ldrb	r3, [r3, #32]	@ zero_extendqisi2
+ 279 01bc 1A46     		mov	r2, r3
+ 280              		.loc 1 64 17
+ 281 01be 0A4B     		ldr	r3, .L17
+ 282 01c0 1A60     		str	r2, [r3]
+  65:Core/Src/calibration.c ****     PPAIRS = (float)cal->ppairs;
+ 283              		.loc 1 65 24
+ 284 01c2 7B68     		ldr	r3, [r7, #4]
+ 285 01c4 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 286              		.loc 1 65 14
+ 287 01c6 07EE903A 		vmov	s15, r3	@ int
+ 288 01ca F8EE677A 		vcvt.f32.u32	s15, s15
+ 289              		.loc 1 65 12
+ 290 01ce 094B     		ldr	r3, .L17+12
+ 291 01d0 C3ED0A7A 		vstr.32	s15, [r3, #40]
+  66:Core/Src/calibration.c ****     cal->started = 0;
+ 292              		.loc 1 66 18
+ 293 01d4 7B68     		ldr	r3, [r7, #4]
+ 294 01d6 0022     		movs	r2, #0
+ 295 01d8 1A74     		strb	r2, [r3, #16]
+  67:Core/Src/calibration.c ****     cal->done_ordering = 1;	// Finished checking phase order
+ 296              		.loc 1 67 24
+ 297 01da 7B68     		ldr	r3, [r7, #4]
+ 298 01dc 0122     		movs	r2, #1
+ 299 01de 83F82120 		strb	r2, [r3, #33]
+ 300              	.L1:
+  68:Core/Src/calibration.c **** }
+ 301              		.loc 1 68 1
+ 302 01e2 1837     		adds	r7, r7, #24
+ 303              	.LCFI3:
+ 304              		.cfi_def_cfa_offset 16
+ 305 01e4 BD46     		mov	sp, r7
+ 306              	.LCFI4:
+ 307              		.cfi_def_cfa_register 13
+ 308              		@ sp needed
+ 309 01e6 B0BD     		pop	{r4, r5, r7, pc}
+ 310              	.L18:
+ 311              		.align	2
+ 312              	.L17:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 8
+
+
+ 313 01e8 00000000 		.word	__int_reg
+ 314 01ec 00000000 		.word	.LC0
+ 315 01f0 17B7D137 		.word	936490775
+ 316 01f4 00000000 		.word	__float_reg
+ 317 01f8 BE6CD03F 		.word	1070623934
+ 318 01fc DB0FC940 		.word	1086918619
+ 319 0200 24000000 		.word	.LC1
+ 320 0204 3C000000 		.word	.LC2
+ 321 0208 54000000 		.word	.LC3
+ 322 020c 68000000 		.word	.LC4
+ 323              		.cfi_endproc
+ 324              	.LFE242:
+ 326              		.section	.rodata
+ 327 0082 0000     		.align	2
+ 328              	.LC5:
+ 329 0084 53746172 		.ascii	"Starting offset cal and linearization\015\000"
+ 329      74696E67 
+ 329      206F6666 
+ 329      73657420 
+ 329      63616C20 
+ 330 00ab 00       		.align	2
+ 331              	.LC6:
+ 332 00ac 25642025 		.ascii	"%d %d %d %.3f\015\012\000"
+ 332      64202564 
+ 332      20252E33 
+ 332      660D0A00 
+ 333              		.align	2
+ 334              	.LC7:
+ 335 00bc 25642020 		.ascii	"%d  %d\015\012\000"
+ 335      25640D0A 
+ 335      00
+ 336              		.section	.text.calibrate_encoder,"ax",%progbits
+ 337              		.align	1
+ 338              		.global	calibrate_encoder
+ 339              		.syntax unified
+ 340              		.thumb
+ 341              		.thumb_func
+ 343              	calibrate_encoder:
+ 344              	.LFB243:
+  69:Core/Src/calibration.c **** 
+  70:Core/Src/calibration.c **** void calibrate_encoder(EncoderStruct *encoder, ControllerStruct *controller, CalStruct * cal, int l
+ 345              		.loc 1 70 110
+ 346              		.cfi_startproc
+ 347              		@ args = 0, pretend = 0, frame = 72
+ 348              		@ frame_needed = 1, uses_anonymous_args = 0
+ 349 0000 B0B5     		push	{r4, r5, r7, lr}
+ 350              	.LCFI5:
+ 351              		.cfi_def_cfa_offset 16
+ 352              		.cfi_offset 4, -16
+ 353              		.cfi_offset 5, -12
+ 354              		.cfi_offset 7, -8
+ 355              		.cfi_offset 14, -4
+ 356 0002 94B0     		sub	sp, sp, #80
+ 357              	.LCFI6:
+ 358              		.cfi_def_cfa_offset 96
+ 359 0004 02AF     		add	r7, sp, #8
+ 360              	.LCFI7:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 9
+
+
+ 361              		.cfi_def_cfa 7, 88
+ 362 0006 F860     		str	r0, [r7, #12]
+ 363 0008 B960     		str	r1, [r7, #8]
+ 364 000a 7A60     		str	r2, [r7, #4]
+ 365 000c 3B60     		str	r3, [r7]
+  71:Core/Src/calibration.c **** 	/* Calibrates e-zero and encoder nonliearity */
+  72:Core/Src/calibration.c **** 
+  73:Core/Src/calibration.c **** 	if(!cal->started){
+ 366              		.loc 1 73 9
+ 367 000e 7B68     		ldr	r3, [r7, #4]
+ 368 0010 1B7C     		ldrb	r3, [r3, #16]	@ zero_extendqisi2
+ 369              		.loc 1 73 4
+ 370 0012 002B     		cmp	r3, #0
+ 371 0014 0FD1     		bne	.L20
+  74:Core/Src/calibration.c **** 			printf("Starting offset cal and linearization\r\n");
+ 372              		.loc 1 74 4
+ 373 0016 9E48     		ldr	r0, .L55
+ 374 0018 FFF7FEFF 		bl	puts
+  75:Core/Src/calibration.c **** 			cal->started = 1;
+ 375              		.loc 1 75 17
+ 376 001c 7B68     		ldr	r3, [r7, #4]
+ 377 001e 0122     		movs	r2, #1
+ 378 0020 1A74     		strb	r2, [r3, #16]
+  76:Core/Src/calibration.c **** 			cal->start_count = loop_count;
+ 379              		.loc 1 76 21
+ 380 0022 7B68     		ldr	r3, [r7, #4]
+ 381 0024 3A68     		ldr	r2, [r7]
+ 382 0026 DA60     		str	r2, [r3, #12]
+  77:Core/Src/calibration.c **** 			cal->next_sample_time = T1;
+ 383              		.loc 1 77 26
+ 384 0028 7B68     		ldr	r3, [r7, #4]
+ 385 002a 4FF07E52 		mov	r2, #1065353216
+ 386 002e 9A62     		str	r2, [r3, #40]	@ float
+  78:Core/Src/calibration.c **** 			cal->sample_count = 0;
+ 387              		.loc 1 78 22
+ 388 0030 7B68     		ldr	r3, [r7, #4]
+ 389 0032 0022     		movs	r2, #0
+ 390 0034 9A84     		strh	r2, [r3, #36]	@ movhi
+ 391              	.L20:
+  79:Core/Src/calibration.c **** 		}
+  80:Core/Src/calibration.c **** 
+  81:Core/Src/calibration.c **** 	cal->time = (float)(loop_count - cal->start_count)*DT;
+ 392              		.loc 1 81 38
+ 393 0036 7B68     		ldr	r3, [r7, #4]
+ 394 0038 DB68     		ldr	r3, [r3, #12]
+ 395              		.loc 1 81 33
+ 396 003a 3A68     		ldr	r2, [r7]
+ 397 003c D31A     		subs	r3, r2, r3
+ 398              		.loc 1 81 14
+ 399 003e 07EE903A 		vmov	s15, r3	@ int
+ 400 0042 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 401              		.loc 1 81 52
+ 402 0046 9FED937A 		vldr.32	s14, .L55+4
+ 403 004a 67EE877A 		vmul.f32	s15, s15, s14
+ 404              		.loc 1 81 12
+ 405 004e 7B68     		ldr	r3, [r7, #4]
+ 406 0050 C3ED057A 		vstr.32	s15, [r3, #20]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 10
+
+
+  82:Core/Src/calibration.c **** 
+  83:Core/Src/calibration.c ****     if(cal->time < T1){
+ 407              		.loc 1 83 11
+ 408 0054 7B68     		ldr	r3, [r7, #4]
+ 409 0056 D3ED057A 		vldr.32	s15, [r3, #20]
+ 410              		.loc 1 83 7
+ 411 005a B7EE007A 		vmov.f32	s14, #1.0e+0
+ 412 005e F4EEC77A 		vcmpe.f32	s15, s14
+ 413 0062 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 414 0066 25D5     		bpl	.L50
+  84:Core/Src/calibration.c ****         // Set voltage angle to zero, wait for rotor position to settle
+  85:Core/Src/calibration.c ****         cal->theta_ref = 0;//W_CAL*cal->time;
+ 415              		.loc 1 85 24
+ 416 0068 7B68     		ldr	r3, [r7, #4]
+ 417 006a 4FF00002 		mov	r2, #0
+ 418 006e 9A60     		str	r2, [r3, #8]	@ float
+  86:Core/Src/calibration.c ****         cal->cal_position.elec_angle = cal->theta_ref;
+ 419              		.loc 1 86 43
+ 420 0070 7B68     		ldr	r3, [r7, #4]
+ 421 0072 9B68     		ldr	r3, [r3, #8]	@ float
+ 422              		.loc 1 86 38
+ 423 0074 7A68     		ldr	r2, [r7, #4]
+ 424 0076 02F50042 		add	r2, r2, #32768
+ 425 007a C2F88832 		str	r3, [r2, #648]	@ float
+  87:Core/Src/calibration.c ****         controller->i_d_des = I_CAL;
+ 426              		.loc 1 87 31
+ 427 007e 864B     		ldr	r3, .L55+8
+ 428 0080 9A6C     		ldr	r2, [r3, #72]	@ float
+ 429              		.loc 1 87 29
+ 430 0082 BB68     		ldr	r3, [r7, #8]
+ 431 0084 C3F8AC20 		str	r2, [r3, #172]	@ float
+  88:Core/Src/calibration.c ****         controller->i_q_des = 0.0f;
+ 432              		.loc 1 88 29
+ 433 0088 BB68     		ldr	r3, [r7, #8]
+ 434 008a 4FF00002 		mov	r2, #0
+ 435 008e C3F8B020 		str	r2, [r3, #176]	@ float
+  89:Core/Src/calibration.c ****         commutate(controller, &cal->cal_position);
+ 436              		.loc 1 89 9
+ 437 0092 7B68     		ldr	r3, [r7, #4]
+ 438 0094 03F50243 		add	r3, r3, #33280
+ 439 0098 2C33     		adds	r3, r3, #44
+ 440 009a 1946     		mov	r1, r3
+ 441 009c B868     		ldr	r0, [r7, #8]
+ 442 009e FFF7FEFF 		bl	commutate
+  90:Core/Src/calibration.c **** 
+  91:Core/Src/calibration.c ****     	cal->theta_start = encoder->angle_multiturn[0];
+ 443              		.loc 1 91 49
+ 444 00a2 FB68     		ldr	r3, [r7, #12]
+ 445 00a4 DA68     		ldr	r2, [r3, #12]	@ float
+ 446              		.loc 1 91 23
+ 447 00a6 7B68     		ldr	r3, [r7, #4]
+ 448 00a8 9A61     		str	r2, [r3, #24]	@ float
+  92:Core/Src/calibration.c ****     	cal->next_sample_time = cal->time;
+ 449              		.loc 1 92 33
+ 450 00aa 7B68     		ldr	r3, [r7, #4]
+ 451 00ac 5A69     		ldr	r2, [r3, #20]	@ float
+ 452              		.loc 1 92 28
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 11
+
+
+ 453 00ae 7B68     		ldr	r3, [r7, #4]
+ 454 00b0 9A62     		str	r2, [r3, #40]	@ float
+  93:Core/Src/calibration.c ****     	return;
+ 455              		.loc 1 93 6
+ 456 00b2 59E2     		b	.L19
+ 457              	.L50:
+  94:Core/Src/calibration.c ****     }
+  95:Core/Src/calibration.c ****     else if (cal->time < T1+2.0f*PI_F*PPAIRS/W_CAL){
+ 458              		.loc 1 95 17
+ 459 00b4 7B68     		ldr	r3, [r7, #4]
+ 460 00b6 93ED057A 		vldr.32	s14, [r3, #20]
+ 461              		.loc 1 95 39
+ 462 00ba 774B     		ldr	r3, .L55+8
+ 463 00bc D3ED0A7A 		vldr.32	s15, [r3, #40]
+ 464              		.loc 1 95 38
+ 465 00c0 DFED766A 		vldr.32	s13, .L55+12
+ 466 00c4 67EEA66A 		vmul.f32	s13, s15, s13
+ 467              		.loc 1 95 45
+ 468 00c8 B2EE046A 		vmov.f32	s12, #1.0e+1
+ 469 00cc C6EE867A 		vdiv.f32	s15, s13, s12
+ 470              		.loc 1 95 28
+ 471 00d0 F7EE006A 		vmov.f32	s13, #1.0e+0
+ 472 00d4 77EEA67A 		vadd.f32	s15, s15, s13
+ 473              		.loc 1 95 13
+ 474 00d8 B4EEE77A 		vcmpe.f32	s14, s15
+ 475 00dc F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 476 00e0 40F18F80 		bpl	.L51
+  96:Core/Src/calibration.c ****     	// rotate voltage vector through one mechanical rotation in the positive direction
+  97:Core/Src/calibration.c **** 		cal->theta_ref += W_CAL*DT;//(cal->time-T1);
+ 477              		.loc 1 97 18
+ 478 00e4 7B68     		ldr	r3, [r7, #4]
+ 479 00e6 D3ED027A 		vldr.32	s15, [r3, #8]
+ 480 00ea 9FED6D7A 		vldr.32	s14, .L55+16
+ 481 00ee 77EE877A 		vadd.f32	s15, s15, s14
+ 482 00f2 7B68     		ldr	r3, [r7, #4]
+ 483 00f4 C3ED027A 		vstr.32	s15, [r3, #8]
+  98:Core/Src/calibration.c **** 		cal->cal_position.elec_angle = cal->theta_ref;
+ 484              		.loc 1 98 37
+ 485 00f8 7B68     		ldr	r3, [r7, #4]
+ 486 00fa 9B68     		ldr	r3, [r3, #8]	@ float
+ 487              		.loc 1 98 32
+ 488 00fc 7A68     		ldr	r2, [r7, #4]
+ 489 00fe 02F50042 		add	r2, r2, #32768
+ 490 0102 C2F88832 		str	r3, [r2, #648]	@ float
+  99:Core/Src/calibration.c **** 		commutate(controller, &cal->cal_position);
+ 491              		.loc 1 99 3
+ 492 0106 7B68     		ldr	r3, [r7, #4]
+ 493 0108 03F50243 		add	r3, r3, #33280
+ 494 010c 2C33     		adds	r3, r3, #44
+ 495 010e 1946     		mov	r1, r3
+ 496 0110 B868     		ldr	r0, [r7, #8]
+ 497 0112 FFF7FEFF 		bl	commutate
+ 100:Core/Src/calibration.c **** 
+ 101:Core/Src/calibration.c **** 		// sample SAMPLES_PER_PPAIR times per pole-pair
+ 102:Core/Src/calibration.c **** 		if(cal->time > cal->next_sample_time){
+ 498              		.loc 1 102 9
+ 499 0116 7B68     		ldr	r3, [r7, #4]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 12
+
+
+ 500 0118 93ED057A 		vldr.32	s14, [r3, #20]
+ 501              		.loc 1 102 21
+ 502 011c 7B68     		ldr	r3, [r7, #4]
+ 503 011e D3ED0A7A 		vldr.32	s15, [r3, #40]
+ 504              		.loc 1 102 5
+ 505 0122 B4EEE77A 		vcmpe.f32	s14, s15
+ 506 0126 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 507 012a 00DC     		bgt	.L46
+ 103:Core/Src/calibration.c **** 			int count_ref = cal->theta_ref * (float)ENC_CPR/(2.0f*PI_F*PPAIRS);
+ 104:Core/Src/calibration.c **** 			int error = encoder->raw - count_ref;//- encoder->raw;
+ 105:Core/Src/calibration.c **** 			cal->error_arr[cal->sample_count] = error + ENC_CPR*(error<0);
+ 106:Core/Src/calibration.c **** 			printf("%d %d %d %.3f\r\n", cal->sample_count, count_ref, cal->error_arr[cal->sample_count], cal
+ 107:Core/Src/calibration.c **** 			cal->next_sample_time += 2.0f*PI_F/(W_CAL*SAMPLES_PER_PPAIR);
+ 108:Core/Src/calibration.c **** 			if(cal->sample_count == PPAIRS*SAMPLES_PER_PPAIR-1){
+ 109:Core/Src/calibration.c **** 				return;
+ 110:Core/Src/calibration.c **** 			}
+ 111:Core/Src/calibration.c **** 			cal->sample_count++;
+ 112:Core/Src/calibration.c **** 
+ 113:Core/Src/calibration.c **** 		}
+ 114:Core/Src/calibration.c **** 		return;
+ 508              		.loc 1 114 3
+ 509 012c 1CE2     		b	.L19
+ 510              	.L46:
+ 511              	.LBB2:
+ 103:Core/Src/calibration.c **** 			int count_ref = cal->theta_ref * (float)ENC_CPR/(2.0f*PI_F*PPAIRS);
+ 512              		.loc 1 103 23
+ 513 012e 7B68     		ldr	r3, [r7, #4]
+ 514 0130 D3ED027A 		vldr.32	s15, [r3, #8]
+ 103:Core/Src/calibration.c **** 			int count_ref = cal->theta_ref * (float)ENC_CPR/(2.0f*PI_F*PPAIRS);
+ 515              		.loc 1 103 35
+ 516 0134 9FED5F7A 		vldr.32	s14, .L55+36
+ 517 0138 67EE876A 		vmul.f32	s13, s15, s14
+ 103:Core/Src/calibration.c **** 			int count_ref = cal->theta_ref * (float)ENC_CPR/(2.0f*PI_F*PPAIRS);
+ 518              		.loc 1 103 63
+ 519 013c 564B     		ldr	r3, .L55+8
+ 520 013e D3ED0A7A 		vldr.32	s15, [r3, #40]
+ 103:Core/Src/calibration.c **** 			int count_ref = cal->theta_ref * (float)ENC_CPR/(2.0f*PI_F*PPAIRS);
+ 521              		.loc 1 103 62
+ 522 0142 9FED567A 		vldr.32	s14, .L55+12
+ 523 0146 27EE877A 		vmul.f32	s14, s15, s14
+ 103:Core/Src/calibration.c **** 			int count_ref = cal->theta_ref * (float)ENC_CPR/(2.0f*PI_F*PPAIRS);
+ 524              		.loc 1 103 51
+ 525 014a C6EE877A 		vdiv.f32	s15, s13, s14
+ 103:Core/Src/calibration.c **** 			int count_ref = cal->theta_ref * (float)ENC_CPR/(2.0f*PI_F*PPAIRS);
+ 526              		.loc 1 103 8
+ 527 014e FDEEE77A 		vcvt.s32.f32	s15, s15
+ 528 0152 17EE903A 		vmov	r3, s15	@ int
+ 529 0156 BB61     		str	r3, [r7, #24]
+ 104:Core/Src/calibration.c **** 			cal->error_arr[cal->sample_count] = error + ENC_CPR*(error<0);
+ 530              		.loc 1 104 23
+ 531 0158 FB68     		ldr	r3, [r7, #12]
+ 532 015a 5A6F     		ldr	r2, [r3, #116]
+ 104:Core/Src/calibration.c **** 			cal->error_arr[cal->sample_count] = error + ENC_CPR*(error<0);
+ 533              		.loc 1 104 8
+ 534 015c BB69     		ldr	r3, [r7, #24]
+ 535 015e D31A     		subs	r3, r2, r3
+ 536 0160 7B61     		str	r3, [r7, #20]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 13
+
+
+ 105:Core/Src/calibration.c **** 			printf("%d %d %d %.3f\r\n", cal->sample_count, count_ref, cal->error_arr[cal->sample_count], cal
+ 537              		.loc 1 105 55
+ 538 0162 7B69     		ldr	r3, [r7, #20]
+ 539 0164 DB13     		asrs	r3, r3, #15
+ 540 0166 03F48032 		and	r2, r3, #65536
+ 105:Core/Src/calibration.c **** 			printf("%d %d %d %.3f\r\n", cal->sample_count, count_ref, cal->error_arr[cal->sample_count], cal
+ 541              		.loc 1 105 22
+ 542 016a 7B68     		ldr	r3, [r7, #4]
+ 543 016c 9B8C     		ldrh	r3, [r3, #36]
+ 544 016e 1846     		mov	r0, r3
+ 105:Core/Src/calibration.c **** 			printf("%d %d %d %.3f\r\n", cal->sample_count, count_ref, cal->error_arr[cal->sample_count], cal
+ 545              		.loc 1 105 46
+ 546 0170 7B69     		ldr	r3, [r7, #20]
+ 547 0172 1A44     		add	r2, r2, r3
+ 105:Core/Src/calibration.c **** 			printf("%d %d %d %.3f\r\n", cal->sample_count, count_ref, cal->error_arr[cal->sample_count], cal
+ 548              		.loc 1 105 38
+ 549 0174 7968     		ldr	r1, [r7, #4]
+ 550 0176 00F10A03 		add	r3, r0, #10
+ 551 017a 9B00     		lsls	r3, r3, #2
+ 552 017c 0B44     		add	r3, r3, r1
+ 553 017e 5A60     		str	r2, [r3, #4]
+ 106:Core/Src/calibration.c **** 			cal->next_sample_time += 2.0f*PI_F/(W_CAL*SAMPLES_PER_PPAIR);
+ 554              		.loc 1 106 35
+ 555 0180 7B68     		ldr	r3, [r7, #4]
+ 556 0182 9B8C     		ldrh	r3, [r3, #36]
+ 106:Core/Src/calibration.c **** 			cal->next_sample_time += 2.0f*PI_F/(W_CAL*SAMPLES_PER_PPAIR);
+ 557              		.loc 1 106 4
+ 558 0184 1D46     		mov	r5, r3
+ 106:Core/Src/calibration.c **** 			cal->next_sample_time += 2.0f*PI_F/(W_CAL*SAMPLES_PER_PPAIR);
+ 559              		.loc 1 106 80
+ 560 0186 7B68     		ldr	r3, [r7, #4]
+ 561 0188 9B8C     		ldrh	r3, [r3, #36]
+ 106:Core/Src/calibration.c **** 			cal->next_sample_time += 2.0f*PI_F/(W_CAL*SAMPLES_PER_PPAIR);
+ 562              		.loc 1 106 4
+ 563 018a 7A68     		ldr	r2, [r7, #4]
+ 564 018c 0A33     		adds	r3, r3, #10
+ 565 018e 9B00     		lsls	r3, r3, #2
+ 566 0190 1344     		add	r3, r3, r2
+ 567 0192 5C68     		ldr	r4, [r3, #4]
+ 106:Core/Src/calibration.c **** 			cal->next_sample_time += 2.0f*PI_F/(W_CAL*SAMPLES_PER_PPAIR);
+ 568              		.loc 1 106 100
+ 569 0194 7B68     		ldr	r3, [r7, #4]
+ 570 0196 9B68     		ldr	r3, [r3, #8]	@ float
+ 106:Core/Src/calibration.c **** 			cal->next_sample_time += 2.0f*PI_F/(W_CAL*SAMPLES_PER_PPAIR);
+ 571              		.loc 1 106 4
+ 572 0198 1846     		mov	r0, r3	@ float
+ 573 019a FFF7FEFF 		bl	__aeabi_f2d
+ 574 019e 0246     		mov	r2, r0
+ 575 01a0 0B46     		mov	r3, r1
+ 576 01a2 CDE90023 		strd	r2, [sp]
+ 577 01a6 2346     		mov	r3, r4
+ 578 01a8 BA69     		ldr	r2, [r7, #24]
+ 579 01aa 2946     		mov	r1, r5
+ 580 01ac 3D48     		ldr	r0, .L55+20
+ 581 01ae FFF7FEFF 		bl	printf
+ 107:Core/Src/calibration.c **** 			if(cal->sample_count == PPAIRS*SAMPLES_PER_PPAIR-1){
+ 582              		.loc 1 107 26
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 14
+
+
+ 583 01b2 7B68     		ldr	r3, [r7, #4]
+ 584 01b4 D3ED0A7A 		vldr.32	s15, [r3, #40]
+ 585 01b8 9FED3B7A 		vldr.32	s14, .L55+24
+ 586 01bc 77EE877A 		vadd.f32	s15, s15, s14
+ 587 01c0 7B68     		ldr	r3, [r7, #4]
+ 588 01c2 C3ED0A7A 		vstr.32	s15, [r3, #40]
+ 108:Core/Src/calibration.c **** 				return;
+ 589              		.loc 1 108 10
+ 590 01c6 7B68     		ldr	r3, [r7, #4]
+ 591 01c8 9B8C     		ldrh	r3, [r3, #36]
+ 592 01ca 07EE903A 		vmov	s15, r3	@ int
+ 108:Core/Src/calibration.c **** 				return;
+ 593              		.loc 1 108 25
+ 594 01ce B8EEE77A 		vcvt.f32.s32	s14, s15
+ 108:Core/Src/calibration.c **** 				return;
+ 595              		.loc 1 108 28
+ 596 01d2 314B     		ldr	r3, .L55+8
+ 597 01d4 D3ED0A7A 		vldr.32	s15, [r3, #40]
+ 108:Core/Src/calibration.c **** 				return;
+ 598              		.loc 1 108 34
+ 599 01d8 DFED346A 		vldr.32	s13, .L55+28
+ 600 01dc 67EEA67A 		vmul.f32	s15, s15, s13
+ 108:Core/Src/calibration.c **** 				return;
+ 601              		.loc 1 108 52
+ 602 01e0 F7EE006A 		vmov.f32	s13, #1.0e+0
+ 603 01e4 77EEE67A 		vsub.f32	s15, s15, s13
+ 108:Core/Src/calibration.c **** 				return;
+ 604              		.loc 1 108 6
+ 605 01e8 B4EE677A 		vcmp.f32	s14, s15
+ 606 01ec F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 607 01f0 00F0B781 		beq	.L53
+ 111:Core/Src/calibration.c **** 
+ 608              		.loc 1 111 7
+ 609 01f4 7B68     		ldr	r3, [r7, #4]
+ 610 01f6 9B8C     		ldrh	r3, [r3, #36]
+ 111:Core/Src/calibration.c **** 
+ 611              		.loc 1 111 21
+ 612 01f8 0133     		adds	r3, r3, #1
+ 613 01fa 9AB2     		uxth	r2, r3
+ 614 01fc 7B68     		ldr	r3, [r7, #4]
+ 615 01fe 9A84     		strh	r2, [r3, #36]	@ movhi
+ 616              	.LBE2:
+ 617              		.loc 1 114 3
+ 618 0200 B2E1     		b	.L19
+ 619              	.L51:
+ 115:Core/Src/calibration.c ****     }
+ 116:Core/Src/calibration.c **** 	else if (cal->time < T1+4.0f*PI_F*PPAIRS/W_CAL){
+ 620              		.loc 1 116 14
+ 621 0202 7B68     		ldr	r3, [r7, #4]
+ 622 0204 93ED057A 		vldr.32	s14, [r3, #20]
+ 623              		.loc 1 116 36
+ 624 0208 234B     		ldr	r3, .L55+8
+ 625 020a D3ED0A7A 		vldr.32	s15, [r3, #40]
+ 626              		.loc 1 116 35
+ 627 020e DFED286A 		vldr.32	s13, .L55+32
+ 628 0212 67EEA66A 		vmul.f32	s13, s15, s13
+ 629              		.loc 1 116 42
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 15
+
+
+ 630 0216 B2EE046A 		vmov.f32	s12, #1.0e+1
+ 631 021a C6EE867A 		vdiv.f32	s15, s13, s12
+ 632              		.loc 1 116 25
+ 633 021e F7EE006A 		vmov.f32	s13, #1.0e+0
+ 634 0222 77EEA67A 		vadd.f32	s15, s15, s13
+ 635              		.loc 1 116 10
+ 636 0226 B4EEE77A 		vcmpe.f32	s14, s15
+ 637 022a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 638 022e 40F1A980 		bpl	.L52
+ 117:Core/Src/calibration.c **** 		// rotate voltage vector through one mechanical rotation in the negative direction
+ 118:Core/Src/calibration.c **** 		cal->theta_ref -= W_CAL*DT;//(cal->time-T1);
+ 639              		.loc 1 118 18
+ 640 0232 7B68     		ldr	r3, [r7, #4]
+ 641 0234 D3ED027A 		vldr.32	s15, [r3, #8]
+ 642 0238 9FED197A 		vldr.32	s14, .L55+16
+ 643 023c 77EEC77A 		vsub.f32	s15, s15, s14
+ 644 0240 7B68     		ldr	r3, [r7, #4]
+ 645 0242 C3ED027A 		vstr.32	s15, [r3, #8]
+ 119:Core/Src/calibration.c **** 		controller->i_d_des = I_CAL;
+ 646              		.loc 1 119 25
+ 647 0246 144B     		ldr	r3, .L55+8
+ 648 0248 9A6C     		ldr	r2, [r3, #72]	@ float
+ 649              		.loc 1 119 23
+ 650 024a BB68     		ldr	r3, [r7, #8]
+ 651 024c C3F8AC20 		str	r2, [r3, #172]	@ float
+ 120:Core/Src/calibration.c **** 		controller->i_q_des = 0.0f;
+ 652              		.loc 1 120 23
+ 653 0250 BB68     		ldr	r3, [r7, #8]
+ 654 0252 4FF00002 		mov	r2, #0
+ 655 0256 C3F8B020 		str	r2, [r3, #176]	@ float
+ 121:Core/Src/calibration.c **** 		cal->cal_position.elec_angle = cal->theta_ref;
+ 656              		.loc 1 121 37
+ 657 025a 7B68     		ldr	r3, [r7, #4]
+ 658 025c 9B68     		ldr	r3, [r3, #8]	@ float
+ 659              		.loc 1 121 32
+ 660 025e 7A68     		ldr	r2, [r7, #4]
+ 661 0260 02F50042 		add	r2, r2, #32768
+ 662 0264 C2F88832 		str	r3, [r2, #648]	@ float
+ 122:Core/Src/calibration.c **** 		commutate(controller, &cal->cal_position);
+ 663              		.loc 1 122 3
+ 664 0268 7B68     		ldr	r3, [r7, #4]
+ 665 026a 03F50243 		add	r3, r3, #33280
+ 666 026e 2C33     		adds	r3, r3, #44
+ 667 0270 1946     		mov	r1, r3
+ 668 0272 B868     		ldr	r0, [r7, #8]
+ 669 0274 FFF7FEFF 		bl	commutate
+ 123:Core/Src/calibration.c **** 
+ 124:Core/Src/calibration.c **** 		// sample SAMPLES_PER_PPAIR times per pole-pair
+ 125:Core/Src/calibration.c **** 		if((cal->time > cal->next_sample_time)&&(cal->sample_count>0)){
+ 670              		.loc 1 125 10
+ 671 0278 7B68     		ldr	r3, [r7, #4]
+ 672 027a 93ED057A 		vldr.32	s14, [r3, #20]
+ 673              		.loc 1 125 22
+ 674 027e 7B68     		ldr	r3, [r7, #4]
+ 675 0280 D3ED0A7A 		vldr.32	s15, [r3, #40]
+ 676              		.loc 1 125 5
+ 677 0284 B4EEE77A 		vcmpe.f32	s14, s15
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 16
+
+
+ 678 0288 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 679 028c 14DC     		bgt	.L48
+ 126:Core/Src/calibration.c **** 			int count_ref = cal->theta_ref * (float)ENC_CPR/(2.0f*PI_F*PPAIRS);
+ 127:Core/Src/calibration.c **** 			int error = encoder->raw - count_ref;// - encoder->raw;
+ 128:Core/Src/calibration.c **** 			error = error + ENC_CPR*(error<0);
+ 129:Core/Src/calibration.c **** 
+ 130:Core/Src/calibration.c **** 			cal->error_arr[cal->sample_count] = (cal->error_arr[cal->sample_count] + error)/2;
+ 131:Core/Src/calibration.c **** 			printf("%d %d %d %.3f\r\n", cal->sample_count, count_ref, cal->error_arr[cal->sample_count], cal
+ 132:Core/Src/calibration.c **** 			cal->sample_count--;
+ 133:Core/Src/calibration.c **** 			cal->next_sample_time += 2.0f*PI_F/(W_CAL*SAMPLES_PER_PPAIR);
+ 134:Core/Src/calibration.c **** 		}
+ 135:Core/Src/calibration.c **** 		return;
+ 680              		.loc 1 135 3
+ 681 028e 6AE1     		b	.L54
+ 682              	.L56:
+ 683              		.align	2
+ 684              	.L55:
+ 685 0290 84000000 		.word	.LC5
+ 686 0294 17B7D137 		.word	936490775
+ 687 0298 00000000 		.word	__float_reg
+ 688 029c DB0FC940 		.word	1086918619
+ 689 02a0 6E128339 		.word	964891246
+ 690 02a4 AC000000 		.word	.LC6
+ 691 02a8 7CD9A03B 		.word	1000397180
+ 692 02ac 00000043 		.word	1124073472
+ 693 02b0 DB0F4941 		.word	1095307227
+ 694 02b4 00008047 		.word	1199570944
+ 695              	.L48:
+ 125:Core/Src/calibration.c **** 			int count_ref = cal->theta_ref * (float)ENC_CPR/(2.0f*PI_F*PPAIRS);
+ 696              		.loc 1 125 47 discriminator 1
+ 697 02b8 7B68     		ldr	r3, [r7, #4]
+ 698 02ba 9B8C     		ldrh	r3, [r3, #36]
+ 125:Core/Src/calibration.c **** 			int count_ref = cal->theta_ref * (float)ENC_CPR/(2.0f*PI_F*PPAIRS);
+ 699              		.loc 1 125 41 discriminator 1
+ 700 02bc 002B     		cmp	r3, #0
+ 701 02be 00F05281 		beq	.L54
+ 702              	.LBB3:
+ 126:Core/Src/calibration.c **** 			int count_ref = cal->theta_ref * (float)ENC_CPR/(2.0f*PI_F*PPAIRS);
+ 703              		.loc 1 126 23
+ 704 02c2 7B68     		ldr	r3, [r7, #4]
+ 705 02c4 D3ED027A 		vldr.32	s15, [r3, #8]
+ 126:Core/Src/calibration.c **** 			int count_ref = cal->theta_ref * (float)ENC_CPR/(2.0f*PI_F*PPAIRS);
+ 706              		.loc 1 126 35
+ 707 02c8 1FED067A 		vldr.32	s14, .L55+36
+ 708 02cc 67EE876A 		vmul.f32	s13, s15, s14
+ 126:Core/Src/calibration.c **** 			int count_ref = cal->theta_ref * (float)ENC_CPR/(2.0f*PI_F*PPAIRS);
+ 709              		.loc 1 126 63
+ 710 02d0 A74B     		ldr	r3, .L57
+ 711 02d2 D3ED0A7A 		vldr.32	s15, [r3, #40]
+ 126:Core/Src/calibration.c **** 			int count_ref = cal->theta_ref * (float)ENC_CPR/(2.0f*PI_F*PPAIRS);
+ 712              		.loc 1 126 62
+ 713 02d6 9FEDA77A 		vldr.32	s14, .L57+4
+ 714 02da 27EE877A 		vmul.f32	s14, s15, s14
+ 126:Core/Src/calibration.c **** 			int count_ref = cal->theta_ref * (float)ENC_CPR/(2.0f*PI_F*PPAIRS);
+ 715              		.loc 1 126 51
+ 716 02de C6EE877A 		vdiv.f32	s15, s13, s14
+ 126:Core/Src/calibration.c **** 			int count_ref = cal->theta_ref * (float)ENC_CPR/(2.0f*PI_F*PPAIRS);
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 17
+
+
+ 717              		.loc 1 126 8
+ 718 02e2 FDEEE77A 		vcvt.s32.f32	s15, s15
+ 719 02e6 17EE903A 		vmov	r3, s15	@ int
+ 720 02ea 3B62     		str	r3, [r7, #32]
+ 127:Core/Src/calibration.c **** 			error = error + ENC_CPR*(error<0);
+ 721              		.loc 1 127 23
+ 722 02ec FB68     		ldr	r3, [r7, #12]
+ 723 02ee 5A6F     		ldr	r2, [r3, #116]
+ 127:Core/Src/calibration.c **** 			error = error + ENC_CPR*(error<0);
+ 724              		.loc 1 127 8
+ 725 02f0 3B6A     		ldr	r3, [r7, #32]
+ 726 02f2 D31A     		subs	r3, r2, r3
+ 727 02f4 FB61     		str	r3, [r7, #28]
+ 128:Core/Src/calibration.c **** 
+ 728              		.loc 1 128 27
+ 729 02f6 FB69     		ldr	r3, [r7, #28]
+ 730 02f8 DB13     		asrs	r3, r3, #15
+ 731 02fa 03F48033 		and	r3, r3, #65536
+ 128:Core/Src/calibration.c **** 
+ 732              		.loc 1 128 10
+ 733 02fe FA69     		ldr	r2, [r7, #28]
+ 734 0300 1344     		add	r3, r3, r2
+ 735 0302 FB61     		str	r3, [r7, #28]
+ 130:Core/Src/calibration.c **** 			printf("%d %d %d %.3f\r\n", cal->sample_count, count_ref, cal->error_arr[cal->sample_count], cal
+ 736              		.loc 1 130 59
+ 737 0304 7B68     		ldr	r3, [r7, #4]
+ 738 0306 9B8C     		ldrh	r3, [r3, #36]
+ 130:Core/Src/calibration.c **** 			printf("%d %d %d %.3f\r\n", cal->sample_count, count_ref, cal->error_arr[cal->sample_count], cal
+ 739              		.loc 1 130 55
+ 740 0308 7A68     		ldr	r2, [r7, #4]
+ 741 030a 0A33     		adds	r3, r3, #10
+ 742 030c 9B00     		lsls	r3, r3, #2
+ 743 030e 1344     		add	r3, r3, r2
+ 744 0310 5A68     		ldr	r2, [r3, #4]
+ 130:Core/Src/calibration.c **** 			printf("%d %d %d %.3f\r\n", cal->sample_count, count_ref, cal->error_arr[cal->sample_count], cal
+ 745              		.loc 1 130 75
+ 746 0312 FB69     		ldr	r3, [r7, #28]
+ 747 0314 1344     		add	r3, r3, r2
+ 130:Core/Src/calibration.c **** 			printf("%d %d %d %.3f\r\n", cal->sample_count, count_ref, cal->error_arr[cal->sample_count], cal
+ 748              		.loc 1 130 22
+ 749 0316 7A68     		ldr	r2, [r7, #4]
+ 750 0318 928C     		ldrh	r2, [r2, #36]
+ 751 031a 1046     		mov	r0, r2
+ 130:Core/Src/calibration.c **** 			printf("%d %d %d %.3f\r\n", cal->sample_count, count_ref, cal->error_arr[cal->sample_count], cal
+ 752              		.loc 1 130 83
+ 753 031c DA0F     		lsrs	r2, r3, #31
+ 754 031e 1344     		add	r3, r3, r2
+ 755 0320 5B10     		asrs	r3, r3, #1
+ 756 0322 1946     		mov	r1, r3
+ 130:Core/Src/calibration.c **** 			printf("%d %d %d %.3f\r\n", cal->sample_count, count_ref, cal->error_arr[cal->sample_count], cal
+ 757              		.loc 1 130 38
+ 758 0324 7A68     		ldr	r2, [r7, #4]
+ 759 0326 00F10A03 		add	r3, r0, #10
+ 760 032a 9B00     		lsls	r3, r3, #2
+ 761 032c 1344     		add	r3, r3, r2
+ 762 032e 5960     		str	r1, [r3, #4]
+ 131:Core/Src/calibration.c **** 			cal->sample_count--;
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 18
+
+
+ 763              		.loc 1 131 35
+ 764 0330 7B68     		ldr	r3, [r7, #4]
+ 765 0332 9B8C     		ldrh	r3, [r3, #36]
+ 131:Core/Src/calibration.c **** 			cal->sample_count--;
+ 766              		.loc 1 131 4
+ 767 0334 1D46     		mov	r5, r3
+ 131:Core/Src/calibration.c **** 			cal->sample_count--;
+ 768              		.loc 1 131 80
+ 769 0336 7B68     		ldr	r3, [r7, #4]
+ 770 0338 9B8C     		ldrh	r3, [r3, #36]
+ 131:Core/Src/calibration.c **** 			cal->sample_count--;
+ 771              		.loc 1 131 4
+ 772 033a 7A68     		ldr	r2, [r7, #4]
+ 773 033c 0A33     		adds	r3, r3, #10
+ 774 033e 9B00     		lsls	r3, r3, #2
+ 775 0340 1344     		add	r3, r3, r2
+ 776 0342 5C68     		ldr	r4, [r3, #4]
+ 131:Core/Src/calibration.c **** 			cal->sample_count--;
+ 777              		.loc 1 131 100
+ 778 0344 7B68     		ldr	r3, [r7, #4]
+ 779 0346 9B68     		ldr	r3, [r3, #8]	@ float
+ 131:Core/Src/calibration.c **** 			cal->sample_count--;
+ 780              		.loc 1 131 4
+ 781 0348 1846     		mov	r0, r3	@ float
+ 782 034a FFF7FEFF 		bl	__aeabi_f2d
+ 783 034e 0246     		mov	r2, r0
+ 784 0350 0B46     		mov	r3, r1
+ 785 0352 CDE90023 		strd	r2, [sp]
+ 786 0356 2346     		mov	r3, r4
+ 787 0358 3A6A     		ldr	r2, [r7, #32]
+ 788 035a 2946     		mov	r1, r5
+ 789 035c 8648     		ldr	r0, .L57+8
+ 790 035e FFF7FEFF 		bl	printf
+ 132:Core/Src/calibration.c **** 			cal->next_sample_time += 2.0f*PI_F/(W_CAL*SAMPLES_PER_PPAIR);
+ 791              		.loc 1 132 7
+ 792 0362 7B68     		ldr	r3, [r7, #4]
+ 793 0364 9B8C     		ldrh	r3, [r3, #36]
+ 132:Core/Src/calibration.c **** 			cal->next_sample_time += 2.0f*PI_F/(W_CAL*SAMPLES_PER_PPAIR);
+ 794              		.loc 1 132 21
+ 795 0366 013B     		subs	r3, r3, #1
+ 796 0368 9AB2     		uxth	r2, r3
+ 797 036a 7B68     		ldr	r3, [r7, #4]
+ 798 036c 9A84     		strh	r2, [r3, #36]	@ movhi
+ 133:Core/Src/calibration.c **** 		}
+ 799              		.loc 1 133 26
+ 800 036e 7B68     		ldr	r3, [r7, #4]
+ 801 0370 D3ED0A7A 		vldr.32	s15, [r3, #40]
+ 802 0374 9FED817A 		vldr.32	s14, .L57+12
+ 803 0378 77EE877A 		vadd.f32	s15, s15, s14
+ 804 037c 7B68     		ldr	r3, [r7, #4]
+ 805 037e C3ED0A7A 		vstr.32	s15, [r3, #40]
+ 806              	.LBE3:
+ 807              		.loc 1 135 3
+ 808 0382 F0E0     		b	.L54
+ 809              	.L52:
+ 136:Core/Src/calibration.c ****     }
+ 137:Core/Src/calibration.c **** 
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 19
+
+
+ 138:Core/Src/calibration.c ****     reset_foc(controller);
+ 810              		.loc 1 138 5
+ 811 0384 B868     		ldr	r0, [r7, #8]
+ 812 0386 FFF7FEFF 		bl	reset_foc
+ 139:Core/Src/calibration.c **** 
+ 140:Core/Src/calibration.c ****     // Calculate average offset
+ 141:Core/Src/calibration.c ****     int ezero_mean = 0;
+ 813              		.loc 1 141 9
+ 814 038a 0023     		movs	r3, #0
+ 815 038c 7B64     		str	r3, [r7, #68]
+ 816              	.LBB4:
+ 142:Core/Src/calibration.c **** 	for(int i = 0; i<((int)PPAIRS*SAMPLES_PER_PPAIR); i++){
+ 817              		.loc 1 142 10
+ 818 038e 0023     		movs	r3, #0
+ 819 0390 3B64     		str	r3, [r7, #64]
+ 820              		.loc 1 142 2
+ 821 0392 0BE0     		b	.L33
+ 822              	.L34:
+ 143:Core/Src/calibration.c **** 		ezero_mean += cal->error_arr[i];
+ 823              		.loc 1 143 31 discriminator 3
+ 824 0394 7A68     		ldr	r2, [r7, #4]
+ 825 0396 3B6C     		ldr	r3, [r7, #64]
+ 826 0398 0A33     		adds	r3, r3, #10
+ 827 039a 9B00     		lsls	r3, r3, #2
+ 828 039c 1344     		add	r3, r3, r2
+ 829 039e 5B68     		ldr	r3, [r3, #4]
+ 830              		.loc 1 143 14 discriminator 3
+ 831 03a0 7A6C     		ldr	r2, [r7, #68]
+ 832 03a2 1344     		add	r3, r3, r2
+ 833 03a4 7B64     		str	r3, [r7, #68]
+ 142:Core/Src/calibration.c **** 	for(int i = 0; i<((int)PPAIRS*SAMPLES_PER_PPAIR); i++){
+ 834              		.loc 1 142 53 discriminator 3
+ 835 03a6 3B6C     		ldr	r3, [r7, #64]
+ 836 03a8 0133     		adds	r3, r3, #1
+ 837 03aa 3B64     		str	r3, [r7, #64]
+ 838              	.L33:
+ 142:Core/Src/calibration.c **** 	for(int i = 0; i<((int)PPAIRS*SAMPLES_PER_PPAIR); i++){
+ 839              		.loc 1 142 25 discriminator 1
+ 840 03ac 704B     		ldr	r3, .L57
+ 841 03ae D3ED0A7A 		vldr.32	s15, [r3, #40]
+ 142:Core/Src/calibration.c **** 	for(int i = 0; i<((int)PPAIRS*SAMPLES_PER_PPAIR); i++){
+ 842              		.loc 1 142 20 discriminator 1
+ 843 03b2 FDEEE77A 		vcvt.s32.f32	s15, s15
+ 844 03b6 17EE903A 		vmov	r3, s15	@ int
+ 142:Core/Src/calibration.c **** 	for(int i = 0; i<((int)PPAIRS*SAMPLES_PER_PPAIR); i++){
+ 845              		.loc 1 142 31 discriminator 1
+ 846 03ba DB01     		lsls	r3, r3, #7
+ 142:Core/Src/calibration.c **** 	for(int i = 0; i<((int)PPAIRS*SAMPLES_PER_PPAIR); i++){
+ 847              		.loc 1 142 2 discriminator 1
+ 848 03bc 3A6C     		ldr	r2, [r7, #64]
+ 849 03be 9A42     		cmp	r2, r3
+ 850 03c0 E8DB     		blt	.L34
+ 851              	.LBE4:
+ 144:Core/Src/calibration.c **** 	}
+ 145:Core/Src/calibration.c **** 	cal->ezero = ezero_mean/(SAMPLES_PER_PPAIR*PPAIRS);
+ 852              		.loc 1 145 25
+ 853 03c2 7B6C     		ldr	r3, [r7, #68]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 20
+
+
+ 854 03c4 07EE903A 		vmov	s15, r3	@ int
+ 855 03c8 F8EEE76A 		vcvt.f32.s32	s13, s15
+ 856              		.loc 1 145 45
+ 857 03cc 684B     		ldr	r3, .L57
+ 858 03ce D3ED0A7A 		vldr.32	s15, [r3, #40]
+ 859              		.loc 1 145 44
+ 860 03d2 9FED6B7A 		vldr.32	s14, .L57+16
+ 861 03d6 27EE877A 		vmul.f32	s14, s15, s14
+ 862              		.loc 1 145 25
+ 863 03da C6EE877A 		vdiv.f32	s15, s13, s14
+ 864              		.loc 1 145 13
+ 865 03de FDEEE77A 		vcvt.s32.f32	s15, s15
+ 866 03e2 17EE902A 		vmov	r2, s15	@ int
+ 867 03e6 7B68     		ldr	r3, [r7, #4]
+ 868 03e8 DA61     		str	r2, [r3, #28]
+ 146:Core/Src/calibration.c **** 
+ 147:Core/Src/calibration.c **** 	// Moving average to filter out cogging ripple
+ 148:Core/Src/calibration.c **** 
+ 149:Core/Src/calibration.c **** 	int window = SAMPLES_PER_PPAIR;
+ 869              		.loc 1 149 6
+ 870 03ea 8023     		movs	r3, #128
+ 871 03ec BB62     		str	r3, [r7, #40]
+ 150:Core/Src/calibration.c **** 	int lut_offset = (ENC_CPR-cal->error_arr[0])*N_LUT/ENC_CPR;
+ 872              		.loc 1 150 42
+ 873 03ee 7B68     		ldr	r3, [r7, #4]
+ 874 03f0 DB6A     		ldr	r3, [r3, #44]
+ 875              		.loc 1 150 27
+ 876 03f2 C3F58033 		rsb	r3, r3, #65536
+ 877              		.loc 1 150 6
+ 878 03f6 002B     		cmp	r3, #0
+ 879 03f8 01DA     		bge	.L35
+ 880 03fa 03F2FF13 		addw	r3, r3, #511
+ 881              	.L35:
+ 882 03fe 5B12     		asrs	r3, r3, #9
+ 883 0400 7B62     		str	r3, [r7, #36]
+ 884              	.LBB5:
+ 151:Core/Src/calibration.c **** 	for(int i = 0; i<N_LUT; i++){
+ 885              		.loc 1 151 10
+ 886 0402 0023     		movs	r3, #0
+ 887 0404 FB63     		str	r3, [r7, #60]
+ 888              		.loc 1 151 2
+ 889 0406 A0E0     		b	.L36
+ 890              	.L43:
+ 891              	.LBB6:
+ 152:Core/Src/calibration.c **** 			int moving_avg = 0;
+ 892              		.loc 1 152 8
+ 893 0408 0023     		movs	r3, #0
+ 894 040a BB63     		str	r3, [r7, #56]
+ 895              	.LBB7:
+ 153:Core/Src/calibration.c **** 			for(int j = (-window)/2; j<(window)/2; j++){
+ 896              		.loc 1 153 12
+ 897 040c BB6A     		ldr	r3, [r7, #40]
+ 898 040e DA0F     		lsrs	r2, r3, #31
+ 899 0410 1344     		add	r3, r3, r2
+ 900 0412 5B10     		asrs	r3, r3, #1
+ 901 0414 5B42     		rsbs	r3, r3, #0
+ 902 0416 7B63     		str	r3, [r7, #52]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 21
+
+
+ 903              		.loc 1 153 4
+ 904 0418 68E0     		b	.L37
+ 905              	.L41:
+ 906              	.LBB8:
+ 154:Core/Src/calibration.c **** 				int index = i*PPAIRS*SAMPLES_PER_PPAIR/N_LUT + j;
+ 907              		.loc 1 154 18
+ 908 041a FB6B     		ldr	r3, [r7, #60]
+ 909 041c 07EE903A 		vmov	s15, r3	@ int
+ 910 0420 B8EEE77A 		vcvt.f32.s32	s14, s15
+ 911              		.loc 1 154 19
+ 912 0424 524B     		ldr	r3, .L57
+ 913 0426 D3ED0A7A 		vldr.32	s15, [r3, #40]
+ 914              		.loc 1 154 18
+ 915 042a 67EE277A 		vmul.f32	s15, s14, s15
+ 916              		.loc 1 154 25
+ 917 042e 9FED547A 		vldr.32	s14, .L57+16
+ 918 0432 67EE877A 		vmul.f32	s15, s15, s14
+ 919              		.loc 1 154 43
+ 920 0436 DFED526A 		vldr.32	s13, .L57+16
+ 921 043a 87EEA67A 		vdiv.f32	s14, s15, s13
+ 922              		.loc 1 154 50
+ 923 043e 7B6B     		ldr	r3, [r7, #52]
+ 924 0440 07EE903A 		vmov	s15, r3	@ int
+ 925 0444 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 926 0448 77EE277A 		vadd.f32	s15, s14, s15
+ 927              		.loc 1 154 9
+ 928 044c FDEEE77A 		vcvt.s32.f32	s15, s15
+ 929 0450 17EE903A 		vmov	r3, s15	@ int
+ 930 0454 3B63     		str	r3, [r7, #48]
+ 155:Core/Src/calibration.c **** 				if(index<0){index += (SAMPLES_PER_PPAIR*PPAIRS);}
+ 931              		.loc 1 155 7
+ 932 0456 3B6B     		ldr	r3, [r7, #48]
+ 933 0458 002B     		cmp	r3, #0
+ 934 045a 13DA     		bge	.L38
+ 935              		.loc 1 155 23 discriminator 1
+ 936 045c 3B6B     		ldr	r3, [r7, #48]
+ 937 045e 07EE903A 		vmov	s15, r3	@ int
+ 938 0462 B8EEE77A 		vcvt.f32.s32	s14, s15
+ 939              		.loc 1 155 45 discriminator 1
+ 940 0466 424B     		ldr	r3, .L57
+ 941 0468 D3ED0A7A 		vldr.32	s15, [r3, #40]
+ 942              		.loc 1 155 44 discriminator 1
+ 943 046c DFED446A 		vldr.32	s13, .L57+16
+ 944 0470 67EEA67A 		vmul.f32	s15, s15, s13
+ 945              		.loc 1 155 23 discriminator 1
+ 946 0474 77EE277A 		vadd.f32	s15, s14, s15
+ 947 0478 FDEEE77A 		vcvt.s32.f32	s15, s15
+ 948 047c 17EE903A 		vmov	r3, s15	@ int
+ 949 0480 3B63     		str	r3, [r7, #48]
+ 950 0482 27E0     		b	.L39
+ 951              	.L38:
+ 156:Core/Src/calibration.c **** 				else if(index>(SAMPLES_PER_PPAIR*PPAIRS-1)){index -= (SAMPLES_PER_PPAIR*PPAIRS);}
+ 952              		.loc 1 156 18
+ 953 0484 3B6B     		ldr	r3, [r7, #48]
+ 954 0486 07EE903A 		vmov	s15, r3	@ int
+ 955 048a B8EEE77A 		vcvt.f32.s32	s14, s15
+ 956              		.loc 1 156 38
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 22
+
+
+ 957 048e 384B     		ldr	r3, .L57
+ 958 0490 D3ED0A7A 		vldr.32	s15, [r3, #40]
+ 959              		.loc 1 156 37
+ 960 0494 DFED3A6A 		vldr.32	s13, .L57+16
+ 961 0498 67EEA67A 		vmul.f32	s15, s15, s13
+ 962              		.loc 1 156 44
+ 963 049c F7EE006A 		vmov.f32	s13, #1.0e+0
+ 964 04a0 77EEE67A 		vsub.f32	s15, s15, s13
+ 965              		.loc 1 156 12
+ 966 04a4 B4EEE77A 		vcmpe.f32	s14, s15
+ 967 04a8 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 968 04ac 12DD     		ble	.L39
+ 969              		.loc 1 156 55 discriminator 1
+ 970 04ae 3B6B     		ldr	r3, [r7, #48]
+ 971 04b0 07EE903A 		vmov	s15, r3	@ int
+ 972 04b4 B8EEE77A 		vcvt.f32.s32	s14, s15
+ 973              		.loc 1 156 77 discriminator 1
+ 974 04b8 2D4B     		ldr	r3, .L57
+ 975 04ba D3ED0A7A 		vldr.32	s15, [r3, #40]
+ 976              		.loc 1 156 76 discriminator 1
+ 977 04be DFED306A 		vldr.32	s13, .L57+16
+ 978 04c2 67EEA67A 		vmul.f32	s15, s15, s13
+ 979              		.loc 1 156 55 discriminator 1
+ 980 04c6 77EE677A 		vsub.f32	s15, s14, s15
+ 981 04ca FDEEE77A 		vcvt.s32.f32	s15, s15
+ 982 04ce 17EE903A 		vmov	r3, s15	@ int
+ 983 04d2 3B63     		str	r3, [r7, #48]
+ 984              	.L39:
+ 157:Core/Src/calibration.c **** 				moving_avg += cal->error_arr[index];
+ 985              		.loc 1 157 33 discriminator 2
+ 986 04d4 7A68     		ldr	r2, [r7, #4]
+ 987 04d6 3B6B     		ldr	r3, [r7, #48]
+ 988 04d8 0A33     		adds	r3, r3, #10
+ 989 04da 9B00     		lsls	r3, r3, #2
+ 990 04dc 1344     		add	r3, r3, r2
+ 991 04de 5B68     		ldr	r3, [r3, #4]
+ 992              		.loc 1 157 16 discriminator 2
+ 993 04e0 BA6B     		ldr	r2, [r7, #56]
+ 994 04e2 1344     		add	r3, r3, r2
+ 995 04e4 BB63     		str	r3, [r7, #56]
+ 996              	.LBE8:
+ 153:Core/Src/calibration.c **** 				int index = i*PPAIRS*SAMPLES_PER_PPAIR/N_LUT + j;
+ 997              		.loc 1 153 44 discriminator 2
+ 998 04e6 7B6B     		ldr	r3, [r7, #52]
+ 999 04e8 0133     		adds	r3, r3, #1
+ 1000 04ea 7B63     		str	r3, [r7, #52]
+ 1001              	.L37:
+ 153:Core/Src/calibration.c **** 				int index = i*PPAIRS*SAMPLES_PER_PPAIR/N_LUT + j;
+ 1002              		.loc 1 153 39 discriminator 1
+ 1003 04ec BB6A     		ldr	r3, [r7, #40]
+ 1004 04ee DA0F     		lsrs	r2, r3, #31
+ 1005 04f0 1344     		add	r3, r3, r2
+ 1006 04f2 5B10     		asrs	r3, r3, #1
+ 1007 04f4 1A46     		mov	r2, r3
+ 153:Core/Src/calibration.c **** 				int index = i*PPAIRS*SAMPLES_PER_PPAIR/N_LUT + j;
+ 1008              		.loc 1 153 4 discriminator 1
+ 1009 04f6 7B6B     		ldr	r3, [r7, #52]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 23
+
+
+ 1010 04f8 9342     		cmp	r3, r2
+ 1011 04fa 8EDB     		blt	.L41
+ 1012              	.LBE7:
+ 158:Core/Src/calibration.c **** 			}
+ 159:Core/Src/calibration.c **** 			moving_avg = moving_avg/window;
+ 1013              		.loc 1 159 15
+ 1014 04fc BA6B     		ldr	r2, [r7, #56]
+ 1015 04fe BB6A     		ldr	r3, [r7, #40]
+ 1016 0500 92FBF3F3 		sdiv	r3, r2, r3
+ 1017 0504 BB63     		str	r3, [r7, #56]
+ 160:Core/Src/calibration.c **** 			int lut_index = lut_offset + i;
+ 1018              		.loc 1 160 8
+ 1019 0506 7A6A     		ldr	r2, [r7, #36]
+ 1020 0508 FB6B     		ldr	r3, [r7, #60]
+ 1021 050a 1344     		add	r3, r3, r2
+ 1022 050c FB62     		str	r3, [r7, #44]
+ 161:Core/Src/calibration.c **** 			if(lut_index>(N_LUT-1)){lut_index -= N_LUT;}
+ 1023              		.loc 1 161 6
+ 1024 050e FB6A     		ldr	r3, [r7, #44]
+ 1025 0510 7F2B     		cmp	r3, #127
+ 1026 0512 02DD     		ble	.L42
+ 1027              		.loc 1 161 38 discriminator 1
+ 1028 0514 FB6A     		ldr	r3, [r7, #44]
+ 1029 0516 803B     		subs	r3, r3, #128
+ 1030 0518 FB62     		str	r3, [r7, #44]
+ 1031              	.L42:
+ 162:Core/Src/calibration.c **** 			cal->lut_arr[lut_index] = moving_avg - cal->ezero;
+ 1032              		.loc 1 162 46 discriminator 2
+ 1033 051a 7B68     		ldr	r3, [r7, #4]
+ 1034 051c DB69     		ldr	r3, [r3, #28]
+ 1035              		.loc 1 162 41 discriminator 2
+ 1036 051e BA6B     		ldr	r2, [r7, #56]
+ 1037 0520 D21A     		subs	r2, r2, r3
+ 1038              		.loc 1 162 28 discriminator 2
+ 1039 0522 7968     		ldr	r1, [r7, #4]
+ 1040 0524 FB6A     		ldr	r3, [r7, #44]
+ 1041 0526 03F50053 		add	r3, r3, #8192
+ 1042 052a 0A33     		adds	r3, r3, #10
+ 1043 052c 9B00     		lsls	r3, r3, #2
+ 1044 052e 0B44     		add	r3, r3, r1
+ 1045 0530 5A60     		str	r2, [r3, #4]
+ 163:Core/Src/calibration.c **** 			printf("%d  %d\r\n", lut_index, moving_avg - cal->ezero);
+ 1046              		.loc 1 163 52 discriminator 2
+ 1047 0532 7B68     		ldr	r3, [r7, #4]
+ 1048 0534 DB69     		ldr	r3, [r3, #28]
+ 1049              		.loc 1 163 4 discriminator 2
+ 1050 0536 BA6B     		ldr	r2, [r7, #56]
+ 1051 0538 D31A     		subs	r3, r2, r3
+ 1052 053a 1A46     		mov	r2, r3
+ 1053 053c F96A     		ldr	r1, [r7, #44]
+ 1054 053e 1148     		ldr	r0, .L57+20
+ 1055 0540 FFF7FEFF 		bl	printf
+ 1056              	.LBE6:
+ 151:Core/Src/calibration.c **** 			int moving_avg = 0;
+ 1057              		.loc 1 151 27 discriminator 2
+ 1058 0544 FB6B     		ldr	r3, [r7, #60]
+ 1059 0546 0133     		adds	r3, r3, #1
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 24
+
+
+ 1060 0548 FB63     		str	r3, [r7, #60]
+ 1061              	.L36:
+ 151:Core/Src/calibration.c **** 			int moving_avg = 0;
+ 1062              		.loc 1 151 2 discriminator 1
+ 1063 054a FB6B     		ldr	r3, [r7, #60]
+ 1064 054c 7F2B     		cmp	r3, #127
+ 1065 054e 7FF75BAF 		ble	.L43
+ 1066              	.LBE5:
+ 164:Core/Src/calibration.c **** 
+ 165:Core/Src/calibration.c **** 		}
+ 166:Core/Src/calibration.c **** 
+ 167:Core/Src/calibration.c **** 	cal->started = 0;
+ 1067              		.loc 1 167 15
+ 1068 0552 7B68     		ldr	r3, [r7, #4]
+ 1069 0554 0022     		movs	r2, #0
+ 1070 0556 1A74     		strb	r2, [r3, #16]
+ 168:Core/Src/calibration.c **** 	cal->done_cal = 1;
+ 1071              		.loc 1 168 16
+ 1072 0558 7B68     		ldr	r3, [r7, #4]
+ 1073 055a 0122     		movs	r2, #1
+ 1074 055c 83F82220 		strb	r2, [r3, #34]
+ 1075 0560 02E0     		b	.L19
+ 1076              	.L53:
+ 1077              	.LBB9:
+ 109:Core/Src/calibration.c **** 			}
+ 1078              		.loc 1 109 5
+ 1079 0562 00BF     		nop
+ 1080 0564 00E0     		b	.L19
+ 1081              	.L54:
+ 1082              	.LBE9:
+ 135:Core/Src/calibration.c ****     }
+ 1083              		.loc 1 135 3
+ 1084 0566 00BF     		nop
+ 1085              	.L19:
+ 169:Core/Src/calibration.c **** }
+ 1086              		.loc 1 169 1
+ 1087 0568 4837     		adds	r7, r7, #72
+ 1088              	.LCFI8:
+ 1089              		.cfi_def_cfa_offset 16
+ 1090 056a BD46     		mov	sp, r7
+ 1091              	.LCFI9:
+ 1092              		.cfi_def_cfa_register 13
+ 1093              		@ sp needed
+ 1094 056c B0BD     		pop	{r4, r5, r7, pc}
+ 1095              	.L58:
+ 1096 056e 00BF     		.align	2
+ 1097              	.L57:
+ 1098 0570 00000000 		.word	__float_reg
+ 1099 0574 DB0FC940 		.word	1086918619
+ 1100 0578 AC000000 		.word	.LC6
+ 1101 057c 7CD9A03B 		.word	1000397180
+ 1102 0580 00000043 		.word	1124073472
+ 1103 0584 BC000000 		.word	.LC7
+ 1104              		.cfi_endproc
+ 1105              	.LFE243:
+ 1107              		.section	.text.measure_lr,"ax",%progbits
+ 1108              		.align	1
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 25
+
+
+ 1109              		.global	measure_lr
+ 1110              		.syntax unified
+ 1111              		.thumb
+ 1112              		.thumb_func
+ 1114              	measure_lr:
+ 1115              	.LFB244:
+ 170:Core/Src/calibration.c **** 
+ 171:Core/Src/calibration.c **** void measure_lr(EncoderStruct *encoder, ControllerStruct *controller, CalStruct * cal, int loop_cou
+ 1116              		.loc 1 171 103
+ 1117              		.cfi_startproc
+ 1118              		@ args = 0, pretend = 0, frame = 16
+ 1119              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1120              		@ link register save eliminated.
+ 1121 0000 80B4     		push	{r7}
+ 1122              	.LCFI10:
+ 1123              		.cfi_def_cfa_offset 4
+ 1124              		.cfi_offset 7, -4
+ 1125 0002 85B0     		sub	sp, sp, #20
+ 1126              	.LCFI11:
+ 1127              		.cfi_def_cfa_offset 24
+ 1128 0004 00AF     		add	r7, sp, #0
+ 1129              	.LCFI12:
+ 1130              		.cfi_def_cfa_register 7
+ 1131 0006 F860     		str	r0, [r7, #12]
+ 1132 0008 B960     		str	r1, [r7, #8]
+ 1133 000a 7A60     		str	r2, [r7, #4]
+ 1134 000c 3B60     		str	r3, [r7]
+ 172:Core/Src/calibration.c **** 
+ 173:Core/Src/calibration.c **** }
+ 1135              		.loc 1 173 1
+ 1136 000e 00BF     		nop
+ 1137 0010 1437     		adds	r7, r7, #20
+ 1138              	.LCFI13:
+ 1139              		.cfi_def_cfa_offset 4
+ 1140 0012 BD46     		mov	sp, r7
+ 1141              	.LCFI14:
+ 1142              		.cfi_def_cfa_register 13
+ 1143              		@ sp needed
+ 1144 0014 5DF8047B 		ldr	r7, [sp], #4
+ 1145              	.LCFI15:
+ 1146              		.cfi_restore 7
+ 1147              		.cfi_def_cfa_offset 0
+ 1148 0018 7047     		bx	lr
+ 1149              		.cfi_endproc
+ 1150              	.LFE244:
+ 1152              		.text
+ 1153              	.Letext0:
+ 1154              		.file 2 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\machine\\_default
+ 1155              		.file 3 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 1156              		.file 4 "Core/Inc/position_sensor.h"
+ 1157              		.file 5 "Core/Inc/foc.h"
+ 1158              		.file 6 "Core/Inc/calibration.h"
+ 1159              		.file 7 "Core/Inc/user_config.h"
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cca6YYAp.s 			page 26
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 calibration.c
+C:\Users\16323\AppData\Local\Temp\cca6YYAp.s:20     .rodata:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cca6YYAp.s:38     .text.order_phases:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cca6YYAp.s:44     .text.order_phases:00000000 order_phases
+C:\Users\16323\AppData\Local\Temp\cca6YYAp.s:313    .text.order_phases:000001e8 $d
+C:\Users\16323\AppData\Local\Temp\cca6YYAp.s:337    .text.calibrate_encoder:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cca6YYAp.s:343    .text.calibrate_encoder:00000000 calibrate_encoder
+C:\Users\16323\AppData\Local\Temp\cca6YYAp.s:685    .text.calibrate_encoder:00000290 $d
+C:\Users\16323\AppData\Local\Temp\cca6YYAp.s:697    .text.calibrate_encoder:000002b8 $t
+C:\Users\16323\AppData\Local\Temp\cca6YYAp.s:1098   .text.calibrate_encoder:00000570 $d
+C:\Users\16323\AppData\Local\Temp\cca6YYAp.s:1108   .text.measure_lr:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cca6YYAp.s:1114   .text.measure_lr:00000000 measure_lr
+
+UNDEFINED SYMBOLS
+__aeabi_f2d
+__aeabi_d2uiz
+puts
+commutate
+reset_foc
+round
+printf
+__int_reg
+__float_reg

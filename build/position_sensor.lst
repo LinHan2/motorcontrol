@@ -1,0 +1,891 @@
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 6
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"position_sensor.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	position_sensor_raw_value
+  20              		.section	.bss.position_sensor_raw_value,"aw",%nobits
+  21              		.align	2
+  24              	position_sensor_raw_value:
+  25 0000 00000000 		.space	4
+  26              		.section	.text.ps_warmup,"ax",%progbits
+  27              		.align	1
+  28              		.global	ps_warmup
+  29              		.syntax unified
+  30              		.thumb
+  31              		.thumb_func
+  33              	ps_warmup:
+  34              	.LFB242:
+  35              		.file 1 "Core/Src/position_sensor.c"
+   1:Core/Src/position_sensor.c **** /*
+   2:Core/Src/position_sensor.c ****  * position_sensor.c
+   3:Core/Src/position_sensor.c ****  *
+   4:Core/Src/position_sensor.c ****  *  Created on: Jul 26, 2020
+   5:Core/Src/position_sensor.c ****  *      Author: Ben
+   6:Core/Src/position_sensor.c ****  */
+   7:Core/Src/position_sensor.c **** #include <stdio.h>
+   8:Core/Src/position_sensor.c **** #include <string.h>
+   9:Core/Src/position_sensor.c **** #include "position_sensor.h"
+  10:Core/Src/position_sensor.c **** #include "math_ops.h"
+  11:Core/Src/position_sensor.c **** #include "hw_config.h"
+  12:Core/Src/position_sensor.c **** #include "user_config.h"
+  13:Core/Src/position_sensor.c **** 
+  14:Core/Src/position_sensor.c **** int32_t position_sensor_raw_value = 0;
+  15:Core/Src/position_sensor.c **** 
+  16:Core/Src/position_sensor.c **** void ps_warmup(EncoderStruct * encoder, int n){
+  36              		.loc 1 16 47
+  37              		.cfi_startproc
+  38              		@ args = 0, pretend = 0, frame = 16
+  39              		@ frame_needed = 1, uses_anonymous_args = 0
+  40 0000 80B5     		push	{r7, lr}
+  41              	.LCFI0:
+  42              		.cfi_def_cfa_offset 8
+  43              		.cfi_offset 7, -8
+  44              		.cfi_offset 14, -4
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 2
+
+
+  45 0002 86B0     		sub	sp, sp, #24
+  46              	.LCFI1:
+  47              		.cfi_def_cfa_offset 32
+  48 0004 02AF     		add	r7, sp, #8
+  49              	.LCFI2:
+  50              		.cfi_def_cfa 7, 24
+  51 0006 7860     		str	r0, [r7, #4]
+  52 0008 3960     		str	r1, [r7]
+  53              	.LBB2:
+  17:Core/Src/position_sensor.c **** 	/* Hall position sensors noisy on startup.  Take a bunch of samples to clear this data */
+  18:Core/Src/position_sensor.c **** 	for(int i = 0; i<n; i++){
+  54              		.loc 1 18 10
+  55 000a 0023     		movs	r3, #0
+  56 000c FB60     		str	r3, [r7, #12]
+  57              		.loc 1 18 2
+  58 000e 21E0     		b	.L2
+  59              	.L4:
+  19:Core/Src/position_sensor.c **** 		encoder->spi_tx_word = 0x0000;
+  60              		.loc 1 19 24
+  61 0010 7B68     		ldr	r3, [r7, #4]
+  62 0012 0022     		movs	r2, #0
+  63 0014 1A80     		strh	r2, [r3]	@ movhi
+  20:Core/Src/position_sensor.c **** 		HAL_GPIO_WritePin(ENC_CS, GPIO_PIN_RESET ); 	// CS low
+  64              		.loc 1 20 3
+  65 0016 0022     		movs	r2, #0
+  66 0018 4FF40041 		mov	r1, #32768
+  67 001c 1248     		ldr	r0, .L5
+  68 001e FFF7FEFF 		bl	HAL_GPIO_WritePin
+  21:Core/Src/position_sensor.c **** 		HAL_SPI_TransmitReceive(&ENC_SPI, (uint8_t*)encoder->spi_tx_buff, (uint8_t *)encoder->spi_rx_buff
+  69              		.loc 1 21 47
+  70 0022 7968     		ldr	r1, [r7, #4]
+  71              		.loc 1 21 80
+  72 0024 7B68     		ldr	r3, [r7, #4]
+  73 0026 9A1C     		adds	r2, r3, #2
+  74              		.loc 1 21 3
+  75 0028 6423     		movs	r3, #100
+  76 002a 0093     		str	r3, [sp]
+  77 002c 0123     		movs	r3, #1
+  78 002e 0F48     		ldr	r0, .L5+4
+  79 0030 FFF7FEFF 		bl	HAL_SPI_TransmitReceive
+  22:Core/Src/position_sensor.c **** 		while( ENC_SPI.State == HAL_SPI_STATE_BUSY );  					// wait for transmission complete
+  80              		.loc 1 22 8
+  81 0034 00BF     		nop
+  82              	.L3:
+  83              		.loc 1 22 17 discriminator 1
+  84 0036 0D4B     		ldr	r3, .L5+4
+  85 0038 93F85130 		ldrb	r3, [r3, #81]
+  86 003c DBB2     		uxtb	r3, r3
+  87              		.loc 1 22 8 discriminator 1
+  88 003e 022B     		cmp	r3, #2
+  89 0040 F9D0     		beq	.L3
+  23:Core/Src/position_sensor.c **** 		HAL_GPIO_WritePin(ENC_CS, GPIO_PIN_SET ); 	// CS high
+  90              		.loc 1 23 3 discriminator 2
+  91 0042 0122     		movs	r2, #1
+  92 0044 4FF40041 		mov	r1, #32768
+  93 0048 0748     		ldr	r0, .L5
+  94 004a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 3
+
+
+  18:Core/Src/position_sensor.c **** 		encoder->spi_tx_word = 0x0000;
+  95              		.loc 1 18 23 discriminator 2
+  96 004e FB68     		ldr	r3, [r7, #12]
+  97 0050 0133     		adds	r3, r3, #1
+  98 0052 FB60     		str	r3, [r7, #12]
+  99              	.L2:
+  18:Core/Src/position_sensor.c **** 		encoder->spi_tx_word = 0x0000;
+ 100              		.loc 1 18 2 discriminator 1
+ 101 0054 FA68     		ldr	r2, [r7, #12]
+ 102 0056 3B68     		ldr	r3, [r7]
+ 103 0058 9A42     		cmp	r2, r3
+ 104 005a D9DB     		blt	.L4
+ 105              	.LBE2:
+  24:Core/Src/position_sensor.c **** 	}
+  25:Core/Src/position_sensor.c **** }
+ 106              		.loc 1 25 1
+ 107 005c 00BF     		nop
+ 108 005e 00BF     		nop
+ 109 0060 1037     		adds	r7, r7, #16
+ 110              	.LCFI3:
+ 111              		.cfi_def_cfa_offset 8
+ 112 0062 BD46     		mov	sp, r7
+ 113              	.LCFI4:
+ 114              		.cfi_def_cfa_register 13
+ 115              		@ sp needed
+ 116 0064 80BD     		pop	{r7, pc}
+ 117              	.L6:
+ 118 0066 00BF     		.align	2
+ 119              	.L5:
+ 120 0068 00000240 		.word	1073872896
+ 121 006c 00000000 		.word	hspi3
+ 122              		.cfi_endproc
+ 123              	.LFE242:
+ 125              		.section	.text.ps_sample,"ax",%progbits
+ 126              		.align	1
+ 127              		.global	ps_sample
+ 128              		.syntax unified
+ 129              		.thumb
+ 130              		.thumb_func
+ 132              	ps_sample:
+ 133              	.LFB243:
+  26:Core/Src/position_sensor.c **** 
+  27:Core/Src/position_sensor.c **** void ps_sample(EncoderStruct * encoder, float dt){
+ 134              		.loc 1 27 50
+ 135              		.cfi_startproc
+ 136              		@ args = 0, pretend = 0, frame = 40
+ 137              		@ frame_needed = 1, uses_anonymous_args = 0
+ 138 0000 80B5     		push	{r7, lr}
+ 139              	.LCFI5:
+ 140              		.cfi_def_cfa_offset 8
+ 141              		.cfi_offset 7, -8
+ 142              		.cfi_offset 14, -4
+ 143 0002 8CB0     		sub	sp, sp, #48
+ 144              	.LCFI6:
+ 145              		.cfi_def_cfa_offset 56
+ 146 0004 02AF     		add	r7, sp, #8
+ 147              	.LCFI7:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 4
+
+
+ 148              		.cfi_def_cfa 7, 48
+ 149 0006 7860     		str	r0, [r7, #4]
+ 150 0008 87ED000A 		vstr.32	s0, [r7]
+  28:Core/Src/position_sensor.c **** 	/* updates EncoderStruct encoder with the latest sample
+  29:Core/Src/position_sensor.c **** 	 * after elapsed time dt */
+  30:Core/Src/position_sensor.c **** 
+  31:Core/Src/position_sensor.c **** 	/* Shift around previous samples */
+  32:Core/Src/position_sensor.c **** 	encoder->old_angle = encoder->angle_singleturn;
+ 151              		.loc 1 32 30
+ 152 000c 7B68     		ldr	r3, [r7, #4]
+ 153 000e 5A68     		ldr	r2, [r3, #4]	@ float
+ 154              		.loc 1 32 21
+ 155 0010 7B68     		ldr	r3, [r7, #4]
+ 156 0012 9A60     		str	r2, [r3, #8]	@ float
+ 157              	.LBB3:
+  33:Core/Src/position_sensor.c **** 	for(int i = N_POS_SAMPLES-1; i>0; i--){encoder->angle_multiturn[i] = encoder->angle_multiturn[i-1]
+ 158              		.loc 1 33 10
+ 159 0014 1323     		movs	r3, #19
+ 160 0016 7B62     		str	r3, [r7, #36]
+ 161              		.loc 1 33 2
+ 162 0018 11E0     		b	.L8
+ 163              	.L9:
+ 164              		.loc 1 33 97 discriminator 3
+ 165 001a 7B6A     		ldr	r3, [r7, #36]
+ 166 001c 013B     		subs	r3, r3, #1
+ 167              		.loc 1 33 95 discriminator 3
+ 168 001e 7A68     		ldr	r2, [r7, #4]
+ 169 0020 0233     		adds	r3, r3, #2
+ 170 0022 9B00     		lsls	r3, r3, #2
+ 171 0024 1344     		add	r3, r3, r2
+ 172 0026 0433     		adds	r3, r3, #4
+ 173 0028 1A68     		ldr	r2, [r3]	@ float
+ 174              		.loc 1 33 69 discriminator 3
+ 175 002a 7968     		ldr	r1, [r7, #4]
+ 176 002c 7B6A     		ldr	r3, [r7, #36]
+ 177 002e 0233     		adds	r3, r3, #2
+ 178 0030 9B00     		lsls	r3, r3, #2
+ 179 0032 0B44     		add	r3, r3, r1
+ 180 0034 0433     		adds	r3, r3, #4
+ 181 0036 1A60     		str	r2, [r3]	@ float
+ 182              		.loc 1 33 37 discriminator 3
+ 183 0038 7B6A     		ldr	r3, [r7, #36]
+ 184 003a 013B     		subs	r3, r3, #1
+ 185 003c 7B62     		str	r3, [r7, #36]
+ 186              	.L8:
+ 187              		.loc 1 33 2 discriminator 1
+ 188 003e 7B6A     		ldr	r3, [r7, #36]
+ 189 0040 002B     		cmp	r3, #0
+ 190 0042 EADC     		bgt	.L9
+ 191              	.LBE3:
+  34:Core/Src/position_sensor.c **** 	//for(int i = N_POS_SAMPLES-1; i>0; i--){encoder->count_buff[i] = encoder->count_buff[i-1];}
+  35:Core/Src/position_sensor.c **** 	//memmove(&encoder->angle_multiturn[1], &encoder->angle_multiturn[0], (N_POS_SAMPLES-1)*sizeof(flo
+  36:Core/Src/position_sensor.c **** 
+  37:Core/Src/position_sensor.c **** 	/* SPI read/write */
+  38:Core/Src/position_sensor.c **** 	encoder->spi_tx_word = ENC_READ_WORD;
+ 192              		.loc 1 38 23
+ 193 0044 7B68     		ldr	r3, [r7, #4]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 5
+
+
+ 194 0046 0022     		movs	r2, #0
+ 195 0048 1A80     		strh	r2, [r3]	@ movhi
+  39:Core/Src/position_sensor.c **** 	HAL_GPIO_WritePin(ENC_CS, GPIO_PIN_RESET ); 	// CS low
+ 196              		.loc 1 39 2
+ 197 004a 0022     		movs	r2, #0
+ 198 004c 4FF40041 		mov	r1, #32768
+ 199 0050 AC48     		ldr	r0, .L36
+ 200 0052 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  40:Core/Src/position_sensor.c **** 	HAL_SPI_TransmitReceive(&ENC_SPI, (uint8_t*)encoder->spi_tx_buff, (uint8_t *)encoder->spi_rx_buff,
+ 201              		.loc 1 40 46
+ 202 0056 7968     		ldr	r1, [r7, #4]
+ 203              		.loc 1 40 79
+ 204 0058 7B68     		ldr	r3, [r7, #4]
+ 205 005a 9A1C     		adds	r2, r3, #2
+ 206              		.loc 1 40 2
+ 207 005c 6423     		movs	r3, #100
+ 208 005e 0093     		str	r3, [sp]
+ 209 0060 0123     		movs	r3, #1
+ 210 0062 A948     		ldr	r0, .L36+4
+ 211 0064 FFF7FEFF 		bl	HAL_SPI_TransmitReceive
+  41:Core/Src/position_sensor.c **** 	while( ENC_SPI.State == HAL_SPI_STATE_BUSY );  					// wait for transmission complete
+ 212              		.loc 1 41 7
+ 213 0068 00BF     		nop
+ 214              	.L10:
+ 215              		.loc 1 41 16 discriminator 1
+ 216 006a A74B     		ldr	r3, .L36+4
+ 217 006c 93F85130 		ldrb	r3, [r3, #81]
+ 218 0070 DBB2     		uxtb	r3, r3
+ 219              		.loc 1 41 7 discriminator 1
+ 220 0072 022B     		cmp	r3, #2
+ 221 0074 F9D0     		beq	.L10
+  42:Core/Src/position_sensor.c **** 	HAL_GPIO_WritePin(ENC_CS, GPIO_PIN_SET ); 	// CS high
+ 222              		.loc 1 42 2
+ 223 0076 0122     		movs	r2, #1
+ 224 0078 4FF40041 		mov	r1, #32768
+ 225 007c A148     		ldr	r0, .L36
+ 226 007e FFF7FEFF 		bl	HAL_GPIO_WritePin
+  43:Core/Src/position_sensor.c **** 	encoder->raw = encoder ->spi_rx_word;
+ 227              		.loc 1 43 25
+ 228 0082 7B68     		ldr	r3, [r7, #4]
+ 229 0084 5B88     		ldrh	r3, [r3, #2]
+ 230 0086 1A46     		mov	r2, r3
+ 231              		.loc 1 43 15
+ 232 0088 7B68     		ldr	r3, [r7, #4]
+ 233 008a 5A67     		str	r2, [r3, #116]
+  44:Core/Src/position_sensor.c **** 
+  45:Core/Src/position_sensor.c **** 	/* Linearization */
+  46:Core/Src/position_sensor.c **** 	int off_1 = encoder->offset_lut[(encoder->raw)>>9];				// lookup table lower entry
+ 234              		.loc 1 46 42
+ 235 008c 7B68     		ldr	r3, [r7, #4]
+ 236 008e 5B6F     		ldr	r3, [r3, #116]
+ 237              		.loc 1 46 48
+ 238 0090 5B12     		asrs	r3, r3, #9
+ 239              		.loc 1 46 6
+ 240 0092 7A68     		ldr	r2, [r7, #4]
+ 241 0094 3633     		adds	r3, r3, #54
+ 242 0096 9B00     		lsls	r3, r3, #2
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 6
+
+
+ 243 0098 1344     		add	r3, r3, r2
+ 244 009a 5B68     		ldr	r3, [r3, #4]
+ 245 009c FB61     		str	r3, [r7, #28]
+  47:Core/Src/position_sensor.c **** 	int off_2 = encoder->offset_lut[((encoder->raw>>9)+1)%128];		// lookup table higher entry
+ 246              		.loc 1 47 43
+ 247 009e 7B68     		ldr	r3, [r7, #4]
+ 248 00a0 5B6F     		ldr	r3, [r3, #116]
+ 249              		.loc 1 47 48
+ 250 00a2 5B12     		asrs	r3, r3, #9
+ 251              		.loc 1 47 52
+ 252 00a4 0133     		adds	r3, r3, #1
+ 253              		.loc 1 47 55
+ 254 00a6 5A42     		rsbs	r2, r3, #0
+ 255 00a8 03F07F03 		and	r3, r3, #127
+ 256 00ac 02F07F02 		and	r2, r2, #127
+ 257 00b0 58BF     		it	pl
+ 258 00b2 5342     		rsbpl	r3, r2, #0
+ 259              		.loc 1 47 6
+ 260 00b4 7A68     		ldr	r2, [r7, #4]
+ 261 00b6 3633     		adds	r3, r3, #54
+ 262 00b8 9B00     		lsls	r3, r3, #2
+ 263 00ba 1344     		add	r3, r3, r2
+ 264 00bc 5B68     		ldr	r3, [r3, #4]
+ 265 00be BB61     		str	r3, [r7, #24]
+  48:Core/Src/position_sensor.c **** 	int off_interp = off_1 + ((off_2 - off_1)*(encoder->raw - ((encoder->raw>>9)<<9))>>9);     // Inte
+ 266              		.loc 1 48 35
+ 267 00c0 BA69     		ldr	r2, [r7, #24]
+ 268 00c2 FB69     		ldr	r3, [r7, #28]
+ 269 00c4 D31A     		subs	r3, r2, r3
+ 270              		.loc 1 48 69
+ 271 00c6 7A68     		ldr	r2, [r7, #4]
+ 272 00c8 526F     		ldr	r2, [r2, #116]
+ 273              		.loc 1 48 58
+ 274 00ca C2F30802 		ubfx	r2, r2, #0, #9
+ 275              		.loc 1 48 43
+ 276 00ce 02FB03F3 		mul	r3, r2, r3
+ 277              		.loc 1 48 83
+ 278 00d2 5B12     		asrs	r3, r3, #9
+ 279              		.loc 1 48 6
+ 280 00d4 FA69     		ldr	r2, [r7, #28]
+ 281 00d6 1344     		add	r3, r3, r2
+ 282 00d8 7B61     		str	r3, [r7, #20]
+  49:Core/Src/position_sensor.c **** 	encoder->count = encoder->raw + off_interp;
+ 283              		.loc 1 49 26
+ 284 00da 7B68     		ldr	r3, [r7, #4]
+ 285 00dc 5A6F     		ldr	r2, [r3, #116]
+ 286              		.loc 1 49 32
+ 287 00de 7B69     		ldr	r3, [r7, #20]
+ 288 00e0 1A44     		add	r2, r2, r3
+ 289              		.loc 1 49 17
+ 290 00e2 7B68     		ldr	r3, [r7, #4]
+ 291 00e4 9A67     		str	r2, [r3, #120]
+  50:Core/Src/position_sensor.c **** 
+  51:Core/Src/position_sensor.c **** 
+  52:Core/Src/position_sensor.c **** 	/* Real angles in radians */
+  53:Core/Src/position_sensor.c **** 	encoder->angle_singleturn = ((float)(encoder->count-M_ZERO))/((float)ENC_CPR);
+ 292              		.loc 1 53 46
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 7
+
+
+ 293 00e6 7B68     		ldr	r3, [r7, #4]
+ 294 00e8 9A6F     		ldr	r2, [r3, #120]
+ 295              		.loc 1 53 54
+ 296 00ea 884B     		ldr	r3, .L36+8
+ 297 00ec 1B69     		ldr	r3, [r3, #16]
+ 298              		.loc 1 53 53
+ 299 00ee D31A     		subs	r3, r2, r3
+ 300              		.loc 1 53 31
+ 301 00f0 07EE903A 		vmov	s15, r3	@ int
+ 302 00f4 B8EEE77A 		vcvt.f32.s32	s14, s15
+ 303              		.loc 1 53 62
+ 304 00f8 DFED856A 		vldr.32	s13, .L36+12
+ 305 00fc C7EE267A 		vdiv.f32	s15, s14, s13
+ 306              		.loc 1 53 28
+ 307 0100 7B68     		ldr	r3, [r7, #4]
+ 308 0102 C3ED017A 		vstr.32	s15, [r3, #4]
+  54:Core/Src/position_sensor.c **** 	int int_angle = encoder->angle_singleturn;
+ 309              		.loc 1 54 25
+ 310 0106 7B68     		ldr	r3, [r7, #4]
+ 311 0108 D3ED017A 		vldr.32	s15, [r3, #4]
+ 312              		.loc 1 54 6
+ 313 010c FDEEE77A 		vcvt.s32.f32	s15, s15
+ 314 0110 17EE903A 		vmov	r3, s15	@ int
+ 315 0114 3B61     		str	r3, [r7, #16]
+  55:Core/Src/position_sensor.c **** 	encoder->angle_singleturn = TWO_PI_F*(encoder->angle_singleturn - (float)int_angle);
+ 316              		.loc 1 55 47
+ 317 0116 7B68     		ldr	r3, [r7, #4]
+ 318 0118 93ED017A 		vldr.32	s14, [r3, #4]
+ 319              		.loc 1 55 68
+ 320 011c 3B69     		ldr	r3, [r7, #16]
+ 321 011e 07EE903A 		vmov	s15, r3	@ int
+ 322 0122 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 323              		.loc 1 55 66
+ 324 0126 77EE677A 		vsub.f32	s15, s14, s15
+ 325              		.loc 1 55 38
+ 326 012a 9FED7A7A 		vldr.32	s14, .L36+16
+ 327 012e 67EE877A 		vmul.f32	s15, s15, s14
+ 328              		.loc 1 55 28
+ 329 0132 7B68     		ldr	r3, [r7, #4]
+ 330 0134 C3ED017A 		vstr.32	s15, [r3, #4]
+  56:Core/Src/position_sensor.c **** 	//encoder->angle_singleturn = TWO_PI_F*fmodf(((float)(encoder->count-M_ZERO))/((float)ENC_CPR), 1.
+  57:Core/Src/position_sensor.c **** 	encoder->angle_singleturn = encoder->angle_singleturn<0 ? encoder->angle_singleturn + TWO_PI_F : e
+ 331              		.loc 1 57 37
+ 332 0138 7B68     		ldr	r3, [r7, #4]
+ 333 013a D3ED017A 		vldr.32	s15, [r3, #4]
+ 334              		.loc 1 57 97
+ 335 013e F5EEC07A 		vcmpe.f32	s15, #0
+ 336 0142 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 337 0146 07D5     		bpl	.L32
+ 338              		.loc 1 57 67 discriminator 1
+ 339 0148 7B68     		ldr	r3, [r7, #4]
+ 340 014a D3ED017A 		vldr.32	s15, [r3, #4]
+ 341              		.loc 1 57 97 discriminator 1
+ 342 014e 9FED717A 		vldr.32	s14, .L36+16
+ 343 0152 77EE877A 		vadd.f32	s15, s15, s14
+ 344 0156 02E0     		b	.L13
+ 345              	.L32:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 8
+
+
+ 346              		.loc 1 57 97 is_stmt 0 discriminator 2
+ 347 0158 7B68     		ldr	r3, [r7, #4]
+ 348 015a D3ED017A 		vldr.32	s15, [r3, #4]
+ 349              	.L13:
+ 350              		.loc 1 57 28 is_stmt 1 discriminator 4
+ 351 015e 7B68     		ldr	r3, [r7, #4]
+ 352 0160 C3ED017A 		vstr.32	s15, [r3, #4]
+  58:Core/Src/position_sensor.c **** 
+  59:Core/Src/position_sensor.c **** 	encoder->elec_angle = (encoder->ppairs*(float)(encoder->count-E_ZERO))/((float)ENC_CPR);
+ 353              		.loc 1 59 32 discriminator 4
+ 354 0164 7B68     		ldr	r3, [r7, #4]
+ 355 0166 93ED1A7A 		vldr.32	s14, [r3, #104]
+ 356              		.loc 1 59 56 discriminator 4
+ 357 016a 7B68     		ldr	r3, [r7, #4]
+ 358 016c 9A6F     		ldr	r2, [r3, #120]
+ 359              		.loc 1 59 64 discriminator 4
+ 360 016e 674B     		ldr	r3, .L36+8
+ 361 0170 5B69     		ldr	r3, [r3, #20]
+ 362              		.loc 1 59 63 discriminator 4
+ 363 0172 D31A     		subs	r3, r2, r3
+ 364              		.loc 1 59 41 discriminator 4
+ 365 0174 07EE903A 		vmov	s15, r3	@ int
+ 366 0178 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 367              		.loc 1 59 40 discriminator 4
+ 368 017c 27EE277A 		vmul.f32	s14, s14, s15
+ 369              		.loc 1 59 72 discriminator 4
+ 370 0180 DFED636A 		vldr.32	s13, .L36+12
+ 371 0184 C7EE267A 		vdiv.f32	s15, s14, s13
+ 372              		.loc 1 59 22 discriminator 4
+ 373 0188 7B68     		ldr	r3, [r7, #4]
+ 374 018a C3ED177A 		vstr.32	s15, [r3, #92]
+  60:Core/Src/position_sensor.c **** 	int_angle = (int)encoder->elec_angle;
+ 375              		.loc 1 60 26 discriminator 4
+ 376 018e 7B68     		ldr	r3, [r7, #4]
+ 377 0190 D3ED177A 		vldr.32	s15, [r3, #92]
+ 378              		.loc 1 60 12 discriminator 4
+ 379 0194 FDEEE77A 		vcvt.s32.f32	s15, s15
+ 380 0198 17EE903A 		vmov	r3, s15	@ int
+ 381 019c 3B61     		str	r3, [r7, #16]
+  61:Core/Src/position_sensor.c **** 	encoder->elec_angle = TWO_PI_F*(encoder->elec_angle - (float)int_angle);
+ 382              		.loc 1 61 41 discriminator 4
+ 383 019e 7B68     		ldr	r3, [r7, #4]
+ 384 01a0 93ED177A 		vldr.32	s14, [r3, #92]
+ 385              		.loc 1 61 56 discriminator 4
+ 386 01a4 3B69     		ldr	r3, [r7, #16]
+ 387 01a6 07EE903A 		vmov	s15, r3	@ int
+ 388 01aa F8EEE77A 		vcvt.f32.s32	s15, s15
+ 389              		.loc 1 61 54 discriminator 4
+ 390 01ae 77EE677A 		vsub.f32	s15, s14, s15
+ 391              		.loc 1 61 32 discriminator 4
+ 392 01b2 9FED587A 		vldr.32	s14, .L36+16
+ 393 01b6 67EE877A 		vmul.f32	s15, s15, s14
+ 394              		.loc 1 61 22 discriminator 4
+ 395 01ba 7B68     		ldr	r3, [r7, #4]
+ 396 01bc C3ED177A 		vstr.32	s15, [r3, #92]
+  62:Core/Src/position_sensor.c **** 	//encoder->elec_angle = TWO_PI_F*fmodf((encoder->ppairs*(float)(encoder->count-E_ZERO))/((float)EN
+  63:Core/Src/position_sensor.c **** 	encoder->elec_angle = encoder->elec_angle<0 ? encoder->elec_angle + TWO_PI_F : encoder->elec_angle
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 9
+
+
+ 397              		.loc 1 63 31 discriminator 4
+ 398 01c0 7B68     		ldr	r3, [r7, #4]
+ 399 01c2 D3ED177A 		vldr.32	s15, [r3, #92]
+ 400              		.loc 1 63 79 discriminator 4
+ 401 01c6 F5EEC07A 		vcmpe.f32	s15, #0
+ 402 01ca F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 403 01ce 07D5     		bpl	.L33
+ 404              		.loc 1 63 55 discriminator 1
+ 405 01d0 7B68     		ldr	r3, [r7, #4]
+ 406 01d2 D3ED177A 		vldr.32	s15, [r3, #92]
+ 407              		.loc 1 63 79 discriminator 1
+ 408 01d6 9FED4F7A 		vldr.32	s14, .L36+16
+ 409 01da 77EE877A 		vadd.f32	s15, s15, s14
+ 410 01de 02E0     		b	.L16
+ 411              	.L33:
+ 412              		.loc 1 63 79 is_stmt 0 discriminator 2
+ 413 01e0 7B68     		ldr	r3, [r7, #4]
+ 414 01e2 D3ED177A 		vldr.32	s15, [r3, #92]
+ 415              	.L16:
+ 416              		.loc 1 63 22 is_stmt 1 discriminator 4
+ 417 01e6 7B68     		ldr	r3, [r7, #4]
+ 418 01e8 C3ED177A 		vstr.32	s15, [r3, #92]
+  64:Core/Src/position_sensor.c **** 	/* Rollover */
+  65:Core/Src/position_sensor.c **** 	int rollover = 0;
+ 419              		.loc 1 65 6 discriminator 4
+ 420 01ec 0023     		movs	r3, #0
+ 421 01ee 3B62     		str	r3, [r7, #32]
+  66:Core/Src/position_sensor.c **** 	float angle_diff = encoder->angle_singleturn - encoder->old_angle;
+ 422              		.loc 1 66 28 discriminator 4
+ 423 01f0 7B68     		ldr	r3, [r7, #4]
+ 424 01f2 93ED017A 		vldr.32	s14, [r3, #4]
+ 425              		.loc 1 66 56 discriminator 4
+ 426 01f6 7B68     		ldr	r3, [r7, #4]
+ 427 01f8 D3ED027A 		vldr.32	s15, [r3, #8]
+ 428              		.loc 1 66 8 discriminator 4
+ 429 01fc 77EE677A 		vsub.f32	s15, s14, s15
+ 430 0200 C7ED037A 		vstr.32	s15, [r7, #12]
+  67:Core/Src/position_sensor.c **** 	if(angle_diff > PI_F){rollover = -1;}
+ 431              		.loc 1 67 4 discriminator 4
+ 432 0204 D7ED037A 		vldr.32	s15, [r7, #12]
+ 433 0208 9FED437A 		vldr.32	s14, .L36+20
+ 434 020c F4EEC77A 		vcmpe.f32	s15, s14
+ 435 0210 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 436 0214 03DD     		ble	.L34
+ 437              		.loc 1 67 33 discriminator 1
+ 438 0216 4FF0FF33 		mov	r3, #-1
+ 439 021a 3B62     		str	r3, [r7, #32]
+ 440 021c 0AE0     		b	.L19
+ 441              	.L34:
+  68:Core/Src/position_sensor.c **** 	else if(angle_diff < -PI_F){rollover = 1;}
+ 442              		.loc 1 68 9
+ 443 021e D7ED037A 		vldr.32	s15, [r7, #12]
+ 444 0222 9FED3E7A 		vldr.32	s14, .L36+24
+ 445 0226 F4EEC77A 		vcmpe.f32	s15, s14
+ 446 022a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 447 022e 01D5     		bpl	.L19
+ 448              		.loc 1 68 39 discriminator 1
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 10
+
+
+ 449 0230 0123     		movs	r3, #1
+ 450 0232 3B62     		str	r3, [r7, #32]
+ 451              	.L19:
+  69:Core/Src/position_sensor.c **** 	encoder->turns += rollover;
+ 452              		.loc 1 69 17
+ 453 0234 7B68     		ldr	r3, [r7, #4]
+ 454 0236 D3F88020 		ldr	r2, [r3, #128]
+ 455 023a 3B6A     		ldr	r3, [r7, #32]
+ 456 023c 1A44     		add	r2, r2, r3
+ 457 023e 7B68     		ldr	r3, [r7, #4]
+ 458 0240 C3F88020 		str	r2, [r3, #128]
+  70:Core/Src/position_sensor.c **** 	if(!encoder->first_sample){
+ 459              		.loc 1 70 13
+ 460 0244 7B68     		ldr	r3, [r7, #4]
+ 461 0246 93F8DC32 		ldrb	r3, [r3, #732]	@ zero_extendqisi2
+ 462              		.loc 1 70 4
+ 463 024a 002B     		cmp	r3, #0
+ 464 024c 25D1     		bne	.L21
+  71:Core/Src/position_sensor.c **** 		encoder->turns = 0;
+ 465              		.loc 1 71 18
+ 466 024e 7B68     		ldr	r3, [r7, #4]
+ 467 0250 0022     		movs	r2, #0
+ 468 0252 C3F88020 		str	r2, [r3, #128]
+  72:Core/Src/position_sensor.c **** 		if(encoder->angle_singleturn > PI_OVER_2_F){encoder->turns = -1;}
+ 469              		.loc 1 72 13
+ 470 0256 7B68     		ldr	r3, [r7, #4]
+ 471 0258 D3ED017A 		vldr.32	s15, [r3, #4]
+ 472              		.loc 1 72 5
+ 473 025c 9FED307A 		vldr.32	s14, .L36+28
+ 474 0260 F4EEC77A 		vcmpe.f32	s15, s14
+ 475 0264 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 476 0268 05DD     		ble	.L35
+ 477              		.loc 1 72 62 discriminator 1
+ 478 026a 7B68     		ldr	r3, [r7, #4]
+ 479 026c 4FF0FF32 		mov	r2, #-1
+ 480 0270 C3F88020 		str	r2, [r3, #128]
+ 481 0274 0DE0     		b	.L24
+ 482              	.L35:
+  73:Core/Src/position_sensor.c **** 		else if(encoder->angle_singleturn < -PI_OVER_2_F){encoder->turns = 1;}
+ 483              		.loc 1 73 18
+ 484 0276 7B68     		ldr	r3, [r7, #4]
+ 485 0278 D3ED017A 		vldr.32	s15, [r3, #4]
+ 486              		.loc 1 73 10
+ 487 027c 9FED297A 		vldr.32	s14, .L36+32
+ 488 0280 F4EEC77A 		vcmpe.f32	s15, s14
+ 489 0284 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 490 0288 03D5     		bpl	.L24
+ 491              		.loc 1 73 68 discriminator 1
+ 492 028a 7B68     		ldr	r3, [r7, #4]
+ 493 028c 0122     		movs	r2, #1
+ 494 028e C3F88020 		str	r2, [r3, #128]
+ 495              	.L24:
+  74:Core/Src/position_sensor.c **** 		encoder->first_sample = 1;
+ 496              		.loc 1 74 25
+ 497 0292 7B68     		ldr	r3, [r7, #4]
+ 498 0294 0122     		movs	r2, #1
+ 499 0296 83F8DC22 		strb	r2, [r3, #732]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 11
+
+
+ 500              	.L21:
+  75:Core/Src/position_sensor.c **** 	}
+  76:Core/Src/position_sensor.c **** 
+  77:Core/Src/position_sensor.c **** 
+  78:Core/Src/position_sensor.c **** 
+  79:Core/Src/position_sensor.c **** 	/* Multi-turn position */
+  80:Core/Src/position_sensor.c **** 	encoder->angle_multiturn[0] = encoder->angle_singleturn + TWO_PI_F*(float)encoder->turns;
+ 501              		.loc 1 80 39
+ 502 029a 7B68     		ldr	r3, [r7, #4]
+ 503 029c 93ED017A 		vldr.32	s14, [r3, #4]
+ 504              		.loc 1 80 83
+ 505 02a0 7B68     		ldr	r3, [r7, #4]
+ 506 02a2 D3F88030 		ldr	r3, [r3, #128]
+ 507              		.loc 1 80 69
+ 508 02a6 07EE903A 		vmov	s15, r3	@ int
+ 509 02aa F8EEE77A 		vcvt.f32.s32	s15, s15
+ 510              		.loc 1 80 68
+ 511 02ae DFED196A 		vldr.32	s13, .L36+16
+ 512 02b2 67EEA67A 		vmul.f32	s15, s15, s13
+ 513              		.loc 1 80 58
+ 514 02b6 77EE277A 		vadd.f32	s15, s14, s15
+ 515              		.loc 1 80 30
+ 516 02ba 7B68     		ldr	r3, [r7, #4]
+ 517 02bc C3ED037A 		vstr.32	s15, [r3, #12]
+  81:Core/Src/position_sensor.c **** 
+  82:Core/Src/position_sensor.c **** 	/* Velocity */
+  83:Core/Src/position_sensor.c **** 	/*
+  84:Core/Src/position_sensor.c **** 	// Attempt at a moving least squares.  Wasn't any better
+  85:Core/Src/position_sensor.c **** 		float m = (float)N_POS_SAMPLES;
+  86:Core/Src/position_sensor.c **** 		float w = 1.0f/m;
+  87:Core/Src/position_sensor.c **** 		float q = 12.0f/(m*m*m - m);
+  88:Core/Src/position_sensor.c **** 		float c1 = 0.0f;
+  89:Core/Src/position_sensor.c **** 		float ibar = (m - 1.0f)/2.0f;
+  90:Core/Src/position_sensor.c **** 		for(int i = 0; i<N_POS_SAMPLES; i++){
+  91:Core/Src/position_sensor.c **** 			c1 += encoder->angle_multiturn[i]*q*(i - ibar);
+  92:Core/Src/position_sensor.c **** 		}
+  93:Core/Src/position_sensor.c **** 		encoder->vel2 = -c1/dt;
+  94:Core/Src/position_sensor.c **** */
+  95:Core/Src/position_sensor.c **** 	//encoder->velocity = vel2
+  96:Core/Src/position_sensor.c **** 	encoder->velocity = (encoder->angle_multiturn[0] - encoder->angle_multiturn[N_POS_SAMPLES-1])/(dt*
+ 518              		.loc 1 96 47
+ 519 02c0 7B68     		ldr	r3, [r7, #4]
+ 520 02c2 93ED037A 		vldr.32	s14, [r3, #12]
+ 521              		.loc 1 96 77
+ 522 02c6 7B68     		ldr	r3, [r7, #4]
+ 523 02c8 D3ED167A 		vldr.32	s15, [r3, #88]
+ 524              		.loc 1 96 51
+ 525 02cc 77EE676A 		vsub.f32	s13, s14, s15
+ 526              		.loc 1 96 99
+ 527 02d0 D7ED007A 		vldr.32	s15, [r7]
+ 528 02d4 B3EE037A 		vmov.f32	s14, #1.9e+1
+ 529 02d8 27EE877A 		vmul.f32	s14, s15, s14
+ 530              		.loc 1 96 95
+ 531 02dc C6EE877A 		vdiv.f32	s15, s13, s14
+ 532              		.loc 1 96 20
+ 533 02e0 7B68     		ldr	r3, [r7, #4]
+ 534 02e2 C3ED187A 		vstr.32	s15, [r3, #96]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 12
+
+
+  97:Core/Src/position_sensor.c **** 	encoder->elec_velocity = encoder->ppairs*encoder->velocity;
+ 535              		.loc 1 97 34
+ 536 02e6 7B68     		ldr	r3, [r7, #4]
+ 537 02e8 93ED1A7A 		vldr.32	s14, [r3, #104]
+ 538              		.loc 1 97 50
+ 539 02ec 7B68     		ldr	r3, [r7, #4]
+ 540 02ee D3ED187A 		vldr.32	s15, [r3, #96]
+ 541              		.loc 1 97 42
+ 542 02f2 67EE277A 		vmul.f32	s15, s14, s15
+ 543              		.loc 1 97 25
+ 544 02f6 7B68     		ldr	r3, [r7, #4]
+ 545 02f8 C3ED197A 		vstr.32	s15, [r3, #100]
+  98:Core/Src/position_sensor.c **** 
+  99:Core/Src/position_sensor.c **** }
+ 546              		.loc 1 99 1
+ 547 02fc 00BF     		nop
+ 548 02fe 2837     		adds	r7, r7, #40
+ 549              	.LCFI8:
+ 550              		.cfi_def_cfa_offset 8
+ 551 0300 BD46     		mov	sp, r7
+ 552              	.LCFI9:
+ 553              		.cfi_def_cfa_register 13
+ 554              		@ sp needed
+ 555 0302 80BD     		pop	{r7, pc}
+ 556              	.L37:
+ 557              		.align	2
+ 558              	.L36:
+ 559 0304 00000240 		.word	1073872896
+ 560 0308 00000000 		.word	hspi3
+ 561 030c 00000000 		.word	__int_reg
+ 562 0310 00008047 		.word	1199570944
+ 563 0314 DB0FC940 		.word	1086918619
+ 564 0318 DB0F4940 		.word	1078530011
+ 565 031c DB0F49C0 		.word	-1068953637
+ 566 0320 DB0FC93F 		.word	1070141403
+ 567 0324 DB0FC9BF 		.word	-1077342245
+ 568              		.cfi_endproc
+ 569              	.LFE243:
+ 571              		.section	.rodata
+ 572              		.align	2
+ 573              	.LC0:
+ 574 0000 5261773A 		.ascii	"Raw: %d\000"
+ 574      20256400 
+ 575              		.align	2
+ 576              	.LC1:
+ 577 0008 2020204C 		.ascii	"   Linearized Count: %d\000"
+ 577      696E6561 
+ 577      72697A65 
+ 577      6420436F 
+ 577      756E743A 
+ 578              		.global	__aeabi_f2d
+ 579              		.align	2
+ 580              	.LC2:
+ 581 0020 20202053 		.ascii	"   Single Turn: %f\000"
+ 581      696E676C 
+ 581      65205475 
+ 581      726E3A20 
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 13
+
+
+ 581      256600
+ 582 0033 00       		.align	2
+ 583              	.LC3:
+ 584 0034 2020204D 		.ascii	"   Multiturn: %f\000"
+ 584      756C7469 
+ 584      7475726E 
+ 584      3A202566 
+ 584      00
+ 585 0045 000000   		.align	2
+ 586              	.LC4:
+ 587 0048 20202045 		.ascii	"   Electrical: %f\000"
+ 587      6C656374 
+ 587      72696361 
+ 587      6C3A2025 
+ 587      6600
+ 588 005a 0000     		.align	2
+ 589              	.LC5:
+ 590 005c 20202054 		.ascii	"   Turns:  %d\015\012\000"
+ 590      75726E73 
+ 590      3A202025 
+ 590      640D0A00 
+ 591              		.section	.text.ps_print,"ax",%progbits
+ 592              		.align	1
+ 593              		.global	ps_print
+ 594              		.syntax unified
+ 595              		.thumb
+ 596              		.thumb_func
+ 598              	ps_print:
+ 599              	.LFB244:
+ 100:Core/Src/position_sensor.c **** 
+ 101:Core/Src/position_sensor.c **** void ps_print(EncoderStruct * encoder, int dt_ms){
+ 600              		.loc 1 101 50
+ 601              		.cfi_startproc
+ 602              		@ args = 0, pretend = 0, frame = 8
+ 603              		@ frame_needed = 1, uses_anonymous_args = 0
+ 604 0000 80B5     		push	{r7, lr}
+ 605              	.LCFI10:
+ 606              		.cfi_def_cfa_offset 8
+ 607              		.cfi_offset 7, -8
+ 608              		.cfi_offset 14, -4
+ 609 0002 82B0     		sub	sp, sp, #8
+ 610              	.LCFI11:
+ 611              		.cfi_def_cfa_offset 16
+ 612 0004 00AF     		add	r7, sp, #0
+ 613              	.LCFI12:
+ 614              		.cfi_def_cfa_register 7
+ 615 0006 7860     		str	r0, [r7, #4]
+ 616 0008 3960     		str	r1, [r7]
+ 102:Core/Src/position_sensor.c **** 	printf("Raw: %d", encoder->raw);
+ 617              		.loc 1 102 2
+ 618 000a 7B68     		ldr	r3, [r7, #4]
+ 619 000c 5B6F     		ldr	r3, [r3, #116]
+ 620 000e 1946     		mov	r1, r3
+ 621 0010 1848     		ldr	r0, .L39
+ 622 0012 FFF7FEFF 		bl	printf
+ 103:Core/Src/position_sensor.c **** 	printf("   Linearized Count: %d", encoder->count);
+ 623              		.loc 1 103 2
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 14
+
+
+ 624 0016 7B68     		ldr	r3, [r7, #4]
+ 625 0018 9B6F     		ldr	r3, [r3, #120]
+ 626 001a 1946     		mov	r1, r3
+ 627 001c 1648     		ldr	r0, .L39+4
+ 628 001e FFF7FEFF 		bl	printf
+ 104:Core/Src/position_sensor.c **** 	printf("   Single Turn: %f", encoder->angle_singleturn);
+ 629              		.loc 1 104 38
+ 630 0022 7B68     		ldr	r3, [r7, #4]
+ 631 0024 5B68     		ldr	r3, [r3, #4]	@ float
+ 632              		.loc 1 104 2
+ 633 0026 1846     		mov	r0, r3	@ float
+ 634 0028 FFF7FEFF 		bl	__aeabi_f2d
+ 635 002c 0246     		mov	r2, r0
+ 636 002e 0B46     		mov	r3, r1
+ 637 0030 1248     		ldr	r0, .L39+8
+ 638 0032 FFF7FEFF 		bl	printf
+ 105:Core/Src/position_sensor.c **** 	printf("   Multiturn: %f", encoder->angle_multiturn[0]);
+ 639              		.loc 1 105 53
+ 640 0036 7B68     		ldr	r3, [r7, #4]
+ 641 0038 DB68     		ldr	r3, [r3, #12]	@ float
+ 642              		.loc 1 105 2
+ 643 003a 1846     		mov	r0, r3	@ float
+ 644 003c FFF7FEFF 		bl	__aeabi_f2d
+ 645 0040 0246     		mov	r2, r0
+ 646 0042 0B46     		mov	r3, r1
+ 647 0044 0E48     		ldr	r0, .L39+12
+ 648 0046 FFF7FEFF 		bl	printf
+ 106:Core/Src/position_sensor.c **** 	printf("   Electrical: %f", encoder->elec_angle);
+ 649              		.loc 1 106 37
+ 650 004a 7B68     		ldr	r3, [r7, #4]
+ 651 004c DB6D     		ldr	r3, [r3, #92]	@ float
+ 652              		.loc 1 106 2
+ 653 004e 1846     		mov	r0, r3	@ float
+ 654 0050 FFF7FEFF 		bl	__aeabi_f2d
+ 655 0054 0246     		mov	r2, r0
+ 656 0056 0B46     		mov	r3, r1
+ 657 0058 0A48     		ldr	r0, .L39+16
+ 658 005a FFF7FEFF 		bl	printf
+ 107:Core/Src/position_sensor.c **** 	printf("   Turns:  %d\r\n", encoder->turns);
+ 659              		.loc 1 107 2
+ 660 005e 7B68     		ldr	r3, [r7, #4]
+ 661 0060 D3F88030 		ldr	r3, [r3, #128]
+ 662 0064 1946     		mov	r1, r3
+ 663 0066 0848     		ldr	r0, .L39+20
+ 664 0068 FFF7FEFF 		bl	printf
+ 108:Core/Src/position_sensor.c **** 	//HAL_Delay(dt_ms);
+ 109:Core/Src/position_sensor.c **** }
+ 665              		.loc 1 109 1
+ 666 006c 00BF     		nop
+ 667 006e 0837     		adds	r7, r7, #8
+ 668              	.LCFI13:
+ 669              		.cfi_def_cfa_offset 8
+ 670 0070 BD46     		mov	sp, r7
+ 671              	.LCFI14:
+ 672              		.cfi_def_cfa_register 13
+ 673              		@ sp needed
+ 674 0072 80BD     		pop	{r7, pc}
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 15
+
+
+ 675              	.L40:
+ 676              		.align	2
+ 677              	.L39:
+ 678 0074 00000000 		.word	.LC0
+ 679 0078 08000000 		.word	.LC1
+ 680 007c 20000000 		.word	.LC2
+ 681 0080 34000000 		.word	.LC3
+ 682 0084 48000000 		.word	.LC4
+ 683 0088 5C000000 		.word	.LC5
+ 684              		.cfi_endproc
+ 685              	.LFE244:
+ 687              		.text
+ 688              	.Letext0:
+ 689              		.file 2 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\machine\\_default
+ 690              		.file 3 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 691              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
+ 692              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 693              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ 694              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 695              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h"
+ 696              		.file 9 "Core/Inc/position_sensor.h"
+ 697              		.file 10 "Core/Inc/spi.h"
+ 698              		.file 11 "Core/Inc/user_config.h"
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccWduE5i.s 			page 16
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 position_sensor.c
+C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:24     .bss.position_sensor_raw_value:00000000 position_sensor_raw_value
+C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:21     .bss.position_sensor_raw_value:00000000 $d
+C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:27     .text.ps_warmup:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:33     .text.ps_warmup:00000000 ps_warmup
+C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:120    .text.ps_warmup:00000068 $d
+C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:126    .text.ps_sample:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:132    .text.ps_sample:00000000 ps_sample
+C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:559    .text.ps_sample:00000304 $d
+C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:572    .rodata:00000000 $d
+C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:592    .text.ps_print:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:598    .text.ps_print:00000000 ps_print
+C:\Users\16323\AppData\Local\Temp\ccWduE5i.s:678    .text.ps_print:00000074 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_WritePin
+HAL_SPI_TransmitReceive
+hspi3
+__int_reg
+__aeabi_f2d
+printf

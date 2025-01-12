@@ -1,0 +1,3003 @@
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 6
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"fsm.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.data.__SECTOR_ADDRS,"aw"
+  20              		.align	2
+  23              	__SECTOR_ADDRS:
+  24 0000 00000008 		.word	134217728
+  25 0004 00400008 		.word	134234112
+  26 0008 00800008 		.word	134250496
+  27 000c 00C00008 		.word	134266880
+  28 0010 00000108 		.word	134283264
+  29 0014 00000208 		.word	134348800
+  30 0018 00000408 		.word	134479872
+  31 001c 00000608 		.word	134610944
+  32              		.section	.data.__SECTORS,"aw"
+  33              		.align	2
+  36              	__SECTORS:
+  37 0000 00000000 		.word	0
+  38 0004 08000000 		.word	8
+  39 0008 10000000 		.word	16
+  40 000c 18000000 		.word	24
+  41 0010 20000000 		.word	32
+  42 0014 30000000 		.word	48
+  43 0018 30000000 		.word	48
+  44 001c 38000000 		.word	56
+  45              		.global	__aeabi_f2d
+  46              		.section	.rodata
+  47              		.align	2
+  48              	.LC0:
+  49 0000 455F5A45 		.ascii	"E_ZERO: %d  %f\015\012\000"
+  49      524F3A20 
+  49      25642020 
+  49      25660D0A 
+  49      00
+  50              		.section	.text.run_fsm,"ax",%progbits
+  51              		.align	1
+  52              		.global	run_fsm
+  53              		.syntax unified
+  54              		.thumb
+  55              		.thumb_func
+  57              	run_fsm:
+  58              	.LFB242:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 2
+
+
+  59              		.file 1 "Core/Src/fsm.c"
+   1:Core/Src/fsm.c **** /*
+   2:Core/Src/fsm.c ****  * fsm.cpp
+   3:Core/Src/fsm.c ****  *
+   4:Core/Src/fsm.c ****  *  Created on: Mar 5, 2020
+   5:Core/Src/fsm.c ****  *      Author: Ben
+   6:Core/Src/fsm.c ****  */
+   7:Core/Src/fsm.c **** 
+   8:Core/Src/fsm.c **** #include "fsm.h"
+   9:Core/Src/fsm.c **** #include "usart.h"
+  10:Core/Src/fsm.c **** #include <stdio.h>
+  11:Core/Src/fsm.c **** #include <string.h>
+  12:Core/Src/fsm.c **** #include <stdlib.h>
+  13:Core/Src/fsm.c **** #include "user_config.h"
+  14:Core/Src/fsm.c **** #include "hw_config.h"
+  15:Core/Src/fsm.c **** #include "structs.h"
+  16:Core/Src/fsm.c **** #include "foc.h"
+  17:Core/Src/fsm.c **** #include "math_ops.h"
+  18:Core/Src/fsm.c **** #include "position_sensor.h"
+  19:Core/Src/fsm.c **** #include "drv8323.h"
+  20:Core/Src/fsm.c **** 
+  21:Core/Src/fsm.c ****  void run_fsm(FSMStruct * fsmstate){
+  60              		.loc 1 21 36
+  61              		.cfi_startproc
+  62              		@ args = 0, pretend = 0, frame = 8
+  63              		@ frame_needed = 1, uses_anonymous_args = 0
+  64 0000 90B5     		push	{r4, r7, lr}
+  65              	.LCFI0:
+  66              		.cfi_def_cfa_offset 12
+  67              		.cfi_offset 4, -12
+  68              		.cfi_offset 7, -8
+  69              		.cfi_offset 14, -4
+  70 0002 85B0     		sub	sp, sp, #20
+  71              	.LCFI1:
+  72              		.cfi_def_cfa_offset 32
+  73 0004 02AF     		add	r7, sp, #8
+  74              	.LCFI2:
+  75              		.cfi_def_cfa 7, 24
+  76 0006 7860     		str	r0, [r7, #4]
+  22:Core/Src/fsm.c **** 	 /* run_fsm is run every commutation interrupt cycle */
+  23:Core/Src/fsm.c **** 
+  24:Core/Src/fsm.c **** 	 /* state transition management */
+  25:Core/Src/fsm.c **** 	 if(fsmstate->next_state != fsmstate->state){
+  77              		.loc 1 25 14
+  78 0008 7B68     		ldr	r3, [r7, #4]
+  79 000a 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+  80              		.loc 1 25 38
+  81 000c 7B68     		ldr	r3, [r7, #4]
+  82 000e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  83              		.loc 1 25 5
+  84 0010 9A42     		cmp	r2, r3
+  85 0012 0DD0     		beq	.L2
+  26:Core/Src/fsm.c **** 		 fsm_exit_state(fsmstate);		// safely exit the old state
+  86              		.loc 1 26 4
+  87 0014 7868     		ldr	r0, [r7, #4]
+  88 0016 FFF7FEFF 		bl	fsm_exit_state
+  27:Core/Src/fsm.c **** 		 if(fsmstate->ready){			// if the previous state is ready, enter the new state
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 3
+
+
+  89              		.loc 1 27 15
+  90 001a 7B68     		ldr	r3, [r7, #4]
+  91 001c DB78     		ldrb	r3, [r3, #3]	@ zero_extendqisi2
+  92              		.loc 1 27 6
+  93 001e 002B     		cmp	r3, #0
+  94 0020 06D0     		beq	.L2
+  28:Core/Src/fsm.c **** 			 fsmstate->state = fsmstate->next_state;
+  95              		.loc 1 28 31
+  96 0022 7B68     		ldr	r3, [r7, #4]
+  97 0024 5A78     		ldrb	r2, [r3, #1]	@ zero_extendqisi2
+  98              		.loc 1 28 21
+  99 0026 7B68     		ldr	r3, [r7, #4]
+ 100 0028 1A70     		strb	r2, [r3]
+  29:Core/Src/fsm.c **** 			 fsm_enter_state(fsmstate);
+ 101              		.loc 1 29 5
+ 102 002a 7868     		ldr	r0, [r7, #4]
+ 103 002c FFF7FEFF 		bl	fsm_enter_state
+ 104              	.L2:
+  30:Core/Src/fsm.c **** 		 }
+  31:Core/Src/fsm.c **** 	 }
+  32:Core/Src/fsm.c **** 
+  33:Core/Src/fsm.c **** 	 switch(fsmstate->state){
+ 105              		.loc 1 33 18
+ 106 0030 7B68     		ldr	r3, [r7, #4]
+ 107 0032 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 108              		.loc 1 33 3
+ 109 0034 062B     		cmp	r3, #6
+ 110 0036 00F2B780 		bhi	.L16
+ 111 003a 01A2     		adr	r2, .L5
+ 112 003c 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 113              		.p2align 2
+ 114              	.L5:
+ 115 0040 A7010000 		.word	.L17+1
+ 116 0044 5D000000 		.word	.L9+1
+ 117 0048 5D010000 		.word	.L8+1
+ 118 004c A9010000 		.word	.L16+1
+ 119 0050 A7010000 		.word	.L17+1
+ 120 0054 9D010000 		.word	.L6+1
+ 121 0058 A7010000 		.word	.L17+1
+ 122              		.p2align 1
+ 123              	.L9:
+  34:Core/Src/fsm.c **** 		 case MENU_MODE:
+  35:Core/Src/fsm.c **** 			 break;
+  36:Core/Src/fsm.c **** 
+  37:Core/Src/fsm.c **** 		 case CALIBRATION_MODE:
+  38:Core/Src/fsm.c **** 			 if(!comm_encoder_cal.done_ordering){
+ 124              		.loc 1 38 25
+ 125 005c 544B     		ldr	r3, .L18
+ 126 005e 93F82130 		ldrb	r3, [r3, #33]	@ zero_extendqisi2
+ 127              		.loc 1 38 7
+ 128 0062 002B     		cmp	r3, #0
+ 129 0064 08D1     		bne	.L11
+  39:Core/Src/fsm.c **** 				 order_phases(&comm_encoder, &controller, &comm_encoder_cal, controller.loop_count);
+ 130              		.loc 1 39 6
+ 131 0066 534B     		ldr	r3, .L18+4
+ 132 0068 D3F8C030 		ldr	r3, [r3, #192]
+ 133 006c 504A     		ldr	r2, .L18
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 4
+
+
+ 134 006e 5149     		ldr	r1, .L18+4
+ 135 0070 5148     		ldr	r0, .L18+8
+ 136 0072 FFF7FEFF 		bl	order_phases
+  40:Core/Src/fsm.c **** 			 }
+  41:Core/Src/fsm.c **** 			 else if(!comm_encoder_cal.done_cal){
+  42:Core/Src/fsm.c **** 				 calibrate_encoder(&comm_encoder, &controller, &comm_encoder_cal, controller.loop_count);
+  43:Core/Src/fsm.c **** 			 }
+  44:Core/Src/fsm.c **** 			 else{
+  45:Core/Src/fsm.c **** 				 /* Exit calibration mode when done */
+  46:Core/Src/fsm.c **** 				 //for(int i = 0; i<128*PPAIRS; i++){printf("%d\r\n", error_array[i]);}
+  47:Core/Src/fsm.c **** 				 E_ZERO = comm_encoder_cal.ezero;
+  48:Core/Src/fsm.c **** 				 printf("E_ZERO: %d  %f\r\n", E_ZERO, TWO_PI_F*fmodf((comm_encoder.ppairs*(float)(-E_ZERO))/((f
+  49:Core/Src/fsm.c **** 				 memcpy(&comm_encoder.offset_lut, comm_encoder_cal.lut_arr, sizeof(comm_encoder.offset_lut));
+  50:Core/Src/fsm.c **** 				 memcpy(&ENCODER_LUT, comm_encoder_cal.lut_arr, sizeof(comm_encoder_cal.lut_arr));
+  51:Core/Src/fsm.c **** 				 //for(int i = 0; i<128; i++){printf("%d\r\n", ENCODER_LUT[i]);}
+  52:Core/Src/fsm.c **** 				 if (!preference_writer_ready(prefs)){ preference_writer_open(&prefs);}
+  53:Core/Src/fsm.c **** 				 preference_writer_flush(&prefs);
+  54:Core/Src/fsm.c **** 				 preference_writer_close(&prefs);
+  55:Core/Src/fsm.c **** 				 preference_writer_load(prefs);
+  56:Core/Src/fsm.c **** 				 update_fsm(fsmstate, 27);
+  57:Core/Src/fsm.c **** 			 }
+  58:Core/Src/fsm.c **** 
+  59:Core/Src/fsm.c **** 			 break;
+ 137              		.loc 1 59 5
+ 138 0076 97E0     		b	.L3
+ 139              	.L11:
+  41:Core/Src/fsm.c **** 				 calibrate_encoder(&comm_encoder, &controller, &comm_encoder_cal, controller.loop_count);
+ 140              		.loc 1 41 30
+ 141 0078 4D4B     		ldr	r3, .L18
+ 142 007a 93F82230 		ldrb	r3, [r3, #34]	@ zero_extendqisi2
+  41:Core/Src/fsm.c **** 				 calibrate_encoder(&comm_encoder, &controller, &comm_encoder_cal, controller.loop_count);
+ 143              		.loc 1 41 12
+ 144 007e 002B     		cmp	r3, #0
+ 145 0080 08D1     		bne	.L13
+  42:Core/Src/fsm.c **** 			 }
+ 146              		.loc 1 42 6
+ 147 0082 4C4B     		ldr	r3, .L18+4
+ 148 0084 D3F8C030 		ldr	r3, [r3, #192]
+ 149 0088 494A     		ldr	r2, .L18
+ 150 008a 4A49     		ldr	r1, .L18+4
+ 151 008c 4A48     		ldr	r0, .L18+8
+ 152 008e FFF7FEFF 		bl	calibrate_encoder
+ 153              		.loc 1 59 5
+ 154 0092 89E0     		b	.L3
+ 155              	.L13:
+  47:Core/Src/fsm.c **** 				 printf("E_ZERO: %d  %f\r\n", E_ZERO, TWO_PI_F*fmodf((comm_encoder.ppairs*(float)(-E_ZERO))/((f
+ 156              		.loc 1 47 31
+ 157 0094 464B     		ldr	r3, .L18
+ 158 0096 DB69     		ldr	r3, [r3, #28]
+  47:Core/Src/fsm.c **** 				 printf("E_ZERO: %d  %f\r\n", E_ZERO, TWO_PI_F*fmodf((comm_encoder.ppairs*(float)(-E_ZERO))/((f
+ 159              		.loc 1 47 13
+ 160 0098 484A     		ldr	r2, .L18+12
+ 161 009a 5361     		str	r3, [r2, #20]
+  48:Core/Src/fsm.c **** 				 memcpy(&comm_encoder.offset_lut, comm_encoder_cal.lut_arr, sizeof(comm_encoder.offset_lut));
+ 162              		.loc 1 48 6
+ 163 009c 474B     		ldr	r3, .L18+12
+ 164 009e 5C69     		ldr	r4, [r3, #20]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 5
+
+
+  48:Core/Src/fsm.c **** 				 memcpy(&comm_encoder.offset_lut, comm_encoder_cal.lut_arr, sizeof(comm_encoder.offset_lut));
+ 165              		.loc 1 48 71
+ 166 00a0 454B     		ldr	r3, .L18+8
+ 167 00a2 93ED1A7A 		vldr.32	s14, [r3, #104]
+  48:Core/Src/fsm.c **** 				 memcpy(&comm_encoder.offset_lut, comm_encoder_cal.lut_arr, sizeof(comm_encoder.offset_lut));
+ 168              		.loc 1 48 88
+ 169 00a6 454B     		ldr	r3, .L18+12
+ 170 00a8 5B69     		ldr	r3, [r3, #20]
+  48:Core/Src/fsm.c **** 				 memcpy(&comm_encoder.offset_lut, comm_encoder_cal.lut_arr, sizeof(comm_encoder.offset_lut));
+ 171              		.loc 1 48 87
+ 172 00aa 5B42     		rsbs	r3, r3, #0
+  48:Core/Src/fsm.c **** 				 memcpy(&comm_encoder.offset_lut, comm_encoder_cal.lut_arr, sizeof(comm_encoder.offset_lut));
+ 173              		.loc 1 48 79
+ 174 00ac 07EE903A 		vmov	s15, r3	@ int
+ 175 00b0 F8EEE77A 		vcvt.f32.s32	s15, s15
+  48:Core/Src/fsm.c **** 				 memcpy(&comm_encoder.offset_lut, comm_encoder_cal.lut_arr, sizeof(comm_encoder.offset_lut));
+ 176              		.loc 1 48 78
+ 177 00b4 67EE277A 		vmul.f32	s15, s14, s15
+  48:Core/Src/fsm.c **** 				 memcpy(&comm_encoder.offset_lut, comm_encoder_cal.lut_arr, sizeof(comm_encoder.offset_lut));
+ 178              		.loc 1 48 52
+ 179 00b8 DFED416A 		vldr.32	s13, .L18+16
+ 180 00bc 87EEA67A 		vdiv.f32	s14, s15, s13
+ 181 00c0 F7EE000A 		vmov.f32	s1, #1.0e+0
+ 182 00c4 B0EE470A 		vmov.f32	s0, s14
+ 183 00c8 FFF7FEFF 		bl	fmodf
+ 184 00cc F0EE407A 		vmov.f32	s15, s0
+  48:Core/Src/fsm.c **** 				 memcpy(&comm_encoder.offset_lut, comm_encoder_cal.lut_arr, sizeof(comm_encoder.offset_lut));
+ 185              		.loc 1 48 51
+ 186 00d0 9FED3C7A 		vldr.32	s14, .L18+20
+ 187 00d4 67EE877A 		vmul.f32	s15, s15, s14
+  48:Core/Src/fsm.c **** 				 memcpy(&comm_encoder.offset_lut, comm_encoder_cal.lut_arr, sizeof(comm_encoder.offset_lut));
+ 188              		.loc 1 48 6
+ 189 00d8 17EE900A 		vmov	r0, s15
+ 190 00dc FFF7FEFF 		bl	__aeabi_f2d
+ 191 00e0 0246     		mov	r2, r0
+ 192 00e2 0B46     		mov	r3, r1
+ 193 00e4 2146     		mov	r1, r4
+ 194 00e6 3848     		ldr	r0, .L18+24
+ 195 00e8 FFF7FEFF 		bl	printf
+  49:Core/Src/fsm.c **** 				 memcpy(&ENCODER_LUT, comm_encoder_cal.lut_arr, sizeof(comm_encoder_cal.lut_arr));
+ 196              		.loc 1 49 6
+ 197 00ec 324B     		ldr	r3, .L18+8
+ 198 00ee 304A     		ldr	r2, .L18
+ 199 00f0 02F50042 		add	r2, r2, #32768
+ 200 00f4 DC33     		adds	r3, r3, #220
+ 201 00f6 02F12C01 		add	r1, r2, #44
+ 202 00fa 4FF40072 		mov	r2, #512
+ 203 00fe 1846     		mov	r0, r3
+ 204 0100 FFF7FEFF 		bl	memcpy
+  50:Core/Src/fsm.c **** 				 //for(int i = 0; i<128; i++){printf("%d\r\n", ENCODER_LUT[i]);}
+ 205              		.loc 1 50 6
+ 206 0104 2D4B     		ldr	r3, .L18+12
+ 207 0106 2A4A     		ldr	r2, .L18
+ 208 0108 02F50042 		add	r2, r2, #32768
+ 209 010c 1833     		adds	r3, r3, #24
+ 210 010e 02F12C01 		add	r1, r2, #44
+ 211 0112 4FF40072 		mov	r2, #512
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 6
+
+
+ 212 0116 1846     		mov	r0, r3
+ 213 0118 FFF7FEFF 		bl	memcpy
+  52:Core/Src/fsm.c **** 				 preference_writer_flush(&prefs);
+ 214              		.loc 1 52 11
+ 215 011c 2B4B     		ldr	r3, .L18+28
+ 216 011e 1A69     		ldr	r2, [r3, #16]
+ 217 0120 0092     		str	r2, [sp]
+ 218 0122 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 219 0124 FFF7FEFF 		bl	preference_writer_ready
+ 220 0128 0346     		mov	r3, r0
+  52:Core/Src/fsm.c **** 				 preference_writer_flush(&prefs);
+ 221              		.loc 1 52 10
+ 222 012a 83F00103 		eor	r3, r3, #1
+ 223 012e DBB2     		uxtb	r3, r3
+  52:Core/Src/fsm.c **** 				 preference_writer_flush(&prefs);
+ 224              		.loc 1 52 9
+ 225 0130 002B     		cmp	r3, #0
+ 226 0132 02D0     		beq	.L14
+  52:Core/Src/fsm.c **** 				 preference_writer_flush(&prefs);
+ 227              		.loc 1 52 44 discriminator 1
+ 228 0134 2548     		ldr	r0, .L18+28
+ 229 0136 FFF7FEFF 		bl	preference_writer_open
+ 230              	.L14:
+  53:Core/Src/fsm.c **** 				 preference_writer_close(&prefs);
+ 231              		.loc 1 53 6
+ 232 013a 2448     		ldr	r0, .L18+28
+ 233 013c FFF7FEFF 		bl	preference_writer_flush
+  54:Core/Src/fsm.c **** 				 preference_writer_load(prefs);
+ 234              		.loc 1 54 6
+ 235 0140 2248     		ldr	r0, .L18+28
+ 236 0142 FFF7FEFF 		bl	preference_writer_close
+  55:Core/Src/fsm.c **** 				 update_fsm(fsmstate, 27);
+ 237              		.loc 1 55 6
+ 238 0146 214B     		ldr	r3, .L18+28
+ 239 0148 1A69     		ldr	r2, [r3, #16]
+ 240 014a 0092     		str	r2, [sp]
+ 241 014c 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 242 014e FFF7FEFF 		bl	preference_writer_load
+  56:Core/Src/fsm.c **** 			 }
+ 243              		.loc 1 56 6
+ 244 0152 1B21     		movs	r1, #27
+ 245 0154 7868     		ldr	r0, [r7, #4]
+ 246 0156 FFF7FEFF 		bl	update_fsm
+ 247              		.loc 1 59 5
+ 248 015a 25E0     		b	.L3
+ 249              	.L8:
+  60:Core/Src/fsm.c **** 
+  61:Core/Src/fsm.c **** 		 case MOTOR_MODE:
+  62:Core/Src/fsm.c **** 			 /* If CAN has timed out, reset all commands */
+  63:Core/Src/fsm.c **** 			 if((CAN_TIMEOUT > 0 ) && (controller.timeout > CAN_TIMEOUT)){
+ 250              		.loc 1 63 9
+ 251 015c 174B     		ldr	r3, .L18+12
+ 252 015e DB68     		ldr	r3, [r3, #12]
+ 253              		.loc 1 63 7
+ 254 0160 002B     		cmp	r3, #0
+ 255 0162 09DD     		ble	.L15
+ 256              		.loc 1 63 41 discriminator 1
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 7
+
+
+ 257 0164 134B     		ldr	r3, .L18+4
+ 258 0166 D3F8C420 		ldr	r2, [r3, #196]
+ 259              		.loc 1 63 52 discriminator 1
+ 260 016a 144B     		ldr	r3, .L18+12
+ 261 016c DB68     		ldr	r3, [r3, #12]
+ 262              		.loc 1 63 27 discriminator 1
+ 263 016e 9A42     		cmp	r2, r3
+ 264 0170 02DD     		ble	.L15
+  64:Core/Src/fsm.c **** 				 zero_commands(&controller);
+ 265              		.loc 1 64 6
+ 266 0172 1048     		ldr	r0, .L18+4
+ 267 0174 FFF7FEFF 		bl	zero_commands
+ 268              	.L15:
+  65:Core/Src/fsm.c **** 			 }
+  66:Core/Src/fsm.c **** 			 /* Otherwise, commutate */
+  67:Core/Src/fsm.c **** 
+  68:Core/Src/fsm.c **** 			 torque_control(&controller);
+ 269              		.loc 1 68 5
+ 270 0178 0E48     		ldr	r0, .L18+4
+ 271 017a FFF7FEFF 		bl	torque_control
+  69:Core/Src/fsm.c **** 			 field_weaken(&controller);
+ 272              		.loc 1 69 5
+ 273 017e 0D48     		ldr	r0, .L18+4
+ 274 0180 FFF7FEFF 		bl	field_weaken
+  70:Core/Src/fsm.c **** 			 commutate(&controller, &comm_encoder);
+ 275              		.loc 1 70 5
+ 276 0184 0C49     		ldr	r1, .L18+8
+ 277 0186 0B48     		ldr	r0, .L18+4
+ 278 0188 FFF7FEFF 		bl	commutate
+  71:Core/Src/fsm.c **** 
+  72:Core/Src/fsm.c **** 			 controller.timeout ++;
+ 279              		.loc 1 72 15
+ 280 018c 094B     		ldr	r3, .L18+4
+ 281 018e D3F8C430 		ldr	r3, [r3, #196]
+ 282              		.loc 1 72 24
+ 283 0192 0133     		adds	r3, r3, #1
+ 284 0194 074A     		ldr	r2, .L18+4
+ 285 0196 C2F8C430 		str	r3, [r2, #196]
+  73:Core/Src/fsm.c **** 			 break;
+ 286              		.loc 1 73 5
+ 287 019a 05E0     		b	.L3
+ 288              	.L6:
+  74:Core/Src/fsm.c **** 
+  75:Core/Src/fsm.c **** 		 case SETUP_MODE:
+  76:Core/Src/fsm.c **** 			 break;
+  77:Core/Src/fsm.c **** 
+  78:Core/Src/fsm.c **** 		 case ENCODER_MODE:
+  79:Core/Src/fsm.c **** 			 ps_print(&comm_encoder, 100);
+ 289              		.loc 1 79 5
+ 290 019c 6421     		movs	r1, #100
+ 291 019e 0648     		ldr	r0, .L18+8
+ 292 01a0 FFF7FEFF 		bl	ps_print
+  80:Core/Src/fsm.c **** 			 break;
+ 293              		.loc 1 80 5
+ 294 01a4 00E0     		b	.L3
+ 295              	.L17:
+  35:Core/Src/fsm.c **** 
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 8
+
+
+ 296              		.loc 1 35 5
+ 297 01a6 00BF     		nop
+ 298              	.L3:
+ 299              	.L16:
+  81:Core/Src/fsm.c **** 
+  82:Core/Src/fsm.c **** 		 case INIT_TEMP_MODE:
+  83:Core/Src/fsm.c **** 			 break;
+  84:Core/Src/fsm.c **** 	 }
+  85:Core/Src/fsm.c **** 
+  86:Core/Src/fsm.c ****  }
+ 300              		.loc 1 86 2
+ 301 01a8 00BF     		nop
+ 302 01aa 0C37     		adds	r7, r7, #12
+ 303              	.LCFI3:
+ 304              		.cfi_def_cfa_offset 12
+ 305 01ac BD46     		mov	sp, r7
+ 306              	.LCFI4:
+ 307              		.cfi_def_cfa_register 13
+ 308              		@ sp needed
+ 309 01ae 90BD     		pop	{r4, r7, pc}
+ 310              	.L19:
+ 311              		.align	2
+ 312              	.L18:
+ 313 01b0 00000000 		.word	comm_encoder_cal
+ 314 01b4 00000000 		.word	controller
+ 315 01b8 00000000 		.word	comm_encoder
+ 316 01bc 00000000 		.word	__int_reg
+ 317 01c0 00008047 		.word	1199570944
+ 318 01c4 DB0FC940 		.word	1086918619
+ 319 01c8 00000000 		.word	.LC0
+ 320 01cc 00000000 		.word	prefs
+ 321              		.cfi_endproc
+ 322              	.LFE242:
+ 324              		.section	.text.fsm_enter_state,"ax",%progbits
+ 325              		.align	1
+ 326              		.global	fsm_enter_state
+ 327              		.syntax unified
+ 328              		.thumb
+ 329              		.thumb_func
+ 331              	fsm_enter_state:
+ 332              	.LFB243:
+  87:Core/Src/fsm.c **** 
+  88:Core/Src/fsm.c ****  void fsm_enter_state(FSMStruct * fsmstate){
+ 333              		.loc 1 88 44
+ 334              		.cfi_startproc
+ 335              		@ args = 0, pretend = 0, frame = 8
+ 336              		@ frame_needed = 1, uses_anonymous_args = 0
+ 337 0000 80B5     		push	{r7, lr}
+ 338              	.LCFI5:
+ 339              		.cfi_def_cfa_offset 8
+ 340              		.cfi_offset 7, -8
+ 341              		.cfi_offset 14, -4
+ 342 0002 82B0     		sub	sp, sp, #8
+ 343              	.LCFI6:
+ 344              		.cfi_def_cfa_offset 16
+ 345 0004 00AF     		add	r7, sp, #0
+ 346              	.LCFI7:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 9
+
+
+ 347              		.cfi_def_cfa_register 7
+ 348 0006 7860     		str	r0, [r7, #4]
+  89:Core/Src/fsm.c **** 	 /* Called when entering a new state
+  90:Core/Src/fsm.c **** 	  * Do necessary setup   */
+  91:Core/Src/fsm.c **** 
+  92:Core/Src/fsm.c **** 		switch(fsmstate->state){
+ 349              		.loc 1 92 18
+ 350 0008 7B68     		ldr	r3, [r7, #4]
+ 351 000a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 352              		.loc 1 92 3
+ 353 000c 052B     		cmp	r3, #5
+ 354 000e 4BD8     		bhi	.L28
+ 355 0010 01A2     		adr	r2, .L23
+ 356 0012 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 357 0016 00BF     		.p2align 2
+ 358              	.L23:
+ 359 0018 31000000 		.word	.L27+1
+ 360 001c 65000000 		.word	.L26+1
+ 361 0020 3D000000 		.word	.L25+1
+ 362 0024 A9000000 		.word	.L28+1
+ 363 0028 37000000 		.word	.L24+1
+ 364 002c A7000000 		.word	.L29+1
+ 365              		.p2align 1
+ 366              	.L27:
+  93:Core/Src/fsm.c **** 				case MENU_MODE:
+  94:Core/Src/fsm.c **** 				//printf("Entering Main Menu\r\n");
+  95:Core/Src/fsm.c **** 				enter_menu_state();
+ 367              		.loc 1 95 5
+ 368 0030 FFF7FEFF 		bl	enter_menu_state
+  96:Core/Src/fsm.c **** 				break;
+ 369              		.loc 1 96 5
+ 370 0034 38E0     		b	.L21
+ 371              	.L24:
+  97:Core/Src/fsm.c **** 			case SETUP_MODE:
+  98:Core/Src/fsm.c **** 				//printf("Entering Setup\r\n");
+  99:Core/Src/fsm.c **** 				enter_setup_state();
+ 372              		.loc 1 99 5
+ 373 0036 FFF7FEFF 		bl	enter_setup_state
+ 100:Core/Src/fsm.c **** 				break;
+ 374              		.loc 1 100 5
+ 375 003a 35E0     		b	.L21
+ 376              	.L25:
+ 101:Core/Src/fsm.c **** 			case ENCODER_MODE:
+ 102:Core/Src/fsm.c **** 				//printf("Entering Encoder Mode\r\n");
+ 103:Core/Src/fsm.c **** 				break;
+ 104:Core/Src/fsm.c **** 			case MOTOR_MODE:
+ 105:Core/Src/fsm.c **** 
+ 106:Core/Src/fsm.c **** 				//printf("Entering Motor Mode\r\n");
+ 107:Core/Src/fsm.c **** 				HAL_GPIO_WritePin(LED, GPIO_PIN_SET );
+ 377              		.loc 1 107 5
+ 378 003c 0122     		movs	r2, #1
+ 379 003e 2021     		movs	r1, #32
+ 380 0040 1B48     		ldr	r0, .L30
+ 381 0042 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 108:Core/Src/fsm.c **** 				reset_foc(&controller);
+ 382              		.loc 1 108 5
+ 383 0046 1B48     		ldr	r0, .L30+4
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 10
+
+
+ 384 0048 FFF7FEFF 		bl	reset_foc
+ 109:Core/Src/fsm.c **** 				drv_enable_gd(drv);
+ 385              		.loc 1 109 5
+ 386 004c 1A4B     		ldr	r3, .L30+8
+ 387 004e 1A68     		ldr	r2, [r3]	@ unaligned
+ 388 0050 1146     		mov	r1, r2
+ 389 0052 9A88     		ldrh	r2, [r3, #4]
+ 390 0054 0023     		movs	r3, #0
+ 391 0056 62F30F03 		bfi	r3, r2, #0, #16
+ 392 005a 0846     		mov	r0, r1
+ 393 005c 1946     		mov	r1, r3
+ 394 005e FFF7FEFF 		bl	drv_enable_gd
+ 110:Core/Src/fsm.c **** 				break;
+ 395              		.loc 1 110 5
+ 396 0062 21E0     		b	.L21
+ 397              	.L26:
+ 111:Core/Src/fsm.c **** 			case CALIBRATION_MODE:
+ 112:Core/Src/fsm.c **** 				//printf("Entering Calibration Mode\r\n");
+ 113:Core/Src/fsm.c **** 				/* zero out all calibrations before starting */
+ 114:Core/Src/fsm.c **** 
+ 115:Core/Src/fsm.c **** 				comm_encoder_cal.done_cal = 0;
+ 398              		.loc 1 115 31
+ 399 0064 154B     		ldr	r3, .L30+12
+ 400 0066 0022     		movs	r2, #0
+ 401 0068 83F82220 		strb	r2, [r3, #34]
+ 116:Core/Src/fsm.c **** 				comm_encoder_cal.done_ordering = 0;
+ 402              		.loc 1 116 36
+ 403 006c 134B     		ldr	r3, .L30+12
+ 404 006e 0022     		movs	r2, #0
+ 405 0070 83F82120 		strb	r2, [r3, #33]
+ 117:Core/Src/fsm.c **** 				comm_encoder_cal.started = 0;
+ 406              		.loc 1 117 30
+ 407 0074 114B     		ldr	r3, .L30+12
+ 408 0076 0022     		movs	r2, #0
+ 409 0078 1A74     		strb	r2, [r3, #16]
+ 118:Core/Src/fsm.c **** 				comm_encoder.e_zero = 0;
+ 410              		.loc 1 118 25
+ 411 007a 114B     		ldr	r3, .L30+16
+ 412 007c 0022     		movs	r2, #0
+ 413 007e C3F8D820 		str	r2, [r3, #216]
+ 119:Core/Src/fsm.c **** 				memset(&comm_encoder.offset_lut, 0, sizeof(comm_encoder.offset_lut));
+ 414              		.loc 1 119 5
+ 415 0082 4FF40072 		mov	r2, #512
+ 416 0086 0021     		movs	r1, #0
+ 417 0088 0E48     		ldr	r0, .L30+20
+ 418 008a FFF7FEFF 		bl	memset
+ 120:Core/Src/fsm.c **** 				drv_enable_gd(drv);
+ 419              		.loc 1 120 5
+ 420 008e 0A4B     		ldr	r3, .L30+8
+ 421 0090 1A68     		ldr	r2, [r3]	@ unaligned
+ 422 0092 1146     		mov	r1, r2
+ 423 0094 9A88     		ldrh	r2, [r3, #4]
+ 424 0096 0023     		movs	r3, #0
+ 425 0098 62F30F03 		bfi	r3, r2, #0, #16
+ 426 009c 0846     		mov	r0, r1
+ 427 009e 1946     		mov	r1, r3
+ 428 00a0 FFF7FEFF 		bl	drv_enable_gd
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 11
+
+
+ 121:Core/Src/fsm.c **** 				break;
+ 429              		.loc 1 121 5
+ 430 00a4 00E0     		b	.L21
+ 431              	.L29:
+ 103:Core/Src/fsm.c **** 			case MOTOR_MODE:
+ 432              		.loc 1 103 5
+ 433 00a6 00BF     		nop
+ 434              	.L21:
+ 435              	.L28:
+ 122:Core/Src/fsm.c **** 
+ 123:Core/Src/fsm.c **** 		}
+ 124:Core/Src/fsm.c ****  }
+ 436              		.loc 1 124 2
+ 437 00a8 00BF     		nop
+ 438 00aa 0837     		adds	r7, r7, #8
+ 439              	.LCFI8:
+ 440              		.cfi_def_cfa_offset 8
+ 441 00ac BD46     		mov	sp, r7
+ 442              	.LCFI9:
+ 443              		.cfi_def_cfa_register 13
+ 444              		@ sp needed
+ 445 00ae 80BD     		pop	{r7, pc}
+ 446              	.L31:
+ 447              		.align	2
+ 448              	.L30:
+ 449 00b0 00080240 		.word	1073874944
+ 450 00b4 00000000 		.word	controller
+ 451 00b8 00000000 		.word	drv
+ 452 00bc 00000000 		.word	comm_encoder_cal
+ 453 00c0 00000000 		.word	comm_encoder
+ 454 00c4 DC000000 		.word	comm_encoder+220
+ 455              		.cfi_endproc
+ 456              	.LFE243:
+ 458              		.section	.text.fsm_exit_state,"ax",%progbits
+ 459              		.align	1
+ 460              		.global	fsm_exit_state
+ 461              		.syntax unified
+ 462              		.thumb
+ 463              		.thumb_func
+ 465              	fsm_exit_state:
+ 466              	.LFB244:
+ 125:Core/Src/fsm.c **** 
+ 126:Core/Src/fsm.c ****  void fsm_exit_state(FSMStruct * fsmstate){
+ 467              		.loc 1 126 43
+ 468              		.cfi_startproc
+ 469              		@ args = 0, pretend = 0, frame = 8
+ 470              		@ frame_needed = 1, uses_anonymous_args = 0
+ 471 0000 80B5     		push	{r7, lr}
+ 472              	.LCFI10:
+ 473              		.cfi_def_cfa_offset 8
+ 474              		.cfi_offset 7, -8
+ 475              		.cfi_offset 14, -4
+ 476 0002 82B0     		sub	sp, sp, #8
+ 477              	.LCFI11:
+ 478              		.cfi_def_cfa_offset 16
+ 479 0004 00AF     		add	r7, sp, #0
+ 480              	.LCFI12:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 12
+
+
+ 481              		.cfi_def_cfa_register 7
+ 482 0006 7860     		str	r0, [r7, #4]
+ 127:Core/Src/fsm.c **** 	 /* Called when exiting the current state
+ 128:Core/Src/fsm.c **** 	  * Do necessary cleanup  */
+ 129:Core/Src/fsm.c **** 
+ 130:Core/Src/fsm.c **** 		switch(fsmstate->state){
+ 483              		.loc 1 130 18
+ 484 0008 7B68     		ldr	r3, [r7, #4]
+ 485 000a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 486              		.loc 1 130 3
+ 487 000c 052B     		cmp	r3, #5
+ 488 000e 44D8     		bhi	.L40
+ 489 0010 01A2     		adr	r2, .L35
+ 490 0012 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 491 0016 00BF     		.p2align 2
+ 492              	.L35:
+ 493 0018 31000000 		.word	.L39+1
+ 494 001c 7D000000 		.word	.L38+1
+ 495 0020 49000000 		.word	.L37+1
+ 496 0024 9B000000 		.word	.L40+1
+ 497 0028 39000000 		.word	.L36+1
+ 498 002c 41000000 		.word	.L34+1
+ 499              		.p2align 1
+ 500              	.L39:
+ 131:Core/Src/fsm.c **** 			case MENU_MODE:
+ 132:Core/Src/fsm.c **** 				//printf("Leaving Main Menu\r\n");
+ 133:Core/Src/fsm.c **** 				fsmstate->ready = 1;
+ 501              		.loc 1 133 21
+ 502 0030 7B68     		ldr	r3, [r7, #4]
+ 503 0032 0122     		movs	r2, #1
+ 504 0034 DA70     		strb	r2, [r3, #3]
+ 134:Core/Src/fsm.c **** 				break;
+ 505              		.loc 1 134 5
+ 506 0036 30E0     		b	.L33
+ 507              	.L36:
+ 135:Core/Src/fsm.c **** 			case SETUP_MODE:
+ 136:Core/Src/fsm.c **** 				//printf("Leaving Setup Menu\r\n");
+ 137:Core/Src/fsm.c **** 				fsmstate->ready = 1;
+ 508              		.loc 1 137 21
+ 509 0038 7B68     		ldr	r3, [r7, #4]
+ 510 003a 0122     		movs	r2, #1
+ 511 003c DA70     		strb	r2, [r3, #3]
+ 138:Core/Src/fsm.c **** 				break;
+ 512              		.loc 1 138 5
+ 513 003e 2CE0     		b	.L33
+ 514              	.L34:
+ 139:Core/Src/fsm.c **** 			case ENCODER_MODE:
+ 140:Core/Src/fsm.c **** 				//printf("Leaving Encoder Mode\r\n");
+ 141:Core/Src/fsm.c **** 				fsmstate->ready = 1;
+ 515              		.loc 1 141 21
+ 516 0040 7B68     		ldr	r3, [r7, #4]
+ 517 0042 0122     		movs	r2, #1
+ 518 0044 DA70     		strb	r2, [r3, #3]
+ 142:Core/Src/fsm.c **** 				break;
+ 519              		.loc 1 142 5
+ 520 0046 28E0     		b	.L33
+ 521              	.L37:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 13
+
+
+ 143:Core/Src/fsm.c **** 			case MOTOR_MODE:
+ 144:Core/Src/fsm.c **** 				/* Don't stop commutating if there are high currents or FW happening */
+ 145:Core/Src/fsm.c **** 				//if( (fabs(controller.i_q_filt)<1.0f) && (fabs(controller.i_d_filt)<1.0f) ){
+ 146:Core/Src/fsm.c **** 					fsmstate->ready = 1;
+ 522              		.loc 1 146 22
+ 523 0048 7B68     		ldr	r3, [r7, #4]
+ 524 004a 0122     		movs	r2, #1
+ 525 004c DA70     		strb	r2, [r3, #3]
+ 147:Core/Src/fsm.c **** 					drv_disable_gd(drv);
+ 526              		.loc 1 147 6
+ 527 004e 154B     		ldr	r3, .L41
+ 528 0050 1A68     		ldr	r2, [r3]	@ unaligned
+ 529 0052 1146     		mov	r1, r2
+ 530 0054 9A88     		ldrh	r2, [r3, #4]
+ 531 0056 0023     		movs	r3, #0
+ 532 0058 62F30F03 		bfi	r3, r2, #0, #16
+ 533 005c 0846     		mov	r0, r1
+ 534 005e 1946     		mov	r1, r3
+ 535 0060 FFF7FEFF 		bl	drv_disable_gd
+ 148:Core/Src/fsm.c **** 					reset_foc(&controller);
+ 536              		.loc 1 148 6
+ 537 0064 1048     		ldr	r0, .L41+4
+ 538 0066 FFF7FEFF 		bl	reset_foc
+ 149:Core/Src/fsm.c **** 					//printf("Leaving Motor Mode\r\n");
+ 150:Core/Src/fsm.c **** 					HAL_GPIO_WritePin(LED, GPIO_PIN_RESET );
+ 539              		.loc 1 150 6
+ 540 006a 0022     		movs	r2, #0
+ 541 006c 2021     		movs	r1, #32
+ 542 006e 0F48     		ldr	r0, .L41+8
+ 543 0070 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 151:Core/Src/fsm.c **** 				//}
+ 152:Core/Src/fsm.c **** 				zero_commands(&controller);		// Set commands to zero
+ 544              		.loc 1 152 5
+ 545 0074 0C48     		ldr	r0, .L41+4
+ 546 0076 FFF7FEFF 		bl	zero_commands
+ 153:Core/Src/fsm.c **** 				break;
+ 547              		.loc 1 153 5
+ 548 007a 0EE0     		b	.L33
+ 549              	.L38:
+ 154:Core/Src/fsm.c **** 			case CALIBRATION_MODE:
+ 155:Core/Src/fsm.c **** 				//printf("Exiting Calibration Mode\r\n");
+ 156:Core/Src/fsm.c **** 				drv_disable_gd(drv);
+ 550              		.loc 1 156 5
+ 551 007c 094B     		ldr	r3, .L41
+ 552 007e 1A68     		ldr	r2, [r3]	@ unaligned
+ 553 0080 1146     		mov	r1, r2
+ 554 0082 9A88     		ldrh	r2, [r3, #4]
+ 555 0084 0023     		movs	r3, #0
+ 556 0086 62F30F03 		bfi	r3, r2, #0, #16
+ 557 008a 0846     		mov	r0, r1
+ 558 008c 1946     		mov	r1, r3
+ 559 008e FFF7FEFF 		bl	drv_disable_gd
+ 157:Core/Src/fsm.c **** 				//free(error_array);
+ 158:Core/Src/fsm.c **** 				//free(lut_array);
+ 159:Core/Src/fsm.c **** 
+ 160:Core/Src/fsm.c **** 				fsmstate->ready = 1;
+ 560              		.loc 1 160 21
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 14
+
+
+ 561 0092 7B68     		ldr	r3, [r7, #4]
+ 562 0094 0122     		movs	r2, #1
+ 563 0096 DA70     		strb	r2, [r3, #3]
+ 161:Core/Src/fsm.c **** 				break;
+ 564              		.loc 1 161 5
+ 565 0098 00BF     		nop
+ 566              	.L33:
+ 567              	.L40:
+ 162:Core/Src/fsm.c **** 		}
+ 163:Core/Src/fsm.c **** 
+ 164:Core/Src/fsm.c ****  }
+ 568              		.loc 1 164 2
+ 569 009a 00BF     		nop
+ 570 009c 0837     		adds	r7, r7, #8
+ 571              	.LCFI13:
+ 572              		.cfi_def_cfa_offset 8
+ 573 009e BD46     		mov	sp, r7
+ 574              	.LCFI14:
+ 575              		.cfi_def_cfa_register 13
+ 576              		@ sp needed
+ 577 00a0 80BD     		pop	{r7, pc}
+ 578              	.L42:
+ 579 00a2 00BF     		.align	2
+ 580              	.L41:
+ 581 00a4 00000000 		.word	drv
+ 582 00a8 00000000 		.word	controller
+ 583 00ac 00080240 		.word	1073874944
+ 584              		.cfi_endproc
+ 585              	.LFE244:
+ 587              		.section	.rodata
+ 588 0011 000000   		.align	2
+ 589              	.LC1:
+ 590 0014 0A0D2020 		.ascii	"\012\015  Saved new zero position:  %d\012\015\012\015"
+ 590      53617665 
+ 590      64206E65 
+ 590      77207A65 
+ 590      726F2070 
+ 591 0038 00       		.ascii	"\000"
+ 592              		.section	.text.update_fsm,"ax",%progbits
+ 593              		.align	1
+ 594              		.global	update_fsm
+ 595              		.syntax unified
+ 596              		.thumb
+ 597              		.thumb_func
+ 599              	update_fsm:
+ 600              	.LFB245:
+ 165:Core/Src/fsm.c **** 
+ 166:Core/Src/fsm.c ****  void update_fsm(FSMStruct * fsmstate, char fsm_input){
+ 601              		.loc 1 166 55
+ 602              		.cfi_startproc
+ 603              		@ args = 0, pretend = 0, frame = 16
+ 604              		@ frame_needed = 1, uses_anonymous_args = 0
+ 605 0000 80B5     		push	{r7, lr}
+ 606              	.LCFI15:
+ 607              		.cfi_def_cfa_offset 8
+ 608              		.cfi_offset 7, -8
+ 609              		.cfi_offset 14, -4
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 15
+
+
+ 610 0002 86B0     		sub	sp, sp, #24
+ 611              	.LCFI16:
+ 612              		.cfi_def_cfa_offset 32
+ 613 0004 02AF     		add	r7, sp, #8
+ 614              	.LCFI17:
+ 615              		.cfi_def_cfa 7, 24
+ 616 0006 7860     		str	r0, [r7, #4]
+ 617 0008 0B46     		mov	r3, r1
+ 618 000a FB70     		strb	r3, [r7, #3]
+ 167:Core/Src/fsm.c **** 	 /*update_fsm is only run when new state-change information is received
+ 168:Core/Src/fsm.c **** 	  * on serial terminal input or CAN input
+ 169:Core/Src/fsm.c **** 	  */
+ 170:Core/Src/fsm.c **** 	if(fsm_input == MENU_CMD){	// escape to exit to rest mode
+ 619              		.loc 1 170 4
+ 620 000c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 621 000e 1B2B     		cmp	r3, #27
+ 622 0010 06D1     		bne	.L44
+ 171:Core/Src/fsm.c **** 		fsmstate->next_state = MENU_MODE;
+ 623              		.loc 1 171 24
+ 624 0012 7B68     		ldr	r3, [r7, #4]
+ 625 0014 0022     		movs	r2, #0
+ 626 0016 5A70     		strb	r2, [r3, #1]
+ 172:Core/Src/fsm.c **** 		fsmstate->ready = 0;
+ 627              		.loc 1 172 19
+ 628 0018 7B68     		ldr	r3, [r7, #4]
+ 629 001a 0022     		movs	r2, #0
+ 630 001c DA70     		strb	r2, [r3, #3]
+ 173:Core/Src/fsm.c **** 		return;
+ 631              		.loc 1 173 3
+ 632 001e B7E0     		b	.L43
+ 633              	.L44:
+ 174:Core/Src/fsm.c **** 	}
+ 175:Core/Src/fsm.c **** 	switch(fsmstate->state){
+ 634              		.loc 1 175 17
+ 635 0020 7B68     		ldr	r3, [r7, #4]
+ 636 0022 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 637              		.loc 1 175 2
+ 638 0024 052B     		cmp	r3, #5
+ 639 0026 00F2B380 		bhi	.L43
+ 640 002a 01A2     		adr	r2, .L47
+ 641 002c 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 642              		.p2align 2
+ 643              	.L47:
+ 644 0030 49000000 		.word	.L50+1
+ 645 0034 91010000 		.word	.L43+1
+ 646 0038 91010000 		.word	.L43+1
+ 647 003c 91010000 		.word	.L43+1
+ 648 0040 55010000 		.word	.L48+1
+ 649 0044 91010000 		.word	.L43+1
+ 650              		.p2align 1
+ 651              	.L50:
+ 176:Core/Src/fsm.c **** 		case MENU_MODE:
+ 177:Core/Src/fsm.c **** 			switch (fsm_input){
+ 652              		.loc 1 177 4
+ 653 0048 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 654 004a 633B     		subs	r3, r3, #99
+ 655 004c 172B     		cmp	r3, #23
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 16
+
+
+ 656 004e 00F29E80 		bhi	.L62
+ 657 0052 01A2     		adr	r2, .L53
+ 658 0054 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 659              		.p2align 2
+ 660              	.L53:
+ 661 0058 B9000000 		.word	.L57+1
+ 662 005c 8F010000 		.word	.L62+1
+ 663 0060 D5000000 		.word	.L56+1
+ 664 0064 8F010000 		.word	.L62+1
+ 665 0068 8F010000 		.word	.L62+1
+ 666 006c 8F010000 		.word	.L62+1
+ 667 0070 8F010000 		.word	.L62+1
+ 668 0074 8F010000 		.word	.L62+1
+ 669 0078 8F010000 		.word	.L62+1
+ 670 007c 8F010000 		.word	.L62+1
+ 671 0080 C7000000 		.word	.L55+1
+ 672 0084 8F010000 		.word	.L62+1
+ 673 0088 8F010000 		.word	.L62+1
+ 674 008c 8F010000 		.word	.L62+1
+ 675 0090 8F010000 		.word	.L62+1
+ 676 0094 8F010000 		.word	.L62+1
+ 677 0098 E3000000 		.word	.L54+1
+ 678 009c 8F010000 		.word	.L62+1
+ 679 00a0 8F010000 		.word	.L62+1
+ 680 00a4 8F010000 		.word	.L62+1
+ 681 00a8 8F010000 		.word	.L62+1
+ 682 00ac 8F010000 		.word	.L62+1
+ 683 00b0 8F010000 		.word	.L62+1
+ 684 00b4 F1000000 		.word	.L52+1
+ 685              		.p2align 1
+ 686              	.L57:
+ 687              	.LBB2:
+ 178:Core/Src/fsm.c **** 				case CAL_CMD:
+ 179:Core/Src/fsm.c **** 					fsmstate->next_state = CALIBRATION_MODE;
+ 688              		.loc 1 179 27
+ 689 00b8 7B68     		ldr	r3, [r7, #4]
+ 690 00ba 0122     		movs	r2, #1
+ 691 00bc 5A70     		strb	r2, [r3, #1]
+ 180:Core/Src/fsm.c **** 					fsmstate->ready = 0;
+ 692              		.loc 1 180 22
+ 693 00be 7B68     		ldr	r3, [r7, #4]
+ 694 00c0 0022     		movs	r2, #0
+ 695 00c2 DA70     		strb	r2, [r3, #3]
+ 181:Core/Src/fsm.c **** 					break;
+ 696              		.loc 1 181 6
+ 697 00c4 45E0     		b	.L51
+ 698              	.L55:
+ 182:Core/Src/fsm.c **** 				case MOTOR_CMD:
+ 183:Core/Src/fsm.c **** 					fsmstate->next_state = MOTOR_MODE;
+ 699              		.loc 1 183 27
+ 700 00c6 7B68     		ldr	r3, [r7, #4]
+ 701 00c8 0222     		movs	r2, #2
+ 702 00ca 5A70     		strb	r2, [r3, #1]
+ 184:Core/Src/fsm.c **** 					fsmstate->ready = 0;
+ 703              		.loc 1 184 22
+ 704 00cc 7B68     		ldr	r3, [r7, #4]
+ 705 00ce 0022     		movs	r2, #0
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 17
+
+
+ 706 00d0 DA70     		strb	r2, [r3, #3]
+ 185:Core/Src/fsm.c **** 					break;
+ 707              		.loc 1 185 6
+ 708 00d2 3EE0     		b	.L51
+ 709              	.L56:
+ 186:Core/Src/fsm.c **** 				case ENCODER_CMD:
+ 187:Core/Src/fsm.c **** 					fsmstate->next_state = ENCODER_MODE;
+ 710              		.loc 1 187 27
+ 711 00d4 7B68     		ldr	r3, [r7, #4]
+ 712 00d6 0522     		movs	r2, #5
+ 713 00d8 5A70     		strb	r2, [r3, #1]
+ 188:Core/Src/fsm.c **** 					fsmstate->ready = 0;
+ 714              		.loc 1 188 22
+ 715 00da 7B68     		ldr	r3, [r7, #4]
+ 716 00dc 0022     		movs	r2, #0
+ 717 00de DA70     		strb	r2, [r3, #3]
+ 189:Core/Src/fsm.c **** 					break;
+ 718              		.loc 1 189 6
+ 719 00e0 37E0     		b	.L51
+ 720              	.L54:
+ 190:Core/Src/fsm.c **** 				case SETUP_CMD:
+ 191:Core/Src/fsm.c **** 					fsmstate->next_state = SETUP_MODE;
+ 721              		.loc 1 191 27
+ 722 00e2 7B68     		ldr	r3, [r7, #4]
+ 723 00e4 0422     		movs	r2, #4
+ 724 00e6 5A70     		strb	r2, [r3, #1]
+ 192:Core/Src/fsm.c **** 					fsmstate->ready = 0;
+ 725              		.loc 1 192 22
+ 726 00e8 7B68     		ldr	r3, [r7, #4]
+ 727 00ea 0022     		movs	r2, #0
+ 728 00ec DA70     		strb	r2, [r3, #3]
+ 193:Core/Src/fsm.c **** 					break;
+ 729              		.loc 1 193 6
+ 730 00ee 30E0     		b	.L51
+ 731              	.L52:
+ 194:Core/Src/fsm.c **** 				case ZERO_CMD:
+ 195:Core/Src/fsm.c **** 					comm_encoder.m_zero = 0;
+ 732              		.loc 1 195 26
+ 733 00f0 294B     		ldr	r3, .L63
+ 734 00f2 0022     		movs	r2, #0
+ 735 00f4 C3F8D420 		str	r2, [r3, #212]
+ 196:Core/Src/fsm.c **** 					ps_sample(&comm_encoder, DT);
+ 736              		.loc 1 196 6
+ 737 00f8 9FED280A 		vldr.32	s0, .L63+4
+ 738 00fc 2648     		ldr	r0, .L63
+ 739 00fe FFF7FEFF 		bl	ps_sample
+ 197:Core/Src/fsm.c **** 					int zero_count = comm_encoder.count;
+ 740              		.loc 1 197 10
+ 741 0102 254B     		ldr	r3, .L63
+ 742 0104 9B6F     		ldr	r3, [r3, #120]
+ 743 0106 FB60     		str	r3, [r7, #12]
+ 198:Core/Src/fsm.c **** 					M_ZERO = zero_count;
+ 744              		.loc 1 198 13
+ 745 0108 254A     		ldr	r2, .L63+8
+ 746 010a FB68     		ldr	r3, [r7, #12]
+ 747 010c 1361     		str	r3, [r2, #16]
+ 199:Core/Src/fsm.c **** 					if (!preference_writer_ready(prefs)){ preference_writer_open(&prefs);}
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 18
+
+
+ 748              		.loc 1 199 11
+ 749 010e 254B     		ldr	r3, .L63+12
+ 750 0110 1A69     		ldr	r2, [r3, #16]
+ 751 0112 0092     		str	r2, [sp]
+ 752 0114 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 753 0116 FFF7FEFF 		bl	preference_writer_ready
+ 754 011a 0346     		mov	r3, r0
+ 755              		.loc 1 199 10
+ 756 011c 83F00103 		eor	r3, r3, #1
+ 757 0120 DBB2     		uxtb	r3, r3
+ 758              		.loc 1 199 9
+ 759 0122 002B     		cmp	r3, #0
+ 760 0124 02D0     		beq	.L58
+ 761              		.loc 1 199 44 discriminator 1
+ 762 0126 1F48     		ldr	r0, .L63+12
+ 763 0128 FFF7FEFF 		bl	preference_writer_open
+ 764              	.L58:
+ 200:Core/Src/fsm.c **** 					preference_writer_flush(&prefs);
+ 765              		.loc 1 200 6
+ 766 012c 1D48     		ldr	r0, .L63+12
+ 767 012e FFF7FEFF 		bl	preference_writer_flush
+ 201:Core/Src/fsm.c **** 					preference_writer_close(&prefs);
+ 768              		.loc 1 201 6
+ 769 0132 1C48     		ldr	r0, .L63+12
+ 770 0134 FFF7FEFF 		bl	preference_writer_close
+ 202:Core/Src/fsm.c **** 					preference_writer_load(prefs);
+ 771              		.loc 1 202 6
+ 772 0138 1A4B     		ldr	r3, .L63+12
+ 773 013a 1A69     		ldr	r2, [r3, #16]
+ 774 013c 0092     		str	r2, [sp]
+ 775 013e 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 776 0140 FFF7FEFF 		bl	preference_writer_load
+ 203:Core/Src/fsm.c **** 					printf("\n\r  Saved new zero position:  %d\n\r\n\r", M_ZERO);
+ 777              		.loc 1 203 6
+ 778 0144 164B     		ldr	r3, .L63+8
+ 779 0146 1B69     		ldr	r3, [r3, #16]
+ 780 0148 1946     		mov	r1, r3
+ 781 014a 1748     		ldr	r0, .L63+16
+ 782 014c FFF7FEFF 		bl	printf
+ 204:Core/Src/fsm.c **** 					break;
+ 783              		.loc 1 204 6
+ 784 0150 00BF     		nop
+ 785              	.L51:
+ 786              	.LBE2:
+ 205:Core/Src/fsm.c **** 				}
+ 206:Core/Src/fsm.c **** 			break;
+ 787              		.loc 1 206 4
+ 788 0152 1CE0     		b	.L62
+ 789              	.L48:
+ 207:Core/Src/fsm.c **** 		case SETUP_MODE:
+ 208:Core/Src/fsm.c **** 			if(fsm_input == ENTER_CMD){
+ 790              		.loc 1 208 6
+ 791 0154 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 792 0156 0D2B     		cmp	r3, #13
+ 793 0158 03D1     		bne	.L59
+ 209:Core/Src/fsm.c **** 				process_user_input(fsmstate);
+ 794              		.loc 1 209 5
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 19
+
+
+ 795 015a 7868     		ldr	r0, [r7, #4]
+ 796 015c FFF7FEFF 		bl	process_user_input
+ 210:Core/Src/fsm.c **** 				break;
+ 797              		.loc 1 210 5
+ 798 0160 16E0     		b	.L43
+ 799              	.L59:
+ 211:Core/Src/fsm.c **** 			}
+ 212:Core/Src/fsm.c **** 			if(fsmstate->bytecount == 0){fsmstate->cmd_id = fsm_input;}
+ 800              		.loc 1 212 15
+ 801 0162 7B68     		ldr	r3, [r7, #4]
+ 802 0164 1B7B     		ldrb	r3, [r3, #12]	@ zero_extendqisi2
+ 803              		.loc 1 212 6
+ 804 0166 002B     		cmp	r3, #0
+ 805 0168 03D1     		bne	.L60
+ 806              		.loc 1 212 50 discriminator 1
+ 807 016a 7B68     		ldr	r3, [r7, #4]
+ 808 016c FA78     		ldrb	r2, [r7, #3]
+ 809 016e 5A73     		strb	r2, [r3, #13]
+ 810 0170 06E0     		b	.L61
+ 811              	.L60:
+ 213:Core/Src/fsm.c **** 			else{
+ 214:Core/Src/fsm.c **** 				fsmstate->cmd_buff[fsmstate->bytecount-1] = fsm_input;
+ 812              		.loc 1 214 32
+ 813 0172 7B68     		ldr	r3, [r7, #4]
+ 814 0174 1B7B     		ldrb	r3, [r3, #12]	@ zero_extendqisi2
+ 815              		.loc 1 214 43
+ 816 0176 013B     		subs	r3, r3, #1
+ 817              		.loc 1 214 47
+ 818 0178 7A68     		ldr	r2, [r7, #4]
+ 819 017a 1344     		add	r3, r3, r2
+ 820 017c FA78     		ldrb	r2, [r7, #3]
+ 821 017e 1A71     		strb	r2, [r3, #4]
+ 822              	.L61:
+ 215:Core/Src/fsm.c **** 				//fsmstate->bytecount = fsmstate->bytecount%(sizeof(fsmstate->cmd_buff)/sizeof(fsmstate->cmd_bu
+ 216:Core/Src/fsm.c **** 			}
+ 217:Core/Src/fsm.c **** 			fsmstate->bytecount++;
+ 823              		.loc 1 217 12
+ 824 0180 7B68     		ldr	r3, [r7, #4]
+ 825 0182 1B7B     		ldrb	r3, [r3, #12]	@ zero_extendqisi2
+ 826              		.loc 1 217 23
+ 827 0184 0133     		adds	r3, r3, #1
+ 828 0186 DAB2     		uxtb	r2, r3
+ 829 0188 7B68     		ldr	r3, [r7, #4]
+ 830 018a 1A73     		strb	r2, [r3, #12]
+ 218:Core/Src/fsm.c **** 			/* If enter is typed, process user input */
+ 219:Core/Src/fsm.c **** 
+ 220:Core/Src/fsm.c **** 			break;
+ 831              		.loc 1 220 4
+ 832 018c 00E0     		b	.L43
+ 833              	.L62:
+ 206:Core/Src/fsm.c **** 		case SETUP_MODE:
+ 834              		.loc 1 206 4
+ 835 018e 00BF     		nop
+ 836              	.L43:
+ 221:Core/Src/fsm.c **** 
+ 222:Core/Src/fsm.c **** 		case ENCODER_MODE:
+ 223:Core/Src/fsm.c **** 			break;
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 20
+
+
+ 224:Core/Src/fsm.c **** 		case MOTOR_MODE:
+ 225:Core/Src/fsm.c **** 			break;
+ 226:Core/Src/fsm.c **** 	}
+ 227:Core/Src/fsm.c **** 	//printf("FSM State: %d  %d\r\n", fsmstate.state, fsmstate.state_change);
+ 228:Core/Src/fsm.c ****  }
+ 837              		.loc 1 228 2
+ 838 0190 1037     		adds	r7, r7, #16
+ 839              	.LCFI18:
+ 840              		.cfi_def_cfa_offset 8
+ 841 0192 BD46     		mov	sp, r7
+ 842              	.LCFI19:
+ 843              		.cfi_def_cfa_register 13
+ 844              		@ sp needed
+ 845 0194 80BD     		pop	{r7, pc}
+ 846              	.L64:
+ 847 0196 00BF     		.align	2
+ 848              	.L63:
+ 849 0198 00000000 		.word	comm_encoder
+ 850 019c 17B7D137 		.word	936490775
+ 851 01a0 00000000 		.word	__int_reg
+ 852 01a4 00000000 		.word	prefs
+ 853 01a8 14000000 		.word	.LC1
+ 854              		.cfi_endproc
+ 855              	.LFE245:
+ 857              		.section	.rodata
+ 858 0039 000000   		.align	2
+ 859              	.LC2:
+ 860 003c 0A0D0A0D 		.ascii	"\012\015\012\015\000"
+ 860      00
+ 861 0041 000000   		.align	2
+ 862              	.LC3:
+ 863 0044 20436F6D 		.ascii	" Commands:\012\015\000"
+ 863      6D616E64 
+ 863      733A0A0D 
+ 863      00
+ 864 0051 000000   		.align	2
+ 865              	.LC4:
+ 866 0054 206D202D 		.ascii	" m - Motor Mode\012\015\000"
+ 866      204D6F74 
+ 866      6F72204D 
+ 866      6F64650A 
+ 866      0D00
+ 867 0066 0000     		.align	2
+ 868              	.LC5:
+ 869 0068 2063202D 		.ascii	" c - Calibrate Encoder\012\015\000"
+ 869      2043616C 
+ 869      69627261 
+ 869      74652045 
+ 869      6E636F64 
+ 870 0081 000000   		.align	2
+ 871              	.LC6:
+ 872 0084 2073202D 		.ascii	" s - Setup\012\015\000"
+ 872      20536574 
+ 872      75700A0D 
+ 872      00
+ 873 0091 000000   		.align	2
+ 874              	.LC7:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 21
+
+
+ 875 0094 2065202D 		.ascii	" e - Display Encoder\012\015\000"
+ 875      20446973 
+ 875      706C6179 
+ 875      20456E63 
+ 875      6F646572 
+ 876 00ab 00       		.align	2
+ 877              	.LC8:
+ 878 00ac 207A202D 		.ascii	" z - Set Zero Position\012\015\000"
+ 878      20536574 
+ 878      205A6572 
+ 878      6F20506F 
+ 878      73697469 
+ 879 00c5 000000   		.align	2
+ 880              	.LC9:
+ 881 00c8 20657363 		.ascii	" esc - Exit to Menu\012\015\000"
+ 881      202D2045 
+ 881      78697420 
+ 881      746F204D 
+ 881      656E750A 
+ 882              		.section	.text.enter_menu_state,"ax",%progbits
+ 883              		.align	1
+ 884              		.global	enter_menu_state
+ 885              		.syntax unified
+ 886              		.thumb
+ 887              		.thumb_func
+ 889              	enter_menu_state:
+ 890              	.LFB246:
+ 229:Core/Src/fsm.c **** 
+ 230:Core/Src/fsm.c **** 
+ 231:Core/Src/fsm.c ****  void enter_menu_state(void){
+ 891              		.loc 1 231 29
+ 892              		.cfi_startproc
+ 893              		@ args = 0, pretend = 0, frame = 0
+ 894              		@ frame_needed = 1, uses_anonymous_args = 0
+ 895 0000 80B5     		push	{r7, lr}
+ 896              	.LCFI20:
+ 897              		.cfi_def_cfa_offset 8
+ 898              		.cfi_offset 7, -8
+ 899              		.cfi_offset 14, -4
+ 900 0002 00AF     		add	r7, sp, #0
+ 901              	.LCFI21:
+ 902              		.cfi_def_cfa_register 7
+ 232:Core/Src/fsm.c **** 	    //drv.disable_gd();
+ 233:Core/Src/fsm.c **** 	    //reset_foc(&controller);
+ 234:Core/Src/fsm.c **** 	    //gpio.enable->write(0);
+ 235:Core/Src/fsm.c **** 	    printf("\n\r\n\r");
+ 903              		.loc 1 235 6
+ 904 0004 0C48     		ldr	r0, .L66
+ 905 0006 FFF7FEFF 		bl	printf
+ 236:Core/Src/fsm.c **** 	    printf(" Commands:\n\r");
+ 906              		.loc 1 236 6
+ 907 000a 0C48     		ldr	r0, .L66+4
+ 908 000c FFF7FEFF 		bl	printf
+ 237:Core/Src/fsm.c **** 	    printf(" m - Motor Mode\n\r");
+ 909              		.loc 1 237 6
+ 910 0010 0B48     		ldr	r0, .L66+8
+ 911 0012 FFF7FEFF 		bl	printf
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 22
+
+
+ 238:Core/Src/fsm.c **** 	    printf(" c - Calibrate Encoder\n\r");
+ 912              		.loc 1 238 6
+ 913 0016 0B48     		ldr	r0, .L66+12
+ 914 0018 FFF7FEFF 		bl	printf
+ 239:Core/Src/fsm.c **** 	    printf(" s - Setup\n\r");
+ 915              		.loc 1 239 6
+ 916 001c 0A48     		ldr	r0, .L66+16
+ 917 001e FFF7FEFF 		bl	printf
+ 240:Core/Src/fsm.c **** 	    printf(" e - Display Encoder\n\r");
+ 918              		.loc 1 240 6
+ 919 0022 0A48     		ldr	r0, .L66+20
+ 920 0024 FFF7FEFF 		bl	printf
+ 241:Core/Src/fsm.c **** 	    printf(" z - Set Zero Position\n\r");
+ 921              		.loc 1 241 6
+ 922 0028 0948     		ldr	r0, .L66+24
+ 923 002a FFF7FEFF 		bl	printf
+ 242:Core/Src/fsm.c **** 	    printf(" esc - Exit to Menu\n\r");
+ 924              		.loc 1 242 6
+ 925 002e 0948     		ldr	r0, .L66+28
+ 926 0030 FFF7FEFF 		bl	printf
+ 243:Core/Src/fsm.c **** 
+ 244:Core/Src/fsm.c **** 	    //gpio.led->write(0);
+ 245:Core/Src/fsm.c ****  }
+ 927              		.loc 1 245 2
+ 928 0034 00BF     		nop
+ 929 0036 80BD     		pop	{r7, pc}
+ 930              	.L67:
+ 931              		.align	2
+ 932              	.L66:
+ 933 0038 3C000000 		.word	.LC2
+ 934 003c 44000000 		.word	.LC3
+ 935 0040 54000000 		.word	.LC4
+ 936 0044 68000000 		.word	.LC5
+ 937 0048 84000000 		.word	.LC6
+ 938 004c 94000000 		.word	.LC7
+ 939 0050 AC000000 		.word	.LC8
+ 940 0054 C8000000 		.word	.LC9
+ 941              		.cfi_endproc
+ 942              	.LFE246:
+ 944              		.section	.rodata
+ 945 00de 0000     		.align	2
+ 946              	.LC10:
+ 947 00e0 0D0A2043 		.ascii	"\015\012 Configuration Options \012\015\000"
+ 947      6F6E6669 
+ 947      67757261 
+ 947      74696F6E 
+ 947      204F7074 
+ 948              		.align	2
+ 949              	.LC11:
+ 950 00fc 6D696E00 		.ascii	"min\000"
+ 951              		.align	2
+ 952              	.LC12:
+ 953 0100 70617261 		.ascii	"parameter\000"
+ 953      6D657465 
+ 953      7200
+ 954 010a 0000     		.align	2
+ 955              	.LC13:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 23
+
+
+ 956 010c 70726566 		.ascii	"prefix\000"
+ 956      697800
+ 957 0113 00       		.align	2
+ 958              	.LC14:
+ 959 0114 20252D34 		.ascii	" %-4s %-31s %-5s %-6s %-2s\015\012\000"
+ 959      7320252D 
+ 959      33317320 
+ 959      252D3573 
+ 959      20252D36 
+ 960 0131 000000   		.align	2
+ 961              	.LC15:
+ 962 0134 63757272 		.ascii	"current value\000"
+ 962      656E7420 
+ 962      76616C75 
+ 962      6500
+ 963 0142 0000     		.align	2
+ 964              	.LC16:
+ 965 0144 6D617800 		.ascii	"max\000"
+ 966              		.align	2
+ 967              	.LC17:
+ 968 0148 0D0A204D 		.ascii	"\015\012 Motor:\015\000"
+ 968      6F746F72 
+ 968      3A0D00
+ 969 0153 00       		.align	2
+ 970              	.LC18:
+ 971 0154 3000     		.ascii	"0\000"
+ 972 0156 0000     		.align	2
+ 973              	.LC19:
+ 974 0158 47656172 		.ascii	"Gear Ratio\000"
+ 974      20526174 
+ 974      696F00
+ 975 0163 00       		.align	2
+ 976              	.LC20:
+ 977 0164 6700     		.ascii	"g\000"
+ 978 0166 0000     		.align	2
+ 979              	.LC21:
+ 980 0168 20252D34 		.ascii	" %-4s %-31s %-5s %-6s %.3f\012\015\000"
+ 980      7320252D 
+ 980      33317320 
+ 980      252D3573 
+ 980      20252D36 
+ 981 0185 000000   		.align	2
+ 982              	.LC22:
+ 983 0188 2D00     		.ascii	"-\000"
+ 984 018a 0000     		.align	2
+ 985              	.LC23:
+ 986 018c 546F7271 		.ascii	"Torque Constant (N-m/A)\000"
+ 986      75652043 
+ 986      6F6E7374 
+ 986      616E7420 
+ 986      284E2D6D 
+ 987              		.align	2
+ 988              	.LC24:
+ 989 01a4 6B00     		.ascii	"k\000"
+ 990 01a6 0000     		.align	2
+ 991              	.LC25:
+ 992 01a8 20252D34 		.ascii	" %-4s %-31s %-5s %-6s %.5f\012\015\000"
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 24
+
+
+ 992      7320252D 
+ 992      33317320 
+ 992      252D3573 
+ 992      20252D36 
+ 993 01c5 000000   		.align	2
+ 994              	.LC26:
+ 995 01c8 0D0A2043 		.ascii	"\015\012 Control:\015\000"
+ 995      6F6E7472 
+ 995      6F6C3A0D 
+ 995      00
+ 996 01d5 000000   		.align	2
+ 997              	.LC27:
+ 998 01d8 31303000 		.ascii	"100\000"
+ 999              		.align	2
+ 1000              	.LC28:
+ 1001 01dc 43757272 		.ascii	"Current Bandwidth (Hz)\000"
+ 1001      656E7420 
+ 1001      42616E64 
+ 1001      77696474 
+ 1001      68202848 
+ 1002 01f3 00       		.align	2
+ 1003              	.LC29:
+ 1004 01f4 6200     		.ascii	"b\000"
+ 1005 01f6 0000     		.align	2
+ 1006              	.LC30:
+ 1007 01f8 32303030 		.ascii	"2000\000"
+ 1007      00
+ 1008 01fd 000000   		.align	2
+ 1009              	.LC31:
+ 1010 0200 302E3000 		.ascii	"0.0\000"
+ 1011              		.align	2
+ 1012              	.LC32:
+ 1013 0204 43757272 		.ascii	"Current Limit (A)\000"
+ 1013      656E7420 
+ 1013      4C696D69 
+ 1013      74202841 
+ 1013      2900
+ 1014 0216 0000     		.align	2
+ 1015              	.LC33:
+ 1016 0218 6C00     		.ascii	"l\000"
+ 1017 021a 0000     		.align	2
+ 1018              	.LC34:
+ 1019 021c 37352E30 		.ascii	"75.0\000"
+ 1019      00
+ 1020 0221 000000   		.align	2
+ 1021              	.LC35:
+ 1022 0224 4D617820 		.ascii	"Max Position Setpoint (rad)\000"
+ 1022      506F7369 
+ 1022      74696F6E 
+ 1022      20536574 
+ 1022      706F696E 
+ 1023              		.align	2
+ 1024              	.LC36:
+ 1025 0240 7000     		.ascii	"p\000"
+ 1026 0242 0000     		.align	2
+ 1027              	.LC37:
+ 1028 0244 4D617820 		.ascii	"Max Velocity Setpoint (rad)/s\000"
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 25
+
+
+ 1028      56656C6F 
+ 1028      63697479 
+ 1028      20536574 
+ 1028      706F696E 
+ 1029 0262 0000     		.align	2
+ 1030              	.LC38:
+ 1031 0264 7600     		.ascii	"v\000"
+ 1032 0266 0000     		.align	2
+ 1033              	.LC39:
+ 1034 0268 4D617820 		.ascii	"Max Position Gain (N-m/rad)\000"
+ 1034      506F7369 
+ 1034      74696F6E 
+ 1034      20476169 
+ 1034      6E20284E 
+ 1035              		.align	2
+ 1036              	.LC40:
+ 1037 0284 7800     		.ascii	"x\000"
+ 1038 0286 0000     		.align	2
+ 1039              	.LC41:
+ 1040 0288 31303030 		.ascii	"1000.0\000"
+ 1040      2E3000
+ 1041 028f 00       		.align	2
+ 1042              	.LC42:
+ 1043 0290 4D617820 		.ascii	"Max Velocity Gain (N-m/rad/s)\000"
+ 1043      56656C6F 
+ 1043      63697479 
+ 1043      20476169 
+ 1043      6E20284E 
+ 1044 02ae 0000     		.align	2
+ 1045              	.LC43:
+ 1046 02b0 6400     		.ascii	"d\000"
+ 1047 02b2 0000     		.align	2
+ 1048              	.LC44:
+ 1049 02b4 352E3000 		.ascii	"5.0\000"
+ 1050              		.align	2
+ 1051              	.LC45:
+ 1052 02b8 46572043 		.ascii	"FW Current Limit (A)\000"
+ 1052      75727265 
+ 1052      6E74204C 
+ 1052      696D6974 
+ 1052      20284129 
+ 1053 02cd 000000   		.align	2
+ 1054              	.LC46:
+ 1055 02d0 6600     		.ascii	"f\000"
+ 1056 02d2 0000     		.align	2
+ 1057              	.LC47:
+ 1058 02d4 33332E30 		.ascii	"33.0\000"
+ 1058      00
+ 1059 02d9 000000   		.align	2
+ 1060              	.LC48:
+ 1061 02dc 436F6E74 		.ascii	"Continuous Current (A)\000"
+ 1061      696E756F 
+ 1061      75732043 
+ 1061      75727265 
+ 1061      6E742028 
+ 1062 02f3 00       		.align	2
+ 1063              	.LC49:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 26
+
+
+ 1064 02f4 6300     		.ascii	"c\000"
+ 1065 02f6 0000     		.align	2
+ 1066              	.LC50:
+ 1067 02f8 34302E30 		.ascii	"40.0\000"
+ 1067      00
+ 1068 02fd 000000   		.align	2
+ 1069              	.LC51:
+ 1070 0300 43616C69 		.ascii	"Calibration Current (A)\000"
+ 1070      62726174 
+ 1070      696F6E20 
+ 1070      43757272 
+ 1070      656E7420 
+ 1071              		.align	2
+ 1072              	.LC52:
+ 1073 0318 6100     		.ascii	"a\000"
+ 1074 031a 0000     		.align	2
+ 1075              	.LC53:
+ 1076 031c 32302E30 		.ascii	"20.0\000"
+ 1076      00
+ 1077 0321 000000   		.align	2
+ 1078              	.LC54:
+ 1079 0324 0D0A2043 		.ascii	"\015\012 CAN:\015\000"
+ 1079      414E3A0D 
+ 1079      00
+ 1080 032d 000000   		.align	2
+ 1081              	.LC55:
+ 1082 0330 43414E20 		.ascii	"CAN ID\000"
+ 1082      494400
+ 1083 0337 00       		.align	2
+ 1084              	.LC56:
+ 1085 0338 6900     		.ascii	"i\000"
+ 1086 033a 0000     		.align	2
+ 1087              	.LC57:
+ 1088 033c 20252D34 		.ascii	" %-4s %-31s %-5s %-6s %-5i\012\015\000"
+ 1088      7320252D 
+ 1088      33317320 
+ 1088      252D3573 
+ 1088      20252D36 
+ 1089 0359 000000   		.align	2
+ 1090              	.LC58:
+ 1091 035c 31323700 		.ascii	"127\000"
+ 1092              		.align	2
+ 1093              	.LC59:
+ 1094 0360 43414E20 		.ascii	"CAN TX ID\000"
+ 1094      54582049 
+ 1094      4400
+ 1095 036a 0000     		.align	2
+ 1096              	.LC60:
+ 1097 036c 6D00     		.ascii	"m\000"
+ 1098 036e 0000     		.align	2
+ 1099              	.LC61:
+ 1100 0370 43414E20 		.ascii	"CAN Timeout (cycles)(0 = none)\000"
+ 1100      54696D65 
+ 1100      6F757420 
+ 1100      28637963 
+ 1100      6C657329 
+ 1101 038f 00       		.align	2
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 27
+
+
+ 1102              	.LC62:
+ 1103 0390 7400     		.ascii	"t\000"
+ 1104 0392 0000     		.align	2
+ 1105              	.LC63:
+ 1106 0394 20252D34 		.ascii	" %-4s %-31s %-5s %-6s %d\012\015\000"
+ 1106      7320252D 
+ 1106      33317320 
+ 1106      252D3573 
+ 1106      20252D36 
+ 1107 03af 00       		.align	2
+ 1108              	.LC64:
+ 1109 03b0 31303030 		.ascii	"100000\000"
+ 1109      303000
+ 1110 03b7 00       		.align	2
+ 1111              	.LC65:
+ 1112 03b8 200A0D20 		.ascii	" \012\015 To change a value, type 'prefix''value''E"
+ 1112      546F2063 
+ 1112      68616E67 
+ 1112      65206120 
+ 1112      76616C75 
+ 1113 03e5 4E544552 		.ascii	"NTER'\012\015 e.g. 'b1000''ENTER'\015\012 \000"
+ 1113      270A0D20 
+ 1113      652E672E 
+ 1113      20276231 
+ 1113      30303027 
+ 1114              		.align	2
+ 1115              	.LC66:
+ 1116 0404 56414C55 		.ascii	"VALUES NOT ACTIVE UNTIL POWER CYCLE! \012\015\012\015"
+ 1116      4553204E 
+ 1116      4F542041 
+ 1116      43544956 
+ 1116      4520554E 
+ 1117 042d 00       		.ascii	"\000"
+ 1118              		.section	.text.enter_setup_state,"ax",%progbits
+ 1119              		.align	1
+ 1120              		.global	enter_setup_state
+ 1121              		.syntax unified
+ 1122              		.thumb
+ 1123              		.thumb_func
+ 1125              	enter_setup_state:
+ 1126              	.LFB247:
+ 246:Core/Src/fsm.c **** 
+ 247:Core/Src/fsm.c ****  void enter_setup_state(void){
+ 1127              		.loc 1 247 30
+ 1128              		.cfi_startproc
+ 1129              		@ args = 0, pretend = 0, frame = 0
+ 1130              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1131 0000 80B5     		push	{r7, lr}
+ 1132              	.LCFI22:
+ 1133              		.cfi_def_cfa_offset 8
+ 1134              		.cfi_offset 7, -8
+ 1135              		.cfi_offset 14, -4
+ 1136 0002 84B0     		sub	sp, sp, #16
+ 1137              	.LCFI23:
+ 1138              		.cfi_def_cfa_offset 24
+ 1139 0004 04AF     		add	r7, sp, #16
+ 1140              	.LCFI24:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 28
+
+
+ 1141              		.cfi_def_cfa 7, 8
+ 248:Core/Src/fsm.c **** 	    printf("\r\n Configuration Options \n\r");
+ 1142              		.loc 1 248 6
+ 1143 0006 7D48     		ldr	r0, .L69
+ 1144 0008 FFF7FEFF 		bl	printf
+ 249:Core/Src/fsm.c **** 	    printf(" %-4s %-31s %-5s %-6s %-2s\r\n", "prefix", "parameter", "min", "max", "current value")
+ 1145              		.loc 1 249 6
+ 1146 000c 7C4B     		ldr	r3, .L69+4
+ 1147 000e 0193     		str	r3, [sp, #4]
+ 1148 0010 7C4B     		ldr	r3, .L69+8
+ 1149 0012 0093     		str	r3, [sp]
+ 1150 0014 7C4B     		ldr	r3, .L69+12
+ 1151 0016 7D4A     		ldr	r2, .L69+16
+ 1152 0018 7D49     		ldr	r1, .L69+20
+ 1153 001a 7E48     		ldr	r0, .L69+24
+ 1154 001c FFF7FEFF 		bl	printf
+ 250:Core/Src/fsm.c **** 	    printf("\r\n Motor:\r\n");
+ 1155              		.loc 1 250 6
+ 1156 0020 7D48     		ldr	r0, .L69+28
+ 1157 0022 FFF7FEFF 		bl	puts
+ 251:Core/Src/fsm.c **** 	    printf(" %-4s %-31s %-5s %-6s %.3f\n\r", "g", "Gear Ratio", "0", "-", GR);
+ 1158              		.loc 1 251 76
+ 1159 0026 7D4B     		ldr	r3, .L69+32
+ 1160 0028 5B6C     		ldr	r3, [r3, #68]	@ float
+ 1161              		.loc 1 251 6
+ 1162 002a 1846     		mov	r0, r3	@ float
+ 1163 002c FFF7FEFF 		bl	__aeabi_f2d
+ 1164 0030 0246     		mov	r2, r0
+ 1165 0032 0B46     		mov	r3, r1
+ 1166 0034 CDE90223 		strd	r2, [sp, #8]
+ 1167 0038 794B     		ldr	r3, .L69+36
+ 1168 003a 0093     		str	r3, [sp]
+ 1169 003c 794B     		ldr	r3, .L69+40
+ 1170 003e 7A4A     		ldr	r2, .L69+44
+ 1171 0040 7A49     		ldr	r1, .L69+48
+ 1172 0042 7B48     		ldr	r0, .L69+52
+ 1173 0044 FFF7FEFF 		bl	printf
+ 252:Core/Src/fsm.c **** 	    printf(" %-4s %-31s %-5s %-6s %.5f\n\r", "k", "Torque Constant (N-m/A)", "0", "-", KT);
+ 1174              		.loc 1 252 89
+ 1175 0048 744B     		ldr	r3, .L69+32
+ 1176 004a 9B6B     		ldr	r3, [r3, #56]	@ float
+ 1177              		.loc 1 252 6
+ 1178 004c 1846     		mov	r0, r3	@ float
+ 1179 004e FFF7FEFF 		bl	__aeabi_f2d
+ 1180 0052 0246     		mov	r2, r0
+ 1181 0054 0B46     		mov	r3, r1
+ 1182 0056 CDE90223 		strd	r2, [sp, #8]
+ 1183 005a 714B     		ldr	r3, .L69+36
+ 1184 005c 0093     		str	r3, [sp]
+ 1185 005e 714B     		ldr	r3, .L69+40
+ 1186 0060 744A     		ldr	r2, .L69+56
+ 1187 0062 7549     		ldr	r1, .L69+60
+ 1188 0064 7548     		ldr	r0, .L69+64
+ 1189 0066 FFF7FEFF 		bl	printf
+ 253:Core/Src/fsm.c **** 	    printf("\r\n Control:\r\n");
+ 1190              		.loc 1 253 6
+ 1191 006a 7548     		ldr	r0, .L69+68
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 29
+
+
+ 1192 006c FFF7FEFF 		bl	puts
+ 254:Core/Src/fsm.c **** 	    printf(" %-4s %-31s %-5s %-6s %.3f\n\r", "b", "Current Bandwidth (Hz)", "100", "2000", I_BW);
+ 1193              		.loc 1 254 93
+ 1194 0070 6A4B     		ldr	r3, .L69+32
+ 1195 0072 9B68     		ldr	r3, [r3, #8]	@ float
+ 1196              		.loc 1 254 6
+ 1197 0074 1846     		mov	r0, r3	@ float
+ 1198 0076 FFF7FEFF 		bl	__aeabi_f2d
+ 1199 007a 0246     		mov	r2, r0
+ 1200 007c 0B46     		mov	r3, r1
+ 1201 007e CDE90223 		strd	r2, [sp, #8]
+ 1202 0082 704B     		ldr	r3, .L69+72
+ 1203 0084 0093     		str	r3, [sp]
+ 1204 0086 704B     		ldr	r3, .L69+76
+ 1205 0088 704A     		ldr	r2, .L69+80
+ 1206 008a 7149     		ldr	r1, .L69+84
+ 1207 008c 6848     		ldr	r0, .L69+52
+ 1208 008e FFF7FEFF 		bl	printf
+ 255:Core/Src/fsm.c **** 	    printf(" %-4s %-31s %-5s %-6s %.3f\n\r", "l", "Current Limit (A)", "0.0", "75.0", I_MAX);
+ 1209              		.loc 1 255 88
+ 1210 0092 624B     		ldr	r3, .L69+32
+ 1211 0094 DB68     		ldr	r3, [r3, #12]	@ float
+ 1212              		.loc 1 255 6
+ 1213 0096 1846     		mov	r0, r3	@ float
+ 1214 0098 FFF7FEFF 		bl	__aeabi_f2d
+ 1215 009c 0246     		mov	r2, r0
+ 1216 009e 0B46     		mov	r3, r1
+ 1217 00a0 CDE90223 		strd	r2, [sp, #8]
+ 1218 00a4 6B4B     		ldr	r3, .L69+88
+ 1219 00a6 0093     		str	r3, [sp]
+ 1220 00a8 6B4B     		ldr	r3, .L69+92
+ 1221 00aa 6C4A     		ldr	r2, .L69+96
+ 1222 00ac 6C49     		ldr	r1, .L69+100
+ 1223 00ae 6048     		ldr	r0, .L69+52
+ 1224 00b0 FFF7FEFF 		bl	printf
+ 256:Core/Src/fsm.c **** 	    printf(" %-4s %-31s %-5s %-6s %.3f\n\r", "p", "Max Position Setpoint (rad)", "-", "-", P_MAX);
+ 1225              		.loc 1 256 93
+ 1226 00b4 594B     		ldr	r3, .L69+32
+ 1227 00b6 1B6D     		ldr	r3, [r3, #80]	@ float
+ 1228              		.loc 1 256 6
+ 1229 00b8 1846     		mov	r0, r3	@ float
+ 1230 00ba FFF7FEFF 		bl	__aeabi_f2d
+ 1231 00be 0246     		mov	r2, r0
+ 1232 00c0 0B46     		mov	r3, r1
+ 1233 00c2 CDE90223 		strd	r2, [sp, #8]
+ 1234 00c6 564B     		ldr	r3, .L69+36
+ 1235 00c8 0093     		str	r3, [sp]
+ 1236 00ca 554B     		ldr	r3, .L69+36
+ 1237 00cc 654A     		ldr	r2, .L69+104
+ 1238 00ce 6649     		ldr	r1, .L69+108
+ 1239 00d0 5748     		ldr	r0, .L69+52
+ 1240 00d2 FFF7FEFF 		bl	printf
+ 257:Core/Src/fsm.c **** 	    printf(" %-4s %-31s %-5s %-6s %.3f\n\r", "v", "Max Velocity Setpoint (rad)/s", "-", "-", V_MAX
+ 1241              		.loc 1 257 95
+ 1242 00d6 514B     		ldr	r3, .L69+32
+ 1243 00d8 9B6D     		ldr	r3, [r3, #88]	@ float
+ 1244              		.loc 1 257 6
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 30
+
+
+ 1245 00da 1846     		mov	r0, r3	@ float
+ 1246 00dc FFF7FEFF 		bl	__aeabi_f2d
+ 1247 00e0 0246     		mov	r2, r0
+ 1248 00e2 0B46     		mov	r3, r1
+ 1249 00e4 CDE90223 		strd	r2, [sp, #8]
+ 1250 00e8 4D4B     		ldr	r3, .L69+36
+ 1251 00ea 0093     		str	r3, [sp]
+ 1252 00ec 4C4B     		ldr	r3, .L69+36
+ 1253 00ee 5F4A     		ldr	r2, .L69+112
+ 1254 00f0 5F49     		ldr	r1, .L69+116
+ 1255 00f2 4F48     		ldr	r0, .L69+52
+ 1256 00f4 FFF7FEFF 		bl	printf
+ 258:Core/Src/fsm.c **** 	    printf(" %-4s %-31s %-5s %-6s %.3f\n\r", "x", "Max Position Gain (N-m/rad)", "0.0", "1000.0", 
+ 1257              		.loc 1 258 100
+ 1258 00f8 484B     		ldr	r3, .L69+32
+ 1259 00fa DB6D     		ldr	r3, [r3, #92]	@ float
+ 1260              		.loc 1 258 6
+ 1261 00fc 1846     		mov	r0, r3	@ float
+ 1262 00fe FFF7FEFF 		bl	__aeabi_f2d
+ 1263 0102 0246     		mov	r2, r0
+ 1264 0104 0B46     		mov	r3, r1
+ 1265 0106 CDE90223 		strd	r2, [sp, #8]
+ 1266 010a 5A4B     		ldr	r3, .L69+120
+ 1267 010c 0093     		str	r3, [sp]
+ 1268 010e 524B     		ldr	r3, .L69+92
+ 1269 0110 594A     		ldr	r2, .L69+124
+ 1270 0112 5A49     		ldr	r1, .L69+128
+ 1271 0114 4648     		ldr	r0, .L69+52
+ 1272 0116 FFF7FEFF 		bl	printf
+ 259:Core/Src/fsm.c **** 	    printf(" %-4s %-31s %-5s %-6s %.3f\n\r", "d", "Max Velocity Gain (N-m/rad/s)", "0.0", "5.0", K
+ 1273              		.loc 1 259 99
+ 1274 011a 404B     		ldr	r3, .L69+32
+ 1275 011c 1B6E     		ldr	r3, [r3, #96]	@ float
+ 1276              		.loc 1 259 6
+ 1277 011e 1846     		mov	r0, r3	@ float
+ 1278 0120 FFF7FEFF 		bl	__aeabi_f2d
+ 1279 0124 0246     		mov	r2, r0
+ 1280 0126 0B46     		mov	r3, r1
+ 1281 0128 CDE90223 		strd	r2, [sp, #8]
+ 1282 012c 544B     		ldr	r3, .L69+132
+ 1283 012e 0093     		str	r3, [sp]
+ 1284 0130 494B     		ldr	r3, .L69+92
+ 1285 0132 544A     		ldr	r2, .L69+136
+ 1286 0134 5449     		ldr	r1, .L69+140
+ 1287 0136 3E48     		ldr	r0, .L69+52
+ 1288 0138 FFF7FEFF 		bl	printf
+ 260:Core/Src/fsm.c **** 	    printf(" %-4s %-31s %-5s %-6s %.3f\n\r", "f", "FW Current Limit (A)", "0.0", "33.0", I_FW_MAX)
+ 1289              		.loc 1 260 91
+ 1290 013c 374B     		ldr	r3, .L69+32
+ 1291 013e 9B69     		ldr	r3, [r3, #24]	@ float
+ 1292              		.loc 1 260 6
+ 1293 0140 1846     		mov	r0, r3	@ float
+ 1294 0142 FFF7FEFF 		bl	__aeabi_f2d
+ 1295 0146 0246     		mov	r2, r0
+ 1296 0148 0B46     		mov	r3, r1
+ 1297 014a CDE90223 		strd	r2, [sp, #8]
+ 1298 014e 4F4B     		ldr	r3, .L69+144
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 31
+
+
+ 1299 0150 0093     		str	r3, [sp]
+ 1300 0152 414B     		ldr	r3, .L69+92
+ 1301 0154 4E4A     		ldr	r2, .L69+148
+ 1302 0156 4F49     		ldr	r1, .L69+152
+ 1303 0158 3548     		ldr	r0, .L69+52
+ 1304 015a FFF7FEFF 		bl	printf
+ 261:Core/Src/fsm.c **** 	    //printf(" %-4s %-31s %-5s %-6s %.1f\n\r", "h", "Temp Cutoff (C) (0 = none)", "0", "150", TEMP
+ 262:Core/Src/fsm.c **** 	    printf(" %-4s %-31s %-5s %-6s %.3f\n\r", "c", "Continuous Current (A)", "0.0", "40.0", I_MAX_C
+ 1305              		.loc 1 262 93
+ 1306 015e 2F4B     		ldr	r3, .L69+32
+ 1307 0160 5B6A     		ldr	r3, [r3, #36]	@ float
+ 1308              		.loc 1 262 6
+ 1309 0162 1846     		mov	r0, r3	@ float
+ 1310 0164 FFF7FEFF 		bl	__aeabi_f2d
+ 1311 0168 0246     		mov	r2, r0
+ 1312 016a 0B46     		mov	r3, r1
+ 1313 016c CDE90223 		strd	r2, [sp, #8]
+ 1314 0170 494B     		ldr	r3, .L69+156
+ 1315 0172 0093     		str	r3, [sp]
+ 1316 0174 384B     		ldr	r3, .L69+92
+ 1317 0176 494A     		ldr	r2, .L69+160
+ 1318 0178 4949     		ldr	r1, .L69+164
+ 1319 017a 2D48     		ldr	r0, .L69+52
+ 1320 017c FFF7FEFF 		bl	printf
+ 263:Core/Src/fsm.c **** 	    printf(" %-4s %-31s %-5s %-6s %.3f\n\r", "a", "Calibration Current (A)", "0.0", "20.0", I_CAL)
+ 1321              		.loc 1 263 94
+ 1322 0180 264B     		ldr	r3, .L69+32
+ 1323 0182 9B6C     		ldr	r3, [r3, #72]	@ float
+ 1324              		.loc 1 263 6
+ 1325 0184 1846     		mov	r0, r3	@ float
+ 1326 0186 FFF7FEFF 		bl	__aeabi_f2d
+ 1327 018a 0246     		mov	r2, r0
+ 1328 018c 0B46     		mov	r3, r1
+ 1329 018e CDE90223 		strd	r2, [sp, #8]
+ 1330 0192 444B     		ldr	r3, .L69+168
+ 1331 0194 0093     		str	r3, [sp]
+ 1332 0196 304B     		ldr	r3, .L69+92
+ 1333 0198 434A     		ldr	r2, .L69+172
+ 1334 019a 4449     		ldr	r1, .L69+176
+ 1335 019c 2448     		ldr	r0, .L69+52
+ 1336 019e FFF7FEFF 		bl	printf
+ 264:Core/Src/fsm.c **** 	    printf("\r\n CAN:\r\n");
+ 1337              		.loc 1 264 6
+ 1338 01a2 4348     		ldr	r0, .L69+180
+ 1339 01a4 FFF7FEFF 		bl	puts
+ 265:Core/Src/fsm.c **** 	    printf(" %-4s %-31s %-5s %-6s %-5i\n\r", "i", "CAN ID", "0", "127", CAN_ID);
+ 1340              		.loc 1 265 6
+ 1341 01a8 424B     		ldr	r3, .L69+184
+ 1342 01aa 5B68     		ldr	r3, [r3, #4]
+ 1343 01ac 0193     		str	r3, [sp, #4]
+ 1344 01ae 424B     		ldr	r3, .L69+188
+ 1345 01b0 0093     		str	r3, [sp]
+ 1346 01b2 1C4B     		ldr	r3, .L69+40
+ 1347 01b4 414A     		ldr	r2, .L69+192
+ 1348 01b6 4249     		ldr	r1, .L69+196
+ 1349 01b8 4248     		ldr	r0, .L69+200
+ 1350 01ba FFF7FEFF 		bl	printf
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 32
+
+
+ 266:Core/Src/fsm.c **** 	    printf(" %-4s %-31s %-5s %-6s %-5i\n\r", "m", "CAN TX ID", "0", "127", CAN_MASTER);
+ 1351              		.loc 1 266 6
+ 1352 01be 3D4B     		ldr	r3, .L69+184
+ 1353 01c0 9B68     		ldr	r3, [r3, #8]
+ 1354 01c2 0193     		str	r3, [sp, #4]
+ 1355 01c4 3C4B     		ldr	r3, .L69+188
+ 1356 01c6 0093     		str	r3, [sp]
+ 1357 01c8 164B     		ldr	r3, .L69+40
+ 1358 01ca 3F4A     		ldr	r2, .L69+204
+ 1359 01cc 3F49     		ldr	r1, .L69+208
+ 1360 01ce 3D48     		ldr	r0, .L69+200
+ 1361 01d0 FFF7FEFF 		bl	printf
+ 267:Core/Src/fsm.c **** 	    printf(" %-4s %-31s %-5s %-6s %d\n\r", "t", "CAN Timeout (cycles)(0 = none)", "0", "100000", C
+ 1362              		.loc 1 267 6
+ 1363 01d4 374B     		ldr	r3, .L69+184
+ 1364 01d6 DB68     		ldr	r3, [r3, #12]
+ 1365 01d8 0193     		str	r3, [sp, #4]
+ 1366 01da 3D4B     		ldr	r3, .L69+212
+ 1367 01dc 0093     		str	r3, [sp]
+ 1368 01de 114B     		ldr	r3, .L69+40
+ 1369 01e0 3C4A     		ldr	r2, .L69+216
+ 1370 01e2 3D49     		ldr	r1, .L69+220
+ 1371 01e4 3D48     		ldr	r0, .L69+224
+ 1372 01e6 FFF7FEFF 		bl	printf
+ 268:Core/Src/fsm.c **** 	    printf(" \n\r To change a value, type 'prefix''value''ENTER'\n\r e.g. 'b1000''ENTER'\r\n ");
+ 1373              		.loc 1 268 6
+ 1374 01ea 3D48     		ldr	r0, .L69+228
+ 1375 01ec FFF7FEFF 		bl	printf
+ 269:Core/Src/fsm.c **** 	    printf("VALUES NOT ACTIVE UNTIL POWER CYCLE! \n\r\n\r");
+ 1376              		.loc 1 269 6
+ 1377 01f0 3C48     		ldr	r0, .L69+232
+ 1378 01f2 FFF7FEFF 		bl	printf
+ 270:Core/Src/fsm.c ****  }
+ 1379              		.loc 1 270 2
+ 1380 01f6 00BF     		nop
+ 1381 01f8 BD46     		mov	sp, r7
+ 1382              	.LCFI25:
+ 1383              		.cfi_def_cfa_register 13
+ 1384              		@ sp needed
+ 1385 01fa 80BD     		pop	{r7, pc}
+ 1386              	.L70:
+ 1387              		.align	2
+ 1388              	.L69:
+ 1389 01fc E0000000 		.word	.LC10
+ 1390 0200 34010000 		.word	.LC15
+ 1391 0204 44010000 		.word	.LC16
+ 1392 0208 FC000000 		.word	.LC11
+ 1393 020c 00010000 		.word	.LC12
+ 1394 0210 0C010000 		.word	.LC13
+ 1395 0214 14010000 		.word	.LC14
+ 1396 0218 48010000 		.word	.LC17
+ 1397 021c 00000000 		.word	__float_reg
+ 1398 0220 88010000 		.word	.LC22
+ 1399 0224 54010000 		.word	.LC18
+ 1400 0228 58010000 		.word	.LC19
+ 1401 022c 64010000 		.word	.LC20
+ 1402 0230 68010000 		.word	.LC21
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 33
+
+
+ 1403 0234 8C010000 		.word	.LC23
+ 1404 0238 A4010000 		.word	.LC24
+ 1405 023c A8010000 		.word	.LC25
+ 1406 0240 C8010000 		.word	.LC26
+ 1407 0244 F8010000 		.word	.LC30
+ 1408 0248 D8010000 		.word	.LC27
+ 1409 024c DC010000 		.word	.LC28
+ 1410 0250 F4010000 		.word	.LC29
+ 1411 0254 1C020000 		.word	.LC34
+ 1412 0258 00020000 		.word	.LC31
+ 1413 025c 04020000 		.word	.LC32
+ 1414 0260 18020000 		.word	.LC33
+ 1415 0264 24020000 		.word	.LC35
+ 1416 0268 40020000 		.word	.LC36
+ 1417 026c 44020000 		.word	.LC37
+ 1418 0270 64020000 		.word	.LC38
+ 1419 0274 88020000 		.word	.LC41
+ 1420 0278 68020000 		.word	.LC39
+ 1421 027c 84020000 		.word	.LC40
+ 1422 0280 B4020000 		.word	.LC44
+ 1423 0284 90020000 		.word	.LC42
+ 1424 0288 B0020000 		.word	.LC43
+ 1425 028c D4020000 		.word	.LC47
+ 1426 0290 B8020000 		.word	.LC45
+ 1427 0294 D0020000 		.word	.LC46
+ 1428 0298 F8020000 		.word	.LC50
+ 1429 029c DC020000 		.word	.LC48
+ 1430 02a0 F4020000 		.word	.LC49
+ 1431 02a4 1C030000 		.word	.LC53
+ 1432 02a8 00030000 		.word	.LC51
+ 1433 02ac 18030000 		.word	.LC52
+ 1434 02b0 24030000 		.word	.LC54
+ 1435 02b4 00000000 		.word	__int_reg
+ 1436 02b8 5C030000 		.word	.LC58
+ 1437 02bc 30030000 		.word	.LC55
+ 1438 02c0 38030000 		.word	.LC56
+ 1439 02c4 3C030000 		.word	.LC57
+ 1440 02c8 60030000 		.word	.LC59
+ 1441 02cc 6C030000 		.word	.LC60
+ 1442 02d0 B0030000 		.word	.LC64
+ 1443 02d4 70030000 		.word	.LC61
+ 1444 02d8 90030000 		.word	.LC62
+ 1445 02dc 94030000 		.word	.LC63
+ 1446 02e0 B8030000 		.word	.LC65
+ 1447 02e4 04040000 		.word	.LC66
+ 1448              		.cfi_endproc
+ 1449              	.LFE247:
+ 1451              		.global	__aeabi_d2f
+ 1452              		.section	.rodata
+ 1453 042e 0000     		.align	2
+ 1454              	.LC67:
+ 1455 0430 495F4257 		.ascii	"I_BW set to %f\015\012\000"
+ 1455      20736574 
+ 1455      20746F20 
+ 1455      25660D0A 
+ 1455      00
+ 1456 0441 000000   		.align	2
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 34
+
+
+ 1457              	.LC68:
+ 1458 0444 43414E5F 		.ascii	"CAN_ID set to %d\015\012\000"
+ 1458      49442073 
+ 1458      65742074 
+ 1458      6F202564 
+ 1458      0D0A00
+ 1459 0457 00       		.align	2
+ 1460              	.LC69:
+ 1461 0458 43414E5F 		.ascii	"CAN_TX_ID set to %d\015\012\000"
+ 1461      54585F49 
+ 1461      44207365 
+ 1461      7420746F 
+ 1461      2025640D 
+ 1462 046e 0000     		.align	2
+ 1463              	.LC70:
+ 1464 0470 495F4D41 		.ascii	"I_MAX set to %f\015\012\000"
+ 1464      58207365 
+ 1464      7420746F 
+ 1464      2025660D 
+ 1464      0A00
+ 1465 0482 0000     		.align	2
+ 1466              	.LC71:
+ 1467 0484 495F4657 		.ascii	"I_FW_MAX set to %f\015\012\000"
+ 1467      5F4D4158 
+ 1467      20736574 
+ 1467      20746F20 
+ 1467      25660D0A 
+ 1468 0499 000000   		.align	2
+ 1469              	.LC72:
+ 1470 049c 43414E5F 		.ascii	"CAN_TIMEOUT set to %d\015\012\000"
+ 1470      54494D45 
+ 1470      4F555420 
+ 1470      73657420 
+ 1470      746F2025 
+ 1471              		.align	2
+ 1472              	.LC73:
+ 1473 04b4 54454D50 		.ascii	"TEMP_MAX set to %f\015\012\000"
+ 1473      5F4D4158 
+ 1473      20736574 
+ 1473      20746F20 
+ 1473      25660D0A 
+ 1474 04c9 000000   		.align	2
+ 1475              	.LC74:
+ 1476 04cc 495F4D41 		.ascii	"I_MAX_CONT set to %f\015\012\000"
+ 1476      585F434F 
+ 1476      4E542073 
+ 1476      65742074 
+ 1476      6F202566 
+ 1477 04e3 00       		.align	2
+ 1478              	.LC75:
+ 1479 04e4 495F4341 		.ascii	"I_CAL set to %f\015\012\000"
+ 1479      4C207365 
+ 1479      7420746F 
+ 1479      2025660D 
+ 1479      0A00
+ 1480 04f6 0000     		.align	2
+ 1481              	.LC76:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 35
+
+
+ 1482 04f8 47522073 		.ascii	"GR set to %f\015\012\000"
+ 1482      65742074 
+ 1482      6F202566 
+ 1482      0D0A00
+ 1483 0507 00       		.align	2
+ 1484              	.LC77:
+ 1485 0508 4B542073 		.ascii	"KT set to %f\015\012\000"
+ 1485      65742074 
+ 1485      6F202566 
+ 1485      0D0A00
+ 1486 0517 00       		.align	2
+ 1487              	.LC78:
+ 1488 0518 4B505F4D 		.ascii	"KP_MAX set to %f\015\012\000"
+ 1488      41582073 
+ 1488      65742074 
+ 1488      6F202566 
+ 1488      0D0A00
+ 1489 052b 00       		.align	2
+ 1490              	.LC79:
+ 1491 052c 4B445F4D 		.ascii	"KD_MAX set to %f\015\012\000"
+ 1491      41582073 
+ 1491      65742074 
+ 1491      6F202566 
+ 1491      0D0A00
+ 1492 053f 00       		.align	2
+ 1493              	.LC80:
+ 1494 0540 505F4D41 		.ascii	"P_MAX set to %f\015\012\000"
+ 1494      58207365 
+ 1494      7420746F 
+ 1494      2025660D 
+ 1494      0A00
+ 1495 0552 0000     		.align	2
+ 1496              	.LC81:
+ 1497 0554 565F4D41 		.ascii	"V_MAX set to %f\015\012\000"
+ 1497      58207365 
+ 1497      7420746F 
+ 1497      2025660D 
+ 1497      0A00
+ 1498 0566 0000     		.align	2
+ 1499              	.LC82:
+ 1500 0568 0A0D2027 		.ascii	"\012\015 '%c' Not a valid command prefix\012\015\012"
+ 1500      25632720 
+ 1500      4E6F7420 
+ 1500      61207661 
+ 1500      6C696420 
+ 1501 058d 0D00     		.ascii	"\015\000"
+ 1502              		.section	.text.process_user_input,"ax",%progbits
+ 1503              		.align	1
+ 1504              		.global	process_user_input
+ 1505              		.syntax unified
+ 1506              		.thumb
+ 1507              		.thumb_func
+ 1509              	process_user_input:
+ 1510              	.LFB248:
+ 271:Core/Src/fsm.c **** 
+ 272:Core/Src/fsm.c ****  void process_user_input(FSMStruct * fsmstate){
+ 1511              		.loc 1 272 47
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 36
+
+
+ 1512              		.cfi_startproc
+ 1513              		@ args = 0, pretend = 0, frame = 8
+ 1514              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1515 0000 80B5     		push	{r7, lr}
+ 1516              	.LCFI26:
+ 1517              		.cfi_def_cfa_offset 8
+ 1518              		.cfi_offset 7, -8
+ 1519              		.cfi_offset 14, -4
+ 1520 0002 84B0     		sub	sp, sp, #16
+ 1521              	.LCFI27:
+ 1522              		.cfi_def_cfa_offset 24
+ 1523 0004 02AF     		add	r7, sp, #8
+ 1524              	.LCFI28:
+ 1525              		.cfi_def_cfa 7, 16
+ 1526 0006 7860     		str	r0, [r7, #4]
+ 273:Core/Src/fsm.c **** 	 /* Collects user input from serial (maybe eventually CAN) and updates settings */
+ 274:Core/Src/fsm.c **** 
+ 275:Core/Src/fsm.c **** 	 switch (fsmstate->cmd_id){
+ 1527              		.loc 1 275 19
+ 1528 0008 7B68     		ldr	r3, [r7, #4]
+ 1529 000a 5B7B     		ldrb	r3, [r3, #13]	@ zero_extendqisi2
+ 1530              		.loc 1 275 3
+ 1531 000c 613B     		subs	r3, r3, #97
+ 1532 000e 172B     		cmp	r3, #23
+ 1533 0010 00F26882 		bhi	.L72
+ 1534 0014 01A2     		adr	r2, .L74
+ 1535 0016 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 1536 001a 00BF     		.p2align 2
+ 1537              	.L74:
+ 1538 001c 7B020000 		.word	.L88+1
+ 1539 0020 7D000000 		.word	.L87+1
+ 1540 0024 27020000 		.word	.L86+1
+ 1541 0028 F9030000 		.word	.L85+1
+ 1542 002c E5040000 		.word	.L72+1
+ 1543 0030 61010000 		.word	.L84+1
+ 1544 0034 CF020000 		.word	.L83+1
+ 1545 0038 D3010000 		.word	.L82+1
+ 1546 003c D1000000 		.word	.L81+1
+ 1547 0040 E5040000 		.word	.L72+1
+ 1548 0044 13030000 		.word	.L80+1
+ 1549 0048 0D010000 		.word	.L79+1
+ 1550 004c EF000000 		.word	.L78+1
+ 1551 0050 E5040000 		.word	.L72+1
+ 1552 0054 E5040000 		.word	.L72+1
+ 1553 0058 3D040000 		.word	.L77+1
+ 1554 005c E5040000 		.word	.L72+1
+ 1555 0060 E5040000 		.word	.L72+1
+ 1556 0064 E5040000 		.word	.L72+1
+ 1557 0068 B5010000 		.word	.L76+1
+ 1558 006c E5040000 		.word	.L72+1
+ 1559 0070 91040000 		.word	.L75+1
+ 1560 0074 E5040000 		.word	.L72+1
+ 1561 0078 57030000 		.word	.L73+1
+ 1562              		.p2align 1
+ 1563              	.L87:
+ 276:Core/Src/fsm.c **** 		 case 'b':
+ 277:Core/Src/fsm.c **** 			 I_BW = fmaxf(fminf(atof(fsmstate->cmd_buff), 2000.0f), 100.0f);
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 37
+
+
+ 1564              		.loc 1 277 37
+ 1565 007c 7B68     		ldr	r3, [r7, #4]
+ 1566 007e 0433     		adds	r3, r3, #4
+ 1567              		.loc 1 277 24
+ 1568 0080 1846     		mov	r0, r3
+ 1569 0082 FFF7FEFF 		bl	atof
+ 1570 0086 53EC102B 		vmov	r2, r3, d0
+ 1571              		.loc 1 277 12
+ 1572 008a 1046     		mov	r0, r2
+ 1573 008c 1946     		mov	r1, r3
+ 1574 008e FFF7FEFF 		bl	__aeabi_d2f
+ 1575 0092 0346     		mov	r3, r0	@ float
+ 1576 0094 DFEDC10A 		vldr.32	s1, .L91
+ 1577 0098 00EE103A 		vmov	s0, r3
+ 1578 009c FFF7FEFF 		bl	fminf
+ 1579 00a0 F0EE407A 		vmov.f32	s15, s0
+ 1580 00a4 DFEDBE0A 		vldr.32	s1, .L91+4
+ 1581 00a8 B0EE670A 		vmov.f32	s0, s15
+ 1582 00ac FFF7FEFF 		bl	fmaxf
+ 1583 00b0 F0EE407A 		vmov.f32	s15, s0
+ 1584              		.loc 1 277 10
+ 1585 00b4 BB4B     		ldr	r3, .L91+8
+ 1586 00b6 C3ED027A 		vstr.32	s15, [r3, #8]
+ 278:Core/Src/fsm.c **** 			 printf("I_BW set to %f\r\n", I_BW);
+ 1587              		.loc 1 278 34
+ 1588 00ba BA4B     		ldr	r3, .L91+8
+ 1589 00bc 9B68     		ldr	r3, [r3, #8]	@ float
+ 1590              		.loc 1 278 5
+ 1591 00be 1846     		mov	r0, r3	@ float
+ 1592 00c0 FFF7FEFF 		bl	__aeabi_f2d
+ 1593 00c4 0246     		mov	r2, r0
+ 1594 00c6 0B46     		mov	r3, r1
+ 1595 00c8 B748     		ldr	r0, .L91+12
+ 1596 00ca FFF7FEFF 		bl	printf
+ 279:Core/Src/fsm.c **** 			 break;
+ 1597              		.loc 1 279 5
+ 1598 00ce 10E2     		b	.L89
+ 1599              	.L81:
+ 280:Core/Src/fsm.c **** 		 case 'i':
+ 281:Core/Src/fsm.c **** 			 CAN_ID = atoi(fsmstate->cmd_buff);
+ 1600              		.loc 1 281 27
+ 1601 00d0 7B68     		ldr	r3, [r7, #4]
+ 1602 00d2 0433     		adds	r3, r3, #4
+ 1603              		.loc 1 281 14
+ 1604 00d4 1846     		mov	r0, r3
+ 1605 00d6 FFF7FEFF 		bl	atoi
+ 1606 00da 0346     		mov	r3, r0
+ 1607              		.loc 1 281 12
+ 1608 00dc B34A     		ldr	r2, .L91+16
+ 1609 00de 5360     		str	r3, [r2, #4]
+ 282:Core/Src/fsm.c **** 			 printf("CAN_ID set to %d\r\n", CAN_ID);
+ 1610              		.loc 1 282 5
+ 1611 00e0 B24B     		ldr	r3, .L91+16
+ 1612 00e2 5B68     		ldr	r3, [r3, #4]
+ 1613 00e4 1946     		mov	r1, r3
+ 1614 00e6 B248     		ldr	r0, .L91+20
+ 1615 00e8 FFF7FEFF 		bl	printf
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 38
+
+
+ 283:Core/Src/fsm.c **** 			 break;
+ 1616              		.loc 1 283 5
+ 1617 00ec 01E2     		b	.L89
+ 1618              	.L78:
+ 284:Core/Src/fsm.c **** 		 case 'm':
+ 285:Core/Src/fsm.c **** 			 CAN_MASTER = atoi(fsmstate->cmd_buff);
+ 1619              		.loc 1 285 31
+ 1620 00ee 7B68     		ldr	r3, [r7, #4]
+ 1621 00f0 0433     		adds	r3, r3, #4
+ 1622              		.loc 1 285 18
+ 1623 00f2 1846     		mov	r0, r3
+ 1624 00f4 FFF7FEFF 		bl	atoi
+ 1625 00f8 0346     		mov	r3, r0
+ 1626              		.loc 1 285 16
+ 1627 00fa AC4A     		ldr	r2, .L91+16
+ 1628 00fc 9360     		str	r3, [r2, #8]
+ 286:Core/Src/fsm.c **** 			 printf("CAN_TX_ID set to %d\r\n", CAN_MASTER);
+ 1629              		.loc 1 286 5
+ 1630 00fe AB4B     		ldr	r3, .L91+16
+ 1631 0100 9B68     		ldr	r3, [r3, #8]
+ 1632 0102 1946     		mov	r1, r3
+ 1633 0104 AB48     		ldr	r0, .L91+24
+ 1634 0106 FFF7FEFF 		bl	printf
+ 287:Core/Src/fsm.c **** 			 break;
+ 1635              		.loc 1 287 5
+ 1636 010a F2E1     		b	.L89
+ 1637              	.L79:
+ 288:Core/Src/fsm.c **** 		 case 'l':
+ 289:Core/Src/fsm.c **** 			 I_MAX = fmaxf(fminf(atof(fsmstate->cmd_buff), 75.0f), 0.0f);
+ 1638              		.loc 1 289 38
+ 1639 010c 7B68     		ldr	r3, [r7, #4]
+ 1640 010e 0433     		adds	r3, r3, #4
+ 1641              		.loc 1 289 25
+ 1642 0110 1846     		mov	r0, r3
+ 1643 0112 FFF7FEFF 		bl	atof
+ 1644 0116 53EC102B 		vmov	r2, r3, d0
+ 1645              		.loc 1 289 13
+ 1646 011a 1046     		mov	r0, r2
+ 1647 011c 1946     		mov	r1, r3
+ 1648 011e FFF7FEFF 		bl	__aeabi_d2f
+ 1649 0122 0346     		mov	r3, r0	@ float
+ 1650 0124 DFEDA40A 		vldr.32	s1, .L91+28
+ 1651 0128 00EE103A 		vmov	s0, r3
+ 1652 012c FFF7FEFF 		bl	fminf
+ 1653 0130 F0EE407A 		vmov.f32	s15, s0
+ 1654 0134 DFEDAF0A 		vldr.32	s1, .L91+88
+ 1655 0138 B0EE670A 		vmov.f32	s0, s15
+ 1656 013c FFF7FEFF 		bl	fmaxf
+ 1657 0140 F0EE407A 		vmov.f32	s15, s0
+ 1658              		.loc 1 289 11
+ 1659 0144 974B     		ldr	r3, .L91+8
+ 1660 0146 C3ED037A 		vstr.32	s15, [r3, #12]
+ 290:Core/Src/fsm.c **** 			 printf("I_MAX set to %f\r\n", I_MAX);
+ 1661              		.loc 1 290 35
+ 1662 014a 964B     		ldr	r3, .L91+8
+ 1663 014c DB68     		ldr	r3, [r3, #12]	@ float
+ 1664              		.loc 1 290 5
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 39
+
+
+ 1665 014e 1846     		mov	r0, r3	@ float
+ 1666 0150 FFF7FEFF 		bl	__aeabi_f2d
+ 1667 0154 0246     		mov	r2, r0
+ 1668 0156 0B46     		mov	r3, r1
+ 1669 0158 9848     		ldr	r0, .L91+32
+ 1670 015a FFF7FEFF 		bl	printf
+ 291:Core/Src/fsm.c **** 			 break;
+ 1671              		.loc 1 291 5
+ 1672 015e C8E1     		b	.L89
+ 1673              	.L84:
+ 292:Core/Src/fsm.c **** 		 case 'f':
+ 293:Core/Src/fsm.c **** 			 I_FW_MAX = fmaxf(fminf(atof(fsmstate->cmd_buff), 33.0f), 0.0f);
+ 1674              		.loc 1 293 41
+ 1675 0160 7B68     		ldr	r3, [r7, #4]
+ 1676 0162 0433     		adds	r3, r3, #4
+ 1677              		.loc 1 293 28
+ 1678 0164 1846     		mov	r0, r3
+ 1679 0166 FFF7FEFF 		bl	atof
+ 1680 016a 53EC102B 		vmov	r2, r3, d0
+ 1681              		.loc 1 293 16
+ 1682 016e 1046     		mov	r0, r2
+ 1683 0170 1946     		mov	r1, r3
+ 1684 0172 FFF7FEFF 		bl	__aeabi_d2f
+ 1685 0176 0346     		mov	r3, r0	@ float
+ 1686 0178 DFED910A 		vldr.32	s1, .L91+36
+ 1687 017c 00EE103A 		vmov	s0, r3
+ 1688 0180 FFF7FEFF 		bl	fminf
+ 1689 0184 F0EE407A 		vmov.f32	s15, s0
+ 1690 0188 DFED9A0A 		vldr.32	s1, .L91+88
+ 1691 018c B0EE670A 		vmov.f32	s0, s15
+ 1692 0190 FFF7FEFF 		bl	fmaxf
+ 1693 0194 F0EE407A 		vmov.f32	s15, s0
+ 1694              		.loc 1 293 14
+ 1695 0198 824B     		ldr	r3, .L91+8
+ 1696 019a C3ED067A 		vstr.32	s15, [r3, #24]
+ 294:Core/Src/fsm.c **** 			 printf("I_FW_MAX set to %f\r\n", I_FW_MAX);
+ 1697              		.loc 1 294 38
+ 1698 019e 814B     		ldr	r3, .L91+8
+ 1699 01a0 9B69     		ldr	r3, [r3, #24]	@ float
+ 1700              		.loc 1 294 5
+ 1701 01a2 1846     		mov	r0, r3	@ float
+ 1702 01a4 FFF7FEFF 		bl	__aeabi_f2d
+ 1703 01a8 0246     		mov	r2, r0
+ 1704 01aa 0B46     		mov	r3, r1
+ 1705 01ac 8548     		ldr	r0, .L91+40
+ 1706 01ae FFF7FEFF 		bl	printf
+ 295:Core/Src/fsm.c **** 			 break;
+ 1707              		.loc 1 295 5
+ 1708 01b2 9EE1     		b	.L89
+ 1709              	.L76:
+ 296:Core/Src/fsm.c **** 		 case 't':
+ 297:Core/Src/fsm.c **** 			 CAN_TIMEOUT = atoi(fsmstate->cmd_buff);
+ 1710              		.loc 1 297 32
+ 1711 01b4 7B68     		ldr	r3, [r7, #4]
+ 1712 01b6 0433     		adds	r3, r3, #4
+ 1713              		.loc 1 297 19
+ 1714 01b8 1846     		mov	r0, r3
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 40
+
+
+ 1715 01ba FFF7FEFF 		bl	atoi
+ 1716 01be 0346     		mov	r3, r0
+ 1717              		.loc 1 297 17
+ 1718 01c0 7A4A     		ldr	r2, .L91+16
+ 1719 01c2 D360     		str	r3, [r2, #12]
+ 298:Core/Src/fsm.c **** 			 printf("CAN_TIMEOUT set to %d\r\n", CAN_TIMEOUT);
+ 1720              		.loc 1 298 5
+ 1721 01c4 794B     		ldr	r3, .L91+16
+ 1722 01c6 DB68     		ldr	r3, [r3, #12]
+ 1723 01c8 1946     		mov	r1, r3
+ 1724 01ca 7F48     		ldr	r0, .L91+44
+ 1725 01cc FFF7FEFF 		bl	printf
+ 299:Core/Src/fsm.c **** 			 break;
+ 1726              		.loc 1 299 5
+ 1727 01d0 8FE1     		b	.L89
+ 1728              	.L82:
+ 300:Core/Src/fsm.c **** 		 case 'h':
+ 301:Core/Src/fsm.c **** 			 TEMP_MAX = fmaxf(fminf(atof(fsmstate->cmd_buff), 150.0f), 0.0f);
+ 1729              		.loc 1 301 41
+ 1730 01d2 7B68     		ldr	r3, [r7, #4]
+ 1731 01d4 0433     		adds	r3, r3, #4
+ 1732              		.loc 1 301 28
+ 1733 01d6 1846     		mov	r0, r3
+ 1734 01d8 FFF7FEFF 		bl	atof
+ 1735 01dc 53EC102B 		vmov	r2, r3, d0
+ 1736              		.loc 1 301 16
+ 1737 01e0 1046     		mov	r0, r2
+ 1738 01e2 1946     		mov	r1, r3
+ 1739 01e4 FFF7FEFF 		bl	__aeabi_d2f
+ 1740 01e8 0346     		mov	r3, r0	@ float
+ 1741 01ea DFED780A 		vldr.32	s1, .L91+48
+ 1742 01ee 00EE103A 		vmov	s0, r3
+ 1743 01f2 FFF7FEFF 		bl	fminf
+ 1744 01f6 F0EE407A 		vmov.f32	s15, s0
+ 1745 01fa DFED7E0A 		vldr.32	s1, .L91+88
+ 1746 01fe B0EE670A 		vmov.f32	s0, s15
+ 1747 0202 FFF7FEFF 		bl	fmaxf
+ 1748 0206 F0EE407A 		vmov.f32	s15, s0
+ 1749              		.loc 1 301 14
+ 1750 020a 664B     		ldr	r3, .L91+8
+ 1751 020c C3ED087A 		vstr.32	s15, [r3, #32]
+ 302:Core/Src/fsm.c **** 			 printf("TEMP_MAX set to %f\r\n", TEMP_MAX);
+ 1752              		.loc 1 302 38
+ 1753 0210 644B     		ldr	r3, .L91+8
+ 1754 0212 1B6A     		ldr	r3, [r3, #32]	@ float
+ 1755              		.loc 1 302 5
+ 1756 0214 1846     		mov	r0, r3	@ float
+ 1757 0216 FFF7FEFF 		bl	__aeabi_f2d
+ 1758 021a 0246     		mov	r2, r0
+ 1759 021c 0B46     		mov	r3, r1
+ 1760 021e 6C48     		ldr	r0, .L91+52
+ 1761 0220 FFF7FEFF 		bl	printf
+ 303:Core/Src/fsm.c **** 			 break;
+ 1762              		.loc 1 303 5
+ 1763 0224 65E1     		b	.L89
+ 1764              	.L86:
+ 304:Core/Src/fsm.c **** 		 case 'c':
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 41
+
+
+ 305:Core/Src/fsm.c **** 			 I_MAX_CONT = fmaxf(fminf(atof(fsmstate->cmd_buff), 40.0f), 0.0f);
+ 1765              		.loc 1 305 43
+ 1766 0226 7B68     		ldr	r3, [r7, #4]
+ 1767 0228 0433     		adds	r3, r3, #4
+ 1768              		.loc 1 305 30
+ 1769 022a 1846     		mov	r0, r3
+ 1770 022c FFF7FEFF 		bl	atof
+ 1771 0230 53EC102B 		vmov	r2, r3, d0
+ 1772              		.loc 1 305 18
+ 1773 0234 1046     		mov	r0, r2
+ 1774 0236 1946     		mov	r1, r3
+ 1775 0238 FFF7FEFF 		bl	__aeabi_d2f
+ 1776 023c 0346     		mov	r3, r0	@ float
+ 1777 023e DFED650A 		vldr.32	s1, .L91+56
+ 1778 0242 00EE103A 		vmov	s0, r3
+ 1779 0246 FFF7FEFF 		bl	fminf
+ 1780 024a F0EE407A 		vmov.f32	s15, s0
+ 1781 024e DFED690A 		vldr.32	s1, .L91+88
+ 1782 0252 B0EE670A 		vmov.f32	s0, s15
+ 1783 0256 FFF7FEFF 		bl	fmaxf
+ 1784 025a F0EE407A 		vmov.f32	s15, s0
+ 1785              		.loc 1 305 16
+ 1786 025e 514B     		ldr	r3, .L91+8
+ 1787 0260 C3ED097A 		vstr.32	s15, [r3, #36]
+ 306:Core/Src/fsm.c **** 			 printf("I_MAX_CONT set to %f\r\n", I_MAX_CONT);
+ 1788              		.loc 1 306 40
+ 1789 0264 4F4B     		ldr	r3, .L91+8
+ 1790 0266 5B6A     		ldr	r3, [r3, #36]	@ float
+ 1791              		.loc 1 306 5
+ 1792 0268 1846     		mov	r0, r3	@ float
+ 1793 026a FFF7FEFF 		bl	__aeabi_f2d
+ 1794 026e 0246     		mov	r2, r0
+ 1795 0270 0B46     		mov	r3, r1
+ 1796 0272 5948     		ldr	r0, .L91+60
+ 1797 0274 FFF7FEFF 		bl	printf
+ 307:Core/Src/fsm.c **** 			 break;
+ 1798              		.loc 1 307 5
+ 1799 0278 3BE1     		b	.L89
+ 1800              	.L88:
+ 308:Core/Src/fsm.c **** 		 case 'a':
+ 309:Core/Src/fsm.c **** 			 I_CAL = fmaxf(fminf(atof(fsmstate->cmd_buff), 20.0f), 0.0f);
+ 1801              		.loc 1 309 38
+ 1802 027a 7B68     		ldr	r3, [r7, #4]
+ 1803 027c 0433     		adds	r3, r3, #4
+ 1804              		.loc 1 309 25
+ 1805 027e 1846     		mov	r0, r3
+ 1806 0280 FFF7FEFF 		bl	atof
+ 1807 0284 53EC102B 		vmov	r2, r3, d0
+ 1808              		.loc 1 309 13
+ 1809 0288 1046     		mov	r0, r2
+ 1810 028a 1946     		mov	r1, r3
+ 1811 028c FFF7FEFF 		bl	__aeabi_d2f
+ 1812 0290 0346     		mov	r3, r0	@ float
+ 1813 0292 F3EE040A 		vmov.f32	s1, #2.0e+1
+ 1814 0296 00EE103A 		vmov	s0, r3
+ 1815 029a FFF7FEFF 		bl	fminf
+ 1816 029e F0EE407A 		vmov.f32	s15, s0
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 42
+
+
+ 1817 02a2 DFED540A 		vldr.32	s1, .L91+88
+ 1818 02a6 B0EE670A 		vmov.f32	s0, s15
+ 1819 02aa FFF7FEFF 		bl	fmaxf
+ 1820 02ae F0EE407A 		vmov.f32	s15, s0
+ 1821              		.loc 1 309 11
+ 1822 02b2 3C4B     		ldr	r3, .L91+8
+ 1823 02b4 C3ED127A 		vstr.32	s15, [r3, #72]
+ 310:Core/Src/fsm.c **** 			 printf("I_CAL set to %f\r\n", I_CAL);
+ 1824              		.loc 1 310 35
+ 1825 02b8 3A4B     		ldr	r3, .L91+8
+ 1826 02ba 9B6C     		ldr	r3, [r3, #72]	@ float
+ 1827              		.loc 1 310 5
+ 1828 02bc 1846     		mov	r0, r3	@ float
+ 1829 02be FFF7FEFF 		bl	__aeabi_f2d
+ 1830 02c2 0246     		mov	r2, r0
+ 1831 02c4 0B46     		mov	r3, r1
+ 1832 02c6 4548     		ldr	r0, .L91+64
+ 1833 02c8 FFF7FEFF 		bl	printf
+ 311:Core/Src/fsm.c **** 			 break;
+ 1834              		.loc 1 311 5
+ 1835 02cc 11E1     		b	.L89
+ 1836              	.L83:
+ 312:Core/Src/fsm.c **** 		 case 'g':
+ 313:Core/Src/fsm.c **** 			 GR = fmaxf(atof(fsmstate->cmd_buff), .001f);	// Limit prevents divide by zero if user tries to 
+ 1837              		.loc 1 313 29
+ 1838 02ce 7B68     		ldr	r3, [r7, #4]
+ 1839 02d0 0433     		adds	r3, r3, #4
+ 1840              		.loc 1 313 16
+ 1841 02d2 1846     		mov	r0, r3
+ 1842 02d4 FFF7FEFF 		bl	atof
+ 1843 02d8 53EC102B 		vmov	r2, r3, d0
+ 1844              		.loc 1 313 10
+ 1845 02dc 1046     		mov	r0, r2
+ 1846 02de 1946     		mov	r1, r3
+ 1847 02e0 FFF7FEFF 		bl	__aeabi_d2f
+ 1848 02e4 0346     		mov	r3, r0	@ float
+ 1849 02e6 DFED3E0A 		vldr.32	s1, .L91+68
+ 1850 02ea 00EE103A 		vmov	s0, r3
+ 1851 02ee FFF7FEFF 		bl	fmaxf
+ 1852 02f2 F0EE407A 		vmov.f32	s15, s0
+ 1853              		.loc 1 313 8
+ 1854 02f6 2B4B     		ldr	r3, .L91+8
+ 1855 02f8 C3ED117A 		vstr.32	s15, [r3, #68]
+ 314:Core/Src/fsm.c **** 			 printf("GR set to %f\r\n", GR);
+ 1856              		.loc 1 314 32
+ 1857 02fc 294B     		ldr	r3, .L91+8
+ 1858 02fe 5B6C     		ldr	r3, [r3, #68]	@ float
+ 1859              		.loc 1 314 5
+ 1860 0300 1846     		mov	r0, r3	@ float
+ 1861 0302 FFF7FEFF 		bl	__aeabi_f2d
+ 1862 0306 0246     		mov	r2, r0
+ 1863 0308 0B46     		mov	r3, r1
+ 1864 030a 3648     		ldr	r0, .L91+72
+ 1865 030c FFF7FEFF 		bl	printf
+ 315:Core/Src/fsm.c **** 			 break;
+ 1866              		.loc 1 315 5
+ 1867 0310 EFE0     		b	.L89
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 43
+
+
+ 1868              	.L80:
+ 316:Core/Src/fsm.c **** 		 case 'k':
+ 317:Core/Src/fsm.c **** 			 KT = fmaxf(atof(fsmstate->cmd_buff), 0.0001f);	// Limit prevents divide by zero.  Seems like a 
+ 1869              		.loc 1 317 29
+ 1870 0312 7B68     		ldr	r3, [r7, #4]
+ 1871 0314 0433     		adds	r3, r3, #4
+ 1872              		.loc 1 317 16
+ 1873 0316 1846     		mov	r0, r3
+ 1874 0318 FFF7FEFF 		bl	atof
+ 1875 031c 53EC102B 		vmov	r2, r3, d0
+ 1876              		.loc 1 317 10
+ 1877 0320 1046     		mov	r0, r2
+ 1878 0322 1946     		mov	r1, r3
+ 1879 0324 FFF7FEFF 		bl	__aeabi_d2f
+ 1880 0328 0346     		mov	r3, r0	@ float
+ 1881 032a DFED2F0A 		vldr.32	s1, .L91+76
+ 1882 032e 00EE103A 		vmov	s0, r3
+ 1883 0332 FFF7FEFF 		bl	fmaxf
+ 1884 0336 F0EE407A 		vmov.f32	s15, s0
+ 1885              		.loc 1 317 8
+ 1886 033a 1A4B     		ldr	r3, .L91+8
+ 1887 033c C3ED0E7A 		vstr.32	s15, [r3, #56]
+ 318:Core/Src/fsm.c **** 			 printf("KT set to %f\r\n", KT);
+ 1888              		.loc 1 318 32
+ 1889 0340 184B     		ldr	r3, .L91+8
+ 1890 0342 9B6B     		ldr	r3, [r3, #56]	@ float
+ 1891              		.loc 1 318 5
+ 1892 0344 1846     		mov	r0, r3	@ float
+ 1893 0346 FFF7FEFF 		bl	__aeabi_f2d
+ 1894 034a 0246     		mov	r2, r0
+ 1895 034c 0B46     		mov	r3, r1
+ 1896 034e 2748     		ldr	r0, .L91+80
+ 1897 0350 FFF7FEFF 		bl	printf
+ 319:Core/Src/fsm.c **** 			 break;
+ 1898              		.loc 1 319 5
+ 1899 0354 CDE0     		b	.L89
+ 1900              	.L73:
+ 320:Core/Src/fsm.c **** 		 case 'x':
+ 321:Core/Src/fsm.c **** 			 KP_MAX = fmaxf(atof(fsmstate->cmd_buff), 0.0f);
+ 1901              		.loc 1 321 33
+ 1902 0356 7B68     		ldr	r3, [r7, #4]
+ 1903 0358 0433     		adds	r3, r3, #4
+ 1904              		.loc 1 321 20
+ 1905 035a 1846     		mov	r0, r3
+ 1906 035c FFF7FEFF 		bl	atof
+ 1907 0360 53EC102B 		vmov	r2, r3, d0
+ 1908              		.loc 1 321 14
+ 1909 0364 1046     		mov	r0, r2
+ 1910 0366 1946     		mov	r1, r3
+ 1911 0368 FFF7FEFF 		bl	__aeabi_d2f
+ 1912 036c 0346     		mov	r3, r0	@ float
+ 1913 036e DFED210A 		vldr.32	s1, .L91+88
+ 1914 0372 00EE103A 		vmov	s0, r3
+ 1915 0376 FFF7FEFF 		bl	fmaxf
+ 1916 037a F0EE407A 		vmov.f32	s15, s0
+ 1917              		.loc 1 321 12
+ 1918 037e 094B     		ldr	r3, .L91+8
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 44
+
+
+ 1919 0380 C3ED177A 		vstr.32	s15, [r3, #92]
+ 322:Core/Src/fsm.c **** 			 printf("KP_MAX set to %f\r\n", KP_MAX);
+ 1920              		.loc 1 322 36
+ 1921 0384 074B     		ldr	r3, .L91+8
+ 1922 0386 DB6D     		ldr	r3, [r3, #92]	@ float
+ 1923              		.loc 1 322 5
+ 1924 0388 1846     		mov	r0, r3	@ float
+ 1925 038a FFF7FEFF 		bl	__aeabi_f2d
+ 1926 038e 0246     		mov	r2, r0
+ 1927 0390 0B46     		mov	r3, r1
+ 1928 0392 1748     		ldr	r0, .L91+84
+ 1929 0394 FFF7FEFF 		bl	printf
+ 323:Core/Src/fsm.c **** 			 break;
+ 1930              		.loc 1 323 5
+ 1931 0398 ABE0     		b	.L89
+ 1932              	.L92:
+ 1933 039a 00BF     		.align	2
+ 1934              	.L91:
+ 1935 039c 0000FA44 		.word	1157234688
+ 1936 03a0 0000C842 		.word	1120403456
+ 1937 03a4 00000000 		.word	__float_reg
+ 1938 03a8 30040000 		.word	.LC67
+ 1939 03ac 00000000 		.word	__int_reg
+ 1940 03b0 44040000 		.word	.LC68
+ 1941 03b4 58040000 		.word	.LC69
+ 1942 03b8 00009642 		.word	1117126656
+ 1943 03bc 70040000 		.word	.LC70
+ 1944 03c0 00000442 		.word	1107558400
+ 1945 03c4 84040000 		.word	.LC71
+ 1946 03c8 9C040000 		.word	.LC72
+ 1947 03cc 00001643 		.word	1125515264
+ 1948 03d0 B4040000 		.word	.LC73
+ 1949 03d4 00002042 		.word	1109393408
+ 1950 03d8 CC040000 		.word	.LC74
+ 1951 03dc E4040000 		.word	.LC75
+ 1952 03e0 6F12833A 		.word	981668463
+ 1953 03e4 F8040000 		.word	.LC76
+ 1954 03e8 17B7D138 		.word	953267991
+ 1955 03ec 08050000 		.word	.LC77
+ 1956 03f0 18050000 		.word	.LC78
+ 1957 03f4 00000000 		.word	0
+ 1958              	.L85:
+ 324:Core/Src/fsm.c **** 		 case 'd':
+ 325:Core/Src/fsm.c **** 			 KD_MAX = fmaxf(atof(fsmstate->cmd_buff), 0.0f);
+ 1959              		.loc 1 325 33
+ 1960 03f8 7B68     		ldr	r3, [r7, #4]
+ 1961 03fa 0433     		adds	r3, r3, #4
+ 1962              		.loc 1 325 20
+ 1963 03fc 1846     		mov	r0, r3
+ 1964 03fe FFF7FEFF 		bl	atof
+ 1965 0402 53EC102B 		vmov	r2, r3, d0
+ 1966              		.loc 1 325 14
+ 1967 0406 1046     		mov	r0, r2
+ 1968 0408 1946     		mov	r1, r3
+ 1969 040a FFF7FEFF 		bl	__aeabi_d2f
+ 1970 040e 0346     		mov	r3, r0	@ float
+ 1971 0410 5FED080A 		vldr.32	s1, .L91+88
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 45
+
+
+ 1972 0414 00EE103A 		vmov	s0, r3
+ 1973 0418 FFF7FEFF 		bl	fmaxf
+ 1974 041c F0EE407A 		vmov.f32	s15, s0
+ 1975              		.loc 1 325 12
+ 1976 0420 4B4B     		ldr	r3, .L93
+ 1977 0422 C3ED187A 		vstr.32	s15, [r3, #96]
+ 326:Core/Src/fsm.c **** 			 printf("KD_MAX set to %f\r\n", KD_MAX);
+ 1978              		.loc 1 326 36
+ 1979 0426 4A4B     		ldr	r3, .L93
+ 1980 0428 1B6E     		ldr	r3, [r3, #96]	@ float
+ 1981              		.loc 1 326 5
+ 1982 042a 1846     		mov	r0, r3	@ float
+ 1983 042c FFF7FEFF 		bl	__aeabi_f2d
+ 1984 0430 0246     		mov	r2, r0
+ 1985 0432 0B46     		mov	r3, r1
+ 1986 0434 4748     		ldr	r0, .L93+4
+ 1987 0436 FFF7FEFF 		bl	printf
+ 327:Core/Src/fsm.c **** 			 break;
+ 1988              		.loc 1 327 5
+ 1989 043a 5AE0     		b	.L89
+ 1990              	.L77:
+ 328:Core/Src/fsm.c **** 		 case 'p':
+ 329:Core/Src/fsm.c **** 			 P_MAX = fmaxf(atof(fsmstate->cmd_buff), 0.0f);
+ 1991              		.loc 1 329 32
+ 1992 043c 7B68     		ldr	r3, [r7, #4]
+ 1993 043e 0433     		adds	r3, r3, #4
+ 1994              		.loc 1 329 19
+ 1995 0440 1846     		mov	r0, r3
+ 1996 0442 FFF7FEFF 		bl	atof
+ 1997 0446 53EC102B 		vmov	r2, r3, d0
+ 1998              		.loc 1 329 13
+ 1999 044a 1046     		mov	r0, r2
+ 2000 044c 1946     		mov	r1, r3
+ 2001 044e FFF7FEFF 		bl	__aeabi_d2f
+ 2002 0452 0346     		mov	r3, r0	@ float
+ 2003 0454 DFED400A 		vldr.32	s1, .L93+8
+ 2004 0458 00EE103A 		vmov	s0, r3
+ 2005 045c FFF7FEFF 		bl	fmaxf
+ 2006 0460 F0EE407A 		vmov.f32	s15, s0
+ 2007              		.loc 1 329 11
+ 2008 0464 3A4B     		ldr	r3, .L93
+ 2009 0466 C3ED147A 		vstr.32	s15, [r3, #80]
+ 330:Core/Src/fsm.c **** 			 P_MIN = -P_MAX;
+ 2010              		.loc 1 330 14
+ 2011 046a 394B     		ldr	r3, .L93
+ 2012 046c D3ED147A 		vldr.32	s15, [r3, #80]
+ 2013              		.loc 1 330 13
+ 2014 0470 F1EE677A 		vneg.f32	s15, s15
+ 2015              		.loc 1 330 11
+ 2016 0474 364B     		ldr	r3, .L93
+ 2017 0476 C3ED137A 		vstr.32	s15, [r3, #76]
+ 331:Core/Src/fsm.c **** 			 printf("P_MAX set to %f\r\n", P_MAX);
+ 2018              		.loc 1 331 35
+ 2019 047a 354B     		ldr	r3, .L93
+ 2020 047c 1B6D     		ldr	r3, [r3, #80]	@ float
+ 2021              		.loc 1 331 5
+ 2022 047e 1846     		mov	r0, r3	@ float
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 46
+
+
+ 2023 0480 FFF7FEFF 		bl	__aeabi_f2d
+ 2024 0484 0246     		mov	r2, r0
+ 2025 0486 0B46     		mov	r3, r1
+ 2026 0488 3448     		ldr	r0, .L93+12
+ 2027 048a FFF7FEFF 		bl	printf
+ 332:Core/Src/fsm.c **** 			 break;
+ 2028              		.loc 1 332 5
+ 2029 048e 30E0     		b	.L89
+ 2030              	.L75:
+ 333:Core/Src/fsm.c **** 		 case 'v':
+ 334:Core/Src/fsm.c **** 			 V_MAX = fmaxf(atof(fsmstate->cmd_buff), 0.0f);
+ 2031              		.loc 1 334 32
+ 2032 0490 7B68     		ldr	r3, [r7, #4]
+ 2033 0492 0433     		adds	r3, r3, #4
+ 2034              		.loc 1 334 19
+ 2035 0494 1846     		mov	r0, r3
+ 2036 0496 FFF7FEFF 		bl	atof
+ 2037 049a 53EC102B 		vmov	r2, r3, d0
+ 2038              		.loc 1 334 13
+ 2039 049e 1046     		mov	r0, r2
+ 2040 04a0 1946     		mov	r1, r3
+ 2041 04a2 FFF7FEFF 		bl	__aeabi_d2f
+ 2042 04a6 0346     		mov	r3, r0	@ float
+ 2043 04a8 DFED2B0A 		vldr.32	s1, .L93+8
+ 2044 04ac 00EE103A 		vmov	s0, r3
+ 2045 04b0 FFF7FEFF 		bl	fmaxf
+ 2046 04b4 F0EE407A 		vmov.f32	s15, s0
+ 2047              		.loc 1 334 11
+ 2048 04b8 254B     		ldr	r3, .L93
+ 2049 04ba C3ED167A 		vstr.32	s15, [r3, #88]
+ 335:Core/Src/fsm.c **** 			 V_MIN = -V_MAX;
+ 2050              		.loc 1 335 14
+ 2051 04be 244B     		ldr	r3, .L93
+ 2052 04c0 D3ED167A 		vldr.32	s15, [r3, #88]
+ 2053              		.loc 1 335 13
+ 2054 04c4 F1EE677A 		vneg.f32	s15, s15
+ 2055              		.loc 1 335 11
+ 2056 04c8 214B     		ldr	r3, .L93
+ 2057 04ca C3ED157A 		vstr.32	s15, [r3, #84]
+ 336:Core/Src/fsm.c **** 			 printf("V_MAX set to %f\r\n", V_MAX);
+ 2058              		.loc 1 336 35
+ 2059 04ce 204B     		ldr	r3, .L93
+ 2060 04d0 9B6D     		ldr	r3, [r3, #88]	@ float
+ 2061              		.loc 1 336 5
+ 2062 04d2 1846     		mov	r0, r3	@ float
+ 2063 04d4 FFF7FEFF 		bl	__aeabi_f2d
+ 2064 04d8 0246     		mov	r2, r0
+ 2065 04da 0B46     		mov	r3, r1
+ 2066 04dc 2048     		ldr	r0, .L93+16
+ 2067 04de FFF7FEFF 		bl	printf
+ 337:Core/Src/fsm.c **** 			 break;
+ 2068              		.loc 1 337 5
+ 2069 04e2 06E0     		b	.L89
+ 2070              	.L72:
+ 338:Core/Src/fsm.c **** 		 default:
+ 339:Core/Src/fsm.c **** 			 printf("\n\r '%c' Not a valid command prefix\n\r\n\r", fsmstate->cmd_buff);
+ 2071              		.loc 1 339 68
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 47
+
+
+ 2072 04e4 7B68     		ldr	r3, [r7, #4]
+ 2073 04e6 0433     		adds	r3, r3, #4
+ 2074              		.loc 1 339 5
+ 2075 04e8 1946     		mov	r1, r3
+ 2076 04ea 1E48     		ldr	r0, .L93+20
+ 2077 04ec FFF7FEFF 		bl	printf
+ 340:Core/Src/fsm.c **** 			 break;
+ 2078              		.loc 1 340 5
+ 2079 04f0 00BF     		nop
+ 2080              	.L89:
+ 341:Core/Src/fsm.c **** 
+ 342:Core/Src/fsm.c **** 		 }
+ 343:Core/Src/fsm.c **** 
+ 344:Core/Src/fsm.c **** 	 /* Write new settings to flash */
+ 345:Core/Src/fsm.c **** 
+ 346:Core/Src/fsm.c **** 	 if (!preference_writer_ready(prefs)){ preference_writer_open(&prefs);}
+ 2081              		.loc 1 346 8
+ 2082 04f2 1D4B     		ldr	r3, .L93+24
+ 2083 04f4 1A69     		ldr	r2, [r3, #16]
+ 2084 04f6 0092     		str	r2, [sp]
+ 2085 04f8 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 2086 04fa FFF7FEFF 		bl	preference_writer_ready
+ 2087 04fe 0346     		mov	r3, r0
+ 2088              		.loc 1 346 7
+ 2089 0500 83F00103 		eor	r3, r3, #1
+ 2090 0504 DBB2     		uxtb	r3, r3
+ 2091              		.loc 1 346 6
+ 2092 0506 002B     		cmp	r3, #0
+ 2093 0508 02D0     		beq	.L90
+ 2094              		.loc 1 346 41 discriminator 1
+ 2095 050a 1748     		ldr	r0, .L93+24
+ 2096 050c FFF7FEFF 		bl	preference_writer_open
+ 2097              	.L90:
+ 347:Core/Src/fsm.c **** 	 preference_writer_flush(&prefs);
+ 2098              		.loc 1 347 3
+ 2099 0510 1548     		ldr	r0, .L93+24
+ 2100 0512 FFF7FEFF 		bl	preference_writer_flush
+ 348:Core/Src/fsm.c **** 	 preference_writer_close(&prefs);
+ 2101              		.loc 1 348 3
+ 2102 0516 1448     		ldr	r0, .L93+24
+ 2103 0518 FFF7FEFF 		bl	preference_writer_close
+ 349:Core/Src/fsm.c **** 	 preference_writer_load(prefs);
+ 2104              		.loc 1 349 3
+ 2105 051c 124B     		ldr	r3, .L93+24
+ 2106 051e 1A69     		ldr	r2, [r3, #16]
+ 2107 0520 0092     		str	r2, [sp]
+ 2108 0522 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 2109 0524 FFF7FEFF 		bl	preference_writer_load
+ 350:Core/Src/fsm.c **** 
+ 351:Core/Src/fsm.c **** 	 enter_setup_state();
+ 2110              		.loc 1 351 3
+ 2111 0528 FFF7FEFF 		bl	enter_setup_state
+ 352:Core/Src/fsm.c **** 
+ 353:Core/Src/fsm.c **** 	 fsmstate->bytecount = 0;
+ 2112              		.loc 1 353 23
+ 2113 052c 7B68     		ldr	r3, [r7, #4]
+ 2114 052e 0022     		movs	r2, #0
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 48
+
+
+ 2115 0530 1A73     		strb	r2, [r3, #12]
+ 354:Core/Src/fsm.c **** 	 fsmstate->cmd_id = 0;
+ 2116              		.loc 1 354 20
+ 2117 0532 7B68     		ldr	r3, [r7, #4]
+ 2118 0534 0022     		movs	r2, #0
+ 2119 0536 5A73     		strb	r2, [r3, #13]
+ 355:Core/Src/fsm.c **** 	 memset(&fsmstate->cmd_buff, 0, sizeof(fsmstate->cmd_buff));
+ 2120              		.loc 1 355 10
+ 2121 0538 7B68     		ldr	r3, [r7, #4]
+ 2122 053a 0433     		adds	r3, r3, #4
+ 2123              		.loc 1 355 3
+ 2124 053c 0822     		movs	r2, #8
+ 2125 053e 0021     		movs	r1, #0
+ 2126 0540 1846     		mov	r0, r3
+ 2127 0542 FFF7FEFF 		bl	memset
+ 356:Core/Src/fsm.c ****  }
+ 2128              		.loc 1 356 2
+ 2129 0546 00BF     		nop
+ 2130 0548 0837     		adds	r7, r7, #8
+ 2131              	.LCFI29:
+ 2132              		.cfi_def_cfa_offset 8
+ 2133 054a BD46     		mov	sp, r7
+ 2134              	.LCFI30:
+ 2135              		.cfi_def_cfa_register 13
+ 2136              		@ sp needed
+ 2137 054c 80BD     		pop	{r7, pc}
+ 2138              	.L94:
+ 2139 054e 00BF     		.align	2
+ 2140              	.L93:
+ 2141 0550 00000000 		.word	__float_reg
+ 2142 0554 2C050000 		.word	.LC79
+ 2143 0558 00000000 		.word	0
+ 2144 055c 40050000 		.word	.LC80
+ 2145 0560 54050000 		.word	.LC81
+ 2146 0564 68050000 		.word	.LC82
+ 2147 0568 00000000 		.word	prefs
+ 2148              		.cfi_endproc
+ 2149              	.LFE248:
+ 2151              		.section	.text.enter_motor_mode,"ax",%progbits
+ 2152              		.align	1
+ 2153              		.global	enter_motor_mode
+ 2154              		.syntax unified
+ 2155              		.thumb
+ 2156              		.thumb_func
+ 2158              	enter_motor_mode:
+ 2159              	.LFB249:
+ 357:Core/Src/fsm.c **** 
+ 358:Core/Src/fsm.c ****  void enter_motor_mode(void){
+ 2160              		.loc 1 358 29
+ 2161              		.cfi_startproc
+ 2162              		@ args = 0, pretend = 0, frame = 0
+ 2163              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2164              		@ link register save eliminated.
+ 2165 0000 80B4     		push	{r7}
+ 2166              	.LCFI31:
+ 2167              		.cfi_def_cfa_offset 4
+ 2168              		.cfi_offset 7, -4
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 49
+
+
+ 2169 0002 00AF     		add	r7, sp, #0
+ 2170              	.LCFI32:
+ 2171              		.cfi_def_cfa_register 7
+ 359:Core/Src/fsm.c **** 
+ 360:Core/Src/fsm.c ****  }
+ 2172              		.loc 1 360 2
+ 2173 0004 00BF     		nop
+ 2174 0006 BD46     		mov	sp, r7
+ 2175              	.LCFI33:
+ 2176              		.cfi_def_cfa_register 13
+ 2177              		@ sp needed
+ 2178 0008 5DF8047B 		ldr	r7, [sp], #4
+ 2179              	.LCFI34:
+ 2180              		.cfi_restore 7
+ 2181              		.cfi_def_cfa_offset 0
+ 2182 000c 7047     		bx	lr
+ 2183              		.cfi_endproc
+ 2184              	.LFE249:
+ 2186              		.text
+ 2187              	.Letext0:
+ 2188              		.file 2 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\machine\\_default
+ 2189              		.file 3 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 2190              		.file 4 "Core/Inc/fsm.h"
+ 2191              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
+ 2192              		.file 6 "Core/Inc/position_sensor.h"
+ 2193              		.file 7 "Core/Inc/foc.h"
+ 2194              		.file 8 "Core/Inc/user_config.h"
+ 2195              		.file 9 "Core/Inc/flash_writer.h"
+ 2196              		.file 10 "Core/Inc/preference_writer.h"
+ 2197              		.file 11 "Core/Inc/drv8323.h"
+ 2198              		.file 12 "Core/Inc/calibration.h"
+ 2199              		.file 13 "Core/Inc/structs.h"
+ 2200              		.file 14 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 50
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 fsm.c
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:20     .data.__SECTOR_ADDRS:00000000 $d
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:23     .data.__SECTOR_ADDRS:00000000 __SECTOR_ADDRS
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:33     .data.__SECTORS:00000000 $d
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:36     .data.__SECTORS:00000000 __SECTORS
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:47     .rodata:00000000 $d
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:51     .text.run_fsm:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:57     .text.run_fsm:00000000 run_fsm
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:465    .text.fsm_exit_state:00000000 fsm_exit_state
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:331    .text.fsm_enter_state:00000000 fsm_enter_state
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:115    .text.run_fsm:00000040 $d
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:122    .text.run_fsm:0000005c $t
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:599    .text.update_fsm:00000000 update_fsm
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:313    .text.run_fsm:000001b0 $d
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:325    .text.fsm_enter_state:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:359    .text.fsm_enter_state:00000018 $d
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:365    .text.fsm_enter_state:00000030 $t
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:889    .text.enter_menu_state:00000000 enter_menu_state
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:1125   .text.enter_setup_state:00000000 enter_setup_state
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:449    .text.fsm_enter_state:000000b0 $d
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:459    .text.fsm_exit_state:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:493    .text.fsm_exit_state:00000018 $d
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:499    .text.fsm_exit_state:00000030 $t
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:581    .text.fsm_exit_state:000000a4 $d
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:593    .text.update_fsm:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:644    .text.update_fsm:00000030 $d
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:650    .text.update_fsm:00000048 $t
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:661    .text.update_fsm:00000058 $d
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:685    .text.update_fsm:000000b8 $t
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:1509   .text.process_user_input:00000000 process_user_input
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:849    .text.update_fsm:00000198 $d
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:883    .text.enter_menu_state:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:933    .text.enter_menu_state:00000038 $d
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:1119   .text.enter_setup_state:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:1389   .text.enter_setup_state:000001fc $d
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:1503   .text.process_user_input:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:1538   .text.process_user_input:0000001c $d
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:1562   .text.process_user_input:0000007c $t
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:1935   .text.process_user_input:0000039c $d
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:1960   .text.process_user_input:000003f8 $t
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:2141   .text.process_user_input:00000550 $d
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:2152   .text.enter_motor_mode:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s:2158   .text.enter_motor_mode:00000000 enter_motor_mode
+
+UNDEFINED SYMBOLS
+__aeabi_f2d
+order_phases
+calibrate_encoder
+fmodf
+printf
+memcpy
+preference_writer_ready
+preference_writer_open
+preference_writer_flush
+preference_writer_close
+preference_writer_load
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccPQA1DI.s 			page 51
+
+
+zero_commands
+torque_control
+field_weaken
+commutate
+ps_print
+comm_encoder_cal
+controller
+comm_encoder
+__int_reg
+prefs
+HAL_GPIO_WritePin
+reset_foc
+drv_enable_gd
+memset
+drv
+drv_disable_gd
+ps_sample
+puts
+__float_reg
+__aeabi_d2f
+atof
+fminf
+fmaxf
+atoi

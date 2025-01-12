@@ -1,0 +1,1632 @@
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 6
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.data.__SECTOR_ADDRS,"aw"
+  20              		.align	2
+  23              	__SECTOR_ADDRS:
+  24 0000 00000008 		.word	134217728
+  25 0004 00400008 		.word	134234112
+  26 0008 00800008 		.word	134250496
+  27 000c 00C00008 		.word	134266880
+  28 0010 00000108 		.word	134283264
+  29 0014 00000208 		.word	134348800
+  30 0018 00000408 		.word	134479872
+  31 001c 00000608 		.word	134610944
+  32              		.section	.data.__SECTORS,"aw"
+  33              		.align	2
+  36              	__SECTORS:
+  37 0000 00000000 		.word	0
+  38 0004 08000000 		.word	8
+  39 0008 10000000 		.word	16
+  40 000c 18000000 		.word	24
+  41 0010 20000000 		.word	32
+  42 0014 30000000 		.word	48
+  43 0018 30000000 		.word	48
+  44 001c 38000000 		.word	56
+  45              		.global	__float_reg
+  46              		.section	.bss.__float_reg,"aw",%nobits
+  47              		.align	2
+  50              	__float_reg:
+  51 0000 00000000 		.space	256
+  51      00000000 
+  51      00000000 
+  51      00000000 
+  51      00000000 
+  52              		.global	__int_reg
+  53              		.section	.bss.__int_reg,"aw",%nobits
+  54              		.align	2
+  57              	__int_reg:
+  58 0000 00000000 		.space	1024
+  58      00000000 
+  58      00000000 
+  58      00000000 
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 2
+
+
+  58      00000000 
+  59              		.global	prefs
+  60              		.section	.bss.prefs,"aw",%nobits
+  61              		.align	2
+  64              	prefs:
+  65 0000 00000000 		.space	20
+  65      00000000 
+  65      00000000 
+  65      00000000 
+  65      00000000 
+  66              		.global	count
+  67              		.section	.bss.count,"aw",%nobits
+  68              		.align	2
+  71              	count:
+  72 0000 00000000 		.space	4
+  73              		.global	controller
+  74              		.section	.bss.controller,"aw",%nobits
+  75              		.align	2
+  78              	controller:
+  79 0000 00000000 		.space	776
+  79      00000000 
+  79      00000000 
+  79      00000000 
+  79      00000000 
+  80              		.global	observer
+  81              		.section	.bss.observer,"aw",%nobits
+  82              		.align	3
+  85              	observer:
+  86 0000 00000000 		.space	40
+  86      00000000 
+  86      00000000 
+  86      00000000 
+  86      00000000 
+  87              		.global	com
+  88              		.section	.bss.com,"aw",%nobits
+  89              		.align	2
+  92              	com:
+  93              		.global	state
+  94              		.section	.bss.state,"aw",%nobits
+  95              		.align	2
+  98              	state:
+  99 0000 00000000 		.space	14
+  99      00000000 
+  99      00000000 
+  99      0000
+ 100              		.global	comm_encoder
+ 101              		.section	.bss.comm_encoder,"aw",%nobits
+ 102              		.align	2
+ 105              	comm_encoder:
+ 106 0000 00000000 		.space	736
+ 106      00000000 
+ 106      00000000 
+ 106      00000000 
+ 106      00000000 
+ 107              		.global	drv
+ 108              		.section	.bss.drv,"aw",%nobits
+ 109              		.align	2
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 3
+
+
+ 112              	drv:
+ 113 0000 00000000 		.space	6
+ 113      0000
+ 114              		.global	comm_encoder_cal
+ 115              		.section	.bss.comm_encoder_cal,"aw",%nobits
+ 116              		.align	2
+ 119              	comm_encoder_cal:
+ 120 0000 00000000 		.space	34060
+ 120      00000000 
+ 120      00000000 
+ 120      00000000 
+ 120      00000000 
+ 121              		.global	can_tx
+ 122              		.section	.bss.can_tx,"aw",%nobits
+ 123              		.align	2
+ 126              	can_tx:
+ 127 0000 00000000 		.space	32
+ 127      00000000 
+ 127      00000000 
+ 127      00000000 
+ 127      00000000 
+ 128              		.global	can_rx
+ 129              		.section	.bss.can_rx,"aw",%nobits
+ 130              		.align	2
+ 133              	can_rx:
+ 134 0000 00000000 		.space	80
+ 134      00000000 
+ 134      00000000 
+ 134      00000000 
+ 134      00000000 
+ 135              		.global	error_array
+ 136              		.section	.bss.error_array,"aw",%nobits
+ 137              		.align	2
+ 140              	error_array:
+ 141 0000 00000000 		.space	4
+ 142              		.global	lut_array
+ 143              		.section	.bss.lut_array,"aw",%nobits
+ 144              		.align	2
+ 147              	lut_array:
+ 148 0000 00000000 		.space	4
+ 149              		.global	Serial2RxBuffer
+ 150              		.section	.bss.Serial2RxBuffer,"aw",%nobits
+ 151              		.align	2
+ 154              	Serial2RxBuffer:
+ 155 0000 00       		.space	1
+ 156              		.section	.rodata
+ 157              		.align	2
+ 158              	.LC0:
+ 159 0000 0D0A4669 		.ascii	"\015\012Firmware Version Number: %.2f\015\012\000"
+ 159      726D7761 
+ 159      72652056 
+ 159      65727369 
+ 159      6F6E204E 
+ 160 0022 0000     		.align	2
+ 161              	.LC1:
+ 162 0024 41444320 		.ascii	"ADC A OFFSET: %d     ADC B OFFSET: %d\015\012\000"
+ 162      41204F46 
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 4
+
+
+ 162      46534554 
+ 162      3A202564 
+ 162      20202020 
+ 163              		.section	.text.main,"ax",%progbits
+ 164              		.align	1
+ 165              		.global	main
+ 166              		.syntax unified
+ 167              		.thumb
+ 168              		.thumb_func
+ 170              	main:
+ 171              	.LFB242:
+ 172              		.file 1 "Core/Src/main.c"
+   1:Core/Src/main.c **** /* USER CODE BEGIN Header */
+   2:Core/Src/main.c **** /**
+   3:Core/Src/main.c ****   ******************************************************************************
+   4:Core/Src/main.c ****   * @file           : main.c
+   5:Core/Src/main.c ****   * @brief          : Main program body
+   6:Core/Src/main.c ****   ******************************************************************************
+   7:Core/Src/main.c ****   * @attention
+   8:Core/Src/main.c ****   *
+   9:Core/Src/main.c ****   * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
+  10:Core/Src/main.c ****   * All rights reserved.</center></h2>
+  11:Core/Src/main.c ****   *
+  12:Core/Src/main.c ****   * This software component is licensed by ST under BSD 3-Clause license,
+  13:Core/Src/main.c ****   * the "License"; You may not use this file except in compliance with the
+  14:Core/Src/main.c ****   * License. You may obtain a copy of the License at:
+  15:Core/Src/main.c ****   *                        opensource.org/licenses/BSD-3-Clause
+  16:Core/Src/main.c ****   *
+  17:Core/Src/main.c ****   ******************************************************************************
+  18:Core/Src/main.c ****   */
+  19:Core/Src/main.c **** 
+  20:Core/Src/main.c **** 
+  21:Core/Src/main.c **** /// high-bandwidth 3-phase motor control for robots
+  22:Core/Src/main.c **** /// Written by Ben Katz, with much inspiration from Bayley Wang, Nick Kirkby, Shane Colton, David O
+  23:Core/Src/main.c **** /// Hardware documentation can be found at build-its.blogspot.com
+  24:Core/Src/main.c **** 
+  25:Core/Src/main.c **** /* USER CODE END Header */
+  26:Core/Src/main.c **** /* Includes ------------------------------------------------------------------*/
+  27:Core/Src/main.c **** #include "main.h"
+  28:Core/Src/main.c **** #include "adc.h"
+  29:Core/Src/main.c **** #include "can.h"
+  30:Core/Src/main.c **** #include "spi.h"
+  31:Core/Src/main.c **** #include "tim.h"
+  32:Core/Src/main.c **** #include "usart.h"
+  33:Core/Src/main.c **** #include "gpio.h"
+  34:Core/Src/main.c **** 
+  35:Core/Src/main.c **** /* Private includes ----------------------------------------------------------*/
+  36:Core/Src/main.c **** /* USER CODE BEGIN Includes */
+  37:Core/Src/main.c **** #include "structs.h"
+  38:Core/Src/main.c **** #include <stdio.h>
+  39:Core/Src/main.c **** #include <string.h>
+  40:Core/Src/main.c **** 
+  41:Core/Src/main.c **** #include "stm32f4xx_flash.h"
+  42:Core/Src/main.c **** #include "flash_writer.h"
+  43:Core/Src/main.c **** #include "position_sensor.h"
+  44:Core/Src/main.c **** #include "preference_writer.h"
+  45:Core/Src/main.c **** #include "hw_config.h"
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 5
+
+
+  46:Core/Src/main.c **** #include "user_config.h"
+  47:Core/Src/main.c **** #include "fsm.h"
+  48:Core/Src/main.c **** #include "drv8323.h"
+  49:Core/Src/main.c **** #include "foc.h"
+  50:Core/Src/main.c **** #include "math_ops.h"
+  51:Core/Src/main.c **** #include "calibration.h"
+  52:Core/Src/main.c **** /* USER CODE END Includes */
+  53:Core/Src/main.c **** 
+  54:Core/Src/main.c **** /* Private typedef -----------------------------------------------------------*/
+  55:Core/Src/main.c **** /* USER CODE BEGIN PTD */
+  56:Core/Src/main.c **** 
+  57:Core/Src/main.c **** /* USER CODE END PTD */
+  58:Core/Src/main.c **** 
+  59:Core/Src/main.c **** /* Private define ------------------------------------------------------------*/
+  60:Core/Src/main.c **** /* USER CODE BEGIN PD */
+  61:Core/Src/main.c **** /* USER CODE END PD */
+  62:Core/Src/main.c **** 
+  63:Core/Src/main.c **** /* Private macro -------------------------------------------------------------*/
+  64:Core/Src/main.c **** /* USER CODE BEGIN PM */
+  65:Core/Src/main.c **** 
+  66:Core/Src/main.c **** #define VERSION_NUM 2.0f
+  67:Core/Src/main.c **** 
+  68:Core/Src/main.c **** 
+  69:Core/Src/main.c **** /* USER CODE END PM */
+  70:Core/Src/main.c **** 
+  71:Core/Src/main.c **** /* Private variables ---------------------------------------------------------*/
+  72:Core/Src/main.c **** 
+  73:Core/Src/main.c **** /* USER CODE BEGIN PV */
+  74:Core/Src/main.c **** 
+  75:Core/Src/main.c **** /* Flash Registers */
+  76:Core/Src/main.c **** float __float_reg[64];
+  77:Core/Src/main.c **** int __int_reg[256];
+  78:Core/Src/main.c **** PreferenceWriter prefs;
+  79:Core/Src/main.c **** 
+  80:Core/Src/main.c **** int count = 0;
+  81:Core/Src/main.c **** 
+  82:Core/Src/main.c **** /* Structs for control, etc */
+  83:Core/Src/main.c **** 
+  84:Core/Src/main.c **** ControllerStruct controller;
+  85:Core/Src/main.c **** ObserverStruct observer;
+  86:Core/Src/main.c **** COMStruct com;
+  87:Core/Src/main.c **** FSMStruct state;
+  88:Core/Src/main.c **** EncoderStruct comm_encoder;
+  89:Core/Src/main.c **** DRVStruct drv;
+  90:Core/Src/main.c **** CalStruct comm_encoder_cal;
+  91:Core/Src/main.c **** CANTxMessage can_tx;
+  92:Core/Src/main.c **** CANRxMessage can_rx;
+  93:Core/Src/main.c **** 
+  94:Core/Src/main.c **** /* init but don't allocate calibration arrays */
+  95:Core/Src/main.c **** int *error_array = NULL;
+  96:Core/Src/main.c **** int *lut_array = NULL;
+  97:Core/Src/main.c **** 
+  98:Core/Src/main.c **** uint8_t Serial2RxBuffer[1];
+  99:Core/Src/main.c **** 
+ 100:Core/Src/main.c **** /* USER CODE END PV */
+ 101:Core/Src/main.c **** 
+ 102:Core/Src/main.c **** /* Private function prototypes -----------------------------------------------*/
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 6
+
+
+ 103:Core/Src/main.c **** void SystemClock_Config(void);
+ 104:Core/Src/main.c **** /* USER CODE BEGIN PFP */
+ 105:Core/Src/main.c **** 
+ 106:Core/Src/main.c **** /* USER CODE END PFP */
+ 107:Core/Src/main.c **** 
+ 108:Core/Src/main.c **** /* Private user code ---------------------------------------------------------*/
+ 109:Core/Src/main.c **** /* USER CODE BEGIN 0 */
+ 110:Core/Src/main.c **** 
+ 111:Core/Src/main.c **** 
+ 112:Core/Src/main.c **** 
+ 113:Core/Src/main.c **** 
+ 114:Core/Src/main.c **** /* USER CODE END 0 */
+ 115:Core/Src/main.c **** 
+ 116:Core/Src/main.c **** /**
+ 117:Core/Src/main.c ****   * @brief  The application entry point.
+ 118:Core/Src/main.c ****   * @retval int
+ 119:Core/Src/main.c ****   */
+ 120:Core/Src/main.c **** int main(void)
+ 121:Core/Src/main.c **** {
+ 173              		.loc 1 121 1
+ 174              		.cfi_startproc
+ 175              		@ args = 0, pretend = 0, frame = 8
+ 176              		@ frame_needed = 1, uses_anonymous_args = 0
+ 177 0000 80B5     		push	{r7, lr}
+ 178              	.LCFI0:
+ 179              		.cfi_def_cfa_offset 8
+ 180              		.cfi_offset 7, -8
+ 181              		.cfi_offset 14, -4
+ 182 0002 8AB0     		sub	sp, sp, #40
+ 183              	.LCFI1:
+ 184              		.cfi_def_cfa_offset 48
+ 185 0004 08AF     		add	r7, sp, #32
+ 186              	.LCFI2:
+ 187              		.cfi_def_cfa 7, 16
+ 122:Core/Src/main.c **** 
+ 123:Core/Src/main.c ****   /* USER CODE BEGIN 1 */
+ 124:Core/Src/main.c **** 
+ 125:Core/Src/main.c ****   /* USER CODE END 1 */
+ 126:Core/Src/main.c **** 
+ 127:Core/Src/main.c ****   /* MCU Configuration--------------------------------------------------------*/
+ 128:Core/Src/main.c **** 
+ 129:Core/Src/main.c ****   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+ 130:Core/Src/main.c ****   HAL_Init();
+ 188              		.loc 1 130 3
+ 189 0006 FFF7FEFF 		bl	HAL_Init
+ 131:Core/Src/main.c **** 
+ 132:Core/Src/main.c ****   /* USER CODE BEGIN Init */
+ 133:Core/Src/main.c **** 
+ 134:Core/Src/main.c ****   /* USER CODE END Init */
+ 135:Core/Src/main.c **** 
+ 136:Core/Src/main.c ****   /* Configure the system clock */
+ 137:Core/Src/main.c ****   SystemClock_Config();
+ 190              		.loc 1 137 3
+ 191 000a FFF7FEFF 		bl	SystemClock_Config
+ 138:Core/Src/main.c **** 
+ 139:Core/Src/main.c ****   /* USER CODE BEGIN SysInit */
+ 140:Core/Src/main.c **** 
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 7
+
+
+ 141:Core/Src/main.c ****   /* USER CODE END SysInit */
+ 142:Core/Src/main.c **** 
+ 143:Core/Src/main.c ****   /* Initialize all configured peripherals */
+ 144:Core/Src/main.c ****   MX_GPIO_Init();
+ 192              		.loc 1 144 3
+ 193 000e FFF7FEFF 		bl	MX_GPIO_Init
+ 145:Core/Src/main.c ****   MX_USART2_UART_Init();
+ 194              		.loc 1 145 3
+ 195 0012 FFF7FEFF 		bl	MX_USART2_UART_Init
+ 146:Core/Src/main.c ****   MX_TIM1_Init();
+ 196              		.loc 1 146 3
+ 197 0016 FFF7FEFF 		bl	MX_TIM1_Init
+ 147:Core/Src/main.c ****   MX_CAN1_Init();
+ 198              		.loc 1 147 3
+ 199 001a FFF7FEFF 		bl	MX_CAN1_Init
+ 148:Core/Src/main.c ****   MX_SPI1_Init();
+ 200              		.loc 1 148 3
+ 201 001e FFF7FEFF 		bl	MX_SPI1_Init
+ 149:Core/Src/main.c ****   MX_SPI3_Init();
+ 202              		.loc 1 149 3
+ 203 0022 FFF7FEFF 		bl	MX_SPI3_Init
+ 150:Core/Src/main.c ****   MX_ADC1_Init();
+ 204              		.loc 1 150 3
+ 205 0026 FFF7FEFF 		bl	MX_ADC1_Init
+ 151:Core/Src/main.c ****   MX_ADC2_Init();
+ 206              		.loc 1 151 3
+ 207 002a FFF7FEFF 		bl	MX_ADC2_Init
+ 152:Core/Src/main.c ****   MX_ADC3_Init();
+ 208              		.loc 1 152 3
+ 209 002e FFF7FEFF 		bl	MX_ADC3_Init
+ 153:Core/Src/main.c ****   MX_TIM2_Init();
+ 210              		.loc 1 153 3
+ 211 0032 FFF7FEFF 		bl	MX_TIM2_Init
+ 154:Core/Src/main.c ****   /* USER CODE BEGIN 2 */
+ 155:Core/Src/main.c **** 
+ 156:Core/Src/main.c ****   /* Load settings from flash */
+ 157:Core/Src/main.c ****   preference_writer_init(&prefs, 6);
+ 212              		.loc 1 157 3
+ 213 0036 0621     		movs	r1, #6
+ 214 0038 AD48     		ldr	r0, .L41
+ 215 003a FFF7FEFF 		bl	preference_writer_init
+ 158:Core/Src/main.c ****   preference_writer_load(prefs);
+ 216              		.loc 1 158 3
+ 217 003e AC4B     		ldr	r3, .L41
+ 218 0040 1A69     		ldr	r2, [r3, #16]
+ 219 0042 0092     		str	r2, [sp]
+ 220 0044 0FCB     		ldm	r3, {r0, r1, r2, r3}
+ 221 0046 FFF7FEFF 		bl	preference_writer_load
+ 159:Core/Src/main.c **** 
+ 160:Core/Src/main.c ****   /* Sanitize configs in case flash is empty*/
+ 161:Core/Src/main.c ****   if(E_ZERO==-1){E_ZERO = 0;}
+ 222              		.loc 1 161 6
+ 223 004a AA4B     		ldr	r3, .L41+4
+ 224 004c 5B69     		ldr	r3, [r3, #20]
+ 225              		.loc 1 161 5
+ 226 004e B3F1FF3F 		cmp	r3, #-1
+ 227 0052 02D1     		bne	.L2
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 8
+
+
+ 228              		.loc 1 161 25 discriminator 1
+ 229 0054 A74B     		ldr	r3, .L41+4
+ 230 0056 0022     		movs	r2, #0
+ 231 0058 5A61     		str	r2, [r3, #20]
+ 232              	.L2:
+ 162:Core/Src/main.c ****   if(M_ZERO==-1){M_ZERO = 0;}
+ 233              		.loc 1 162 6
+ 234 005a A64B     		ldr	r3, .L41+4
+ 235 005c 1B69     		ldr	r3, [r3, #16]
+ 236              		.loc 1 162 5
+ 237 005e B3F1FF3F 		cmp	r3, #-1
+ 238 0062 02D1     		bne	.L3
+ 239              		.loc 1 162 25 discriminator 1
+ 240 0064 A34B     		ldr	r3, .L41+4
+ 241 0066 0022     		movs	r2, #0
+ 242 0068 1A61     		str	r2, [r3, #16]
+ 243              	.L3:
+ 163:Core/Src/main.c ****   if(isnan(I_BW) || I_BW==-1){I_BW = 1000;}
+ 244              		.loc 1 163 6
+ 245 006a A34B     		ldr	r3, .L41+8
+ 246 006c D3ED027A 		vldr.32	s15, [r3, #8]
+ 247              		.loc 1 163 5
+ 248 0070 F4EE677A 		vcmp.f32	s15, s15
+ 249 0074 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 250 0078 09D6     		bvs	.L4
+ 251              		.loc 1 163 21 discriminator 2
+ 252 007a 9F4B     		ldr	r3, .L41+8
+ 253 007c D3ED027A 		vldr.32	s15, [r3, #8]
+ 254              		.loc 1 163 18 discriminator 2
+ 255 0080 BFEE007A 		vmov.f32	s14, #-1.0e+0
+ 256 0084 F4EE477A 		vcmp.f32	s15, s14
+ 257 0088 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 258 008c 02D1     		bne	.L5
+ 259              	.L4:
+ 260              		.loc 1 163 36 discriminator 3
+ 261 008e 9A4B     		ldr	r3, .L41+8
+ 262 0090 9A4A     		ldr	r2, .L41+12
+ 263 0092 9A60     		str	r2, [r3, #8]	@ float
+ 264              	.L5:
+ 164:Core/Src/main.c ****   if(isnan(I_MAX) || I_MAX ==-1){I_MAX=40;}
+ 265              		.loc 1 164 6
+ 266 0094 984B     		ldr	r3, .L41+8
+ 267 0096 D3ED037A 		vldr.32	s15, [r3, #12]
+ 268              		.loc 1 164 5
+ 269 009a F4EE677A 		vcmp.f32	s15, s15
+ 270 009e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 271 00a2 09D6     		bvs	.L6
+ 272              		.loc 1 164 22 discriminator 2
+ 273 00a4 944B     		ldr	r3, .L41+8
+ 274 00a6 D3ED037A 		vldr.32	s15, [r3, #12]
+ 275              		.loc 1 164 19 discriminator 2
+ 276 00aa BFEE007A 		vmov.f32	s14, #-1.0e+0
+ 277 00ae F4EE477A 		vcmp.f32	s15, s14
+ 278 00b2 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 279 00b6 02D1     		bne	.L7
+ 280              	.L6:
+ 281              		.loc 1 164 39 discriminator 3
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 9
+
+
+ 282 00b8 8F4B     		ldr	r3, .L41+8
+ 283 00ba 914A     		ldr	r2, .L41+16
+ 284 00bc DA60     		str	r2, [r3, #12]	@ float
+ 285              	.L7:
+ 165:Core/Src/main.c ****   if(isnan(I_FW_MAX) || I_FW_MAX ==-1){I_FW_MAX=0;}
+ 286              		.loc 1 165 6
+ 287 00be 8E4B     		ldr	r3, .L41+8
+ 288 00c0 D3ED067A 		vldr.32	s15, [r3, #24]
+ 289              		.loc 1 165 5
+ 290 00c4 F4EE677A 		vcmp.f32	s15, s15
+ 291 00c8 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 292 00cc 09D6     		bvs	.L8
+ 293              		.loc 1 165 25 discriminator 2
+ 294 00ce 8A4B     		ldr	r3, .L41+8
+ 295 00d0 D3ED067A 		vldr.32	s15, [r3, #24]
+ 296              		.loc 1 165 22 discriminator 2
+ 297 00d4 BFEE007A 		vmov.f32	s14, #-1.0e+0
+ 298 00d8 F4EE477A 		vcmp.f32	s15, s14
+ 299 00dc F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 300 00e0 03D1     		bne	.L9
+ 301              	.L8:
+ 302              		.loc 1 165 48 discriminator 3
+ 303 00e2 854B     		ldr	r3, .L41+8
+ 304 00e4 4FF00002 		mov	r2, #0
+ 305 00e8 9A61     		str	r2, [r3, #24]	@ float
+ 306              	.L9:
+ 166:Core/Src/main.c ****   if(CAN_ID==-1){CAN_ID = 1;}
+ 307              		.loc 1 166 6
+ 308 00ea 824B     		ldr	r3, .L41+4
+ 309 00ec 5B68     		ldr	r3, [r3, #4]
+ 310              		.loc 1 166 5
+ 311 00ee B3F1FF3F 		cmp	r3, #-1
+ 312 00f2 02D1     		bne	.L10
+ 313              		.loc 1 166 25 discriminator 1
+ 314 00f4 7F4B     		ldr	r3, .L41+4
+ 315 00f6 0122     		movs	r2, #1
+ 316 00f8 5A60     		str	r2, [r3, #4]
+ 317              	.L10:
+ 167:Core/Src/main.c ****   if(CAN_MASTER==-1){CAN_MASTER = 0;}
+ 318              		.loc 1 167 6
+ 319 00fa 7E4B     		ldr	r3, .L41+4
+ 320 00fc 9B68     		ldr	r3, [r3, #8]
+ 321              		.loc 1 167 5
+ 322 00fe B3F1FF3F 		cmp	r3, #-1
+ 323 0102 02D1     		bne	.L11
+ 324              		.loc 1 167 33 discriminator 1
+ 325 0104 7B4B     		ldr	r3, .L41+4
+ 326 0106 0022     		movs	r2, #0
+ 327 0108 9A60     		str	r2, [r3, #8]
+ 328              	.L11:
+ 168:Core/Src/main.c ****   if(CAN_TIMEOUT==-1){CAN_TIMEOUT = 0;}
+ 329              		.loc 1 168 6
+ 330 010a 7A4B     		ldr	r3, .L41+4
+ 331 010c DB68     		ldr	r3, [r3, #12]
+ 332              		.loc 1 168 5
+ 333 010e B3F1FF3F 		cmp	r3, #-1
+ 334 0112 02D1     		bne	.L12
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 10
+
+
+ 335              		.loc 1 168 35 discriminator 1
+ 336 0114 774B     		ldr	r3, .L41+4
+ 337 0116 0022     		movs	r2, #0
+ 338 0118 DA60     		str	r2, [r3, #12]
+ 339              	.L12:
+ 169:Core/Src/main.c ****   if(isnan(R_NOMINAL) || R_NOMINAL==-1){R_NOMINAL = 0.0f;}
+ 340              		.loc 1 169 6
+ 341 011a 774B     		ldr	r3, .L41+8
+ 342 011c D3ED077A 		vldr.32	s15, [r3, #28]
+ 343              		.loc 1 169 5
+ 344 0120 F4EE677A 		vcmp.f32	s15, s15
+ 345 0124 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 346 0128 09D6     		bvs	.L13
+ 347              		.loc 1 169 26 discriminator 2
+ 348 012a 734B     		ldr	r3, .L41+8
+ 349 012c D3ED077A 		vldr.32	s15, [r3, #28]
+ 350              		.loc 1 169 23 discriminator 2
+ 351 0130 BFEE007A 		vmov.f32	s14, #-1.0e+0
+ 352 0134 F4EE477A 		vcmp.f32	s15, s14
+ 353 0138 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 354 013c 03D1     		bne	.L14
+ 355              	.L13:
+ 356              		.loc 1 169 51 discriminator 3
+ 357 013e 6E4B     		ldr	r3, .L41+8
+ 358 0140 4FF00002 		mov	r2, #0
+ 359 0144 DA61     		str	r2, [r3, #28]	@ float
+ 360              	.L14:
+ 170:Core/Src/main.c ****   if(isnan(TEMP_MAX) || TEMP_MAX==-1){TEMP_MAX = 125.0f;}
+ 361              		.loc 1 170 6
+ 362 0146 6C4B     		ldr	r3, .L41+8
+ 363 0148 D3ED087A 		vldr.32	s15, [r3, #32]
+ 364              		.loc 1 170 5
+ 365 014c F4EE677A 		vcmp.f32	s15, s15
+ 366 0150 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 367 0154 09D6     		bvs	.L15
+ 368              		.loc 1 170 25 discriminator 2
+ 369 0156 684B     		ldr	r3, .L41+8
+ 370 0158 D3ED087A 		vldr.32	s15, [r3, #32]
+ 371              		.loc 1 170 22 discriminator 2
+ 372 015c BFEE007A 		vmov.f32	s14, #-1.0e+0
+ 373 0160 F4EE477A 		vcmp.f32	s15, s14
+ 374 0164 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 375 0168 02D1     		bne	.L16
+ 376              	.L15:
+ 377              		.loc 1 170 48 discriminator 3
+ 378 016a 634B     		ldr	r3, .L41+8
+ 379 016c 654A     		ldr	r2, .L41+20
+ 380 016e 1A62     		str	r2, [r3, #32]	@ float
+ 381              	.L16:
+ 171:Core/Src/main.c ****   if(isnan(I_MAX_CONT) || I_MAX_CONT==-1){I_MAX_CONT = 14.0f;}
+ 382              		.loc 1 171 6
+ 383 0170 614B     		ldr	r3, .L41+8
+ 384 0172 D3ED097A 		vldr.32	s15, [r3, #36]
+ 385              		.loc 1 171 5
+ 386 0176 F4EE677A 		vcmp.f32	s15, s15
+ 387 017a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 388 017e 09D6     		bvs	.L17
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 11
+
+
+ 389              		.loc 1 171 27 discriminator 2
+ 390 0180 5D4B     		ldr	r3, .L41+8
+ 391 0182 D3ED097A 		vldr.32	s15, [r3, #36]
+ 392              		.loc 1 171 24 discriminator 2
+ 393 0186 BFEE007A 		vmov.f32	s14, #-1.0e+0
+ 394 018a F4EE477A 		vcmp.f32	s15, s14
+ 395 018e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 396 0192 02D1     		bne	.L18
+ 397              	.L17:
+ 398              		.loc 1 171 54 discriminator 3
+ 399 0194 584B     		ldr	r3, .L41+8
+ 400 0196 5C4A     		ldr	r2, .L41+24
+ 401 0198 5A62     		str	r2, [r3, #36]	@ float
+ 402              	.L18:
+ 172:Core/Src/main.c ****   if(isnan(I_CAL)||I_CAL==-1){I_CAL = 5.0f;}
+ 403              		.loc 1 172 6
+ 404 019a 574B     		ldr	r3, .L41+8
+ 405 019c D3ED127A 		vldr.32	s15, [r3, #72]
+ 406              		.loc 1 172 5
+ 407 01a0 F4EE677A 		vcmp.f32	s15, s15
+ 408 01a4 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 409 01a8 09D6     		bvs	.L19
+ 410              		.loc 1 172 20 discriminator 2
+ 411 01aa 534B     		ldr	r3, .L41+8
+ 412 01ac D3ED127A 		vldr.32	s15, [r3, #72]
+ 413              		.loc 1 172 18 discriminator 2
+ 414 01b0 BFEE007A 		vmov.f32	s14, #-1.0e+0
+ 415 01b4 F4EE477A 		vcmp.f32	s15, s14
+ 416 01b8 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 417 01bc 02D1     		bne	.L20
+ 418              	.L19:
+ 419              		.loc 1 172 37 discriminator 3
+ 420 01be 4E4B     		ldr	r3, .L41+8
+ 421 01c0 524A     		ldr	r2, .L41+28
+ 422 01c2 9A64     		str	r2, [r3, #72]	@ float
+ 423              	.L20:
+ 173:Core/Src/main.c ****   if(isnan(PPAIRS) || PPAIRS==-1){PPAIRS = 21.0f;}
+ 424              		.loc 1 173 6
+ 425 01c4 4C4B     		ldr	r3, .L41+8
+ 426 01c6 D3ED0A7A 		vldr.32	s15, [r3, #40]
+ 427              		.loc 1 173 5
+ 428 01ca F4EE677A 		vcmp.f32	s15, s15
+ 429 01ce F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 430 01d2 09D6     		bvs	.L21
+ 431              		.loc 1 173 23 discriminator 2
+ 432 01d4 484B     		ldr	r3, .L41+8
+ 433 01d6 D3ED0A7A 		vldr.32	s15, [r3, #40]
+ 434              		.loc 1 173 20 discriminator 2
+ 435 01da BFEE007A 		vmov.f32	s14, #-1.0e+0
+ 436 01de F4EE477A 		vcmp.f32	s15, s14
+ 437 01e2 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 438 01e6 02D1     		bne	.L22
+ 439              	.L21:
+ 440              		.loc 1 173 42 discriminator 3
+ 441 01e8 434B     		ldr	r3, .L41+8
+ 442 01ea 494A     		ldr	r2, .L41+32
+ 443 01ec 9A62     		str	r2, [r3, #40]	@ float
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 12
+
+
+ 444              	.L22:
+ 174:Core/Src/main.c ****   if(isnan(GR) || GR==-1){GR = 1.0f;}
+ 445              		.loc 1 174 6
+ 446 01ee 424B     		ldr	r3, .L41+8
+ 447 01f0 D3ED117A 		vldr.32	s15, [r3, #68]
+ 448              		.loc 1 174 5
+ 449 01f4 F4EE677A 		vcmp.f32	s15, s15
+ 450 01f8 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 451 01fc 09D6     		bvs	.L23
+ 452              		.loc 1 174 19 discriminator 2
+ 453 01fe 3E4B     		ldr	r3, .L41+8
+ 454 0200 D3ED117A 		vldr.32	s15, [r3, #68]
+ 455              		.loc 1 174 16 discriminator 2
+ 456 0204 BFEE007A 		vmov.f32	s14, #-1.0e+0
+ 457 0208 F4EE477A 		vcmp.f32	s15, s14
+ 458 020c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 459 0210 03D1     		bne	.L24
+ 460              	.L23:
+ 461              		.loc 1 174 30 discriminator 3
+ 462 0212 394B     		ldr	r3, .L41+8
+ 463 0214 4FF07E52 		mov	r2, #1065353216
+ 464 0218 5A64     		str	r2, [r3, #68]	@ float
+ 465              	.L24:
+ 175:Core/Src/main.c ****   if(isnan(KT) || KT==-1){KT = 1.0f;}
+ 466              		.loc 1 175 6
+ 467 021a 374B     		ldr	r3, .L41+8
+ 468 021c D3ED0E7A 		vldr.32	s15, [r3, #56]
+ 469              		.loc 1 175 5
+ 470 0220 F4EE677A 		vcmp.f32	s15, s15
+ 471 0224 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 472 0228 09D6     		bvs	.L25
+ 473              		.loc 1 175 19 discriminator 2
+ 474 022a 334B     		ldr	r3, .L41+8
+ 475 022c D3ED0E7A 		vldr.32	s15, [r3, #56]
+ 476              		.loc 1 175 16 discriminator 2
+ 477 0230 BFEE007A 		vmov.f32	s14, #-1.0e+0
+ 478 0234 F4EE477A 		vcmp.f32	s15, s14
+ 479 0238 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 480 023c 03D1     		bne	.L26
+ 481              	.L25:
+ 482              		.loc 1 175 30 discriminator 3
+ 483 023e 2E4B     		ldr	r3, .L41+8
+ 484 0240 4FF07E52 		mov	r2, #1065353216
+ 485 0244 9A63     		str	r2, [r3, #56]	@ float
+ 486              	.L26:
+ 176:Core/Src/main.c ****   if(isnan(KP_MAX) || KP_MAX==-1){KP_MAX = 500.0f;}
+ 487              		.loc 1 176 6
+ 488 0246 2C4B     		ldr	r3, .L41+8
+ 489 0248 D3ED177A 		vldr.32	s15, [r3, #92]
+ 490              		.loc 1 176 5
+ 491 024c F4EE677A 		vcmp.f32	s15, s15
+ 492 0250 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 493 0254 09D6     		bvs	.L27
+ 494              		.loc 1 176 23 discriminator 2
+ 495 0256 284B     		ldr	r3, .L41+8
+ 496 0258 D3ED177A 		vldr.32	s15, [r3, #92]
+ 497              		.loc 1 176 20 discriminator 2
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 13
+
+
+ 498 025c BFEE007A 		vmov.f32	s14, #-1.0e+0
+ 499 0260 F4EE477A 		vcmp.f32	s15, s14
+ 500 0264 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 501 0268 02D1     		bne	.L28
+ 502              	.L27:
+ 503              		.loc 1 176 42 discriminator 3
+ 504 026a 234B     		ldr	r3, .L41+8
+ 505 026c 294A     		ldr	r2, .L41+36
+ 506 026e DA65     		str	r2, [r3, #92]	@ float
+ 507              	.L28:
+ 177:Core/Src/main.c ****   if(isnan(KD_MAX) || KD_MAX==-1){KD_MAX = 5.0f;}
+ 508              		.loc 1 177 6
+ 509 0270 214B     		ldr	r3, .L41+8
+ 510 0272 D3ED187A 		vldr.32	s15, [r3, #96]
+ 511              		.loc 1 177 5
+ 512 0276 F4EE677A 		vcmp.f32	s15, s15
+ 513 027a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 514 027e 09D6     		bvs	.L29
+ 515              		.loc 1 177 23 discriminator 2
+ 516 0280 1D4B     		ldr	r3, .L41+8
+ 517 0282 D3ED187A 		vldr.32	s15, [r3, #96]
+ 518              		.loc 1 177 20 discriminator 2
+ 519 0286 BFEE007A 		vmov.f32	s14, #-1.0e+0
+ 520 028a F4EE477A 		vcmp.f32	s15, s14
+ 521 028e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 522 0292 02D1     		bne	.L30
+ 523              	.L29:
+ 524              		.loc 1 177 42 discriminator 3
+ 525 0294 184B     		ldr	r3, .L41+8
+ 526 0296 1D4A     		ldr	r2, .L41+28
+ 527 0298 1A66     		str	r2, [r3, #96]	@ float
+ 528              	.L30:
+ 178:Core/Src/main.c ****   if(isnan(P_MAX)){P_MAX = 12.5f;}
+ 529              		.loc 1 178 6
+ 530 029a 174B     		ldr	r3, .L41+8
+ 531 029c D3ED147A 		vldr.32	s15, [r3, #80]
+ 532              		.loc 1 178 5
+ 533 02a0 F4EE677A 		vcmp.f32	s15, s15
+ 534 02a4 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 535 02a8 02D7     		bvc	.L31
+ 536              		.loc 1 178 26 discriminator 1
+ 537 02aa 134B     		ldr	r3, .L41+8
+ 538 02ac 1A4A     		ldr	r2, .L41+40
+ 539 02ae 1A65     		str	r2, [r3, #80]	@ float
+ 540              	.L31:
+ 179:Core/Src/main.c ****   if(isnan(P_MIN)){P_MIN = -12.5f;}
+ 541              		.loc 1 179 6
+ 542 02b0 114B     		ldr	r3, .L41+8
+ 543 02b2 D3ED137A 		vldr.32	s15, [r3, #76]
+ 544              		.loc 1 179 5
+ 545 02b6 F4EE677A 		vcmp.f32	s15, s15
+ 546 02ba F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 547 02be 02D7     		bvc	.L32
+ 548              		.loc 1 179 26 discriminator 1
+ 549 02c0 0D4B     		ldr	r3, .L41+8
+ 550 02c2 164A     		ldr	r2, .L41+44
+ 551 02c4 DA64     		str	r2, [r3, #76]	@ float
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 14
+
+
+ 552              	.L32:
+ 180:Core/Src/main.c ****   if(isnan(V_MAX)){V_MAX = 65.0f;}
+ 553              		.loc 1 180 6
+ 554 02c6 0C4B     		ldr	r3, .L41+8
+ 555 02c8 D3ED167A 		vldr.32	s15, [r3, #88]
+ 556              		.loc 1 180 5
+ 557 02cc F4EE677A 		vcmp.f32	s15, s15
+ 558 02d0 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 559 02d4 02D7     		bvc	.L33
+ 560              		.loc 1 180 26 discriminator 1
+ 561 02d6 084B     		ldr	r3, .L41+8
+ 562 02d8 114A     		ldr	r2, .L41+48
+ 563 02da 9A65     		str	r2, [r3, #88]	@ float
+ 564              	.L33:
+ 181:Core/Src/main.c ****   if(isnan(V_MIN)){V_MIN = -65.0f;}
+ 565              		.loc 1 181 6
+ 566 02dc 064B     		ldr	r3, .L41+8
+ 567 02de D3ED157A 		vldr.32	s15, [r3, #84]
+ 568              		.loc 1 181 5
+ 569 02e2 F4EE677A 		vcmp.f32	s15, s15
+ 570 02e6 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 571 02ea 1ED7     		bvc	.L34
+ 572 02ec 1AE0     		b	.L42
+ 573              	.L43:
+ 574 02ee 00BF     		.align	2
+ 575              	.L41:
+ 576 02f0 00000000 		.word	prefs
+ 577 02f4 00000000 		.word	__int_reg
+ 578 02f8 00000000 		.word	__float_reg
+ 579 02fc 00007A44 		.word	1148846080
+ 580 0300 00002042 		.word	1109393408
+ 581 0304 0000FA42 		.word	1123680256
+ 582 0308 00006041 		.word	1096810496
+ 583 030c 0000A040 		.word	1084227584
+ 584 0310 0000A841 		.word	1101529088
+ 585 0314 0000FA43 		.word	1140457472
+ 586 0318 00004841 		.word	1095237632
+ 587 031c 000048C1 		.word	-1052246016
+ 588 0320 00008242 		.word	1115815936
+ 589              	.L42:
+ 590              		.loc 1 181 26 discriminator 1
+ 591 0324 7E4B     		ldr	r3, .L44
+ 592 0326 7F4A     		ldr	r2, .L44+4
+ 593 0328 5A65     		str	r2, [r3, #84]	@ float
+ 594              	.L34:
+ 182:Core/Src/main.c **** 
+ 183:Core/Src/main.c ****   printf("\r\nFirmware Version Number: %.2f\r\n", VERSION_NUM);
+ 595              		.loc 1 183 3
+ 596 032a 4FF00002 		mov	r2, #0
+ 597 032e 4FF08043 		mov	r3, #1073741824
+ 598 0332 7D48     		ldr	r0, .L44+8
+ 599 0334 FFF7FEFF 		bl	printf
+ 184:Core/Src/main.c **** 
+ 185:Core/Src/main.c ****   /* Controller Setup */
+ 186:Core/Src/main.c ****   if(PHASE_ORDER){							// Timer channel to phase mapping
+ 187:Core/Src/main.c **** 
+ 188:Core/Src/main.c ****   }
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 15
+
+
+ 189:Core/Src/main.c ****   else{
+ 190:Core/Src/main.c **** 
+ 191:Core/Src/main.c ****   }
+ 192:Core/Src/main.c **** 
+ 193:Core/Src/main.c ****   init_controller_params(&controller);
+ 600              		.loc 1 193 3
+ 601 0338 7C48     		ldr	r0, .L44+12
+ 602 033a FFF7FEFF 		bl	init_controller_params
+ 194:Core/Src/main.c **** 
+ 195:Core/Src/main.c ****   /* calibration "encoder" zeroing */
+ 196:Core/Src/main.c ****   memset(&comm_encoder_cal.cal_position, 0, sizeof(EncoderStruct));
+ 603              		.loc 1 196 3
+ 604 033e 4FF43872 		mov	r2, #736
+ 605 0342 0021     		movs	r1, #0
+ 606 0344 7A48     		ldr	r0, .L44+16
+ 607 0346 FFF7FEFF 		bl	memset
+ 197:Core/Src/main.c **** 
+ 198:Core/Src/main.c ****   /* commutation encoder setup */
+ 199:Core/Src/main.c ****   comm_encoder.m_zero = M_ZERO;
+ 608              		.loc 1 199 25
+ 609 034a 7A4B     		ldr	r3, .L44+20
+ 610 034c 1B69     		ldr	r3, [r3, #16]
+ 611              		.loc 1 199 23
+ 612 034e 7A4A     		ldr	r2, .L44+24
+ 613 0350 C2F8D430 		str	r3, [r2, #212]
+ 200:Core/Src/main.c ****   comm_encoder.e_zero = E_ZERO;
+ 614              		.loc 1 200 25
+ 615 0354 774B     		ldr	r3, .L44+20
+ 616 0356 5B69     		ldr	r3, [r3, #20]
+ 617              		.loc 1 200 23
+ 618 0358 774A     		ldr	r2, .L44+24
+ 619 035a C2F8D830 		str	r3, [r2, #216]
+ 201:Core/Src/main.c ****   comm_encoder.ppairs = PPAIRS;
+ 620              		.loc 1 201 25
+ 621 035e 704B     		ldr	r3, .L44
+ 622 0360 9B6A     		ldr	r3, [r3, #40]	@ float
+ 623              		.loc 1 201 23
+ 624 0362 754A     		ldr	r2, .L44+24
+ 625 0364 9366     		str	r3, [r2, #104]	@ float
+ 202:Core/Src/main.c **** 
+ 203:Core/Src/main.c ****   if(EN_ENC_LINEARIZATION){memcpy(&comm_encoder.offset_lut, &ENCODER_LUT, sizeof(comm_encoder.offse
+ 626              		.loc 1 203 28
+ 627 0366 744B     		ldr	r3, .L44+24
+ 628 0368 724A     		ldr	r2, .L44+20
+ 629 036a DC33     		adds	r3, r3, #220
+ 630 036c 02F11801 		add	r1, r2, #24
+ 631 0370 4FF40072 		mov	r2, #512
+ 632 0374 1846     		mov	r0, r3
+ 633 0376 FFF7FEFF 		bl	memcpy
+ 204:Core/Src/main.c ****   else{memset(&comm_encoder.offset_lut, 0, sizeof(comm_encoder.offset_lut));}
+ 205:Core/Src/main.c ****   ps_warmup(&comm_encoder, 100);			// clear the noisy data when the encoder first turns on
+ 634              		.loc 1 205 3
+ 635 037a 6421     		movs	r1, #100
+ 636 037c 6E48     		ldr	r0, .L44+24
+ 637 037e FFF7FEFF 		bl	ps_warmup
+ 206:Core/Src/main.c **** 
+ 207:Core/Src/main.c ****   //for(int i = 0; i<128; i++){printf("%d\r\n", comm_encoder.offset_lut[i]);}
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 16
+
+
+ 208:Core/Src/main.c **** 
+ 209:Core/Src/main.c ****   /* Turn on ADCs */
+ 210:Core/Src/main.c ****   HAL_ADC_Start(&hadc1);
+ 638              		.loc 1 210 3
+ 639 0382 6E48     		ldr	r0, .L44+28
+ 640 0384 FFF7FEFF 		bl	HAL_ADC_Start
+ 211:Core/Src/main.c ****   HAL_ADC_Start(&hadc2);
+ 641              		.loc 1 211 3
+ 642 0388 6D48     		ldr	r0, .L44+32
+ 643 038a FFF7FEFF 		bl	HAL_ADC_Start
+ 212:Core/Src/main.c ****   HAL_ADC_Start(&hadc3);
+ 644              		.loc 1 212 3
+ 645 038e 6D48     		ldr	r0, .L44+36
+ 646 0390 FFF7FEFF 		bl	HAL_ADC_Start
+ 213:Core/Src/main.c **** 
+ 214:Core/Src/main.c ****   /* DRV8323 setup */
+ 215:Core/Src/main.c ****   HAL_GPIO_WritePin(DRV_CS, GPIO_PIN_SET ); 	// CS high
+ 647              		.loc 1 215 3
+ 648 0394 0122     		movs	r2, #1
+ 649 0396 1021     		movs	r1, #16
+ 650 0398 6B48     		ldr	r0, .L44+40
+ 651 039a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 216:Core/Src/main.c ****   HAL_GPIO_WritePin(ENABLE_PIN, GPIO_PIN_SET );
+ 652              		.loc 1 216 3
+ 653 039e 0122     		movs	r2, #1
+ 654 03a0 4FF40061 		mov	r1, #2048
+ 655 03a4 6848     		ldr	r0, .L44+40
+ 656 03a6 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 217:Core/Src/main.c ****   HAL_Delay(1);
+ 657              		.loc 1 217 3
+ 658 03aa 0120     		movs	r0, #1
+ 659 03ac FFF7FEFF 		bl	HAL_Delay
+ 218:Core/Src/main.c ****   //drv_calibrate(drv);
+ 219:Core/Src/main.c ****   HAL_Delay(1);
+ 660              		.loc 1 219 3
+ 661 03b0 0120     		movs	r0, #1
+ 662 03b2 FFF7FEFF 		bl	HAL_Delay
+ 220:Core/Src/main.c ****   drv_write_DCR(drv, 0x0, DIS_GDF_EN, 0x0, PWM_MODE_3X, 0x0, 0x0, 0x0, 0x0, 0x1);
+ 663              		.loc 1 220 3
+ 664 03b6 6549     		ldr	r1, .L44+44
+ 665 03b8 0123     		movs	r3, #1
+ 666 03ba 0693     		str	r3, [sp, #24]
+ 667 03bc 0023     		movs	r3, #0
+ 668 03be 0593     		str	r3, [sp, #20]
+ 669 03c0 0023     		movs	r3, #0
+ 670 03c2 0493     		str	r3, [sp, #16]
+ 671 03c4 0023     		movs	r3, #0
+ 672 03c6 0393     		str	r3, [sp, #12]
+ 673 03c8 0023     		movs	r3, #0
+ 674 03ca 0293     		str	r3, [sp, #8]
+ 675 03cc 0123     		movs	r3, #1
+ 676 03ce 0193     		str	r3, [sp, #4]
+ 677 03d0 0023     		movs	r3, #0
+ 678 03d2 0093     		str	r3, [sp]
+ 679 03d4 0023     		movs	r3, #0
+ 680 03d6 0022     		movs	r2, #0
+ 681 03d8 03C9     		ldm	r1, {r0, r1}
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 17
+
+
+ 682 03da FFF7FEFF 		bl	drv_write_DCR
+ 221:Core/Src/main.c ****   HAL_Delay(1);
+ 683              		.loc 1 221 3
+ 684 03de 0120     		movs	r0, #1
+ 685 03e0 FFF7FEFF 		bl	HAL_Delay
+ 222:Core/Src/main.c ****   int CSA_GAIN;
+ 223:Core/Src/main.c ****   if(I_MAX <= 40.0f){CSA_GAIN = CSA_GAIN_40;}	// Up to 40A use 40X amplifier gain
+ 686              		.loc 1 223 6
+ 687 03e4 4E4B     		ldr	r3, .L44
+ 688 03e6 D3ED037A 		vldr.32	s15, [r3, #12]
+ 689              		.loc 1 223 5
+ 690 03ea 9FED597A 		vldr.32	s14, .L44+48
+ 691 03ee F4EEC77A 		vcmpe.f32	s15, s14
+ 692 03f2 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 693 03f6 02D8     		bhi	.L40
+ 694              		.loc 1 223 31 discriminator 1
+ 695 03f8 0323     		movs	r3, #3
+ 696 03fa 7B60     		str	r3, [r7, #4]
+ 697 03fc 01E0     		b	.L37
+ 698              	.L40:
+ 224:Core/Src/main.c ****   else{CSA_GAIN = CSA_GAIN_20;}					// From 40-60A use 20X amplifier gain.  (Make this generic in t
+ 699              		.loc 1 224 17
+ 700 03fe 0223     		movs	r3, #2
+ 701 0400 7B60     		str	r3, [r7, #4]
+ 702              	.L37:
+ 225:Core/Src/main.c ****   drv_write_CSACR(drv, 0x0, 0x1, 0x0, CSA_GAIN_40, 0x0, 0x1, 0x1, 0x1, SEN_LVL_0_25);
+ 703              		.loc 1 225 3
+ 704 0402 5249     		ldr	r1, .L44+44
+ 705 0404 0023     		movs	r3, #0
+ 706 0406 0693     		str	r3, [sp, #24]
+ 707 0408 0123     		movs	r3, #1
+ 708 040a 0593     		str	r3, [sp, #20]
+ 709 040c 0123     		movs	r3, #1
+ 710 040e 0493     		str	r3, [sp, #16]
+ 711 0410 0123     		movs	r3, #1
+ 712 0412 0393     		str	r3, [sp, #12]
+ 713 0414 0023     		movs	r3, #0
+ 714 0416 0293     		str	r3, [sp, #8]
+ 715 0418 0323     		movs	r3, #3
+ 716 041a 0193     		str	r3, [sp, #4]
+ 717 041c 0023     		movs	r3, #0
+ 718 041e 0093     		str	r3, [sp]
+ 719 0420 0123     		movs	r3, #1
+ 720 0422 0022     		movs	r2, #0
+ 721 0424 03C9     		ldm	r1, {r0, r1}
+ 722 0426 FFF7FEFF 		bl	drv_write_CSACR
+ 226:Core/Src/main.c ****   HAL_Delay(1);
+ 723              		.loc 1 226 3
+ 724 042a 0120     		movs	r0, #1
+ 725 042c FFF7FEFF 		bl	HAL_Delay
+ 227:Core/Src/main.c ****   drv_write_CSACR(drv, 0x0, 0x1, 0x0, CSA_GAIN, 0x1, 0x0, 0x0, 0x0, SEN_LVL_0_25);
+ 726              		.loc 1 227 3
+ 727 0430 4649     		ldr	r1, .L44+44
+ 728 0432 0023     		movs	r3, #0
+ 729 0434 0693     		str	r3, [sp, #24]
+ 730 0436 0023     		movs	r3, #0
+ 731 0438 0593     		str	r3, [sp, #20]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 18
+
+
+ 732 043a 0023     		movs	r3, #0
+ 733 043c 0493     		str	r3, [sp, #16]
+ 734 043e 0023     		movs	r3, #0
+ 735 0440 0393     		str	r3, [sp, #12]
+ 736 0442 0123     		movs	r3, #1
+ 737 0444 0293     		str	r3, [sp, #8]
+ 738 0446 7B68     		ldr	r3, [r7, #4]
+ 739 0448 0193     		str	r3, [sp, #4]
+ 740 044a 0023     		movs	r3, #0
+ 741 044c 0093     		str	r3, [sp]
+ 742 044e 0123     		movs	r3, #1
+ 743 0450 0022     		movs	r2, #0
+ 744 0452 03C9     		ldm	r1, {r0, r1}
+ 745 0454 FFF7FEFF 		bl	drv_write_CSACR
+ 228:Core/Src/main.c ****   HAL_Delay(1);
+ 746              		.loc 1 228 3
+ 747 0458 0120     		movs	r0, #1
+ 748 045a FFF7FEFF 		bl	HAL_Delay
+ 229:Core/Src/main.c ****   zero_current(&controller);
+ 749              		.loc 1 229 3
+ 750 045e 3348     		ldr	r0, .L44+12
+ 751 0460 FFF7FEFF 		bl	zero_current
+ 230:Core/Src/main.c ****   HAL_Delay(1);
+ 752              		.loc 1 230 3
+ 753 0464 0120     		movs	r0, #1
+ 754 0466 FFF7FEFF 		bl	HAL_Delay
+ 231:Core/Src/main.c ****   drv_write_OCPCR(drv, TRETRY_50US, DEADTIME_50NS, OCP_RETRY, OCP_DEG_8US, VDS_LVL_0_45);
+ 755              		.loc 1 231 3
+ 756 046a 3849     		ldr	r1, .L44+44
+ 757 046c 0523     		movs	r3, #5
+ 758 046e 0293     		str	r3, [sp, #8]
+ 759 0470 0323     		movs	r3, #3
+ 760 0472 0193     		str	r3, [sp, #4]
+ 761 0474 0123     		movs	r3, #1
+ 762 0476 0093     		str	r3, [sp]
+ 763 0478 0023     		movs	r3, #0
+ 764 047a 0122     		movs	r2, #1
+ 765 047c 03C9     		ldm	r1, {r0, r1}
+ 766 047e FFF7FEFF 		bl	drv_write_OCPCR
+ 232:Core/Src/main.c ****   HAL_Delay(1);
+ 767              		.loc 1 232 3
+ 768 0482 0120     		movs	r0, #1
+ 769 0484 FFF7FEFF 		bl	HAL_Delay
+ 233:Core/Src/main.c ****   drv_disable_gd(drv);
+ 770              		.loc 1 233 3
+ 771 0488 304B     		ldr	r3, .L44+44
+ 772 048a 93E80300 		ldm	r3, {r0, r1}
+ 773 048e FFF7FEFF 		bl	drv_disable_gd
+ 234:Core/Src/main.c ****   HAL_Delay(1);
+ 774              		.loc 1 234 3
+ 775 0492 0120     		movs	r0, #1
+ 776 0494 FFF7FEFF 		bl	HAL_Delay
+ 235:Core/Src/main.c ****   //drv_enable_gd(drv);   */
+ 236:Core/Src/main.c ****   printf("ADC A OFFSET: %d     ADC B OFFSET: %d\r\n", controller.adc_a_offset, controller.adc_b_off
+ 777              		.loc 1 236 3
+ 778 0498 244B     		ldr	r3, .L44+12
+ 779 049a D3F89C30 		ldr	r3, [r3, #156]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 19
+
+
+ 780 049e 234A     		ldr	r2, .L44+12
+ 781 04a0 D2F8A020 		ldr	r2, [r2, #160]
+ 782 04a4 1946     		mov	r1, r3
+ 783 04a6 2B48     		ldr	r0, .L44+52
+ 784 04a8 FFF7FEFF 		bl	printf
+ 237:Core/Src/main.c **** 
+ 238:Core/Src/main.c ****   /* Turn on PWM */
+ 239:Core/Src/main.c ****   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+ 785              		.loc 1 239 3
+ 786 04ac 0021     		movs	r1, #0
+ 787 04ae 2A48     		ldr	r0, .L44+56
+ 788 04b0 FFF7FEFF 		bl	HAL_TIM_PWM_Start
+ 240:Core/Src/main.c ****   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2);
+ 789              		.loc 1 240 3
+ 790 04b4 0421     		movs	r1, #4
+ 791 04b6 2848     		ldr	r0, .L44+56
+ 792 04b8 FFF7FEFF 		bl	HAL_TIM_PWM_Start
+ 241:Core/Src/main.c ****   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_3);
+ 793              		.loc 1 241 3
+ 794 04bc 0821     		movs	r1, #8
+ 795 04be 2648     		ldr	r0, .L44+56
+ 796 04c0 FFF7FEFF 		bl	HAL_TIM_PWM_Start
+ 242:Core/Src/main.c **** 
+ 243:Core/Src/main.c ****   /* CAN setup */
+ 244:Core/Src/main.c ****   can_rx_init(&can_rx);
+ 797              		.loc 1 244 3
+ 798 04c4 2548     		ldr	r0, .L44+60
+ 799 04c6 FFF7FEFF 		bl	can_rx_init
+ 245:Core/Src/main.c ****   can_tx_init(&can_tx);
+ 800              		.loc 1 245 3
+ 801 04ca 2548     		ldr	r0, .L44+64
+ 802 04cc FFF7FEFF 		bl	can_tx_init
+ 246:Core/Src/main.c ****   HAL_CAN_Start(&CAN_H); //start CAN
+ 803              		.loc 1 246 3
+ 804 04d0 2448     		ldr	r0, .L44+68
+ 805 04d2 FFF7FEFF 		bl	HAL_CAN_Start
+ 247:Core/Src/main.c ****   //__HAL_CAN_ENABLE_IT(&CAN_H, CAN_IT_RX_FIFO0_MSG_PENDING); // Start can interrupt
+ 248:Core/Src/main.c **** 
+ 249:Core/Src/main.c ****   /* Set Interrupt Priorities */
+ 250:Core/Src/main.c ****   HAL_NVIC_SetPriority(PWM_ISR, 0x0,0x0); // commutation > communication
+ 806              		.loc 1 250 3
+ 807 04d6 0022     		movs	r2, #0
+ 808 04d8 0021     		movs	r1, #0
+ 809 04da 1920     		movs	r0, #25
+ 810 04dc FFF7FEFF 		bl	HAL_NVIC_SetPriority
+ 251:Core/Src/main.c ****   HAL_NVIC_SetPriority(CAN_ISR, 0x01, 0x01);
+ 811              		.loc 1 251 3
+ 812 04e0 0122     		movs	r2, #1
+ 813 04e2 0121     		movs	r1, #1
+ 814 04e4 1420     		movs	r0, #20
+ 815 04e6 FFF7FEFF 		bl	HAL_NVIC_SetPriority
+ 252:Core/Src/main.c **** 
+ 253:Core/Src/main.c ****   /* Start the FSM */
+ 254:Core/Src/main.c ****   state.state = MENU_MODE;
+ 816              		.loc 1 254 15
+ 817 04ea 1F4B     		ldr	r3, .L44+72
+ 818 04ec 0022     		movs	r2, #0
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 20
+
+
+ 819 04ee 1A70     		strb	r2, [r3]
+ 255:Core/Src/main.c ****   state.next_state = MENU_MODE;
+ 820              		.loc 1 255 20
+ 821 04f0 1D4B     		ldr	r3, .L44+72
+ 822 04f2 0022     		movs	r2, #0
+ 823 04f4 5A70     		strb	r2, [r3, #1]
+ 256:Core/Src/main.c ****   state.ready = 1;
+ 824              		.loc 1 256 15
+ 825 04f6 1C4B     		ldr	r3, .L44+72
+ 826 04f8 0122     		movs	r2, #1
+ 827 04fa DA70     		strb	r2, [r3, #3]
+ 257:Core/Src/main.c **** 
+ 258:Core/Src/main.c **** 
+ 259:Core/Src/main.c ****   /* Turn on interrupts */
+ 260:Core/Src/main.c ****   HAL_UART_Receive_IT(&huart2, (uint8_t *)Serial2RxBuffer, 1);
+ 828              		.loc 1 260 3
+ 829 04fc 0122     		movs	r2, #1
+ 830 04fe 1B49     		ldr	r1, .L44+76
+ 831 0500 1B48     		ldr	r0, .L44+80
+ 832 0502 FFF7FEFF 		bl	HAL_UART_Receive_IT
+ 261:Core/Src/main.c ****   HAL_TIM_Base_Start_IT(&htim1);
+ 833              		.loc 1 261 3
+ 834 0506 1448     		ldr	r0, .L44+56
+ 835 0508 FFF7FEFF 		bl	HAL_TIM_Base_Start_IT
+ 262:Core/Src/main.c ****   HAL_TIM_Base_Start_IT(&htim2);
+ 836              		.loc 1 262 3
+ 837 050c 1948     		ldr	r0, .L44+84
+ 838 050e FFF7FEFF 		bl	HAL_TIM_Base_Start_IT
+ 839              	.L38:
+ 263:Core/Src/main.c ****   /* USER CODE END 2 */
+ 264:Core/Src/main.c **** 
+ 265:Core/Src/main.c ****   /* Infinite loop */
+ 266:Core/Src/main.c ****   /* USER CODE BEGIN WHILE */
+ 267:Core/Src/main.c ****   while (1)
+ 268:Core/Src/main.c ****   {
+ 269:Core/Src/main.c ****     send_current_data(&controller);//电流观测
+ 840              		.loc 1 269 5 discriminator 1
+ 841 0512 0648     		ldr	r0, .L44+12
+ 842 0514 FFF7FEFF 		bl	send_current_data
+ 270:Core/Src/main.c **** 	  HAL_Delay(5);
+ 843              		.loc 1 270 4 discriminator 1
+ 844 0518 0520     		movs	r0, #5
+ 845 051a FFF7FEFF 		bl	HAL_Delay
+ 269:Core/Src/main.c **** 	  HAL_Delay(5);
+ 846              		.loc 1 269 5 discriminator 1
+ 847 051e F8E7     		b	.L38
+ 848              	.L45:
+ 849              		.align	2
+ 850              	.L44:
+ 851 0520 00000000 		.word	__float_reg
+ 852 0524 000082C2 		.word	-1031667712
+ 853 0528 00000000 		.word	.LC0
+ 854 052c 00000000 		.word	controller
+ 855 0530 2C820000 		.word	comm_encoder_cal+33324
+ 856 0534 00000000 		.word	__int_reg
+ 857 0538 00000000 		.word	comm_encoder
+ 858 053c 00000000 		.word	hadc1
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 21
+
+
+ 859 0540 00000000 		.word	hadc2
+ 860 0544 00000000 		.word	hadc3
+ 861 0548 00000240 		.word	1073872896
+ 862 054c 00000000 		.word	drv
+ 863 0550 00002042 		.word	1109393408
+ 864 0554 24000000 		.word	.LC1
+ 865 0558 00000000 		.word	htim1
+ 866 055c 00000000 		.word	can_rx
+ 867 0560 00000000 		.word	can_tx
+ 868 0564 00000000 		.word	hcan1
+ 869 0568 00000000 		.word	state
+ 870 056c 00000000 		.word	Serial2RxBuffer
+ 871 0570 00000000 		.word	huart2
+ 872 0574 00000000 		.word	htim2
+ 873              		.cfi_endproc
+ 874              	.LFE242:
+ 876              		.section	.text.SystemClock_Config,"ax",%progbits
+ 877              		.align	1
+ 878              		.global	SystemClock_Config
+ 879              		.syntax unified
+ 880              		.thumb
+ 881              		.thumb_func
+ 883              	SystemClock_Config:
+ 884              	.LFB243:
+ 271:Core/Src/main.c **** 	  // drv_print_faults(drv);
+ 272:Core/Src/main.c **** 	 // if(state.state==MOTOR_MODE){
+ 273:Core/Src/main.c **** 	  	  //printf("%.2f %.2f %.2f %.2f %.2f\r\n", controller.p_des, controller.v_des, controller.kp, c
+ 274:Core/Src/main.c **** 	  //}
+ 275:Core/Src/main.c ****     /* USER CODE END WHILE */
+ 276:Core/Src/main.c **** 
+ 277:Core/Src/main.c ****     /* USER CODE BEGIN 3 */
+ 278:Core/Src/main.c ****   }
+ 279:Core/Src/main.c ****   /* USER CODE END 3 */
+ 280:Core/Src/main.c **** }
+ 281:Core/Src/main.c **** 
+ 282:Core/Src/main.c **** /**
+ 283:Core/Src/main.c ****   * @brief System Clock Configuration
+ 284:Core/Src/main.c ****   * @retval None
+ 285:Core/Src/main.c ****   */
+ 286:Core/Src/main.c **** void SystemClock_Config(void)
+ 287:Core/Src/main.c **** {
+ 885              		.loc 1 287 1
+ 886              		.cfi_startproc
+ 887              		@ args = 0, pretend = 0, frame = 80
+ 888              		@ frame_needed = 1, uses_anonymous_args = 0
+ 889 0000 80B5     		push	{r7, lr}
+ 890              	.LCFI3:
+ 891              		.cfi_def_cfa_offset 8
+ 892              		.cfi_offset 7, -8
+ 893              		.cfi_offset 14, -4
+ 894 0002 94B0     		sub	sp, sp, #80
+ 895              	.LCFI4:
+ 896              		.cfi_def_cfa_offset 88
+ 897 0004 00AF     		add	r7, sp, #0
+ 898              	.LCFI5:
+ 899              		.cfi_def_cfa_register 7
+ 288:Core/Src/main.c ****   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 22
+
+
+ 900              		.loc 1 288 22
+ 901 0006 07F11C03 		add	r3, r7, #28
+ 902 000a 3422     		movs	r2, #52
+ 903 000c 0021     		movs	r1, #0
+ 904 000e 1846     		mov	r0, r3
+ 905 0010 FFF7FEFF 		bl	memset
+ 289:Core/Src/main.c ****   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+ 906              		.loc 1 289 22
+ 907 0014 07F10803 		add	r3, r7, #8
+ 908 0018 0022     		movs	r2, #0
+ 909 001a 1A60     		str	r2, [r3]
+ 910 001c 5A60     		str	r2, [r3, #4]
+ 911 001e 9A60     		str	r2, [r3, #8]
+ 912 0020 DA60     		str	r2, [r3, #12]
+ 913 0022 1A61     		str	r2, [r3, #16]
+ 914              	.LBB2:
+ 290:Core/Src/main.c **** 
+ 291:Core/Src/main.c ****   /** Configure the main internal regulator output voltage
+ 292:Core/Src/main.c ****   */
+ 293:Core/Src/main.c ****   __HAL_RCC_PWR_CLK_ENABLE();
+ 915              		.loc 1 293 3
+ 916 0024 0023     		movs	r3, #0
+ 917 0026 7B60     		str	r3, [r7, #4]
+ 918 0028 2C4B     		ldr	r3, .L51
+ 919 002a 1B6C     		ldr	r3, [r3, #64]
+ 920 002c 2B4A     		ldr	r2, .L51
+ 921 002e 43F08053 		orr	r3, r3, #268435456
+ 922 0032 1364     		str	r3, [r2, #64]
+ 923 0034 294B     		ldr	r3, .L51
+ 924 0036 1B6C     		ldr	r3, [r3, #64]
+ 925 0038 03F08053 		and	r3, r3, #268435456
+ 926 003c 7B60     		str	r3, [r7, #4]
+ 927 003e 7B68     		ldr	r3, [r7, #4]
+ 928              	.LBE2:
+ 929              	.LBB3:
+ 294:Core/Src/main.c ****   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+ 930              		.loc 1 294 3
+ 931 0040 0023     		movs	r3, #0
+ 932 0042 3B60     		str	r3, [r7]
+ 933 0044 264B     		ldr	r3, .L51+4
+ 934 0046 1B68     		ldr	r3, [r3]
+ 935 0048 254A     		ldr	r2, .L51+4
+ 936 004a 43F44043 		orr	r3, r3, #49152
+ 937 004e 1360     		str	r3, [r2]
+ 938 0050 234B     		ldr	r3, .L51+4
+ 939 0052 1B68     		ldr	r3, [r3]
+ 940 0054 03F44043 		and	r3, r3, #49152
+ 941 0058 3B60     		str	r3, [r7]
+ 942 005a 3B68     		ldr	r3, [r7]
+ 943              	.LBE3:
+ 295:Core/Src/main.c **** 
+ 296:Core/Src/main.c ****   /** Initializes the RCC Oscillators according to the specified parameters
+ 297:Core/Src/main.c ****   * in the RCC_OscInitTypeDef structure.
+ 298:Core/Src/main.c ****   */
+ 299:Core/Src/main.c ****   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+ 944              		.loc 1 299 36
+ 945 005c 0123     		movs	r3, #1
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 23
+
+
+ 946 005e FB61     		str	r3, [r7, #28]
+ 300:Core/Src/main.c ****   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+ 947              		.loc 1 300 30
+ 948 0060 4FF48033 		mov	r3, #65536
+ 949 0064 3B62     		str	r3, [r7, #32]
+ 301:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+ 950              		.loc 1 301 34
+ 951 0066 0223     		movs	r3, #2
+ 952 0068 7B63     		str	r3, [r7, #52]
+ 302:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+ 953              		.loc 1 302 35
+ 954 006a 4FF48003 		mov	r3, #4194304
+ 955 006e BB63     		str	r3, [r7, #56]
+ 303:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLM = 4;
+ 956              		.loc 1 303 30
+ 957 0070 0423     		movs	r3, #4
+ 958 0072 FB63     		str	r3, [r7, #60]
+ 304:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLN = 180;
+ 959              		.loc 1 304 30
+ 960 0074 B423     		movs	r3, #180
+ 961 0076 3B64     		str	r3, [r7, #64]
+ 305:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+ 962              		.loc 1 305 30
+ 963 0078 0223     		movs	r3, #2
+ 964 007a 7B64     		str	r3, [r7, #68]
+ 306:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLQ = 2;
+ 965              		.loc 1 306 30
+ 966 007c 0223     		movs	r3, #2
+ 967 007e BB64     		str	r3, [r7, #72]
+ 307:Core/Src/main.c ****   RCC_OscInitStruct.PLL.PLLR = 2;
+ 968              		.loc 1 307 30
+ 969 0080 0223     		movs	r3, #2
+ 970 0082 FB64     		str	r3, [r7, #76]
+ 308:Core/Src/main.c ****   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+ 971              		.loc 1 308 7
+ 972 0084 07F11C03 		add	r3, r7, #28
+ 973 0088 1846     		mov	r0, r3
+ 974 008a FFF7FEFF 		bl	HAL_RCC_OscConfig
+ 975 008e 0346     		mov	r3, r0
+ 976              		.loc 1 308 6
+ 977 0090 002B     		cmp	r3, #0
+ 978 0092 01D0     		beq	.L47
+ 309:Core/Src/main.c ****   {
+ 310:Core/Src/main.c ****     Error_Handler();
+ 979              		.loc 1 310 5
+ 980 0094 FFF7FEFF 		bl	Error_Handler
+ 981              	.L47:
+ 311:Core/Src/main.c ****   }
+ 312:Core/Src/main.c **** 
+ 313:Core/Src/main.c ****   /** Activate the Over-Drive mode
+ 314:Core/Src/main.c ****   */
+ 315:Core/Src/main.c ****   if (HAL_PWREx_EnableOverDrive() != HAL_OK)
+ 982              		.loc 1 315 7
+ 983 0098 FFF7FEFF 		bl	HAL_PWREx_EnableOverDrive
+ 984 009c 0346     		mov	r3, r0
+ 985              		.loc 1 315 6
+ 986 009e 002B     		cmp	r3, #0
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 24
+
+
+ 987 00a0 01D0     		beq	.L48
+ 316:Core/Src/main.c ****   {
+ 317:Core/Src/main.c ****     Error_Handler();
+ 988              		.loc 1 317 5
+ 989 00a2 FFF7FEFF 		bl	Error_Handler
+ 990              	.L48:
+ 318:Core/Src/main.c ****   }
+ 319:Core/Src/main.c **** 
+ 320:Core/Src/main.c ****   /** Initializes the CPU, AHB and APB buses clocks
+ 321:Core/Src/main.c ****   */
+ 322:Core/Src/main.c ****   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+ 991              		.loc 1 322 31
+ 992 00a6 0F23     		movs	r3, #15
+ 993 00a8 BB60     		str	r3, [r7, #8]
+ 323:Core/Src/main.c ****                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+ 324:Core/Src/main.c ****   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+ 994              		.loc 1 324 34
+ 995 00aa 0223     		movs	r3, #2
+ 996 00ac FB60     		str	r3, [r7, #12]
+ 325:Core/Src/main.c ****   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+ 997              		.loc 1 325 35
+ 998 00ae 0023     		movs	r3, #0
+ 999 00b0 3B61     		str	r3, [r7, #16]
+ 326:Core/Src/main.c ****   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
+ 1000              		.loc 1 326 36
+ 1001 00b2 4FF4A053 		mov	r3, #5120
+ 1002 00b6 7B61     		str	r3, [r7, #20]
+ 327:Core/Src/main.c ****   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+ 1003              		.loc 1 327 36
+ 1004 00b8 4FF48053 		mov	r3, #4096
+ 1005 00bc BB61     		str	r3, [r7, #24]
+ 328:Core/Src/main.c **** 
+ 329:Core/Src/main.c ****   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
+ 1006              		.loc 1 329 7
+ 1007 00be 07F10803 		add	r3, r7, #8
+ 1008 00c2 0521     		movs	r1, #5
+ 1009 00c4 1846     		mov	r0, r3
+ 1010 00c6 FFF7FEFF 		bl	HAL_RCC_ClockConfig
+ 1011 00ca 0346     		mov	r3, r0
+ 1012              		.loc 1 329 6
+ 1013 00cc 002B     		cmp	r3, #0
+ 1014 00ce 01D0     		beq	.L50
+ 330:Core/Src/main.c ****   {
+ 331:Core/Src/main.c ****     Error_Handler();
+ 1015              		.loc 1 331 5
+ 1016 00d0 FFF7FEFF 		bl	Error_Handler
+ 1017              	.L50:
+ 332:Core/Src/main.c ****   }
+ 333:Core/Src/main.c **** }
+ 1018              		.loc 1 333 1
+ 1019 00d4 00BF     		nop
+ 1020 00d6 5037     		adds	r7, r7, #80
+ 1021              	.LCFI6:
+ 1022              		.cfi_def_cfa_offset 8
+ 1023 00d8 BD46     		mov	sp, r7
+ 1024              	.LCFI7:
+ 1025              		.cfi_def_cfa_register 13
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 25
+
+
+ 1026              		@ sp needed
+ 1027 00da 80BD     		pop	{r7, pc}
+ 1028              	.L52:
+ 1029              		.align	2
+ 1030              	.L51:
+ 1031 00dc 00380240 		.word	1073887232
+ 1032 00e0 00700040 		.word	1073770496
+ 1033              		.cfi_endproc
+ 1034              	.LFE243:
+ 1036              		.section	.text.Error_Handler,"ax",%progbits
+ 1037              		.align	1
+ 1038              		.global	Error_Handler
+ 1039              		.syntax unified
+ 1040              		.thumb
+ 1041              		.thumb_func
+ 1043              	Error_Handler:
+ 1044              	.LFB244:
+ 334:Core/Src/main.c **** 
+ 335:Core/Src/main.c **** /* USER CODE BEGIN 4 */
+ 336:Core/Src/main.c **** 
+ 337:Core/Src/main.c **** /* USER CODE END 4 */
+ 338:Core/Src/main.c **** 
+ 339:Core/Src/main.c **** /**
+ 340:Core/Src/main.c ****   * @brief  This function is executed in case of error occurrence.
+ 341:Core/Src/main.c ****   * @retval None
+ 342:Core/Src/main.c ****   */
+ 343:Core/Src/main.c **** void Error_Handler(void)
+ 344:Core/Src/main.c **** {
+ 1045              		.loc 1 344 1
+ 1046              		.cfi_startproc
+ 1047              		@ args = 0, pretend = 0, frame = 0
+ 1048              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1049              		@ link register save eliminated.
+ 1050 0000 80B4     		push	{r7}
+ 1051              	.LCFI8:
+ 1052              		.cfi_def_cfa_offset 4
+ 1053              		.cfi_offset 7, -4
+ 1054 0002 00AF     		add	r7, sp, #0
+ 1055              	.LCFI9:
+ 1056              		.cfi_def_cfa_register 7
+ 345:Core/Src/main.c ****   /* USER CODE BEGIN Error_Handler_Debug */
+ 346:Core/Src/main.c ****   /* User can add his own implementation to report the HAL error return state */
+ 347:Core/Src/main.c **** 
+ 348:Core/Src/main.c ****   /* USER CODE END Error_Handler_Debug */
+ 349:Core/Src/main.c **** }
+ 1057              		.loc 1 349 1
+ 1058 0004 00BF     		nop
+ 1059 0006 BD46     		mov	sp, r7
+ 1060              	.LCFI10:
+ 1061              		.cfi_def_cfa_register 13
+ 1062              		@ sp needed
+ 1063 0008 5DF8047B 		ldr	r7, [sp], #4
+ 1064              	.LCFI11:
+ 1065              		.cfi_restore 7
+ 1066              		.cfi_def_cfa_offset 0
+ 1067 000c 7047     		bx	lr
+ 1068              		.cfi_endproc
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 26
+
+
+ 1069              	.LFE244:
+ 1071              		.text
+ 1072              	.Letext0:
+ 1073              		.file 2 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\machine\\_default
+ 1074              		.file 3 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 1075              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
+ 1076              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h"
+ 1077              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 1078              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h"
+ 1079              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h"
+ 1080              		.file 9 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ 1081              		.file 10 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 1082              		.file 11 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h"
+ 1083              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h"
+ 1084              		.file 13 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h"
+ 1085              		.file 14 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
+ 1086              		.file 15 "Core/Inc/adc.h"
+ 1087              		.file 16 "Core/Inc/can.h"
+ 1088              		.file 17 "Core/Inc/tim.h"
+ 1089              		.file 18 "Core/Inc/position_sensor.h"
+ 1090              		.file 19 "Core/Inc/foc.h"
+ 1091              		.file 20 "Core/Inc/usart.h"
+ 1092              		.file 21 "Core/Inc/flash_writer.h"
+ 1093              		.file 22 "Core/Inc/preference_writer.h"
+ 1094              		.file 23 "Core/Inc/fsm.h"
+ 1095              		.file 24 "Core/Inc/drv8323.h"
+ 1096              		.file 25 "Core/Inc/calibration.h"
+ 1097              		.file 26 "Core/Inc/structs.h"
+ 1098              		.file 27 "Core/Inc/user_config.h"
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 27
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:20     .data.__SECTOR_ADDRS:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:23     .data.__SECTOR_ADDRS:00000000 __SECTOR_ADDRS
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:33     .data.__SECTORS:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:36     .data.__SECTORS:00000000 __SECTORS
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:50     .bss.__float_reg:00000000 __float_reg
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:47     .bss.__float_reg:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:57     .bss.__int_reg:00000000 __int_reg
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:54     .bss.__int_reg:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:64     .bss.prefs:00000000 prefs
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:61     .bss.prefs:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:71     .bss.count:00000000 count
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:68     .bss.count:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:78     .bss.controller:00000000 controller
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:75     .bss.controller:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:85     .bss.observer:00000000 observer
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:82     .bss.observer:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:92     .bss.com:00000000 com
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:98     .bss.state:00000000 state
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:95     .bss.state:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:105    .bss.comm_encoder:00000000 comm_encoder
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:102    .bss.comm_encoder:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:112    .bss.drv:00000000 drv
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:109    .bss.drv:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:119    .bss.comm_encoder_cal:00000000 comm_encoder_cal
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:116    .bss.comm_encoder_cal:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:126    .bss.can_tx:00000000 can_tx
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:123    .bss.can_tx:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:133    .bss.can_rx:00000000 can_rx
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:130    .bss.can_rx:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:140    .bss.error_array:00000000 error_array
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:137    .bss.error_array:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:147    .bss.lut_array:00000000 lut_array
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:144    .bss.lut_array:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:154    .bss.Serial2RxBuffer:00000000 Serial2RxBuffer
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:151    .bss.Serial2RxBuffer:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:157    .rodata:00000000 $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:164    .text.main:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:170    .text.main:00000000 main
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:883    .text.SystemClock_Config:00000000 SystemClock_Config
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:576    .text.main:000002f0 $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:591    .text.main:00000324 $t
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:851    .text.main:00000520 $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:877    .text.SystemClock_Config:00000000 $t
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:1043   .text.Error_Handler:00000000 Error_Handler
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:1031   .text.SystemClock_Config:000000dc $d
+C:\Users\16323\AppData\Local\Temp\cc4UTetU.s:1037   .text.Error_Handler:00000000 $t
+
+UNDEFINED SYMBOLS
+HAL_Init
+MX_GPIO_Init
+MX_USART2_UART_Init
+MX_TIM1_Init
+MX_CAN1_Init
+MX_SPI1_Init
+MX_SPI3_Init
+ARM GAS  C:\Users\16323\AppData\Local\Temp\cc4UTetU.s 			page 28
+
+
+MX_ADC1_Init
+MX_ADC2_Init
+MX_ADC3_Init
+MX_TIM2_Init
+preference_writer_init
+preference_writer_load
+printf
+init_controller_params
+memset
+memcpy
+ps_warmup
+HAL_ADC_Start
+HAL_GPIO_WritePin
+HAL_Delay
+drv_write_DCR
+drv_write_CSACR
+zero_current
+drv_write_OCPCR
+drv_disable_gd
+HAL_TIM_PWM_Start
+can_rx_init
+can_tx_init
+HAL_CAN_Start
+HAL_NVIC_SetPriority
+HAL_UART_Receive_IT
+HAL_TIM_Base_Start_IT
+send_current_data
+hadc1
+hadc2
+hadc3
+htim1
+hcan1
+huart2
+htim2
+HAL_RCC_OscConfig
+HAL_PWREx_EnableOverDrive
+HAL_RCC_ClockConfig

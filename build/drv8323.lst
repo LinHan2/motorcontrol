@@ -1,0 +1,1506 @@
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 6
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"drv8323.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.drv_spi_write,"ax",%progbits
+  20              		.align	1
+  21              		.global	drv_spi_write
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	drv_spi_write:
+  27              	.LFB242:
+  28              		.file 1 "Core/Src/drv8323.c"
+   1:Core/Src/drv8323.c **** /*
+   2:Core/Src/drv8323.c ****  * drv8323.c
+   3:Core/Src/drv8323.c ****  *
+   4:Core/Src/drv8323.c ****  *  Created on: Aug 1, 2020
+   5:Core/Src/drv8323.c ****  *      Author: ben
+   6:Core/Src/drv8323.c ****  */
+   7:Core/Src/drv8323.c **** 
+   8:Core/Src/drv8323.c **** 
+   9:Core/Src/drv8323.c **** #include "drv8323.h"
+  10:Core/Src/drv8323.c **** #include <stdio.h>
+  11:Core/Src/drv8323.c **** #include "usart.h"
+  12:Core/Src/drv8323.c **** #include "hw_config.h"
+  13:Core/Src/drv8323.c **** 
+  14:Core/Src/drv8323.c **** uint16_t drv_spi_write(DRVStruct * drv, uint16_t val){
+  29              		.loc 1 14 54
+  30              		.cfi_startproc
+  31              		@ args = 0, pretend = 0, frame = 8
+  32              		@ frame_needed = 1, uses_anonymous_args = 0
+  33 0000 80B5     		push	{r7, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 7, -8
+  37              		.cfi_offset 14, -4
+  38 0002 84B0     		sub	sp, sp, #16
+  39              	.LCFI1:
+  40              		.cfi_def_cfa_offset 24
+  41 0004 02AF     		add	r7, sp, #8
+  42              	.LCFI2:
+  43              		.cfi_def_cfa 7, 16
+  44 0006 7860     		str	r0, [r7, #4]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 2
+
+
+  45 0008 0B46     		mov	r3, r1
+  46 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+  15:Core/Src/drv8323.c **** 	drv->spi_tx_word = val;
+  47              		.loc 1 15 19
+  48 000c 7B68     		ldr	r3, [r7, #4]
+  49 000e 7A88     		ldrh	r2, [r7, #2]	@ movhi
+  50 0010 1A80     		strh	r2, [r3]	@ movhi
+  16:Core/Src/drv8323.c **** 	HAL_GPIO_WritePin(DRV_CS, GPIO_PIN_RESET ); 	// CS low
+  51              		.loc 1 16 2
+  52 0012 0022     		movs	r2, #0
+  53 0014 1021     		movs	r1, #16
+  54 0016 0F48     		ldr	r0, .L4
+  55 0018 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  17:Core/Src/drv8323.c **** 	HAL_SPI_TransmitReceive(&DRV_SPI, (uint8_t*)drv->spi_tx_buff, (uint8_t *)drv->spi_rx_buff, 1, 100)
+  56              		.loc 1 17 46
+  57 001c 7968     		ldr	r1, [r7, #4]
+  58              		.loc 1 17 75
+  59 001e 7B68     		ldr	r3, [r7, #4]
+  60 0020 9A1C     		adds	r2, r3, #2
+  61              		.loc 1 17 2
+  62 0022 6423     		movs	r3, #100
+  63 0024 0093     		str	r3, [sp]
+  64 0026 0123     		movs	r3, #1
+  65 0028 0B48     		ldr	r0, .L4+4
+  66 002a FFF7FEFF 		bl	HAL_SPI_TransmitReceive
+  18:Core/Src/drv8323.c **** 	while( DRV_SPI.State == HAL_SPI_STATE_BUSY );  					// wait for transmission complete
+  67              		.loc 1 18 7
+  68 002e 00BF     		nop
+  69              	.L2:
+  70              		.loc 1 18 16 discriminator 1
+  71 0030 094B     		ldr	r3, .L4+4
+  72 0032 93F85130 		ldrb	r3, [r3, #81]
+  73 0036 DBB2     		uxtb	r3, r3
+  74              		.loc 1 18 7 discriminator 1
+  75 0038 022B     		cmp	r3, #2
+  76 003a F9D0     		beq	.L2
+  19:Core/Src/drv8323.c **** 	HAL_GPIO_WritePin(DRV_CS, GPIO_PIN_SET ); 	// CS high
+  77              		.loc 1 19 2
+  78 003c 0122     		movs	r2, #1
+  79 003e 1021     		movs	r1, #16
+  80 0040 0448     		ldr	r0, .L4
+  81 0042 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  20:Core/Src/drv8323.c **** 	return drv->spi_rx_word;
+  82              		.loc 1 20 12
+  83 0046 7B68     		ldr	r3, [r7, #4]
+  84 0048 5B88     		ldrh	r3, [r3, #2]
+  21:Core/Src/drv8323.c **** }
+  85              		.loc 1 21 1
+  86 004a 1846     		mov	r0, r3
+  87 004c 0837     		adds	r7, r7, #8
+  88              	.LCFI3:
+  89              		.cfi_def_cfa_offset 8
+  90 004e BD46     		mov	sp, r7
+  91              	.LCFI4:
+  92              		.cfi_def_cfa_register 13
+  93              		@ sp needed
+  94 0050 80BD     		pop	{r7, pc}
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 3
+
+
+  95              	.L5:
+  96 0052 00BF     		.align	2
+  97              	.L4:
+  98 0054 00000240 		.word	1073872896
+  99 0058 00000000 		.word	hspi1
+ 100              		.cfi_endproc
+ 101              	.LFE242:
+ 103              		.section	.text.drv_read_FSR1,"ax",%progbits
+ 104              		.align	1
+ 105              		.global	drv_read_FSR1
+ 106              		.syntax unified
+ 107              		.thumb
+ 108              		.thumb_func
+ 110              	drv_read_FSR1:
+ 111              	.LFB243:
+  22:Core/Src/drv8323.c **** uint16_t drv_read_FSR1(DRVStruct drv){
+ 112              		.loc 1 22 38
+ 113              		.cfi_startproc
+ 114              		@ args = 0, pretend = 0, frame = 8
+ 115              		@ frame_needed = 1, uses_anonymous_args = 0
+ 116 0000 80B5     		push	{r7, lr}
+ 117              	.LCFI5:
+ 118              		.cfi_def_cfa_offset 8
+ 119              		.cfi_offset 7, -8
+ 120              		.cfi_offset 14, -4
+ 121 0002 82B0     		sub	sp, sp, #8
+ 122              	.LCFI6:
+ 123              		.cfi_def_cfa_offset 16
+ 124 0004 00AF     		add	r7, sp, #0
+ 125              	.LCFI7:
+ 126              		.cfi_def_cfa_register 7
+ 127 0006 3B46     		mov	r3, r7
+ 128 0008 83E80300 		stm	r3, {r0, r1}
+  23:Core/Src/drv8323.c **** 	return drv_spi_write(&drv, (1<<15)|FSR1);
+ 129              		.loc 1 23 9
+ 130 000c 3B46     		mov	r3, r7
+ 131 000e 4FF40041 		mov	r1, #32768
+ 132 0012 1846     		mov	r0, r3
+ 133 0014 FFF7FEFF 		bl	drv_spi_write
+ 134 0018 0346     		mov	r3, r0
+  24:Core/Src/drv8323.c **** }
+ 135              		.loc 1 24 1
+ 136 001a 1846     		mov	r0, r3
+ 137 001c 0837     		adds	r7, r7, #8
+ 138              	.LCFI8:
+ 139              		.cfi_def_cfa_offset 8
+ 140 001e BD46     		mov	sp, r7
+ 141              	.LCFI9:
+ 142              		.cfi_def_cfa_register 13
+ 143              		@ sp needed
+ 144 0020 80BD     		pop	{r7, pc}
+ 145              		.cfi_endproc
+ 146              	.LFE243:
+ 148              		.section	.text.drv_read_FSR2,"ax",%progbits
+ 149              		.align	1
+ 150              		.global	drv_read_FSR2
+ 151              		.syntax unified
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 4
+
+
+ 152              		.thumb
+ 153              		.thumb_func
+ 155              	drv_read_FSR2:
+ 156              	.LFB244:
+  25:Core/Src/drv8323.c **** 
+  26:Core/Src/drv8323.c **** uint16_t drv_read_FSR2(DRVStruct drv){
+ 157              		.loc 1 26 38
+ 158              		.cfi_startproc
+ 159              		@ args = 0, pretend = 0, frame = 8
+ 160              		@ frame_needed = 1, uses_anonymous_args = 0
+ 161 0000 80B5     		push	{r7, lr}
+ 162              	.LCFI10:
+ 163              		.cfi_def_cfa_offset 8
+ 164              		.cfi_offset 7, -8
+ 165              		.cfi_offset 14, -4
+ 166 0002 82B0     		sub	sp, sp, #8
+ 167              	.LCFI11:
+ 168              		.cfi_def_cfa_offset 16
+ 169 0004 00AF     		add	r7, sp, #0
+ 170              	.LCFI12:
+ 171              		.cfi_def_cfa_register 7
+ 172 0006 3B46     		mov	r3, r7
+ 173 0008 83E80300 		stm	r3, {r0, r1}
+  27:Core/Src/drv8323.c **** 	return drv_spi_write(&drv, (1<<15)|FSR2);
+ 174              		.loc 1 27 9
+ 175 000c 3B46     		mov	r3, r7
+ 176 000e 48F20101 		movw	r1, #32769
+ 177 0012 1846     		mov	r0, r3
+ 178 0014 FFF7FEFF 		bl	drv_spi_write
+ 179 0018 0346     		mov	r3, r0
+  28:Core/Src/drv8323.c **** }
+ 180              		.loc 1 28 1
+ 181 001a 1846     		mov	r0, r3
+ 182 001c 0837     		adds	r7, r7, #8
+ 183              	.LCFI13:
+ 184              		.cfi_def_cfa_offset 8
+ 185 001e BD46     		mov	sp, r7
+ 186              	.LCFI14:
+ 187              		.cfi_def_cfa_register 13
+ 188              		@ sp needed
+ 189 0020 80BD     		pop	{r7, pc}
+ 190              		.cfi_endproc
+ 191              	.LFE244:
+ 193              		.section	.text.drv_read_register,"ax",%progbits
+ 194              		.align	1
+ 195              		.global	drv_read_register
+ 196              		.syntax unified
+ 197              		.thumb
+ 198              		.thumb_func
+ 200              	drv_read_register:
+ 201              	.LFB245:
+  29:Core/Src/drv8323.c **** 
+  30:Core/Src/drv8323.c **** uint16_t drv_read_register(DRVStruct drv, int reg){
+ 202              		.loc 1 30 51
+ 203              		.cfi_startproc
+ 204              		@ args = 0, pretend = 0, frame = 16
+ 205              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 5
+
+
+ 206 0000 80B5     		push	{r7, lr}
+ 207              	.LCFI15:
+ 208              		.cfi_def_cfa_offset 8
+ 209              		.cfi_offset 7, -8
+ 210              		.cfi_offset 14, -4
+ 211 0002 84B0     		sub	sp, sp, #16
+ 212              	.LCFI16:
+ 213              		.cfi_def_cfa_offset 24
+ 214 0004 00AF     		add	r7, sp, #0
+ 215              	.LCFI17:
+ 216              		.cfi_def_cfa_register 7
+ 217 0006 07F10803 		add	r3, r7, #8
+ 218 000a 83E80300 		stm	r3, {r0, r1}
+ 219 000e 7A60     		str	r2, [r7, #4]
+  31:Core/Src/drv8323.c **** 	return drv_spi_write(&drv, (1<<15)|(reg<<11));
+ 220              		.loc 1 31 41
+ 221 0010 7B68     		ldr	r3, [r7, #4]
+ 222 0012 DB02     		lsls	r3, r3, #11
+ 223              		.loc 1 31 36
+ 224 0014 1BB2     		sxth	r3, r3
+ 225 0016 6FEA4343 		mvn	r3, r3, lsl #17
+ 226 001a 6FEA5343 		mvn	r3, r3, lsr #17
+ 227 001e 1BB2     		sxth	r3, r3
+ 228              		.loc 1 31 9
+ 229 0020 9AB2     		uxth	r2, r3
+ 230 0022 07F10803 		add	r3, r7, #8
+ 231 0026 1146     		mov	r1, r2
+ 232 0028 1846     		mov	r0, r3
+ 233 002a FFF7FEFF 		bl	drv_spi_write
+ 234 002e 0346     		mov	r3, r0
+  32:Core/Src/drv8323.c **** }
+ 235              		.loc 1 32 1
+ 236 0030 1846     		mov	r0, r3
+ 237 0032 1037     		adds	r7, r7, #16
+ 238              	.LCFI18:
+ 239              		.cfi_def_cfa_offset 8
+ 240 0034 BD46     		mov	sp, r7
+ 241              	.LCFI19:
+ 242              		.cfi_def_cfa_register 13
+ 243              		@ sp needed
+ 244 0036 80BD     		pop	{r7, pc}
+ 245              		.cfi_endproc
+ 246              	.LFE245:
+ 248              		.section	.text.drv_write_register,"ax",%progbits
+ 249              		.align	1
+ 250              		.global	drv_write_register
+ 251              		.syntax unified
+ 252              		.thumb
+ 253              		.thumb_func
+ 255              	drv_write_register:
+ 256              	.LFB246:
+  33:Core/Src/drv8323.c **** void drv_write_register(DRVStruct drv, int reg, int val){
+ 257              		.loc 1 33 57
+ 258              		.cfi_startproc
+ 259              		@ args = 0, pretend = 0, frame = 16
+ 260              		@ frame_needed = 1, uses_anonymous_args = 0
+ 261 0000 90B5     		push	{r4, r7, lr}
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 6
+
+
+ 262              	.LCFI20:
+ 263              		.cfi_def_cfa_offset 12
+ 264              		.cfi_offset 4, -12
+ 265              		.cfi_offset 7, -8
+ 266              		.cfi_offset 14, -4
+ 267 0002 85B0     		sub	sp, sp, #20
+ 268              	.LCFI21:
+ 269              		.cfi_def_cfa_offset 32
+ 270 0004 00AF     		add	r7, sp, #0
+ 271              	.LCFI22:
+ 272              		.cfi_def_cfa_register 7
+ 273 0006 07F10804 		add	r4, r7, #8
+ 274 000a 84E80300 		stm	r4, {r0, r1}
+ 275 000e 7A60     		str	r2, [r7, #4]
+ 276 0010 3B60     		str	r3, [r7]
+  34:Core/Src/drv8323.c **** 	drv_spi_write(&drv, (reg<<11)|val);
+ 277              		.loc 1 34 26
+ 278 0012 7B68     		ldr	r3, [r7, #4]
+ 279 0014 DB02     		lsls	r3, r3, #11
+ 280              		.loc 1 34 31
+ 281 0016 1AB2     		sxth	r2, r3
+ 282 0018 3B68     		ldr	r3, [r7]
+ 283 001a 1BB2     		sxth	r3, r3
+ 284 001c 1343     		orrs	r3, r3, r2
+ 285 001e 1BB2     		sxth	r3, r3
+ 286              		.loc 1 34 2
+ 287 0020 9AB2     		uxth	r2, r3
+ 288 0022 07F10803 		add	r3, r7, #8
+ 289 0026 1146     		mov	r1, r2
+ 290 0028 1846     		mov	r0, r3
+ 291 002a FFF7FEFF 		bl	drv_spi_write
+  35:Core/Src/drv8323.c **** }
+ 292              		.loc 1 35 1
+ 293 002e 00BF     		nop
+ 294 0030 1437     		adds	r7, r7, #20
+ 295              	.LCFI23:
+ 296              		.cfi_def_cfa_offset 12
+ 297 0032 BD46     		mov	sp, r7
+ 298              	.LCFI24:
+ 299              		.cfi_def_cfa_register 13
+ 300              		@ sp needed
+ 301 0034 90BD     		pop	{r4, r7, pc}
+ 302              		.cfi_endproc
+ 303              	.LFE246:
+ 305              		.section	.text.drv_write_DCR,"ax",%progbits
+ 306              		.align	1
+ 307              		.global	drv_write_DCR
+ 308              		.syntax unified
+ 309              		.thumb
+ 310              		.thumb_func
+ 312              	drv_write_DCR:
+ 313              	.LFB247:
+  36:Core/Src/drv8323.c **** void drv_write_DCR(DRVStruct drv, int DIS_CPUV, int DIS_GDF, int OTW_REP, int PWM_MODE, int PWM_COM
+ 314              		.loc 1 36 149
+ 315              		.cfi_startproc
+ 316              		@ args = 28, pretend = 0, frame = 24
+ 317              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 7
+
+
+ 318 0000 90B5     		push	{r4, r7, lr}
+ 319              	.LCFI25:
+ 320              		.cfi_def_cfa_offset 12
+ 321              		.cfi_offset 4, -12
+ 322              		.cfi_offset 7, -8
+ 323              		.cfi_offset 14, -4
+ 324 0002 87B0     		sub	sp, sp, #28
+ 325              	.LCFI26:
+ 326              		.cfi_def_cfa_offset 40
+ 327 0004 00AF     		add	r7, sp, #0
+ 328              	.LCFI27:
+ 329              		.cfi_def_cfa_register 7
+ 330 0006 07F10804 		add	r4, r7, #8
+ 331 000a 84E80300 		stm	r4, {r0, r1}
+ 332 000e 7A60     		str	r2, [r7, #4]
+ 333 0010 3B60     		str	r3, [r7]
+  37:Core/Src/drv8323.c **** 	uint16_t val = (DCR<<11) | (DIS_CPUV<<9) | (DIS_GDF<<8) | (OTW_REP<<7) | (PWM_MODE<<5) | (PWM_COM<
+ 334              		.loc 1 37 38
+ 335 0012 7B68     		ldr	r3, [r7, #4]
+ 336 0014 5B02     		lsls	r3, r3, #9
+ 337              		.loc 1 37 27
+ 338 0016 1BB2     		sxth	r3, r3
+ 339 0018 43F48053 		orr	r3, r3, #4096
+ 340 001c 1AB2     		sxth	r2, r3
+ 341              		.loc 1 37 53
+ 342 001e 3B68     		ldr	r3, [r7]
+ 343 0020 1B02     		lsls	r3, r3, #8
+ 344              		.loc 1 37 43
+ 345 0022 1BB2     		sxth	r3, r3
+ 346 0024 1343     		orrs	r3, r3, r2
+ 347 0026 1AB2     		sxth	r2, r3
+ 348              		.loc 1 37 68
+ 349 0028 BB6A     		ldr	r3, [r7, #40]
+ 350 002a DB01     		lsls	r3, r3, #7
+ 351              		.loc 1 37 58
+ 352 002c 1BB2     		sxth	r3, r3
+ 353 002e 1343     		orrs	r3, r3, r2
+ 354 0030 1AB2     		sxth	r2, r3
+ 355              		.loc 1 37 84
+ 356 0032 FB6A     		ldr	r3, [r7, #44]
+ 357 0034 5B01     		lsls	r3, r3, #5
+ 358              		.loc 1 37 73
+ 359 0036 1BB2     		sxth	r3, r3
+ 360 0038 1343     		orrs	r3, r3, r2
+ 361 003a 1AB2     		sxth	r2, r3
+ 362              		.loc 1 37 99
+ 363 003c 3B6B     		ldr	r3, [r7, #48]
+ 364 003e 1B01     		lsls	r3, r3, #4
+ 365              		.loc 1 37 89
+ 366 0040 1BB2     		sxth	r3, r3
+ 367 0042 1343     		orrs	r3, r3, r2
+ 368 0044 1AB2     		sxth	r2, r3
+ 369              		.loc 1 37 114
+ 370 0046 7B6B     		ldr	r3, [r7, #52]
+ 371 0048 DB00     		lsls	r3, r3, #3
+ 372              		.loc 1 37 104
+ 373 004a 1BB2     		sxth	r3, r3
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 8
+
+
+ 374 004c 1343     		orrs	r3, r3, r2
+ 375 004e 1AB2     		sxth	r2, r3
+ 376              		.loc 1 37 127
+ 377 0050 BB6B     		ldr	r3, [r7, #56]
+ 378 0052 9B00     		lsls	r3, r3, #2
+ 379              		.loc 1 37 119
+ 380 0054 1BB2     		sxth	r3, r3
+ 381 0056 1343     		orrs	r3, r3, r2
+ 382 0058 1AB2     		sxth	r2, r3
+ 383              		.loc 1 37 140
+ 384 005a FB6B     		ldr	r3, [r7, #60]
+ 385 005c 5B00     		lsls	r3, r3, #1
+ 386              		.loc 1 37 132
+ 387 005e 1BB2     		sxth	r3, r3
+ 388 0060 1343     		orrs	r3, r3, r2
+ 389 0062 1AB2     		sxth	r2, r3
+ 390              		.loc 1 37 145
+ 391 0064 3B6C     		ldr	r3, [r7, #64]
+ 392 0066 1BB2     		sxth	r3, r3
+ 393 0068 1343     		orrs	r3, r3, r2
+ 394 006a 1BB2     		sxth	r3, r3
+ 395              		.loc 1 37 11
+ 396 006c FB82     		strh	r3, [r7, #22]	@ movhi
+  38:Core/Src/drv8323.c **** 	drv_spi_write(&drv, val);
+ 397              		.loc 1 38 2
+ 398 006e FA8A     		ldrh	r2, [r7, #22]
+ 399 0070 07F10803 		add	r3, r7, #8
+ 400 0074 1146     		mov	r1, r2
+ 401 0076 1846     		mov	r0, r3
+ 402 0078 FFF7FEFF 		bl	drv_spi_write
+  39:Core/Src/drv8323.c **** }
+ 403              		.loc 1 39 1
+ 404 007c 00BF     		nop
+ 405 007e 1C37     		adds	r7, r7, #28
+ 406              	.LCFI28:
+ 407              		.cfi_def_cfa_offset 12
+ 408 0080 BD46     		mov	sp, r7
+ 409              	.LCFI29:
+ 410              		.cfi_def_cfa_register 13
+ 411              		@ sp needed
+ 412 0082 90BD     		pop	{r4, r7, pc}
+ 413              		.cfi_endproc
+ 414              	.LFE247:
+ 416              		.section	.text.drv_write_HSR,"ax",%progbits
+ 417              		.align	1
+ 418              		.global	drv_write_HSR
+ 419              		.syntax unified
+ 420              		.thumb
+ 421              		.thumb_func
+ 423              	drv_write_HSR:
+ 424              	.LFB248:
+  40:Core/Src/drv8323.c **** void drv_write_HSR(DRVStruct drv, int LOCK, int IDRIVEP_HS, int IDRIVEN_HS){
+ 425              		.loc 1 40 76
+ 426              		.cfi_startproc
+ 427              		@ args = 4, pretend = 0, frame = 24
+ 428              		@ frame_needed = 1, uses_anonymous_args = 0
+ 429 0000 90B5     		push	{r4, r7, lr}
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 9
+
+
+ 430              	.LCFI30:
+ 431              		.cfi_def_cfa_offset 12
+ 432              		.cfi_offset 4, -12
+ 433              		.cfi_offset 7, -8
+ 434              		.cfi_offset 14, -4
+ 435 0002 87B0     		sub	sp, sp, #28
+ 436              	.LCFI31:
+ 437              		.cfi_def_cfa_offset 40
+ 438 0004 00AF     		add	r7, sp, #0
+ 439              	.LCFI32:
+ 440              		.cfi_def_cfa_register 7
+ 441 0006 07F10804 		add	r4, r7, #8
+ 442 000a 84E80300 		stm	r4, {r0, r1}
+ 443 000e 7A60     		str	r2, [r7, #4]
+ 444 0010 3B60     		str	r3, [r7]
+  41:Core/Src/drv8323.c **** 	uint16_t val = (HSR<<11) | (LOCK<<8) | (IDRIVEP_HS<<4) | IDRIVEN_HS;
+ 445              		.loc 1 41 34
+ 446 0012 7B68     		ldr	r3, [r7, #4]
+ 447 0014 1B02     		lsls	r3, r3, #8
+ 448              		.loc 1 41 27
+ 449 0016 1BB2     		sxth	r3, r3
+ 450 0018 43F4C053 		orr	r3, r3, #6144
+ 451 001c 1AB2     		sxth	r2, r3
+ 452              		.loc 1 41 52
+ 453 001e 3B68     		ldr	r3, [r7]
+ 454 0020 1B01     		lsls	r3, r3, #4
+ 455              		.loc 1 41 39
+ 456 0022 1BB2     		sxth	r3, r3
+ 457 0024 1343     		orrs	r3, r3, r2
+ 458 0026 1AB2     		sxth	r2, r3
+ 459              		.loc 1 41 57
+ 460 0028 BB6A     		ldr	r3, [r7, #40]
+ 461 002a 1BB2     		sxth	r3, r3
+ 462 002c 1343     		orrs	r3, r3, r2
+ 463 002e 1BB2     		sxth	r3, r3
+ 464              		.loc 1 41 11
+ 465 0030 FB82     		strh	r3, [r7, #22]	@ movhi
+  42:Core/Src/drv8323.c **** 	drv_spi_write(&drv, val);
+ 466              		.loc 1 42 2
+ 467 0032 FA8A     		ldrh	r2, [r7, #22]
+ 468 0034 07F10803 		add	r3, r7, #8
+ 469 0038 1146     		mov	r1, r2
+ 470 003a 1846     		mov	r0, r3
+ 471 003c FFF7FEFF 		bl	drv_spi_write
+  43:Core/Src/drv8323.c **** }
+ 472              		.loc 1 43 1
+ 473 0040 00BF     		nop
+ 474 0042 1C37     		adds	r7, r7, #28
+ 475              	.LCFI33:
+ 476              		.cfi_def_cfa_offset 12
+ 477 0044 BD46     		mov	sp, r7
+ 478              	.LCFI34:
+ 479              		.cfi_def_cfa_register 13
+ 480              		@ sp needed
+ 481 0046 90BD     		pop	{r4, r7, pc}
+ 482              		.cfi_endproc
+ 483              	.LFE248:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 10
+
+
+ 485              		.section	.text.drv_write_LSR,"ax",%progbits
+ 486              		.align	1
+ 487              		.global	drv_write_LSR
+ 488              		.syntax unified
+ 489              		.thumb
+ 490              		.thumb_func
+ 492              	drv_write_LSR:
+ 493              	.LFB249:
+  44:Core/Src/drv8323.c **** void drv_write_LSR(DRVStruct drv, int CBC, int TDRIVE, int IDRIVEP_LS, int IDRIVEN_LS){
+ 494              		.loc 1 44 87
+ 495              		.cfi_startproc
+ 496              		@ args = 8, pretend = 0, frame = 24
+ 497              		@ frame_needed = 1, uses_anonymous_args = 0
+ 498 0000 90B5     		push	{r4, r7, lr}
+ 499              	.LCFI35:
+ 500              		.cfi_def_cfa_offset 12
+ 501              		.cfi_offset 4, -12
+ 502              		.cfi_offset 7, -8
+ 503              		.cfi_offset 14, -4
+ 504 0002 87B0     		sub	sp, sp, #28
+ 505              	.LCFI36:
+ 506              		.cfi_def_cfa_offset 40
+ 507 0004 00AF     		add	r7, sp, #0
+ 508              	.LCFI37:
+ 509              		.cfi_def_cfa_register 7
+ 510 0006 07F10804 		add	r4, r7, #8
+ 511 000a 84E80300 		stm	r4, {r0, r1}
+ 512 000e 7A60     		str	r2, [r7, #4]
+ 513 0010 3B60     		str	r3, [r7]
+  45:Core/Src/drv8323.c **** 	uint16_t val = (LSR<<11) | (CBC<<10) | (TDRIVE<<8) | (IDRIVEP_LS<<4) | IDRIVEN_LS;
+ 514              		.loc 1 45 33
+ 515 0012 7B68     		ldr	r3, [r7, #4]
+ 516 0014 9B02     		lsls	r3, r3, #10
+ 517              		.loc 1 45 27
+ 518 0016 1BB2     		sxth	r3, r3
+ 519 0018 43F40053 		orr	r3, r3, #8192
+ 520 001c 1AB2     		sxth	r2, r3
+ 521              		.loc 1 45 48
+ 522 001e 3B68     		ldr	r3, [r7]
+ 523 0020 1B02     		lsls	r3, r3, #8
+ 524              		.loc 1 45 39
+ 525 0022 1BB2     		sxth	r3, r3
+ 526 0024 1343     		orrs	r3, r3, r2
+ 527 0026 1AB2     		sxth	r2, r3
+ 528              		.loc 1 45 66
+ 529 0028 BB6A     		ldr	r3, [r7, #40]
+ 530 002a 1B01     		lsls	r3, r3, #4
+ 531              		.loc 1 45 53
+ 532 002c 1BB2     		sxth	r3, r3
+ 533 002e 1343     		orrs	r3, r3, r2
+ 534 0030 1AB2     		sxth	r2, r3
+ 535              		.loc 1 45 71
+ 536 0032 FB6A     		ldr	r3, [r7, #44]
+ 537 0034 1BB2     		sxth	r3, r3
+ 538 0036 1343     		orrs	r3, r3, r2
+ 539 0038 1BB2     		sxth	r3, r3
+ 540              		.loc 1 45 11
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 11
+
+
+ 541 003a FB82     		strh	r3, [r7, #22]	@ movhi
+  46:Core/Src/drv8323.c **** 	drv_spi_write(&drv, val);
+ 542              		.loc 1 46 2
+ 543 003c FA8A     		ldrh	r2, [r7, #22]
+ 544 003e 07F10803 		add	r3, r7, #8
+ 545 0042 1146     		mov	r1, r2
+ 546 0044 1846     		mov	r0, r3
+ 547 0046 FFF7FEFF 		bl	drv_spi_write
+  47:Core/Src/drv8323.c **** }
+ 548              		.loc 1 47 1
+ 549 004a 00BF     		nop
+ 550 004c 1C37     		adds	r7, r7, #28
+ 551              	.LCFI38:
+ 552              		.cfi_def_cfa_offset 12
+ 553 004e BD46     		mov	sp, r7
+ 554              	.LCFI39:
+ 555              		.cfi_def_cfa_register 13
+ 556              		@ sp needed
+ 557 0050 90BD     		pop	{r4, r7, pc}
+ 558              		.cfi_endproc
+ 559              	.LFE249:
+ 561              		.section	.text.drv_write_OCPCR,"ax",%progbits
+ 562              		.align	1
+ 563              		.global	drv_write_OCPCR
+ 564              		.syntax unified
+ 565              		.thumb
+ 566              		.thumb_func
+ 568              	drv_write_OCPCR:
+ 569              	.LFB250:
+  48:Core/Src/drv8323.c **** void drv_write_OCPCR(DRVStruct drv, int TRETRY, int DEAD_TIME, int OCP_MODE, int OCP_DEG, int VDS_L
+ 570              		.loc 1 48 103
+ 571              		.cfi_startproc
+ 572              		@ args = 12, pretend = 0, frame = 24
+ 573              		@ frame_needed = 1, uses_anonymous_args = 0
+ 574 0000 90B5     		push	{r4, r7, lr}
+ 575              	.LCFI40:
+ 576              		.cfi_def_cfa_offset 12
+ 577              		.cfi_offset 4, -12
+ 578              		.cfi_offset 7, -8
+ 579              		.cfi_offset 14, -4
+ 580 0002 87B0     		sub	sp, sp, #28
+ 581              	.LCFI41:
+ 582              		.cfi_def_cfa_offset 40
+ 583 0004 00AF     		add	r7, sp, #0
+ 584              	.LCFI42:
+ 585              		.cfi_def_cfa_register 7
+ 586 0006 07F10804 		add	r4, r7, #8
+ 587 000a 84E80300 		stm	r4, {r0, r1}
+ 588 000e 7A60     		str	r2, [r7, #4]
+ 589 0010 3B60     		str	r3, [r7]
+  49:Core/Src/drv8323.c **** 	uint16_t val = (OCPCR<<11) | (TRETRY<<10) | (DEAD_TIME<<8) | (OCP_MODE<<6) | (OCP_DEG<<4) | VDS_LV
+ 590              		.loc 1 49 38
+ 591 0012 7B68     		ldr	r3, [r7, #4]
+ 592 0014 9B02     		lsls	r3, r3, #10
+ 593              		.loc 1 49 29
+ 594 0016 1BB2     		sxth	r3, r3
+ 595 0018 43F42053 		orr	r3, r3, #10240
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 12
+
+
+ 596 001c 1AB2     		sxth	r2, r3
+ 597              		.loc 1 49 56
+ 598 001e 3B68     		ldr	r3, [r7]
+ 599 0020 1B02     		lsls	r3, r3, #8
+ 600              		.loc 1 49 44
+ 601 0022 1BB2     		sxth	r3, r3
+ 602 0024 1343     		orrs	r3, r3, r2
+ 603 0026 1AB2     		sxth	r2, r3
+ 604              		.loc 1 49 72
+ 605 0028 BB6A     		ldr	r3, [r7, #40]
+ 606 002a 9B01     		lsls	r3, r3, #6
+ 607              		.loc 1 49 61
+ 608 002c 1BB2     		sxth	r3, r3
+ 609 002e 1343     		orrs	r3, r3, r2
+ 610 0030 1AB2     		sxth	r2, r3
+ 611              		.loc 1 49 87
+ 612 0032 FB6A     		ldr	r3, [r7, #44]
+ 613 0034 1B01     		lsls	r3, r3, #4
+ 614              		.loc 1 49 77
+ 615 0036 1BB2     		sxth	r3, r3
+ 616 0038 1343     		orrs	r3, r3, r2
+ 617 003a 1AB2     		sxth	r2, r3
+ 618              		.loc 1 49 92
+ 619 003c 3B6B     		ldr	r3, [r7, #48]
+ 620 003e 1BB2     		sxth	r3, r3
+ 621 0040 1343     		orrs	r3, r3, r2
+ 622 0042 1BB2     		sxth	r3, r3
+ 623              		.loc 1 49 11
+ 624 0044 FB82     		strh	r3, [r7, #22]	@ movhi
+  50:Core/Src/drv8323.c **** 	drv_spi_write(&drv, val);
+ 625              		.loc 1 50 2
+ 626 0046 FA8A     		ldrh	r2, [r7, #22]
+ 627 0048 07F10803 		add	r3, r7, #8
+ 628 004c 1146     		mov	r1, r2
+ 629 004e 1846     		mov	r0, r3
+ 630 0050 FFF7FEFF 		bl	drv_spi_write
+  51:Core/Src/drv8323.c **** }
+ 631              		.loc 1 51 1
+ 632 0054 00BF     		nop
+ 633 0056 1C37     		adds	r7, r7, #28
+ 634              	.LCFI43:
+ 635              		.cfi_def_cfa_offset 12
+ 636 0058 BD46     		mov	sp, r7
+ 637              	.LCFI44:
+ 638              		.cfi_def_cfa_register 13
+ 639              		@ sp needed
+ 640 005a 90BD     		pop	{r4, r7, pc}
+ 641              		.cfi_endproc
+ 642              	.LFE250:
+ 644              		.section	.text.drv_write_CSACR,"ax",%progbits
+ 645              		.align	1
+ 646              		.global	drv_write_CSACR
+ 647              		.syntax unified
+ 648              		.thumb
+ 649              		.thumb_func
+ 651              	drv_write_CSACR:
+ 652              	.LFB251:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 13
+
+
+  52:Core/Src/drv8323.c **** void drv_write_CSACR(DRVStruct drv, int CSA_FET, int VREF_DIV, int LS_REF, int CSA_GAIN, int DIS_SE
+ 653              		.loc 1 52 160
+ 654              		.cfi_startproc
+ 655              		@ args = 28, pretend = 0, frame = 24
+ 656              		@ frame_needed = 1, uses_anonymous_args = 0
+ 657 0000 90B5     		push	{r4, r7, lr}
+ 658              	.LCFI45:
+ 659              		.cfi_def_cfa_offset 12
+ 660              		.cfi_offset 4, -12
+ 661              		.cfi_offset 7, -8
+ 662              		.cfi_offset 14, -4
+ 663 0002 87B0     		sub	sp, sp, #28
+ 664              	.LCFI46:
+ 665              		.cfi_def_cfa_offset 40
+ 666 0004 00AF     		add	r7, sp, #0
+ 667              	.LCFI47:
+ 668              		.cfi_def_cfa_register 7
+ 669 0006 07F10804 		add	r4, r7, #8
+ 670 000a 84E80300 		stm	r4, {r0, r1}
+ 671 000e 7A60     		str	r2, [r7, #4]
+ 672 0010 3B60     		str	r3, [r7]
+  53:Core/Src/drv8323.c **** 	uint16_t val = (CSACR<<11) | (CSA_FET<<10) | (VREF_DIV<<9) | (LS_REF<<8) | (CSA_GAIN<<6) | (DIS_SE
+ 673              		.loc 1 53 39
+ 674 0012 7B68     		ldr	r3, [r7, #4]
+ 675 0014 9B02     		lsls	r3, r3, #10
+ 676              		.loc 1 53 29
+ 677 0016 1BB2     		sxth	r3, r3
+ 678 0018 43F44053 		orr	r3, r3, #12288
+ 679 001c 1AB2     		sxth	r2, r3
+ 680              		.loc 1 53 56
+ 681 001e 3B68     		ldr	r3, [r7]
+ 682 0020 5B02     		lsls	r3, r3, #9
+ 683              		.loc 1 53 45
+ 684 0022 1BB2     		sxth	r3, r3
+ 685 0024 1343     		orrs	r3, r3, r2
+ 686 0026 1AB2     		sxth	r2, r3
+ 687              		.loc 1 53 70
+ 688 0028 BB6A     		ldr	r3, [r7, #40]
+ 689 002a 1B02     		lsls	r3, r3, #8
+ 690              		.loc 1 53 61
+ 691 002c 1BB2     		sxth	r3, r3
+ 692 002e 1343     		orrs	r3, r3, r2
+ 693 0030 1AB2     		sxth	r2, r3
+ 694              		.loc 1 53 86
+ 695 0032 FB6A     		ldr	r3, [r7, #44]
+ 696 0034 9B01     		lsls	r3, r3, #6
+ 697              		.loc 1 53 75
+ 698 0036 1BB2     		sxth	r3, r3
+ 699 0038 1343     		orrs	r3, r3, r2
+ 700 003a 1AB2     		sxth	r2, r3
+ 701              		.loc 1 53 101
+ 702 003c 3B6B     		ldr	r3, [r7, #48]
+ 703 003e 5B01     		lsls	r3, r3, #5
+ 704              		.loc 1 53 91
+ 705 0040 1BB2     		sxth	r3, r3
+ 706 0042 1343     		orrs	r3, r3, r2
+ 707 0044 1AB2     		sxth	r2, r3
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 14
+
+
+ 708              		.loc 1 53 118
+ 709 0046 7B6B     		ldr	r3, [r7, #52]
+ 710 0048 1B01     		lsls	r3, r3, #4
+ 711              		.loc 1 53 106
+ 712 004a 1BB2     		sxth	r3, r3
+ 713 004c 1343     		orrs	r3, r3, r2
+ 714 004e 1AB2     		sxth	r2, r3
+ 715              		.loc 1 53 135
+ 716 0050 BB6B     		ldr	r3, [r7, #56]
+ 717 0052 DB00     		lsls	r3, r3, #3
+ 718              		.loc 1 53 123
+ 719 0054 1BB2     		sxth	r3, r3
+ 720 0056 1343     		orrs	r3, r3, r2
+ 721 0058 1AB2     		sxth	r2, r3
+ 722              		.loc 1 53 152
+ 723 005a FB6B     		ldr	r3, [r7, #60]
+ 724 005c 9B00     		lsls	r3, r3, #2
+ 725              		.loc 1 53 140
+ 726 005e 1BB2     		sxth	r3, r3
+ 727 0060 1343     		orrs	r3, r3, r2
+ 728 0062 1AB2     		sxth	r2, r3
+ 729              		.loc 1 53 157
+ 730 0064 3B6C     		ldr	r3, [r7, #64]
+ 731 0066 1BB2     		sxth	r3, r3
+ 732 0068 1343     		orrs	r3, r3, r2
+ 733 006a 1BB2     		sxth	r3, r3
+ 734              		.loc 1 53 11
+ 735 006c FB82     		strh	r3, [r7, #22]	@ movhi
+  54:Core/Src/drv8323.c **** 	drv_spi_write(&drv, val);
+ 736              		.loc 1 54 2
+ 737 006e FA8A     		ldrh	r2, [r7, #22]
+ 738 0070 07F10803 		add	r3, r7, #8
+ 739 0074 1146     		mov	r1, r2
+ 740 0076 1846     		mov	r0, r3
+ 741 0078 FFF7FEFF 		bl	drv_spi_write
+  55:Core/Src/drv8323.c **** }
+ 742              		.loc 1 55 1
+ 743 007c 00BF     		nop
+ 744 007e 1C37     		adds	r7, r7, #28
+ 745              	.LCFI48:
+ 746              		.cfi_def_cfa_offset 12
+ 747 0080 BD46     		mov	sp, r7
+ 748              	.LCFI49:
+ 749              		.cfi_def_cfa_register 13
+ 750              		@ sp needed
+ 751 0082 90BD     		pop	{r4, r7, pc}
+ 752              		.cfi_endproc
+ 753              	.LFE251:
+ 755              		.section	.text.drv_enable_gd,"ax",%progbits
+ 756              		.align	1
+ 757              		.global	drv_enable_gd
+ 758              		.syntax unified
+ 759              		.thumb
+ 760              		.thumb_func
+ 762              	drv_enable_gd:
+ 763              	.LFB252:
+  56:Core/Src/drv8323.c **** void drv_enable_gd(DRVStruct drv){
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 15
+
+
+ 764              		.loc 1 56 34
+ 765              		.cfi_startproc
+ 766              		@ args = 0, pretend = 0, frame = 16
+ 767              		@ frame_needed = 1, uses_anonymous_args = 0
+ 768 0000 80B5     		push	{r7, lr}
+ 769              	.LCFI50:
+ 770              		.cfi_def_cfa_offset 8
+ 771              		.cfi_offset 7, -8
+ 772              		.cfi_offset 14, -4
+ 773 0002 84B0     		sub	sp, sp, #16
+ 774              	.LCFI51:
+ 775              		.cfi_def_cfa_offset 24
+ 776 0004 00AF     		add	r7, sp, #0
+ 777              	.LCFI52:
+ 778              		.cfi_def_cfa_register 7
+ 779 0006 3B46     		mov	r3, r7
+ 780 0008 83E80300 		stm	r3, {r0, r1}
+  57:Core/Src/drv8323.c **** 	uint16_t val = (drv_read_register(drv, DCR)) & (~(0x1<<2));
+ 781              		.loc 1 57 18
+ 782 000c 0222     		movs	r2, #2
+ 783 000e 3B46     		mov	r3, r7
+ 784 0010 93E80300 		ldm	r3, {r0, r1}
+ 785 0014 FFF7FEFF 		bl	drv_read_register
+ 786 0018 0346     		mov	r3, r0
+ 787              		.loc 1 57 11
+ 788 001a 23F00403 		bic	r3, r3, #4
+ 789 001e FB81     		strh	r3, [r7, #14]	@ movhi
+  58:Core/Src/drv8323.c **** 	drv_write_register(drv, DCR, val);
+ 790              		.loc 1 58 2
+ 791 0020 FB89     		ldrh	r3, [r7, #14]
+ 792 0022 0222     		movs	r2, #2
+ 793 0024 3946     		mov	r1, r7
+ 794 0026 03C9     		ldm	r1, {r0, r1}
+ 795 0028 FFF7FEFF 		bl	drv_write_register
+  59:Core/Src/drv8323.c **** }
+ 796              		.loc 1 59 1
+ 797 002c 00BF     		nop
+ 798 002e 1037     		adds	r7, r7, #16
+ 799              	.LCFI53:
+ 800              		.cfi_def_cfa_offset 8
+ 801 0030 BD46     		mov	sp, r7
+ 802              	.LCFI54:
+ 803              		.cfi_def_cfa_register 13
+ 804              		@ sp needed
+ 805 0032 80BD     		pop	{r7, pc}
+ 806              		.cfi_endproc
+ 807              	.LFE252:
+ 809              		.section	.text.drv_disable_gd,"ax",%progbits
+ 810              		.align	1
+ 811              		.global	drv_disable_gd
+ 812              		.syntax unified
+ 813              		.thumb
+ 814              		.thumb_func
+ 816              	drv_disable_gd:
+ 817              	.LFB253:
+  60:Core/Src/drv8323.c **** void drv_disable_gd(DRVStruct drv){
+ 818              		.loc 1 60 35
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 16
+
+
+ 819              		.cfi_startproc
+ 820              		@ args = 0, pretend = 0, frame = 16
+ 821              		@ frame_needed = 1, uses_anonymous_args = 0
+ 822 0000 80B5     		push	{r7, lr}
+ 823              	.LCFI55:
+ 824              		.cfi_def_cfa_offset 8
+ 825              		.cfi_offset 7, -8
+ 826              		.cfi_offset 14, -4
+ 827 0002 84B0     		sub	sp, sp, #16
+ 828              	.LCFI56:
+ 829              		.cfi_def_cfa_offset 24
+ 830 0004 00AF     		add	r7, sp, #0
+ 831              	.LCFI57:
+ 832              		.cfi_def_cfa_register 7
+ 833 0006 3B46     		mov	r3, r7
+ 834 0008 83E80300 		stm	r3, {r0, r1}
+  61:Core/Src/drv8323.c **** 	uint16_t val = (drv_read_register(drv, DCR)) | (0x1<<2);
+ 835              		.loc 1 61 18
+ 836 000c 0222     		movs	r2, #2
+ 837 000e 3B46     		mov	r3, r7
+ 838 0010 93E80300 		ldm	r3, {r0, r1}
+ 839 0014 FFF7FEFF 		bl	drv_read_register
+ 840 0018 0346     		mov	r3, r0
+ 841              		.loc 1 61 11
+ 842 001a 43F00403 		orr	r3, r3, #4
+ 843 001e FB81     		strh	r3, [r7, #14]	@ movhi
+  62:Core/Src/drv8323.c **** 	drv_write_register(drv, DCR, val);
+ 844              		.loc 1 62 2
+ 845 0020 FB89     		ldrh	r3, [r7, #14]
+ 846 0022 0222     		movs	r2, #2
+ 847 0024 3946     		mov	r1, r7
+ 848 0026 03C9     		ldm	r1, {r0, r1}
+ 849 0028 FFF7FEFF 		bl	drv_write_register
+  63:Core/Src/drv8323.c **** }
+ 850              		.loc 1 63 1
+ 851 002c 00BF     		nop
+ 852 002e 1037     		adds	r7, r7, #16
+ 853              	.LCFI58:
+ 854              		.cfi_def_cfa_offset 8
+ 855 0030 BD46     		mov	sp, r7
+ 856              	.LCFI59:
+ 857              		.cfi_def_cfa_register 13
+ 858              		@ sp needed
+ 859 0032 80BD     		pop	{r7, pc}
+ 860              		.cfi_endproc
+ 861              	.LFE253:
+ 863              		.section	.text.drv_calibrate,"ax",%progbits
+ 864              		.align	1
+ 865              		.global	drv_calibrate
+ 866              		.syntax unified
+ 867              		.thumb
+ 868              		.thumb_func
+ 870              	drv_calibrate:
+ 871              	.LFB254:
+  64:Core/Src/drv8323.c **** void drv_calibrate(DRVStruct drv){
+ 872              		.loc 1 64 34
+ 873              		.cfi_startproc
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 17
+
+
+ 874              		@ args = 0, pretend = 0, frame = 16
+ 875              		@ frame_needed = 1, uses_anonymous_args = 0
+ 876 0000 80B5     		push	{r7, lr}
+ 877              	.LCFI60:
+ 878              		.cfi_def_cfa_offset 8
+ 879              		.cfi_offset 7, -8
+ 880              		.cfi_offset 14, -4
+ 881 0002 84B0     		sub	sp, sp, #16
+ 882              	.LCFI61:
+ 883              		.cfi_def_cfa_offset 24
+ 884 0004 00AF     		add	r7, sp, #0
+ 885              	.LCFI62:
+ 886              		.cfi_def_cfa_register 7
+ 887 0006 3B46     		mov	r3, r7
+ 888 0008 83E80300 		stm	r3, {r0, r1}
+  65:Core/Src/drv8323.c **** 	uint16_t val = (0x1<<4) + (0x1<<3) + (0x1<<2);
+ 889              		.loc 1 65 11
+ 890 000c 1C23     		movs	r3, #28
+ 891 000e FB81     		strh	r3, [r7, #14]	@ movhi
+  66:Core/Src/drv8323.c **** 	drv_write_register(drv, CSACR, val);
+ 892              		.loc 1 66 2
+ 893 0010 FB89     		ldrh	r3, [r7, #14]
+ 894 0012 0622     		movs	r2, #6
+ 895 0014 3946     		mov	r1, r7
+ 896 0016 03C9     		ldm	r1, {r0, r1}
+ 897 0018 FFF7FEFF 		bl	drv_write_register
+  67:Core/Src/drv8323.c **** }
+ 898              		.loc 1 67 1
+ 899 001c 00BF     		nop
+ 900 001e 1037     		adds	r7, r7, #16
+ 901              	.LCFI63:
+ 902              		.cfi_def_cfa_offset 8
+ 903 0020 BD46     		mov	sp, r7
+ 904              	.LCFI64:
+ 905              		.cfi_def_cfa_register 13
+ 906              		@ sp needed
+ 907 0022 80BD     		pop	{r7, pc}
+ 908              		.cfi_endproc
+ 909              	.LFE254:
+ 911              		.section	.rodata
+ 912              		.align	2
+ 913              	.LC0:
+ 914 0000 0A0D4641 		.ascii	"\012\015FAULT\012\015\000"
+ 914      554C540A 
+ 914      0D00
+ 915 000a 0000     		.align	2
+ 916              	.LC1:
+ 917 000c 5644535F 		.ascii	"VDS_OCP\012\015\000"
+ 917      4F43500A 
+ 917      0D00
+ 918 0016 0000     		.align	2
+ 919              	.LC2:
+ 920 0018 4744460A 		.ascii	"GDF\012\015\000"
+ 920      0D00
+ 921 001e 0000     		.align	2
+ 922              	.LC3:
+ 923 0020 55564C4F 		.ascii	"UVLO\012\015\000"
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 18
+
+
+ 923      0A0D00
+ 924 0027 00       		.align	2
+ 925              	.LC4:
+ 926 0028 4F545344 		.ascii	"OTSD\012\015\000"
+ 926      0A0D00
+ 927 002f 00       		.align	2
+ 928              	.LC5:
+ 929 0030 5644535F 		.ascii	"VDS_HA\012\015\000"
+ 929      48410A0D 
+ 929      00
+ 930 0039 000000   		.align	2
+ 931              	.LC6:
+ 932 003c 5644535F 		.ascii	"VDS_LA\012\015\000"
+ 932      4C410A0D 
+ 932      00
+ 933 0045 000000   		.align	2
+ 934              	.LC7:
+ 935 0048 5644535F 		.ascii	"VDS_HB\012\015\000"
+ 935      48420A0D 
+ 935      00
+ 936 0051 000000   		.align	2
+ 937              	.LC8:
+ 938 0054 5644535F 		.ascii	"VDS_LB\012\015\000"
+ 938      4C420A0D 
+ 938      00
+ 939 005d 000000   		.align	2
+ 940              	.LC9:
+ 941 0060 5644535F 		.ascii	"VDS_HC\012\015\000"
+ 941      48430A0D 
+ 941      00
+ 942 0069 000000   		.align	2
+ 943              	.LC10:
+ 944 006c 5644535F 		.ascii	"VDS_LC\012\015\000"
+ 944      4C430A0D 
+ 944      00
+ 945 0075 000000   		.align	2
+ 946              	.LC11:
+ 947 0078 53415F4F 		.ascii	"SA_OC\012\015\000"
+ 947      430A0D00 
+ 948              		.align	2
+ 949              	.LC12:
+ 950 0080 53425F4F 		.ascii	"SB_OC\012\015\000"
+ 950      430A0D00 
+ 951              		.align	2
+ 952              	.LC13:
+ 953 0088 53435F4F 		.ascii	"SC_OC\012\015\000"
+ 953      430A0D00 
+ 954              		.align	2
+ 955              	.LC14:
+ 956 0090 4F54570A 		.ascii	"OTW\012\015\000"
+ 956      0D00
+ 957 0096 0000     		.align	2
+ 958              	.LC15:
+ 959 0098 43505556 		.ascii	"CPUV\012\015\000"
+ 959      0A0D00
+ 960 009f 00       		.align	2
+ 961              	.LC16:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 19
+
+
+ 962 00a0 5647535F 		.ascii	"VGS_HA\012\015\000"
+ 962      48410A0D 
+ 962      00
+ 963 00a9 000000   		.align	2
+ 964              	.LC17:
+ 965 00ac 5647535F 		.ascii	"VGS_LA\012\015\000"
+ 965      4C410A0D 
+ 965      00
+ 966 00b5 000000   		.align	2
+ 967              	.LC18:
+ 968 00b8 5647535F 		.ascii	"VGS_HB\012\015\000"
+ 968      48420A0D 
+ 968      00
+ 969 00c1 000000   		.align	2
+ 970              	.LC19:
+ 971 00c4 5647535F 		.ascii	"VGS_LB\012\015\000"
+ 971      4C420A0D 
+ 971      00
+ 972 00cd 000000   		.align	2
+ 973              	.LC20:
+ 974 00d0 5647535F 		.ascii	"VGS_HC\012\015\000"
+ 974      48430A0D 
+ 974      00
+ 975 00d9 000000   		.align	2
+ 976              	.LC21:
+ 977 00dc 5647535F 		.ascii	"VGS_LC\012\015\000"
+ 977      4C430A0D 
+ 977      00
+ 978              		.section	.text.drv_print_faults,"ax",%progbits
+ 979              		.align	1
+ 980              		.global	drv_print_faults
+ 981              		.syntax unified
+ 982              		.thumb
+ 983              		.thumb_func
+ 985              	drv_print_faults:
+ 986              	.LFB255:
+  68:Core/Src/drv8323.c **** void drv_print_faults(DRVStruct drv){
+ 987              		.loc 1 68 37
+ 988              		.cfi_startproc
+ 989              		@ args = 0, pretend = 0, frame = 16
+ 990              		@ frame_needed = 1, uses_anonymous_args = 0
+ 991 0000 80B5     		push	{r7, lr}
+ 992              	.LCFI65:
+ 993              		.cfi_def_cfa_offset 8
+ 994              		.cfi_offset 7, -8
+ 995              		.cfi_offset 14, -4
+ 996 0002 84B0     		sub	sp, sp, #16
+ 997              	.LCFI66:
+ 998              		.cfi_def_cfa_offset 24
+ 999 0004 00AF     		add	r7, sp, #0
+ 1000              	.LCFI67:
+ 1001              		.cfi_def_cfa_register 7
+ 1002 0006 3B46     		mov	r3, r7
+ 1003 0008 83E80300 		stm	r3, {r0, r1}
+  69:Core/Src/drv8323.c ****     uint16_t val1 = drv_read_FSR1(drv);
+ 1004              		.loc 1 69 21
+ 1005 000c 3B46     		mov	r3, r7
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 20
+
+
+ 1006 000e 93E80300 		ldm	r3, {r0, r1}
+ 1007 0012 FFF7FEFF 		bl	drv_read_FSR1
+ 1008 0016 0346     		mov	r3, r0
+ 1009 0018 FB81     		strh	r3, [r7, #14]	@ movhi
+  70:Core/Src/drv8323.c ****     uint16_t val2 = drv_read_FSR2(drv);
+ 1010              		.loc 1 70 21
+ 1011 001a 3B46     		mov	r3, r7
+ 1012 001c 93E80300 		ldm	r3, {r0, r1}
+ 1013 0020 FFF7FEFF 		bl	drv_read_FSR2
+ 1014 0024 0346     		mov	r3, r0
+ 1015 0026 BB81     		strh	r3, [r7, #12]	@ movhi
+  71:Core/Src/drv8323.c **** 
+  72:Core/Src/drv8323.c ****     if(val1 & (1<<10)){printf("\n\rFAULT\n\r");}
+ 1016              		.loc 1 72 13
+ 1017 0028 FB89     		ldrh	r3, [r7, #14]
+ 1018 002a 03F48063 		and	r3, r3, #1024
+ 1019              		.loc 1 72 7
+ 1020 002e 002B     		cmp	r3, #0
+ 1021 0030 02D0     		beq	.L22
+ 1022              		.loc 1 72 24 discriminator 1
+ 1023 0032 5748     		ldr	r0, .L45
+ 1024 0034 FFF7FEFF 		bl	printf
+ 1025              	.L22:
+  73:Core/Src/drv8323.c **** 
+  74:Core/Src/drv8323.c ****     if(val1 & (1<<9)){printf("VDS_OCP\n\r");}
+ 1026              		.loc 1 74 13
+ 1027 0038 FB89     		ldrh	r3, [r7, #14]
+ 1028 003a 03F40073 		and	r3, r3, #512
+ 1029              		.loc 1 74 7
+ 1030 003e 002B     		cmp	r3, #0
+ 1031 0040 02D0     		beq	.L23
+ 1032              		.loc 1 74 23 discriminator 1
+ 1033 0042 5448     		ldr	r0, .L45+4
+ 1034 0044 FFF7FEFF 		bl	printf
+ 1035              	.L23:
+  75:Core/Src/drv8323.c ****     if(val1 & (1<<8)){printf("GDF\n\r");}
+ 1036              		.loc 1 75 13
+ 1037 0048 FB89     		ldrh	r3, [r7, #14]
+ 1038 004a 03F48073 		and	r3, r3, #256
+ 1039              		.loc 1 75 7
+ 1040 004e 002B     		cmp	r3, #0
+ 1041 0050 02D0     		beq	.L24
+ 1042              		.loc 1 75 23 discriminator 1
+ 1043 0052 5148     		ldr	r0, .L45+8
+ 1044 0054 FFF7FEFF 		bl	printf
+ 1045              	.L24:
+  76:Core/Src/drv8323.c ****     if(val1 & (1<<7)){printf("UVLO\n\r");}
+ 1046              		.loc 1 76 13
+ 1047 0058 FB89     		ldrh	r3, [r7, #14]
+ 1048 005a 03F08003 		and	r3, r3, #128
+ 1049              		.loc 1 76 7
+ 1050 005e 002B     		cmp	r3, #0
+ 1051 0060 02D0     		beq	.L25
+ 1052              		.loc 1 76 23 discriminator 1
+ 1053 0062 4E48     		ldr	r0, .L45+12
+ 1054 0064 FFF7FEFF 		bl	printf
+ 1055              	.L25:
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 21
+
+
+  77:Core/Src/drv8323.c ****     if(val1 & (1<<6)){printf("OTSD\n\r");}
+ 1056              		.loc 1 77 13
+ 1057 0068 FB89     		ldrh	r3, [r7, #14]
+ 1058 006a 03F04003 		and	r3, r3, #64
+ 1059              		.loc 1 77 7
+ 1060 006e 002B     		cmp	r3, #0
+ 1061 0070 02D0     		beq	.L26
+ 1062              		.loc 1 77 23 discriminator 1
+ 1063 0072 4B48     		ldr	r0, .L45+16
+ 1064 0074 FFF7FEFF 		bl	printf
+ 1065              	.L26:
+  78:Core/Src/drv8323.c ****     if(val1 & (1<<5)){printf("VDS_HA\n\r");}
+ 1066              		.loc 1 78 13
+ 1067 0078 FB89     		ldrh	r3, [r7, #14]
+ 1068 007a 03F02003 		and	r3, r3, #32
+ 1069              		.loc 1 78 7
+ 1070 007e 002B     		cmp	r3, #0
+ 1071 0080 02D0     		beq	.L27
+ 1072              		.loc 1 78 23 discriminator 1
+ 1073 0082 4848     		ldr	r0, .L45+20
+ 1074 0084 FFF7FEFF 		bl	printf
+ 1075              	.L27:
+  79:Core/Src/drv8323.c ****     if(val1 & (1<<4)){printf("VDS_LA\n\r");}
+ 1076              		.loc 1 79 13
+ 1077 0088 FB89     		ldrh	r3, [r7, #14]
+ 1078 008a 03F01003 		and	r3, r3, #16
+ 1079              		.loc 1 79 7
+ 1080 008e 002B     		cmp	r3, #0
+ 1081 0090 02D0     		beq	.L28
+ 1082              		.loc 1 79 23 discriminator 1
+ 1083 0092 4548     		ldr	r0, .L45+24
+ 1084 0094 FFF7FEFF 		bl	printf
+ 1085              	.L28:
+  80:Core/Src/drv8323.c ****     if(val1 & (1<<3)){printf("VDS_HB\n\r");}
+ 1086              		.loc 1 80 13
+ 1087 0098 FB89     		ldrh	r3, [r7, #14]
+ 1088 009a 03F00803 		and	r3, r3, #8
+ 1089              		.loc 1 80 7
+ 1090 009e 002B     		cmp	r3, #0
+ 1091 00a0 02D0     		beq	.L29
+ 1092              		.loc 1 80 23 discriminator 1
+ 1093 00a2 4248     		ldr	r0, .L45+28
+ 1094 00a4 FFF7FEFF 		bl	printf
+ 1095              	.L29:
+  81:Core/Src/drv8323.c ****     if(val1 & (1<<2)){printf("VDS_LB\n\r");}
+ 1096              		.loc 1 81 13
+ 1097 00a8 FB89     		ldrh	r3, [r7, #14]
+ 1098 00aa 03F00403 		and	r3, r3, #4
+ 1099              		.loc 1 81 7
+ 1100 00ae 002B     		cmp	r3, #0
+ 1101 00b0 02D0     		beq	.L30
+ 1102              		.loc 1 81 23 discriminator 1
+ 1103 00b2 3F48     		ldr	r0, .L45+32
+ 1104 00b4 FFF7FEFF 		bl	printf
+ 1105              	.L30:
+  82:Core/Src/drv8323.c ****     if(val1 & (1<<1)){printf("VDS_HC\n\r");}
+ 1106              		.loc 1 82 13
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 22
+
+
+ 1107 00b8 FB89     		ldrh	r3, [r7, #14]
+ 1108 00ba 03F00203 		and	r3, r3, #2
+ 1109              		.loc 1 82 7
+ 1110 00be 002B     		cmp	r3, #0
+ 1111 00c0 02D0     		beq	.L31
+ 1112              		.loc 1 82 23 discriminator 1
+ 1113 00c2 3C48     		ldr	r0, .L45+36
+ 1114 00c4 FFF7FEFF 		bl	printf
+ 1115              	.L31:
+  83:Core/Src/drv8323.c ****     if(val1 & (1)){printf("VDS_LC\n\r");}
+ 1116              		.loc 1 83 13
+ 1117 00c8 FB89     		ldrh	r3, [r7, #14]
+ 1118 00ca 03F00103 		and	r3, r3, #1
+ 1119              		.loc 1 83 7
+ 1120 00ce 002B     		cmp	r3, #0
+ 1121 00d0 02D0     		beq	.L32
+ 1122              		.loc 1 83 20 discriminator 1
+ 1123 00d2 3948     		ldr	r0, .L45+40
+ 1124 00d4 FFF7FEFF 		bl	printf
+ 1125              	.L32:
+  84:Core/Src/drv8323.c **** 
+  85:Core/Src/drv8323.c ****     if(val2 & (1<<10)){printf("SA_OC\n\r");}
+ 1126              		.loc 1 85 13
+ 1127 00d8 BB89     		ldrh	r3, [r7, #12]
+ 1128 00da 03F48063 		and	r3, r3, #1024
+ 1129              		.loc 1 85 7
+ 1130 00de 002B     		cmp	r3, #0
+ 1131 00e0 02D0     		beq	.L33
+ 1132              		.loc 1 85 24 discriminator 1
+ 1133 00e2 3648     		ldr	r0, .L45+44
+ 1134 00e4 FFF7FEFF 		bl	printf
+ 1135              	.L33:
+  86:Core/Src/drv8323.c ****     if(val2 & (1<<9)){printf("SB_OC\n\r");}
+ 1136              		.loc 1 86 13
+ 1137 00e8 BB89     		ldrh	r3, [r7, #12]
+ 1138 00ea 03F40073 		and	r3, r3, #512
+ 1139              		.loc 1 86 7
+ 1140 00ee 002B     		cmp	r3, #0
+ 1141 00f0 02D0     		beq	.L34
+ 1142              		.loc 1 86 23 discriminator 1
+ 1143 00f2 3348     		ldr	r0, .L45+48
+ 1144 00f4 FFF7FEFF 		bl	printf
+ 1145              	.L34:
+  87:Core/Src/drv8323.c ****     if(val2 & (1<<8)){printf("SC_OC\n\r");}
+ 1146              		.loc 1 87 13
+ 1147 00f8 BB89     		ldrh	r3, [r7, #12]
+ 1148 00fa 03F48073 		and	r3, r3, #256
+ 1149              		.loc 1 87 7
+ 1150 00fe 002B     		cmp	r3, #0
+ 1151 0100 02D0     		beq	.L35
+ 1152              		.loc 1 87 23 discriminator 1
+ 1153 0102 3048     		ldr	r0, .L45+52
+ 1154 0104 FFF7FEFF 		bl	printf
+ 1155              	.L35:
+  88:Core/Src/drv8323.c ****     if(val2 & (1<<7)){printf("OTW\n\r");}
+ 1156              		.loc 1 88 13
+ 1157 0108 BB89     		ldrh	r3, [r7, #12]
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 23
+
+
+ 1158 010a 03F08003 		and	r3, r3, #128
+ 1159              		.loc 1 88 7
+ 1160 010e 002B     		cmp	r3, #0
+ 1161 0110 02D0     		beq	.L36
+ 1162              		.loc 1 88 23 discriminator 1
+ 1163 0112 2D48     		ldr	r0, .L45+56
+ 1164 0114 FFF7FEFF 		bl	printf
+ 1165              	.L36:
+  89:Core/Src/drv8323.c ****     if(val2 & (1<<6)){printf("CPUV\n\r");}
+ 1166              		.loc 1 89 13
+ 1167 0118 BB89     		ldrh	r3, [r7, #12]
+ 1168 011a 03F04003 		and	r3, r3, #64
+ 1169              		.loc 1 89 7
+ 1170 011e 002B     		cmp	r3, #0
+ 1171 0120 02D0     		beq	.L37
+ 1172              		.loc 1 89 23 discriminator 1
+ 1173 0122 2A48     		ldr	r0, .L45+60
+ 1174 0124 FFF7FEFF 		bl	printf
+ 1175              	.L37:
+  90:Core/Src/drv8323.c ****     if(val2 & (1<<5)){printf("VGS_HA\n\r");}
+ 1176              		.loc 1 90 13
+ 1177 0128 BB89     		ldrh	r3, [r7, #12]
+ 1178 012a 03F02003 		and	r3, r3, #32
+ 1179              		.loc 1 90 7
+ 1180 012e 002B     		cmp	r3, #0
+ 1181 0130 02D0     		beq	.L38
+ 1182              		.loc 1 90 23 discriminator 1
+ 1183 0132 2748     		ldr	r0, .L45+64
+ 1184 0134 FFF7FEFF 		bl	printf
+ 1185              	.L38:
+  91:Core/Src/drv8323.c ****     if(val2 & (1<<4)){printf("VGS_LA\n\r");}
+ 1186              		.loc 1 91 13
+ 1187 0138 BB89     		ldrh	r3, [r7, #12]
+ 1188 013a 03F01003 		and	r3, r3, #16
+ 1189              		.loc 1 91 7
+ 1190 013e 002B     		cmp	r3, #0
+ 1191 0140 02D0     		beq	.L39
+ 1192              		.loc 1 91 23 discriminator 1
+ 1193 0142 2448     		ldr	r0, .L45+68
+ 1194 0144 FFF7FEFF 		bl	printf
+ 1195              	.L39:
+  92:Core/Src/drv8323.c ****     if(val2 & (1<<3)){printf("VGS_HB\n\r");}
+ 1196              		.loc 1 92 13
+ 1197 0148 BB89     		ldrh	r3, [r7, #12]
+ 1198 014a 03F00803 		and	r3, r3, #8
+ 1199              		.loc 1 92 7
+ 1200 014e 002B     		cmp	r3, #0
+ 1201 0150 02D0     		beq	.L40
+ 1202              		.loc 1 92 23 discriminator 1
+ 1203 0152 2148     		ldr	r0, .L45+72
+ 1204 0154 FFF7FEFF 		bl	printf
+ 1205              	.L40:
+  93:Core/Src/drv8323.c ****     if(val2 & (1<<2)){printf("VGS_LB\n\r");}
+ 1206              		.loc 1 93 13
+ 1207 0158 BB89     		ldrh	r3, [r7, #12]
+ 1208 015a 03F00403 		and	r3, r3, #4
+ 1209              		.loc 1 93 7
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 24
+
+
+ 1210 015e 002B     		cmp	r3, #0
+ 1211 0160 02D0     		beq	.L41
+ 1212              		.loc 1 93 23 discriminator 1
+ 1213 0162 1E48     		ldr	r0, .L45+76
+ 1214 0164 FFF7FEFF 		bl	printf
+ 1215              	.L41:
+  94:Core/Src/drv8323.c ****     if(val2 & (1<<1)){printf("VGS_HC\n\r");}
+ 1216              		.loc 1 94 13
+ 1217 0168 BB89     		ldrh	r3, [r7, #12]
+ 1218 016a 03F00203 		and	r3, r3, #2
+ 1219              		.loc 1 94 7
+ 1220 016e 002B     		cmp	r3, #0
+ 1221 0170 02D0     		beq	.L42
+ 1222              		.loc 1 94 23 discriminator 1
+ 1223 0172 1B48     		ldr	r0, .L45+80
+ 1224 0174 FFF7FEFF 		bl	printf
+ 1225              	.L42:
+  95:Core/Src/drv8323.c ****     if(val2 & (1)){printf("VGS_LC\n\r");}
+ 1226              		.loc 1 95 13
+ 1227 0178 BB89     		ldrh	r3, [r7, #12]
+ 1228 017a 03F00103 		and	r3, r3, #1
+ 1229              		.loc 1 95 7
+ 1230 017e 002B     		cmp	r3, #0
+ 1231 0180 02D0     		beq	.L44
+ 1232              		.loc 1 95 20 discriminator 1
+ 1233 0182 1848     		ldr	r0, .L45+84
+ 1234 0184 FFF7FEFF 		bl	printf
+ 1235              	.L44:
+  96:Core/Src/drv8323.c **** 
+  97:Core/Src/drv8323.c **** }
+ 1236              		.loc 1 97 1
+ 1237 0188 00BF     		nop
+ 1238 018a 1037     		adds	r7, r7, #16
+ 1239              	.LCFI68:
+ 1240              		.cfi_def_cfa_offset 8
+ 1241 018c BD46     		mov	sp, r7
+ 1242              	.LCFI69:
+ 1243              		.cfi_def_cfa_register 13
+ 1244              		@ sp needed
+ 1245 018e 80BD     		pop	{r7, pc}
+ 1246              	.L46:
+ 1247              		.align	2
+ 1248              	.L45:
+ 1249 0190 00000000 		.word	.LC0
+ 1250 0194 0C000000 		.word	.LC1
+ 1251 0198 18000000 		.word	.LC2
+ 1252 019c 20000000 		.word	.LC3
+ 1253 01a0 28000000 		.word	.LC4
+ 1254 01a4 30000000 		.word	.LC5
+ 1255 01a8 3C000000 		.word	.LC6
+ 1256 01ac 48000000 		.word	.LC7
+ 1257 01b0 54000000 		.word	.LC8
+ 1258 01b4 60000000 		.word	.LC9
+ 1259 01b8 6C000000 		.word	.LC10
+ 1260 01bc 78000000 		.word	.LC11
+ 1261 01c0 80000000 		.word	.LC12
+ 1262 01c4 88000000 		.word	.LC13
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 25
+
+
+ 1263 01c8 90000000 		.word	.LC14
+ 1264 01cc 98000000 		.word	.LC15
+ 1265 01d0 A0000000 		.word	.LC16
+ 1266 01d4 AC000000 		.word	.LC17
+ 1267 01d8 B8000000 		.word	.LC18
+ 1268 01dc C4000000 		.word	.LC19
+ 1269 01e0 D0000000 		.word	.LC20
+ 1270 01e4 DC000000 		.word	.LC21
+ 1271              		.cfi_endproc
+ 1272              	.LFE255:
+ 1274              		.text
+ 1275              	.Letext0:
+ 1276              		.file 2 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\machine\\_default
+ 1277              		.file 3 "d:\\st\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 1278              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f446xx.h"
+ 1279              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 1280              		.file 6 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ 1281              		.file 7 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 1282              		.file 8 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h"
+ 1283              		.file 9 "Core/Inc/drv8323.h"
+ 1284              		.file 10 "Core/Inc/spi.h"
+ARM GAS  C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s 			page 26
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 drv8323.c
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:20     .text.drv_spi_write:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:26     .text.drv_spi_write:00000000 drv_spi_write
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:98     .text.drv_spi_write:00000054 $d
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:104    .text.drv_read_FSR1:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:110    .text.drv_read_FSR1:00000000 drv_read_FSR1
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:149    .text.drv_read_FSR2:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:155    .text.drv_read_FSR2:00000000 drv_read_FSR2
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:194    .text.drv_read_register:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:200    .text.drv_read_register:00000000 drv_read_register
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:249    .text.drv_write_register:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:255    .text.drv_write_register:00000000 drv_write_register
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:306    .text.drv_write_DCR:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:312    .text.drv_write_DCR:00000000 drv_write_DCR
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:417    .text.drv_write_HSR:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:423    .text.drv_write_HSR:00000000 drv_write_HSR
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:486    .text.drv_write_LSR:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:492    .text.drv_write_LSR:00000000 drv_write_LSR
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:562    .text.drv_write_OCPCR:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:568    .text.drv_write_OCPCR:00000000 drv_write_OCPCR
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:645    .text.drv_write_CSACR:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:651    .text.drv_write_CSACR:00000000 drv_write_CSACR
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:756    .text.drv_enable_gd:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:762    .text.drv_enable_gd:00000000 drv_enable_gd
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:810    .text.drv_disable_gd:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:816    .text.drv_disable_gd:00000000 drv_disable_gd
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:864    .text.drv_calibrate:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:870    .text.drv_calibrate:00000000 drv_calibrate
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:912    .rodata:00000000 $d
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:979    .text.drv_print_faults:00000000 $t
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:985    .text.drv_print_faults:00000000 drv_print_faults
+C:\Users\16323\AppData\Local\Temp\ccGumtRJ.s:1249   .text.drv_print_faults:00000190 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_WritePin
+HAL_SPI_TransmitReceive
+hspi1
+printf
